@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="/styles/style.css" /> -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>Dieat.com</title>
+  </head>
+  <body>
+    <p class="text-4xl">tes</p>
+    <div id="recipes-complexSearch"></div>
+  </body>
+
+  <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://unpkg.com/@popperjs/core@2.9.1/dist/umd/popper.min.js"
+    charset="utf-8"
+  ></script>
+  <script language="javascript" type="text/javascript">
+    // spoonacoolar GET COMPLEXSEARCH
+    const complexSearch = () => {
+      $.ajax("https://api.spoonacular.com/recipes/complexSearch", {
+        method: "GET",
+        data: {
+          apiKey: "d9c23a9ea51d4e3cbc70840a162dbc30",
+        },
+      })
+        .done((foods) => {
+          console.log(foods);
+          console.log("JORD");
+        })
+        .fail((err) => {
+          console.log(err);
+        });
+    };
+
+    // BMR Calculator
+    const bmrCalculate = () => {
+      $.ajax("https://bmr-and-tmr.p.rapidapi.com/calculate-bmr", {
+        method: "GET",
+        headers: {
+          "X-RapidAPI-Key":
+            "5ed81f92cemsh7e7ae9cefcb2fa5p102f81jsn75940b69943d",
+          "X-RapidAPI-Host": "bmr-and-tmr.p.rapidapi.com",
+        },
+        data: {
+          weight: "79",
+          height: "175",
+          age: "22",
+          sex: "male",
+          inImperial: false,
+        },
+      })
+        .done((result) => {
+          console.log(result);
+        })
+        .fail((err) => {
+          console.log(err);
+        });
+    };
+
+    $(document).ready(() => {
+      complexSearch();
+      bmrCalculate();
+      $("#recipes-complexSearch").html();
+    });
+  </script>
+</html>

@@ -75,7 +75,7 @@
 				:aria-controls="`collapse${patchnote.id}`"
 			>
 				<span class="h3">{{ patchnote.name }} &nbsp;</span>
-				<div v-html="type" class="h4"></div>
+				<span v-html="type" class="h4"></span>
 			</button>
 		</h2>
 		<div

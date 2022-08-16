@@ -32,7 +32,7 @@
 	};
 </script>
 <template>
-	<div class="container"><p class="text-center">Patchnote List</p></div>
+	<div class="container"><p class="text-center h4 display-5 mb-4">Patchnote List</p></div>
 	<div class="container">
 		<div class="mb-5">
 			<div class="accordion accordion-flush" id="accordionExample">

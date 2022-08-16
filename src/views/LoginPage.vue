@@ -9,7 +9,7 @@
             </div>
             <div class="relative">
                 <i class="fa-solid fa-user-astronaut absolute pt-1.5 pl-0.5 text-blue-700 hover:text-blue-300"></i>
-                <input v-model="username" class="pl-5 bg-transparent border-b-2 focus:border-blue-500 transition-all duration-100 outline-none" style="font-family: Source Code Pro;" type="text" placeholder="Username">
+                <input v-model="email" class="pl-5 bg-transparent border-b-2 focus:border-blue-500 transition-all duration-100 outline-none" style="font-family: Source Code Pro;" type="text" placeholder="Email">
             </div>
               <div class="relative mt-7">
                 <i class="fa-solid fa-lock absolute  pt-1.5 pl-0.5 text-blue-700  hover:text-blue-300"></i>
@@ -32,15 +32,24 @@
 </template>
 
 <script>
+import { mapActions } from 'pinia';
+import { useCounterStore } from '../stores/counter';
+
 export default{
     data(){
         return{
-            username: "",
+            email: "",
             password: ""
         }
     },
     methods:{
-        
+        ...mapActions(useCounterStore,['handlerLogin']),
+        handleLogin(){
+            this.handlerLogin({
+                email:this.email,
+                password: this.password
+            })
+        }
     }
 }
 </script>

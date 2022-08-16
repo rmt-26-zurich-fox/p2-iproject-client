@@ -45,9 +45,27 @@
            
         </div>
         <div style="font-size: 24pt; font-weight: bold;" class="justify-center items-center text-center flex">
-            <h1 class="text-white">YUK MULAI BUAT LAPORAN, <button class="text-blue-300">REGISTER</button></h1>
+            <h1 v-if="!token" class="text-white">YUK MULAI BUAT LAPORAN, <button class="text-blue-300" @click.prevent="clickRegister">REGISTER</button></h1>
+              <h1 v-else-if="token" class="text-white">YUK MULAI BUAT LAPORAN, <button class="text-blue-300" @click.prevent="addClick">ADD</button></h1>
         </div>
     </div>
 </div>
    </section>
 </template>
+<script>
+export default{
+    data(){
+        return{
+            token: localStorage.getItem("access_token")
+        }
+    },
+    methods:{
+        clickRegister(){
+            this.$router.push('/register')
+        },
+        addClick(){
+            this.$router.push('/reports/add')
+        }
+    }
+}
+</script>

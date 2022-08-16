@@ -44,4 +44,29 @@
 </template>
 
 <script>
+import { mapActions } from 'pinia'
+import { useCounterStore } from '../stores/counter'
+export default{
+    data(){
+        return{
+            username: "",
+            email: "",
+            address: "",
+            phoneNumber: "",
+            password: "",
+        }
+    },
+    methods:{
+        ...mapActions(useCounterStore,['handlerRegister']),
+        handleRegister(){
+            this.handlerRegister({
+                username: this.username,
+                email: this.email,
+                address: this.address,
+                phoneNumber: this.phoneNumber,
+                password: this.password
+            })
+        }
+    }
+}
 </script>

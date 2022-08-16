@@ -106,8 +106,13 @@ export default {
 
 <style scoped>
 label,
-button,
-.title {
+button {
   font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+div .title {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  color: #1e272e;
+  font-size: 2rem;
 }
 </style>

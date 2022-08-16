@@ -38,3 +38,9 @@ export default {
     </td>
   </tr>
 </template>
+
+<style scoped>
+td {
+  font-family: Arial, Helvetica, sans-serif;
+}
+</style>

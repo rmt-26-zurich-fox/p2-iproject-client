@@ -123,7 +123,7 @@ export default {
             <input
               type="number"
               class="form-control"
-              placeholder="Food Description"
+              placeholder="Minimal Food Price"
               v-model="searchPriceMin"
             />
             <hr />
@@ -131,7 +131,7 @@ export default {
             <input
               type="number"
               class="form-control"
-              placeholder="Food Description"
+              placeholder="Maximum Food Price"
               v-model="searchPriceMax"
             />
             <hr />

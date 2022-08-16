@@ -41,6 +41,9 @@ export const useCustomStore = defineStore({
 
         // Cart Space
         carts: [],
+
+        // Order List Space
+        orders: [],
     }),
 
     actions: {
@@ -311,6 +314,22 @@ export const useCustomStore = defineStore({
                 Swal.fire("Success", "Success cancel your order", "success");
                 this.fetchProductCart();
                 this.router.push(`/cart`);
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        async fetchOrderList() {
+            try {
+                const { data } = await axios({
+                    method: "GET",
+                    url: this.baseURL + "/customers/orders/list",
+                    headers: {
+                        access_token: localStorage.access_token
+                    }
+                });
+
+                this.orders = data.data;
             } catch (error) {
                 console.log(error);
             }

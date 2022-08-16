@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 import { io } from 'socket.io-client';
-// import swall from 'sweetalert'
+import swall from 'sweetalert'
 
 export const useQuoteStore = defineStore({
   id: 'quotes',
@@ -17,6 +17,8 @@ export const useQuoteStore = defineStore({
     allQuotes: [],
     allProgramming: [],
     allAnime: [],
+
+    favoriteQuote: []
 
   }),
 
@@ -120,9 +122,7 @@ export const useQuoteStore = defineStore({
 
     },
 
-
-    
-      setupSocketConnection(value) {  
+    setupSocketConnection(value) {  
         
         // console.log(value)
 
@@ -134,6 +134,91 @@ export const useQuoteStore = defineStore({
             console.log(data);
         });
     
+    },
+
+   async addFavorite(PostId){
+
+    try {
+
+      const { data } = await axios({
+        method: 'post',
+        url: this.baseUrl + '/favorites/' + PostId,
+        data: {
+          PostId
+        },
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+
+      console.log('success add', data)
+      swall('Success', 'Success add to Favorite', 'success')
+      this.router.push('/favorites')
+      
+    } catch (error) {
+
+      console.log(error)
+      swall('You must login first', error.response.statusText, 'error')
+      
     }
+
+   },
+
+   async fetchFavorite(){
+
+    try {
+
+        // this.entity = true
+        const { data } = await axios({
+            method: 'get',
+            url: this.baseUrl + '/favorites',
+            headers: {
+                access_token: localStorage.getItem('access_token')
+            }
+        })
+
+        this.favoriteQuote = data
+        // this.entity = false
+        console.log(data)
+
+    } catch (error) {
+
+        console.log(error)
+    }
+  },
+
+  async deleteFavorite(id){
+
+    try {
+
+      await axios({
+        method: 'delete',
+        url: this.baseUrl + '/favorites/' + id,
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+
+      swal({
+        title: "Are you sure?",
+        text: "You will not be able to recover this Favorite anymore!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes, delete it!",
+      }).then(result => {
+        swal("Deleted!", "Your file has been deleted.", "success");
+        this.fetchFavorite()
+        
+      });
+      
+    } catch (error) {
+
+      console.log(error)
+      swall('Error', 'Something went wrong', 'error')
+      
+    }
+  }
+
   }
 })

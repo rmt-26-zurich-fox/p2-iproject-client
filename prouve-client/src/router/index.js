@@ -3,7 +3,6 @@ import ProductList from "../views/ProductList.vue";
 import LandingView from "../views/LandingView.vue";
 import LoginView from "../views/LoginView.vue";
 import RegisterView from "../views/RegisterView.vue";
-import RecipeView from "../views/RecipeView.vue";
 import RecipePreview from "../views/RecipePreview.vue";
 
 const router = createRouter({
@@ -32,11 +31,6 @@ const router = createRouter({
     {
       path: "/recipe",
       name: "recipe",
-      component: RecipeView,
-    },
-    {
-      path: "/recipe/:category",
-      name: "recipe-preview",
       component: RecipePreview,
     },
   ],

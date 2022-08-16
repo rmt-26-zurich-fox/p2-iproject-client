@@ -4,9 +4,9 @@
       <a
         href=""
         @click.prevent="this.$router.push({ name: 'shop' })"
-        class="block p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-50"
+        class="block p-6 max-w-lg bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-50"
       >
-        <img class="w-96" src="../assets/logo moren.png" alt="" srcset="" />
+        <img src="../assets/logo moren.png" alt="" srcset="" />
         <p class="font-normal text-gray-700 dark:text-gray-400"></p>
       </a>
     </h1>

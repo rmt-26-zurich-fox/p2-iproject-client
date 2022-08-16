@@ -1,0 +1,119 @@
+<template>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2 col-sm-4 col-xs-4 sidebar1">
+        <div class="logo">
+          <img
+            src="http://frontendfreecode.com/img/people-64-1.jpg"
+            class="img-responsive center-block"
+            alt="Logo"
+          />
+        </div>
+        <br />
+        <div class="left-navigation">
+          <ul class="list">
+            <h5><strong>WHEREABOUTS</strong></h5>
+            <li><a href="">Programming</a></li>
+            <li><a href="">Anime</a></li>
+            <li><a href="">Motivation</a></li>
+            <li><a href="">Chat</a></li>
+            <li>Art Class</li>
+            <li>Hike Club</li>
+          </ul>
+          <br />
+          <ul class="list">
+            <h5><strong>HOBBIES</strong></h5>
+            <li>Hiking</li>
+            <li>Rafting</li>
+            <li>Badminton</li>
+            <li>Tennis</li>
+            <li>Sketching</li>
+            <li>Horse Riding</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-10 col-sm-8 main-content">
+        
+        <div class="container mt-3">
+          <h1 class="text-center">
+            <span>Sorry we dont have food, that you lookin for.</span>
+          </h1>
+          <div class="row mt-3">
+
+            <!-- Quote Card -->
+              <QuoteCard />
+            
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+import QuoteCard from "../components/QuoteCard.vue";
+import { mapState, mapActions } from "pinia";
+import { useQuoteStore } from "../stores/qoutes";
+
+export default {
+  components: {
+    QuoteCard,
+  },
+
+  methods: {
+    ...mapActions(useQuoteStore, ["fetchQuotes"]),
+  },
+
+  created() {
+    this.fetchQuotes();
+  },
+};
+</script>
+
+<style>
+.sidebar1 {
+  background: #f17153;
+  /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#f17153, #f58d63, #f1ab53);
+  /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#f17153, #f58d63, #f1ab53);
+  /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#f17153, #f58d63, #f1ab53);
+  /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#f17153, #f58d63, #f1ab53);
+  /* Standard syntax */
+  padding: 0px;
+  min-height: 100%;
+}
+.logo {
+  max-height: 130px;
+}
+.logo > img {
+  margin-top: 30px;
+  padding: 3px;
+  border: 3px solid white;
+  border-radius: 100%;
+}
+.list {
+  color: #fff;
+  list-style: none;
+  padding-left: 0px;
+}
+.list::first-line {
+  color: rgba(255, 255, 255, 0.5);
+}
+.list > li,
+h5 {
+  padding: 5px 0px 5px 40px;
+}
+.list > li:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-left: 5px solid white;
+  color: white;
+  font-weight: bolder;
+  padding-left: 35px;
+}
+.main-content {
+  text-align: center;
+}
+</style>

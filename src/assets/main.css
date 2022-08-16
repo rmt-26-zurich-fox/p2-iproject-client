@@ -1,35 +1,250 @@
-@import "./base.css";
+:root {
+  --primary: #ffcb42;
+  --secondary: #9e6b41;
+  --light: #f2f6f5;
+  --dark: #36383a;
+}
 
-#app {
-  max-width: 1280px;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  /* border: 1px solid red; */
+}
+
+body {
+  background-color: var(--dark);
+  color: var(--light);
+}
+
+.logo h1 a:nth-child(2) {
+  color: var(--secondary);
+}
+
+.login,
+.register {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+}
+
+.login .container,
+.register .container {
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  max-width: 500px;
+}
+
+button:hover {
+  opacity: 0.9;
+  transition: 0.3s;
+}
+
+.social {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.social div {
+  padding: 15px 20px;
+  border: 1px solid silver;
+  border-radius: 10px;
+}
+
+form * {
+  margin: 8px 0;
+}
+
+form button {
+  width: 100%;
+  border: none;
+  padding: 8px;
+  border-radius: 10px;
+  background-color: var(--primary);
+  color: var(--dark);
+}
+
+.main-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-page section:nth-child(2) {
+  flex: 1;
+}
+
+header {
+  padding: 10px 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--primary);
+  color: var(--dark);
+}
+
+header div:nth-child(1) {
+  flex: 1;
+}
+
+header div:nth-child(2) {
+  flex: 1;
+  text-align: center;
+}
+
+header div:nth-child(3) {
+  flex: 1;
+  text-align: right;
+}
+
+header div:nth-child(2) a {
+  margin: 0 10px;
+}
+
+footer {
+  background-color: black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main .search {
+  display: flex;
+  width: 600px;
+  margin: 10px;
+}
+
+main .search > * {
+  margin: 0 5px;
+}
+
+main .search > button {
+  background-color: var(--primary);
+  padding: 0 10px;
+  border: none;
+}
+
+main .movie-all {
+  padding: 15px;
+  margin: 20px 0;
+  width: 70vw;
+  box-shadow: 0 0 15px black;
+  border-radius: 10px;
+}
+
+main .movie-all .cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+main .movie-all .cards .movie-card {
+  box-shadow: 0 0 15px black;
+  margin: 10px 0;
+  border-radius: 10px;
+}
+
+main .movie-all .cards .img img {
+  aspect-ratio: 4/6;
+  width: 220px;
+  border-radius: 10px;
+}
+
+main .movie-list {
+  padding: 15px;
+  margin: 20px 0;
+  width: 90vw;
+  box-shadow: 0 0 15px black;
+  border-radius: 10px;
+}
+
+main .movie-list .cards {
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+}
+
+main .movie-list .cards::-webkit-scrollbar {
+  display: none;
+}
+
+main .movie-list .cards .movie-card {
+  box-shadow: 0 0 15px black;
+  margin: 5px 10px;
+  border-radius: 10px;
+}
+
+main .movie-list .cards .img img {
+  aspect-ratio: 4/6;
+  width: 220px;
+  border-radius: 10px;
+}
+
+main .movie-list .cards .img img:hover {
+  filter: brightness(50%);
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.detail {
   margin: 0 auto;
-  padding: 2rem;
-
-  font-weight: normal;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
+.detail div.content {
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px black;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
+.detail div:nth-child(1) {
+  display: flex;
+  flex-direction: row;
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
+.detail div:nth-child(1) div:nth-child(2) {
+  padding: 20px;
+}
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+.detail div:nth-child(1) .img {
+  width: 600px;
+}
+
+.detail div:nth-child(1) .img img {
+  width: 100%;
+}
+
+.detail div:nth-child(1) .genre a {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 10px;
+  background-color: var(--secondary);
+}
+
+footer {
+  padding: 20px;
+}
+
+footer div:nth-child(3) {
+  display: flex;
+  align-items: center;
+}
+
+footer div:nth-child(3) button {
+  padding: 5px 20px;
+  border-radius: 10px;
+  background-color: var(--primary);
+  border: none;
 }

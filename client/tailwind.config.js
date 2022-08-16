@@ -5,7 +5,12 @@ module.exports = {
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        logo: ["Dancing Script", "cursive"],
+        isi: ['Indie Flower', "cursive"]
+    },
+  }
   },
   plugins: [],
 }

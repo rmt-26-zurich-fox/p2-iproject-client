@@ -1,23 +1,19 @@
 import { defineStore } from "pinia";
 import axios from "axios";
+import { server } from "../assets/serverConfig";
 //
 export const patchnote = defineStore({
 	id: "patchnote",
 	state: () => ({
-		baseUrl: "http://localhost:3000",
 		//
 		dataState: {},
 		dataFetch: {},
-		//
-		counter: 0,
 	}),
-	getters: {
-		doubleCount: state => state.counter * 2,
-	},
+	getters: {},
 	actions: {
 		async fetchPatchnote() {
 			try {
-				const { data } = await axios(`${this.baseUrl}/patchlogs`);
+				const { data } = await axios(`${server.url}/patchlogs`);
 
 				this.dataFetch.patchnote = data.response.filter((data, index) => {
 					if (index >= 0 && index < 100) {

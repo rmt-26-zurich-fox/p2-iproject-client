@@ -1,16 +1,32 @@
 import { defineStore } from "pinia";
+import axios from "axios";
+import { server } from "../assets/serverConfig";
 
 export const dashboard = defineStore({
 	id: "counter",
 	state: () => ({
-		counter: 0,
+		primaryData: {},
+		secondaryData: {},
+		dealsData: {},
 	}),
-	getters: {
-		doubleCount: state => state.counter * 2,
-	},
+	getters: {},
 	actions: {
-		increment() {
-			this.counter++;
+		async fetchNews(platform = "pc") {
+			try {
+				const { data } = await axios(`${server.url}/events/${platform}/news`);
+				this.primaryData.news = data.response;
+			} catch ({ response }) {
+				console.log(response.data.message);
+			}
+		},
+
+		async fetchNightwave(platform = "pc") {
+			try {
+				const { data } = await axios(`${server.url}/events/${platform}/nightwave`);
+				this.primaryData.news = data.response;
+			} catch ({ response }) {
+				console.log(response.data.message);
+			}
 		},
 	},
 });

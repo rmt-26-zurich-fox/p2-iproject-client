@@ -15,7 +15,7 @@
               <input v-model="login.password" class="form-control" type="password" placeholder="enter your password here" />
             </div>
             <div class="mb-3">
-              <ButtonLayout class="btn-primary form-control" buttonName="Log in" />
+              <ButtonLayout type="submit" class="btn-primary form-control" buttonName="Log in" />
             </div>
           </form>
           <p class="mt-2">
@@ -46,6 +46,9 @@
 
 <script>
 import ButtonLayout from "../components/ButtonLayout.vue";
+import { mapActions } from "pinia";
+import { useLoginStore } from "../stores/user";
+import { useHouseStore } from "../stores/house";
 
 export default {
   components: {
@@ -59,6 +62,20 @@ export default {
         password: "",
       },
     };
+  },
+
+  methods: {
+    ...mapActions(useLoginStore, ["loginSubmission"]),
+    ...mapActions(useHouseStore, ["errorHandler"]),
+
+    async handleLogin() {
+      try {
+        await this.loginSubmission(this.login);
+        this.$router.push("/");
+      } catch (error) {
+        this.errorHandler(error);
+      }
+    },
   },
 };
 </script>

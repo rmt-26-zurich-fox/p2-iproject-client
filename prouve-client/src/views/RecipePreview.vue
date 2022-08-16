@@ -6,12 +6,16 @@
         <input
           type="text"
           id="simple-search"
+          v-model="searchQuery"
           class="w-96 bg-gray-50 border-2 border-gray-300 text-black text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           placeholder="Search"
           required
         />
       </div>
-      <button class="p-2 text-2xl text-gray-600 bg-white rounded-lg">
+      <button
+        class="p-2 text-2xl text-gray-600 bg-white rounded-lg"
+        @click="search"
+      >
         <svg
           class="w-6"
           fill="none"
@@ -43,21 +47,52 @@
 <script>
 import RecipePreviewCard from "../components/RecipePreviewCard.vue";
 import { mapActions } from "pinia";
-import { mapState } from "pinia";
+import { mapWritableState } from "pinia";
 import { productStore } from "../stores/product";
 export default {
+  data() {
+    return {
+      searchQuery: "",
+    };
+  },
+
   components: { RecipePreviewCard },
 
   computed: {
-    ...mapState(productStore, ["recipes"]),
+    ...mapWritableState(productStore, ["recipes", "initialPage"]),
   },
 
   methods: {
-    ...mapActions(productStore, ["fetchRecipe"]),
+    ...mapActions(productStore, ["fetchRecipe", "fetchNextRecipe"]),
+    search() {
+      this.fetchRecipe(this.searchQuery).then(() => {
+        this.$router.push({
+          name: "recipe",
+          params: { search: this.searchQuery },
+        });
+      });
+    },
+
+    getNextRecipe() {
+      window.onscroll = () => {
+        let bottomOfWindow =
+          document.documentElement.scrollTop + window.innerHeight ===
+          document.documentElement.offsetHeight;
+        if (bottomOfWindow) {
+          this.fetchNextRecipe(this.initialPage, this.searchQuery);
+          this.initialPage++;
+        }
+      };
+    },
   },
 
-  created() {
+  beforeMount() {
     this.fetchRecipe();
+    this.initialPage = 2;
+  },
+
+  mounted() {
+    this.getNextRecipe();
   },
 };
 </script>

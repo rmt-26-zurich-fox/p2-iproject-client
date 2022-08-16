@@ -8,7 +8,6 @@
           >
             <input
               class="flex-1 ml-3 whitespace-nowrap w-1 text-black border-2 border-gray-300 bg-gray-50"
-              v-model="searchName"
             />
             <a
               href=""
@@ -34,6 +33,7 @@
         <li>
           <a
             href=""
+            @click.prevent="filter()"
             class="flex items-center p-2 text-base font-normal rounded-lg text-gray-800 hover:bg-gray-100"
           >
             <img
@@ -46,6 +46,7 @@
         <li>
           <a
             href=""
+            @click.prevent="filter('pastry')"
             class="flex items-center p-2 text-base font-normal rounded-lg text-gray-800 hover:bg-gray-100"
           >
             <img
@@ -58,6 +59,7 @@
         <li>
           <a
             href=""
+            @click.prevent="filter('wholecake')"
             class="flex items-center p-2 text-base font-normal rounded-lg transition duration-75 hover:bg-gray-100 text-gray-800"
           >
             <img
@@ -70,6 +72,7 @@
         <li>
           <a
             href=""
+            @click.prevent="filter('cookie')"
             class="flex items-center p-2 text-base font-normal rounded-lg text-gray-800 hover:bg-gray-100"
           >
             <img
@@ -84,4 +87,40 @@
   </aside>
 </template>
 
-<script></script>
+<script>
+import { mapActions } from "pinia";
+import { mapWritableState } from "pinia";
+import { productStore } from "../stores/product";
+export default {
+  computed: {
+    ...mapWritableState(productStore, ["initialPage"]),
+  },
+  methods: {
+    ...mapActions(productStore, ["fetchProduct"]),
+    scrollToTop() {
+      window.scrollTo(0, 0);
+    },
+
+    filter(category) {
+      if (!category) {
+        this.initialPage = 2;
+        this.fetchProduct({}).then(() => {
+          this.$router.push({
+            name: "shop",
+          });
+        });
+        this.scrollToTop();
+      } else {
+        this.initialPage = 2;
+        this.fetchProduct({ category }).then(() => {
+          this.$router.push({
+            path: "shop",
+            query: { category },
+          });
+        });
+        this.scrollToTop();
+      }
+    },
+  },
+};
+</script>

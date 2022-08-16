@@ -7,6 +7,7 @@ export const productStore = defineStore({
     baseUrl: "http://localhost:3000/",
     counter: 0,
     recipes: [],
+    cakes: [],
     recipeById: {},
     initialPage: 2,
   }),
@@ -51,6 +52,39 @@ export const productStore = defineStore({
           url: this.baseUrl + `recipes/${recipeId}`,
         });
         this.recipeById = response.data;
+      } catch (error) {
+        console.log(error.response);
+      }
+    },
+
+    async fetchProduct(query) {
+      try {
+        const response = await axios({
+          method: "get",
+          url: this.baseUrl + "products",
+          params: {
+            category: query.category,
+          },
+        });
+        this.cakes = response.data;
+      } catch (error) {
+        console.log(error.response);
+      }
+    },
+
+    async fetchNextProduct(page, category) {
+      try {
+        const response = await axios({
+          method: "get",
+          url: this.baseUrl + "products",
+          params: {
+            page,
+            category,
+          },
+        });
+        response.data.forEach((el) => {
+          this.cakes.push(el);
+        });
       } catch (error) {
         console.log(error.response);
       }

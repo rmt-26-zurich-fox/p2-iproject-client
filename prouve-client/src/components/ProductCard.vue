@@ -5,7 +5,7 @@
         <div class="vertical-center">
           <img
             class="p-8 rounded-t-lg"
-            src="https://i.imgur.com/HcGtAQ1.jpg"
+            :src="cake.imageUrl"
             alt="product image"
           />
         </div>
@@ -14,12 +14,12 @@
     <div class="px-5 pb-5 mb-0">
       <a href="#">
         <h5 class="text-l font-semibold tracking-tight text-gray-900">
-          PRODUCT NAME
+          {{ cake.name }}
         </h5>
       </a>
       <div class="flex items-center mt-2.5 mb-5"></div>
       <div class="flex justify-between items-center">
-        <span class="text-l font-bold text-gray-900">HARGA KUE</span>
+        <span class="text-l font-semibold text-gray-900">{{ priceIDR }}</span>
         <template>
           <a
             href=""
@@ -31,7 +31,22 @@
     </div>
   </div>
 </template>
-<script></script>
+<script>
+export default {
+  props: ["cake"],
+
+  computed: {
+    priceIDR() {
+      let price = new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+      }).format(this.cake.price);
+
+      return price;
+    },
+  },
+};
+</script>
 
 <style>
 .container1 {

@@ -13,13 +13,12 @@
         <br />
         <div class="left-navigation">
           <ul class="list">
-            <h5><strong>WHEREABOUTS</strong></h5>
-            <li><a href="">Programming</a></li>
-            <li><a href="">Anime</a></li>
-            <li><a href="">Motivation</a></li>
-            <li><a href="">Chat</a></li>
-            <li>Art Class</li>
-            <li>Hike Club</li>
+            <li><a @click.prevent="fetchProgramming">Programming</a></li>
+            <li><a @click.prevent="fetchAnime">Anime</a></li>
+            <li><a @click.prevent="fetchMotivation">Motivation</a></li>
+            <li><a @click.prevent="onHandleChat">Chat</a></li>
+            <li><a @click.prevent="onHandleAdd">Add Quote</a></li>
+            <li><a @click.prevent="onFavoritePage">Favorite Quotes</a></li>
           </ul>
           <br />
           <ul class="list">
@@ -36,15 +35,13 @@
       <div class="col-md-10 col-sm-8 main-content">
         
         <div class="container mt-3">
-          <h1 class="text-center">
+          <!-- <h1 class="text-center">
             <span>Sorry we dont have food, that you lookin for.</span>
-          </h1>
+          </h1> -->
           <div class="row mt-3">
 
             <!-- Quote Card -->
               <QuoteCard />
-            
-  
           </div>
         </div>
       </div>
@@ -65,10 +62,19 @@ export default {
   },
   components: {
     QuoteCard,
+ 
   },
 
   methods: {
+
+    onFavoritePage(){
+      this.$router.push('/favorites')
+    },
     ...mapActions(useQuoteStore, ["fetchQuotes"]),
+
+    onHandleAdd(){
+      this.$router.push('/add')
+    }
   },
 
   created() {

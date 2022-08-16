@@ -218,6 +218,33 @@ export const useQuoteStore = defineStore({
       swall('Error', 'Something went wrong', 'error')
       
     }
+  },
+
+  async addQuote(value){
+
+    try {
+
+      const { data } = await axios({
+        method: 'post',
+        url: this.baseUrl + '/quotes',
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: {
+          desc: value.desc,
+          CategoryId: value.CategoryId
+        }
+      })
+
+      console.log(data, 'success add quote')
+      this.router.push('/home')
+      
+    } catch (error) {
+
+      console.log(error)
+      
+    }
+
   }
 
   }

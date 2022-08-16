@@ -5,8 +5,7 @@ import LoginPage from '../views/LoginPage.vue'
 import FavoritePage from '../views/FavoritePage.vue'
 import DashBoard from '../views/DashBoard.vue'
 import RegisterPage from '../views/RegisterPage.vue'
-
-// import CreatePage from '../views/CreatePage.vue'
+import AddQuote from '../views/AddQuote.vue'
 
 
 const router = createRouter({
@@ -37,13 +36,13 @@ const router = createRouter({
         {
           path: '/add',
           name: 'add',
-          // component: CreatePage
+          component: AddQuote
         },
-        {
-          path: '/home',
-          name: 'home',
-          component: HomeView
-        },
+        // {
+        //   path: '/home',
+        //   name: 'home',
+        //   component: HomeView
+        // },
       ]
     },
     ,

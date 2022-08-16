@@ -8,7 +8,7 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="#">Quotes</a>
+    <a class="navbar-brand" @click.prevent="toHome">Quotes</a>
   </div>
 
   <!-- Collect the nav links, forms, and other content for toggling -->
@@ -17,10 +17,10 @@
       <li class="active"><a href="#">Profile</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><button @click.prevent="toLogin" v-if="!access_token" class="btn btn">Login</button></li>
+      <li><a @click.prevent="toLogin" v-if="!access_token" class="btn btn">Login</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><button @click.prevent="toLogout" v-if="access_token" class="btn btn">Logout</button></li>
+      <li><a @click.prevent="toLogout" v-if="access_token" class="btn btn">Logout</a></li>
     </ul>
   </div><!-- /.navbar-collapse -->
 </nav>
@@ -38,6 +38,10 @@ export default {
   },
 
   methods: {
+
+    toHome(){
+      this.$router.push('/home')
+    },
 
     toLogin(){
 
@@ -67,8 +71,6 @@ export default {
           this.$router.push("/");
           localStorage.clear()
         });
-      }else{
-        
       }
     }
   }

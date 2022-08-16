@@ -7,11 +7,15 @@
             <!-- <img src="http://frontendfreecode.com/img/deer.jpg" alt="" /> -->
           </div>
           <div class="text-container">
+            
             <h6>{{ quote.User.username }}</h6>
             <p>
               {{ quote.desc }}
             </p>
+            <br>
+            <span>Category: {{ quote.Category.name}}</span>
           </div>
+          <hr>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"

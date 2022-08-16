@@ -119,7 +119,7 @@ main {
 
 main .search {
   display: flex;
-  width: 600px;
+  width: 100%;
   margin: 10px;
 }
 
@@ -142,9 +142,9 @@ main .movie-all {
 }
 
 main .movie-all .cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  column-gap: 20px;
 }
 
 main .movie-all .cards .movie-card {
@@ -155,8 +155,14 @@ main .movie-all .cards .movie-card {
 
 main .movie-all .cards .img img {
   aspect-ratio: 4/6;
-  width: 220px;
+  width: 100%;
   border-radius: 10px;
+}
+
+main .movie-all .cards .img img:hover {
+  filter: brightness(50%);
+  transition: 0.3s;
+  cursor: pointer;
 }
 
 main .movie-list {
@@ -247,4 +253,34 @@ footer div:nth-child(3) button {
   border-radius: 10px;
   background-color: var(--primary);
   border: none;
+}
+
+@media only screen and (min-width: 1023px) {
+  main .search {
+    max-width: 60vw;
+  }
+}
+
+@media only screen and (max-width: 1023px) {
+  main .search {
+    max-width: 80vw;
+  }
+  main .movie-all .cards {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  main .movie-all {
+    width: 80vw;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  main .search {
+    max-width: none;
+  }
+  main .movie-all .cards {
+    grid-template-columns: 1fr 1fr;
+  }
+  main .movie-all {
+    width: 100%;
+  }
 }

@@ -43,9 +43,9 @@ export default {
     ...mapState(useGlobalStore, ["baseUrl"]),
   },
   methods: {
-    async register(data) {
+    async register(body) {
       try {
-        await axios.post(this.baseUrl + "/register", data);
+        await axios.post(this.baseUrl + "/register", body);
         this.$router.push("/login")
       } catch (error) {
         console.log(error);

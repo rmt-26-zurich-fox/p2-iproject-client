@@ -4,7 +4,7 @@
       <div class="logo">
         <h1><a>Movie</a><a>Ku</a></h1>
       </div>
-      <form @submit.prevent="login({email, password})">
+      <form @submit.prevent="login({ email, password })">
         <label for="">Email</label>
         <input v-model="email" class="form-control" type="text" />
         <label for="">Password</label>
@@ -23,7 +23,7 @@
 
 <script>
 import axios from "axios";
-import { mapState } from "pinia";
+import { mapState, mapActions } from "pinia";
 import { useGlobalStore } from "../stores/globalStore";
 
 export default {
@@ -37,12 +37,15 @@ export default {
     ...mapState(useGlobalStore, ["baseUrl"]),
   },
   methods: {
-    async login(data) {
+    ...mapActions(useGlobalStore, ["errorHandler", "successHandler"]),
+    async login(body) {
       try {
-        await axios.post(this.baseUrl + "/login", data);
-        this.$router.push("/home")
+        const { data } = await axios.post(this.baseUrl + "/login", body);
+        this.successHandler(data.message);
+        localStorage.setItem("access_token", data.access_token);
+        this.$router.push("/home");
       } catch (error) {
-        console.log(error);
+        this.errorHandler(error);
       }
     },
   },

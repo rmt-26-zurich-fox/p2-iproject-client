@@ -5,7 +5,7 @@
         <div class="vertical-center">
           <img
             class="p-8 rounded-t-lg"
-            src="product.imageUrl"
+            src="https://i.imgur.com/HcGtAQ1.jpg"
             alt="product image"
           />
         </div>

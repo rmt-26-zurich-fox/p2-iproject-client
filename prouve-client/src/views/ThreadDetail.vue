@@ -12,7 +12,7 @@
       </div>
     </div>
     <div
-      class="block p-6 w-9/12 bg-white rounded-lg border border-gray-200 shadow-md h-fit"
+      class="block p-6 w-9/12 bg-gray-200 rounded-lg border border-gray-200 shadow-md h-fit"
     >
       <div class="flex justify-start">
         <div class="w-full">

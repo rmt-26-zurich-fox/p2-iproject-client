@@ -1,9 +1,9 @@
 <template>
   <div
-    class="max-w-4xl bg-white rounded-lg border border-gray-200 shadow-md mb-20"
+    class="max-w-4xl bg-white rounded-tl-3xl rounded-br-3xl border border-gray-200 shadow-md mb-20 relative"
   >
-    <div class="flex justify-center">
-      <p class="mb-3 mt-5 font-bold text-gray-800 text-3xl">
+    <div class="flex justify-center mt-5">
+      <p class="font-bold text-gray-800 text-lg h-12 text-center">
         {{ recipe.name }}
       </p>
     </div>
@@ -12,13 +12,13 @@
         <img :src="recipe.image" alt=""
       /></a>
 
-      <p class="mb-3 mt-5 font-normal text-gray-800 truncate">
+      <p class="mb-10 mt-5 font-normal text-gray-800 truncate">
         {{ recipe.description }}
       </p>
       <a
         href=""
         @click.prevent="changePage"
-        class="inline-flex float-right items-center my-5 py-2 px-3 text-sm font-medium text-center text-gray-800 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-100"
+        class="inline-flex absolute bottom-2 right-2 items-center py-2 px-3 text-sm font-medium text-center text-gray-800 bg-white rounded-lg hover:bg-red-500 hover:text-white focus:ring-4 focus:outline-none focus:ring-gray-100"
       >
         Read Recipe
         <svg

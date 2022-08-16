@@ -58,7 +58,7 @@
   <div class="container">
     <h4 class="text-primary text-center">Rekomendasi</h4>
     <!-- card-contain -->
-    <div class="container-card d-flex mt-3 gap-3 flex-wrap">
+    <div class="container-card d-flex ms-4 mt-3 gap-3 flex-wrap">
       <!-- card -->
       <CardComponent v-for="location in dataLocation" :key="location.id" :location="location" />
     </div>

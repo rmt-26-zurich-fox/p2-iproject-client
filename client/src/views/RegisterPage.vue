@@ -12,39 +12,36 @@
         </div>
         <div class="col-lg-4">
             <div class="container-sm p-3 mt-5">
-                <form @submit.prevent="handleLogin">
+                <form @submit.prevent="handleRegister">
                     <h1 class="text-center fw-bold text-blue">HiLING SKUY</h1>
-                    <p class="text-center fw-bold text-blue">LOGIN</p>
+                    <p class="text-center fw-bold text-blue">REGISTER</p>
+                    <input class="form-control rounded-0 mb-3" type="text" placeholder="e.g.username" v-model="username">
                     <input class="form-control rounded-0 mb-3" type="email" placeholder="e.g.email" v-model="email">
                     <input class="form-control rounded-0 mb-3" type="password" placeholder="e.g.password" v-model="password">
-                    <button class="btn btn-primary rounded-0 mb-3 w-100">LOGIN <i class="fa-solid fa-right-to-bracket"></i></button>
-                    <p>don't have account ? <router-link to="/register">Register</router-link> here</p>
-                    <p>or sign up with</p>
-                    <button class="btn btn-primary rounded-0 mb-3 w-100">LOGIN </button>
+                    <button class="btn btn-primary rounded-0 mb-3 w-100">REGISTER <i class="fa-solid fa-right-to-bracket"></i></button>
+                    <p>already have account ? <router-link to="/login">Login</router-link> here</p>
                 </form>
             </div>
         </div>
     </div>
 </template>
-
 <script>
 import { mapActions } from 'pinia';
-import { useCounterStore } from '../stores/index'
+import {useCounterStore} from '../stores/index'
 export default {
     data(){
         return {
+            username: '',
             email: '',
             password: ''
         }
-    },
+    },  
     methods: {
-        ...mapActions(useCounterStore, ['login']),
-        handleLogin(){
-            this.login({email:this.email, password:this.password})
+        ...mapActions(useCounterStore, ['register']),
+        handleRegister(){
+            this.register({username: this.username, email:this.email, password:this.password})
+            this.$router.push('/login')
         }
     }
 }
 </script>
-
-<style>
-</style>

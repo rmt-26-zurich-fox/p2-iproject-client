@@ -103,3 +103,11 @@ export default {
     </div>
   </div>
 </template>
+
+<style scoped>
+label,
+button,
+.title {
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+</style>

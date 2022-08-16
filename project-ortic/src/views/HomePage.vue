@@ -33,7 +33,7 @@
               <div class="btn-group">
               <!-- <a href="#!" class="btn btn-primary">Update</a> -->
               <a href="#!" class="btn btn-primary">Add to Cart</a>
-              <a href="#!" class="btn btn-primary">Details</a>
+              <router-link to="/detail" class="btn btn-primary">Details</router-link>
               <!-- <a href="#!" class="btn btn-primary">Delete</a> -->
             </div>
             </div>

@@ -5,6 +5,7 @@ import ParentView from '../views/ParentView.vue'
 import CartPage from '../views/CartPage.vue'
 import AddPage from '../views/AddPage.vue'
 import HistoryPage from '../views/HistoryPage.vue'
+import DetailPage from '../views/DetailPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,10 +39,28 @@ const router = createRouter({
           name: 'history',
           component: HistoryPage
         },
+        {
+          path: '/detail',
+          name: 'detail',
+          component: DetailPage
+        },
       ]
-
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  const token = localStorage.token
+
+  if((to.name === 'login') && token) {
+    next('/')
+  }
+  else if ((to.name === 'cart' || to.name === 'add' || to.name === 'history' || to.name === 'detail') && !token) {
+    next('/login')
+  }
+  else {
+    next()
+  }
 })
 
 export default router

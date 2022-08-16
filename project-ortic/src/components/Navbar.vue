@@ -1,6 +1,12 @@
 <script>
 
 export default {
+    data() {
+        return {
+            token: localStorage.token,
+            username: localStorage.username
+        }
+    },
     methods: {
         logoutHandler() {
             localStorage.clear()
@@ -45,10 +51,11 @@ export default {
         </ul>
         <ul class="navbar-nav d-flex flex-row ms-auto me-3">
             <li class="nav-item">
-                <router-link to="/login" class="nav-link">Log Out</router-link>
+                <router-link to="/login" class="nav-link" @click.prevent="logoutHandler">Log Out</router-link>
               </li>
           <li class="nav-item">
-            <a class="nav-link" href="">Hello Anonymous</a>
+            <a v-if="!username" class="nav-link" href="">Hello Anonymous</a>
+            <a v-if="username" class="nav-link" href="">Hello {{username}}</a>
           </li>
         </ul>
       </div>

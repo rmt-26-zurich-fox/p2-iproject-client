@@ -1,6 +1,26 @@
 <script>
 
+import {mapActions} from 'pinia'
+import {useCustomStore} from '../stores/custom'
   
+export default {
+    data() {
+        return {
+            email: '',
+            password: ''
+        }
+    },
+    methods: {
+        ...mapActions(useCustomStore, ['loginHandler']),
+        login() {
+            this.loginHandler({
+                email: this.email,
+                password: this.password
+            })
+        }
+    }
+}
+
 </script>
 
 <template>
@@ -17,14 +37,14 @@
                     <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
                     <p class="text-white-50 mb-5">Please enter your email and password!</p>
                     <div class="form-outline form-white mb-4">
-                      <input type="email" id="typeEmailX" class="form-control form-control-lg" />
+                      <input type="email" id="typeEmailX" class="form-control form-control-lg" v-model="email"/>
                       <label class="form-label" for="typeEmailX"></label>
                     </div>
                     <div class="form-outline form-white mb-4">
-                      <input type="password" id="typePasswordX" class="form-control form-control-lg" />
+                      <input type="password" id="typePasswordX" class="form-control form-control-lg" v-model="password"/>
                       <label class="form-label" for="typePasswordX"></label>
                     </div>  
-                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>     
+                    <button class="btn btn-outline-light btn-lg px-5" type="submit" @click="login">Login</button>     
                   </div>  
                   <div>
                     <p class="mb-0">Don't have an account? <a href="#!" class="text-white-50 fw-bold">Sign In with google</a>

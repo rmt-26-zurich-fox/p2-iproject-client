@@ -37,3 +37,9 @@ export default {
   </table>
   <button class="btn btn-success">Buy All Item in Cart</button>
 </template>
+
+<style scoped>
+th {
+  font-family: monospace;
+}
+</style>

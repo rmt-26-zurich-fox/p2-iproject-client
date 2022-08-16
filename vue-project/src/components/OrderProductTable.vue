@@ -37,3 +37,9 @@ export default {
     </tbody>
   </table>
 </template>
+
+<style scoped>
+th {
+  font-family: monospace;
+}
+</style>

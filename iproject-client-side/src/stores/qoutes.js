@@ -125,6 +125,7 @@ export const useQuoteStore = defineStore({
 
     
       setupSocketConnection(value) {  
+        
         // console.log(value)
 
         this.socket = io('http://localhost:4000');  

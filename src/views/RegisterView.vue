@@ -1,16 +1,20 @@
 <template>
-  <section class="login">
+  <section class="register">
     <div class="container shadow-lg rounded">
       <div class="logo">
         <h1><a>Movie</a><a>Ku</a></h1>
       </div>
-      <form @submit.prevent="login({email, password})">
+      <form @submit.prevent="register({ username, email, password })">
+        <label for="">Username</label>
+        <input v-model="username" class="form-control" type="text" />
         <label for="">Email</label>
         <input v-model="email" class="form-control" type="text" />
         <label for="">Password</label>
         <input v-model="password" class="form-control" type="password" />
-        <router-link :to="{ name: 'register' }">Register</router-link>
-        <button>Login</button>
+        <label for="">Retype</label>
+        <input v-model="retype" class="form-control" type="password" />
+        <router-link :to="{ name: 'login' }">Login</router-link>
+        <button>Register</button>
       </form>
       <div class="social">
         <div>G</div>
@@ -29,18 +33,20 @@ import { useGlobalStore } from "../stores/globalStore";
 export default {
   data() {
     return {
-      eamil: "",
+      username: "",
+      email: "",
       password: "",
+      retype: "",
     };
   },
   computed: {
     ...mapState(useGlobalStore, ["baseUrl"]),
   },
   methods: {
-    async login(data) {
+    async register(data) {
       try {
-        await axios.post(this.baseUrl + "/login", data);
-        this.$router.push("/home")
+        await axios.post(this.baseUrl + "/register", data);
+        this.$router.push("/login")
       } catch (error) {
         console.log(error);
       }

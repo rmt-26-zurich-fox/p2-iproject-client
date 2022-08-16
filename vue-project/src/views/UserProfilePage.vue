@@ -46,7 +46,7 @@ export default {
     <div class="card-body text-center">
       <!-- Form Here -->
       <form @submit.prevent="formSubmitHandlerEditProfile">
-        <div class="form-group row text-center">
+        <div class="form-group row text-center mx-auto" style="width: 60%">
           <div class="mb-3">
             <label for="form-edit-first-name" class="form-label"
               >First Name</label
@@ -57,7 +57,6 @@ export default {
               id="form-edit-first-name"
               class="form-control"
               placeholder="John"
-              style="width: 70%"
             />
           </div>
 
@@ -71,7 +70,6 @@ export default {
               id="form-edit-last-name"
               class="form-control"
               placeholder="Doe"
-              style="width: 70%"
             />
           </div>
 
@@ -83,7 +81,6 @@ export default {
               id="form-edit-address"
               class="form-control"
               placeholder="Jl. John Doe"
-              style="width: 70%"
             />
           </div>
 
@@ -97,7 +94,6 @@ export default {
               id="form-edit-phoneNumber"
               class="form-control"
               placeholder="08123456789"
-              style="width: 70%"
             />
           </div>
 
@@ -107,3 +103,11 @@ export default {
     </div>
   </div>
 </template>
+
+<style scoped>
+label,
+button,
+.title {
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+</style>

@@ -19,7 +19,7 @@ export default {
   <!-- Nav Bar -->
   <nav class="navbar sticky-top bg-light">
     <div class="container-fluid" style="justify-content: center; gap: 10px">
-      <div class="mx-auto" style="padding-left: 13rem">
+      <div class="mx-auto" style="padding-left: 11rem">
         <router-link class="navbar-link" to="/">Home </router-link>
         <router-link
           class="navbar-link"

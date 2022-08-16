@@ -10,5 +10,11 @@ export default {
 
 <template>
   <NavBarComp />
-  <h1>Order List</h1>
+  <div class="card">
+    <div class="card-header text-center title">Order List</div>
+    <div class="card-body text-center">
+      <h1>List Product</h1>
+      <!-- Table here -->
+    </div>
+  </div>
 </template>

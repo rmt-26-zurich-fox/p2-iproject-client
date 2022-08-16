@@ -34,6 +34,7 @@
           <a
             href=""
             @click.prevent="filter()"
+            :class="[!this.$route.query.category ? 'z-10 bg-gray-100' : '']"
             class="flex items-center p-2 text-base font-normal rounded-lg text-gray-800 hover:bg-gray-100"
           >
             <img
@@ -47,6 +48,9 @@
           <a
             href=""
             @click.prevent="filter('pastry')"
+            :class="[
+              this.$route.query.category === 'pastry' ? 'z-10 bg-gray-100' : '',
+            ]"
             class="flex items-center p-2 text-base font-normal rounded-lg text-gray-800 hover:bg-gray-100"
           >
             <img
@@ -60,6 +64,11 @@
           <a
             href=""
             @click.prevent="filter('wholecake')"
+            :class="[
+              this.$route.query.category === 'wholecake'
+                ? 'z-10 bg-gray-100'
+                : '',
+            ]"
             class="flex items-center p-2 text-base font-normal rounded-lg transition duration-75 hover:bg-gray-100 text-gray-800"
           >
             <img
@@ -73,6 +82,9 @@
           <a
             href=""
             @click.prevent="filter('cookie')"
+            :class="[
+              this.$route.query.category === 'cookie' ? 'z-10 bg-gray-100' : '',
+            ]"
             class="flex items-center p-2 text-base font-normal rounded-lg text-gray-800 hover:bg-gray-100"
           >
             <img

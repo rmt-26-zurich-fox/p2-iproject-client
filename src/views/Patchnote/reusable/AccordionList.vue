@@ -1,7 +1,12 @@
 <script>
 	import moment from "moment";
 	export default {
-		props: ["patchnote"],
+		props: ["patchnote", "isFirstOrLast"],
+		data() {
+			return {
+				firstOrLast: { div: {}, button: {} },
+			};
+		},
 		methods: {
 			dateFormat(dataTime) {
 				return moment(dataTime).format("LLLL");
@@ -39,15 +44,30 @@
 					return this.patchnote.type;
 				}
 			},
+			style() {
+				if (this.isFirstOrLast === "first") {
+					this.firstOrLast.button = { "button-patchnote-first": true, "accordion-button": true };
+					this.firstOrLast.div = { "button-patchnote-first": true, "accordion-item": true };
+				} else if (this.isFirstOrLast === "last") {
+					this.firstOrLast.button = { "button-patchnote-last": true, "accordion-button": true };
+					this.firstOrLast.div = { "button-patchnote-last": true, "accordion-item": true };
+				} else {
+					this.firstOrLast.button = { "accordion-button": true };
+					this.firstOrLast.div = { "accordion-item": true };
+				}
+			},
+		},
+		created() {
+			this.style;
 		},
 	};
 </script>
 
 <template>
-	<div class="accordion-item">
+	<div :class="firstOrLast.div">
 		<h2 class="accordion-header w-100" id="headingOne">
 			<button
-				class="accordion-button"
+				:class="firstOrLast.button"
 				type="button"
 				data-mdb-toggle="collapse"
 				:data-mdb-target="`#collapse${patchnote.id}`"
@@ -67,29 +87,31 @@
 			<nav class="navbar navbar-expand-lg">
 				<div class="container">
 					<div class="collapse navbar-collapse" id="navbarButtonsExample">
-						<a target="_blank" :href="patchnote.url" class="me-auto">Forum link</a>
+						<a target="_blank" :href="patchnote.url" class="me-auto ms-3">Forum link</a>
 						<div class="d-flex align-items-center">
-							<div class="d-flex align-items-center">{{ dateFormat(patchnote.date) }}</div>
+							<div class="d-flex align-items-center me-3">{{ dateFormat(patchnote.date) }}</div>
 						</div>
 					</div>
 				</div>
 			</nav>
 			<div class="accordion-body">
-				<div class="container"></div>
-				<section v-if="patchnote.addition">
-					<p class="h4">Additions:</p>
-					<div id="addition" v-html="patchnote.addition"></div>
-				</section>
-				<br />
-				<section v-if="patchnote.fixes">
-					<p class="h4">Fixes:</p>
-					<div id="fixes" v-html="fixes"></div>
-				</section>
-				<br />
-				<section v-if="patchnote.changes">
-					<p class="h4">Changes:</p>
-					<div class="changes" v-html="changes"></div>
-				</section>
+				<div class="container">
+					<section v-if="patchnote.addition">
+						<p class="h4">Additions:</p>
+						<div id="addition" v-html="patchnote.addition"></div>
+						<br />
+					</section>
+					<section v-if="patchnote.fixes">
+						<p class="h4">Fixes:</p>
+						<div id="fixes" v-html="fixes"></div>
+						<br />
+					</section>
+					<section v-if="patchnote.changes">
+						<p class="h4">Changes:</p>
+						<div class="changes" v-html="changes"></div>
+						<br />
+					</section>
+				</div>
 			</div>
 		</div>
 	</div>

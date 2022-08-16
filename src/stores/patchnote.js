@@ -18,7 +18,12 @@ export const patchnote = defineStore({
 		async fetchPatchnote() {
 			try {
 				const { data } = await axios(`${this.baseUrl}/patchlogs`);
-				this.dataFetch.patchnote = data.response;
+
+				this.dataFetch.patchnote = data.response.filter((data, index) => {
+					if (index >= 0 && index < 100) {
+						return data;
+					}
+				});
 			} catch ({ response }) {
 				console.log(response.data.message);
 			}

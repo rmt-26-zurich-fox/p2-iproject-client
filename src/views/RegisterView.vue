@@ -27,7 +27,7 @@
 
 <script>
 import axios from "axios";
-import { mapState } from "pinia";
+import { mapActions, mapState } from "pinia";
 import { useGlobalStore } from "../stores/globalStore";
 
 export default {
@@ -43,12 +43,14 @@ export default {
     ...mapState(useGlobalStore, ["baseUrl"]),
   },
   methods: {
+    ...mapActions(useGlobalStore, ["errorHandler", "successHandler"]),
     async register(body) {
       try {
-        await axios.post(this.baseUrl + "/register", body);
-        this.$router.push("/login")
+        const { data } = await axios.post(this.baseUrl + "/register", body);
+        this.successHandler(data.message)
+        this.$router.push("/login");
       } catch (error) {
-        console.log(error);
+        this.errorHandler(error)
       }
     },
   },

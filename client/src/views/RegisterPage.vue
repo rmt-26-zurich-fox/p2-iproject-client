@@ -1,27 +1,31 @@
 <template>
   <div class="container pt-5 pb-5">
-    <div class="row justify-content-center ">
-      <div class="col-md-7 col-lg-5 ">
+    <div class="row justify-content-center">
+      <div class="col-md-7 col-lg-5">
         <div class="p-4 p-md-5 border">
-          <h1 class="text-center">Branded Things</h1>
-          <h5 class="text-center text-muted">Customer Web App</h5>
-          <p class="lead text-center">Sign up to get product that you need.</p>
+          <h1 class="text-center">Individual Project</h1>
+          <h5 class="text-center text-muted"></h5>
+          <p class="lead text-center">Sign up.</p>
           <form @submit.prevent="handleRegisterSubmit">
             <div class="form-group mb-3">
-              <label class="form-label">Username</label>
-              <input v-model="register.username" type="text" class="form-control" placeholder="enter your username here" />
+              <label class="form-label">First Name</label>
+              <input v-model="register.firstName" type="text" class="form-control" placeholder="enter your username here" />
+            </div>
+            <div class="form-group mb-3">
+              <label class="form-label">Last Name</label>
+              <input v-model="register.lastName" type="text" class="form-control" placeholder="enter your username here" />
+            </div>
+            <div class="form-group mb-3">
+              <label class="form-label">Phone Number</label>
+              <input v-model="register.phone" type="text" class="form-control" placeholder="enter your phone number here" />
             </div>
             <div class="form-group mb-3">
               <label class="form-label">Email Address</label>
               <input v-model="register.email" type="email" class="form-control" placeholder="enter your email here" />
             </div>
             <div class="form-group mb-3">
-              <label class="form-label">Phone Number</label>
-              <input v-model="register.phoneNumber" type="text" class="form-control" placeholder="enter your phone number here" />
-            </div>
-            <div class="form-group mb-3">
-              <label class="form-label">Address</label>
-              <input v-model="register.address" type="text" class="form-control" placeholder="enter your address here" />
+              <label class="form-label">Username</label>
+              <input v-model="register.username" type="text" class="form-control" placeholder="enter your address here" />
             </div>
             <div class="form-group mb-3">
               <label class="form-label">Password</label>
@@ -36,7 +40,7 @@
             <router-link to="/login" style="text-decoration: none; color: blue">Login</router-link>
           </p>
           <p class="mt-2">
-            Browse product first?
+            Browse house first?
             <router-link to="/" style="text-decoration: none; color: blue">Back to Home</router-link>
           </p>
         </div>
@@ -47,6 +51,10 @@
 
 <script>
 import ButtonLayout from "../components/ButtonLayout.vue";
+import { mapActions } from "pinia";
+import { useRegisterStore } from "../stores/user";
+import { useHouseStore } from "../stores/house";
+import Swal from "sweetalert2";
 
 export default {
   components: {
@@ -56,13 +64,36 @@ export default {
   data() {
     return {
       register: {
+        firstName: "",
+        lastName: "",
+        phone: "",
         username: "",
         email: "",
-        phoneNumber: "",
-        address: "",
         password: "",
       },
     };
+  },
+
+  methods: {
+    ...mapActions(useRegisterStore, ["registerSubmission"]),
+    ...mapActions(useHouseStore, ["errorHandler"]),
+
+    async handleRegisterSubmit() {
+      try {
+        await this.registerSubmission(this.register);
+        this.$router.push("/login");
+      } catch (error) {
+        this.errorHandler(error);
+      } finally {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Your account successfully created",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    },
   },
 };
 </script>

@@ -4,7 +4,7 @@
       <div class="card-flyer">
         <div class="text-box">
           <div class="image-box">
-            <img src="http://frontendfreecode.com/img/deer.jpg" alt="" />
+            <!-- <img src="http://frontendfreecode.com/img/deer.jpg" alt="" /> -->
           </div>
           <div class="text-container">
             <h6>{{ favorite.Post.User.username }}</h6>

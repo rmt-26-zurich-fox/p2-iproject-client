@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import axios from 'axios'
 import { io } from 'socket.io-client';
 import swall from 'sweetalert'
+import swal from 'sweetalert'
 
 export const useQuoteStore = defineStore({
   id: 'quotes',
@@ -18,7 +19,10 @@ export const useQuoteStore = defineStore({
     allProgramming: [],
     allAnime: [],
 
-    favoriteQuote: []
+    favoriteQuote: [],
+    qotd: {
+      quote: ''
+    }
 
   }),
 
@@ -40,10 +44,14 @@ export const useQuoteStore = defineStore({
         })
 
         console.log(data, 'successs login')
-        // swall('Success', "welcome", 'success')
+        swall('Success', "welcome", 'success')
+        this.quoteOfTheDay()
         localStorage.setItem('access_token', data.access_token)
         localStorage.setItem('username', data.username)
         this.router.push('/home')
+ 
+
+        
 
       } catch (error) {
 
@@ -245,6 +253,36 @@ export const useQuoteStore = defineStore({
       
     }
 
+  },
+
+  async quoteOfTheDay(){
+
+    try {
+
+      const { data } = await axios({
+        method: 'get',
+        url: this.baseUrl + '/quotes/qotd',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+
+
+
+      this.qotd.quote = data.quote.body
+
+      swal({
+        title: "Quote Of To Day",
+        text: this.qotd.quote,
+        type: "success",
+        confirmButtonText: "Cool" 
+      });
+      
+    } catch (error) {
+
+      console.log(error)
+      
+    }
   }
 
   }

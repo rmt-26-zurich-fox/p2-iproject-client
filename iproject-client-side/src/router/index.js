@@ -6,6 +6,7 @@ import FavoritePage from '../views/FavoritePage.vue'
 import DashBoard from '../views/DashBoard.vue'
 import RegisterPage from '../views/RegisterPage.vue'
 import AddQuote from '../views/AddQuote.vue'
+import ChatPage from '../views/ChatPage.vue'
 
 
 const router = createRouter({
@@ -38,11 +39,11 @@ const router = createRouter({
           name: 'add',
           component: AddQuote
         },
-        // {
-        //   path: '/home',
-        //   name: 'home',
-        //   component: HomeView
-        // },
+        {
+          path: '/chatting',
+          name: 'chatting',
+          component: ChatPage
+        },
       ]
     },
     ,

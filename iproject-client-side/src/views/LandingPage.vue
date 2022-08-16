@@ -1,4 +1,5 @@
 <template>
+
 <div class="text-center">
     <p>Landing Page</p>
     <QuoteCard />
@@ -14,6 +15,8 @@ import QuoteCard from '../components/QuoteCard.vue'
 import { mapActions } from 'pinia'
 import { useQuoteStore } from '../stores/qoutes'
 
+
+
 export default{
 
     data(){
@@ -23,8 +26,9 @@ export default{
         }
     },
     components: {
-        QuoteCard
-    },
+    QuoteCard,
+
+},
 
     // data(){
     //     return{

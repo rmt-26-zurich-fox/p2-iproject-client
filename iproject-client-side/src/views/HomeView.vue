@@ -70,15 +70,36 @@ export default {
     onFavoritePage(){
       this.$router.push('/favorites')
     },
-    ...mapActions(useQuoteStore, ["fetchQuotes"]),
+    ...mapActions(useQuoteStore, ["fetchQuotes", 'quoteOfTheDay']),
 
     onHandleAdd(){
       this.$router.push('/add')
+    },
+
+    onHandleChat(){
+      this.$router.push('/chatting')
     }
+  },
+
+  computed: {
+
+    ...mapState(useQuoteStore, ['qotd'])
   },
 
   created() {
     this.fetchQuotes();
+
+    // if(localStorage.access_token){
+
+    //   console.log(this.qotd, 'hoevmo')
+
+    //   swal({
+    //       title: "Error!",
+    //       text: "Quote of the day " + this.qotd.quote,
+    //       type: "error",
+    //       confirmButtonText: "Cool" 
+    //     });
+    // }
   },
 };
 </script>

@@ -26,7 +26,10 @@
           class="flex items-center"
         >
           <span
-            class="self-center text-xl font-semibold whitespace-nowrap text-gray-800"
+            :class="[
+              this.$route.name === 'shop' ? 'bg-slate-200 text-slate-900' : '',
+            ]"
+            class="self-center text-xl font-semibold whitespace-nowrap text-white bg-slate-900 hover:bg-slate-200 hover:text-slate-900 rounded-full shadow-md w-fit px-4 py-2"
             >SHOP</span
           >
         </a>
@@ -36,7 +39,12 @@
           class="flex items-center"
         >
           <span
-            class="self-center text-xl font-semibold whitespace-nowrap text-gray-800"
+            :class="[
+              this.$route.name === 'recipe'
+                ? 'bg-slate-200 text-slate-900'
+                : '',
+            ]"
+            class="self-center text-xl font-semibold whitespace-nowrap text-white bg-slate-900 hover:bg-slate-200 hover:text-slate-900 rounded-full shadow-md w-fit px-4 py-2"
             >RECIPE</span
           >
         </a>
@@ -46,7 +54,10 @@
           class="flex items-center"
         >
           <span
-            class="self-center text-xl font-semibold whitespace-nowrap text-gray-800"
+            :class="[
+              this.$route.name === 'forum' ? 'bg-slate-200 text-slate-900' : '',
+            ]"
+            class="self-center text-xl font-semibold whitespace-nowrap text-white bg-slate-900 hover:bg-slate-200 hover:text-slate-900 rounded-full shadow-md w-fit px-4 py-2"
             >FORUM</span
           >
         </a>

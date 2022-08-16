@@ -29,15 +29,31 @@
         <span class="sr-only">Search</span>
       </button>
     </div>
-    <RecipePreviewCard />
-    <RecipePreviewCard />
-    <RecipePreviewCard />
-    <RecipePreviewCard />
+    <RecipePreviewCard
+      v-for="(recipe, idx) in recipes"
+      :key="idx"
+      :recipe="recipe"
+    />
   </div>
 </template>
 <script>
 import RecipePreviewCard from "../components/RecipePreviewCard.vue";
+import { mapActions } from "pinia";
+import { mapState } from "pinia";
+import { productStore } from "../stores/product";
 export default {
   components: { RecipePreviewCard },
+
+  computed: {
+    ...mapState(productStore, ["recipes"]),
+  },
+
+  methods: {
+    ...mapActions(productStore, ["fetchRecipe"]),
+  },
+
+  created() {
+    this.fetchRecipe();
+  },
 };
 </script>

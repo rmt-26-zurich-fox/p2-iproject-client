@@ -1,7 +1,7 @@
 <template>
   <div class="container pt-5 pb-5">
     <div class="row justify-content-center">
-      <div class="col-md-7 col-lg-5">
+      <div class="col-md-9 col-lg-5">
         <div class="p-4 p-md-5 border">
           <h1 class="text-center">Individual Project</h1>
           <h5 class="text-center text-muted"></h5>
@@ -32,7 +32,7 @@
               <input v-model="register.password" type="password" class="form-control" placeholder="enter your password here" />
             </div>
             <div class="form-group">
-              <ButtonLayout class="btn-primary form-control" buttonName="Sign up" />
+              <ButtonLayout type="submit" class="btn-primary form-control" buttonName="Sign up" />
             </div>
           </form>
           <p class="mt-2">
@@ -82,16 +82,15 @@ export default {
       try {
         await this.registerSubmission(this.register);
         this.$router.push("/login");
+        Swal.fire({
+          title: "Your account successfully created",
+          icon: "success",
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 1000,
+        });
       } catch (error) {
         this.errorHandler(error);
-      } finally {
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "Your account successfully created",
-          showConfirmButton: false,
-          timer: 1500,
-        });
       }
     },
   },

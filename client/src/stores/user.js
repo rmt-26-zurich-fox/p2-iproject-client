@@ -32,7 +32,7 @@ export const useRegisterStore = defineStore({
   actions: {
     registerSubmission(registerData) {
       return new Promise((resolve, reject) => {
-        productsInstance
+        housesInstance
           .post("register", {
             firstName: registerData.firstName,
             lastName: registerData.lastName,

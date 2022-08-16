@@ -26,7 +26,7 @@
           class="flex items-center"
         >
           <span
-            class="self-center text-xl font-semibold whitespace-nowrap text-black"
+            class="self-center text-xl font-semibold whitespace-nowrap text-gray-800"
             >SHOP</span
           >
         </a>
@@ -36,13 +36,17 @@
           class="flex items-center"
         >
           <span
-            class="self-center text-xl font-semibold whitespace-nowrap text-black"
+            class="self-center text-xl font-semibold whitespace-nowrap text-gray-800"
             >RECIPE</span
           >
         </a>
-        <a href="#" class="flex items-center">
+        <a
+          href=""
+          @click.prevent="changePage('forum')"
+          class="flex items-center"
+        >
           <span
-            class="self-center text-xl font-semibold whitespace-nowrap text-black"
+            class="self-center text-xl font-semibold whitespace-nowrap text-gray-800"
             >FORUM</span
           >
         </a>

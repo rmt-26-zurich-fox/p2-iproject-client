@@ -7,12 +7,12 @@
             class="flex items-center p-2 text-base font-normal rounded-lg text-black"
           >
             <input
-              class="flex-1 ml-3 whitespace-nowrap w-1 text-black border-2 border-gray-300"
+              class="flex-1 ml-3 whitespace-nowrap w-1 text-black border-2 border-gray-300 bg-gray-50"
               v-model="searchName"
             />
             <a
               href=""
-              class="inline-flex justify-center items-center px-2 text-sm font-medium text-black"
+              class="inline-flex justify-center items-center px-2 text-sm font-medium text-gray-600"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -34,7 +34,7 @@
         <li>
           <a
             href=""
-            class="flex items-center p-2 text-base font-normal rounded-lg text-black hover:bg-gray-100"
+            class="flex items-center p-2 text-base font-normal rounded-lg text-gray-800 hover:bg-gray-100"
           >
             <img
               class="w-6"
@@ -46,7 +46,7 @@
         <li>
           <a
             href=""
-            class="flex items-center p-2 text-base font-normal rounded-lg text-black hover:bg-gray-100"
+            class="flex items-center p-2 text-base font-normal rounded-lg text-gray-800 hover:bg-gray-100"
           >
             <img
               class="w-6"
@@ -58,7 +58,7 @@
         <li>
           <a
             href=""
-            class="flex items-center p-2 text-base font-normal rounded-lg transition duration-75 hover:bg-gray-100 text-black group"
+            class="flex items-center p-2 text-base font-normal rounded-lg transition duration-75 hover:bg-gray-100 text-gray-800"
           >
             <img
               class="w-6"
@@ -70,7 +70,7 @@
         <li>
           <a
             href=""
-            class="flex items-center p-2 text-base font-normal rounded-lg text-black hover:bg-gray-100"
+            class="flex items-center p-2 text-base font-normal rounded-lg text-gray-800 hover:bg-gray-100"
           >
             <img
               class="w-6"

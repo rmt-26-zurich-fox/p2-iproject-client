@@ -8,6 +8,7 @@
             class="img-responsive center-block"
             alt="Logo"
           />
+          <span>Hello {{ username }}</span>
         </div>
         <br />
         <div class="left-navigation">
@@ -47,6 +48,7 @@
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </template>
@@ -56,6 +58,11 @@ import { mapState, mapActions } from "pinia";
 import { useQuoteStore } from "../stores/qoutes";
 
 export default {
+  data(){
+    return{
+      username: localStorage.username
+    }
+  },
   components: {
     QuoteCard,
   },

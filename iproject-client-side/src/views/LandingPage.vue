@@ -1,7 +1,7 @@
 <template>
 <div class="text-center">
     <p>Landing Page</p>
-    <!-- <QuoteCard /> -->
+    <QuoteCard />
     <div>
         <label for="tes">Message</label>
     <input name="tes" type="text" v-model="inputMessage">
@@ -13,37 +13,6 @@
 import QuoteCard from '../components/QuoteCard.vue'
 import { mapActions } from 'pinia'
 import { useQuoteStore } from '../stores/qoutes'
-// import io from 'socket.io-client'
-// import { io } from 'socket.io-client';
-
-// class SocketioService {
-    // socket;
-    // // constructor() {}
-  
-    // setupSocketConnection() {
-    //   this.socket = io('http://localhost:4000');
-    // }
-
-
-    // setupSocketConnection() {  
-
-    //     this.socket = io('http://localhost:4000');  
-        
-    //     this.socket.emit('my message', 'Hello there from Vue.');
-
-    //     this.socket.on('my broadcast', (data) => {
-    //         console.log(data, 'ini data');
-    //       });
-        
-    //   }
-      
-    //   disconnect() {
-    //     if (this.socket) {
-    //         this.socket.disconnect();
-    //     }
-    // }
-    
-//   }
 
 export default{
 
@@ -67,7 +36,7 @@ export default{
 
     methods: {
 
-        ...mapActions(useQuoteStore, ['setupSocketConnection']),
+        ...mapActions(useQuoteStore, ['setupSocketConnection', 'fetchQuotes']),
 
         testingMessage(){
             // console.log('masuk')
@@ -78,10 +47,11 @@ export default{
         
         
     },
-    created(){
-    //  this.setupSocketConnection({
-    //     message: this.inputMessage
-    //  });
-  }
+
+
+  created() {
+    this.fetchQuotes();
+  },
+
 }
 </script>

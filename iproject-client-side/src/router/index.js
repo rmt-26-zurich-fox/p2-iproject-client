@@ -15,7 +15,7 @@ const router = createRouter({
     
     {
       path: '/',
-      name: 'home',
+      name: 'dashboard',
       component: DashBoard,
       children: [
         {
@@ -62,6 +62,23 @@ const router = createRouter({
       name: 'page-not-found',
     }
   ]
+})
+
+router.beforeEach((to, from , next) => {
+
+  const access_token = localStorage.access_token
+
+  if(to.name === 'favorites' && !access_token) next('/login')
+
+  else if(to.name === 'login' && access_token) next('/home')
+
+  else if(to.name === 'register' && access_token) next('/')
+
+  else if(to.name === 'landing-page' && access_token) next('/home')
+
+  else if(to.name === 'home' && !access_token) next('/')
+
+  else next()
 })
 
 export default router

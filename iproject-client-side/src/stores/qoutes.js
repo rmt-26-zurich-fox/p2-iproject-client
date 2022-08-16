@@ -40,6 +40,7 @@ export const useQuoteStore = defineStore({
         console.log(data, 'successs login')
         // swall('Success', "welcome", 'success')
         localStorage.setItem('access_token', data.access_token)
+        localStorage.setItem('username', data.username)
         this.router.push('/home')
 
       } catch (error) {
@@ -60,9 +61,6 @@ export const useQuoteStore = defineStore({
         const { data } = await axios({
           method: 'get',
           url: this.baseUrl + '/quotes',
-          headers: {
-            access_token: localStorage.access_token
-          }
         })
 
         console.log(data, 'success')

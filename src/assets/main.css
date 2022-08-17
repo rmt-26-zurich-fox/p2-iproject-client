@@ -96,6 +96,7 @@ header {
   align-items: center;
   background-color: var(--primary);
   color: var(--dark);
+  user-select: none;
 }
 
 header div:nth-child(1) {

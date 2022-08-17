@@ -3,6 +3,7 @@ import LoginView from "../views/LoginView.vue";
 import RegisterView from "../views/RegisterView.vue";
 import HomeView from "../views/HomeView.vue";
 import MainView from "../views/MainView.vue";
+import BookmarkView from "../views/BookmarkView.vue";
 import MovieDetail from "../components/MovieDetail.vue";
 
 const router = createRouter({
@@ -32,6 +33,11 @@ const router = createRouter({
           name: "detail",
           component: MovieDetail,
         },
+        {
+          path: "bookmark",
+          name: "bookmark",
+          component: BookmarkView,
+        },
       ],
     },
   ],
@@ -42,8 +48,7 @@ router.beforeEach((to, from, next) => {
   if (to.path == "/") return next("/home");
   if ((to.name == "login" || to.name == "register") && access_token)
     return next("/home");
-  if ((to.name !== "login" || to.name == "register") && !access_token)
-    return next("/login");
+  if (to.name == "bookmark" && !access_token) return next("/login");
   next();
 });
 

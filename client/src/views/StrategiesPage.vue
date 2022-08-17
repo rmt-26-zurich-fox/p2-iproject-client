@@ -11,88 +11,138 @@ export default {
 };
 </script>
 <template>
-  <h1>ini strategi</h1>
-  <div class="cards">
-    <a href="" @click.prevent="gettingMap('Ascent')">
-      <div class="card">
-        <img src="../assets/Ascent.jpg" alt="" />
-        <div class="details">
-          <h5>Ascent</h5>
-        </div>
+  <div class="container" style="margin-top: 100px">
+    <div class="row">
+      <div class="col-12">
+        <a href="" @click.prevent="gettingMap('Ascent')">
+          <div class="bg-danger text-white position-relative m-3 rounded">
+            <div class="overlays"></div>
+            <img class="maps" src="../assets/Ascent.jpg" alt="" />
+            <div class="card-img-overlay">
+              <h1 class="title position-absolute bottom-0 start-0 m-3">
+                Ascent
+              </h1>
+            </div>
+          </div>
+        </a>
       </div>
-    </a>
-    <a href="" @click.prevent="gettingMap('Bind')">
-      <div class="card">
-        <img src="../assets/Bind.jpg" alt="" />
-        <div class="details">
-          <h5>Bind</h5>
-        </div>
+      <div class="col-12">
+        <a href="" @click.prevent="gettingMap('Bind')">
+          <div class="bg-danger text-white position-relative m-3 rounded">
+            <div class="overlays"></div>
+            <img class="maps" src="../assets/Bind.jpg" alt="" />
+            <div class="card-img-overlay">
+              <h1 class="title position-absolute bottom-0 start-0 m-3">Bind</h1>
+            </div>
+          </div>
+        </a>
       </div>
-    </a>
-    <a href="" @click.prevent="gettingMap('Breeze')">
-      <div class="card">
-        <img src="../assets/breeze.jpg" alt="" />
-        <div class="details">
-          <h5>Breeze</h5>
-        </div>
+      <div class="col-12">
+        <a href="" @click.prevent="gettingMap('Breeze')">
+          <div class="bg-danger text-white position-relative m-3 rounded">
+            <div class="overlays"></div>
+            <img class="maps" src="../assets/breeze.jpg" alt="" />
+            <div class="card-img-overlay">
+              <h1 class="title position-absolute bottom-0 start-0 m-3">
+                Breeze
+              </h1>
+            </div>
+          </div>
+        </a>
       </div>
-    </a>
-    <a href="">
-      <div class="card" @click.prevent="gettingMap('Fracture')">
-        <img src="../assets/Fracture.jpeg" alt="" />
-        <div class="details">
-          <h5>Fracture</h5>
-        </div>
+      <div class="col-12">
+        <a href="" @click.prevent="gettingMap('Fracture')">
+          <div class="bg-danger text-white position-relative m-3 rounded">
+            <div class="overlays"></div>
+            <img class="maps" src="../assets/Fracture.jpeg" alt="" />
+            <div class="card-img-overlay">
+              <h1 class="title position-absolute bottom-0 start-0 m-3">
+                Fracture
+              </h1>
+            </div>
+          </div>
+        </a>
       </div>
-    </a>
-    <a href="" @click.prevent="gettingMap('Haven')">
-      <div class="card">
-        <img src="../assets/haven.jpg" alt="" />
-        <div class="details">
-          <h5>Haven</h5>
-        </div>
+      <div class="col-12">
+        <a href="" @click.prevent="gettingMap('Haven')">
+          <div class="bg-danger text-white position-relative m-3 rounded">
+            <div class="overlays"></div>
+            <img class="maps" src="../assets/haven.jpg" alt="" />
+            <div class="card-img-overlay">
+              <h1 class="title position-absolute bottom-0 start-0 m-3">
+                Haven
+              </h1>
+            </div>
+          </div>
+        </a>
       </div>
-    </a>
-    <a href="" @click.prevent="gettingMap('Icebox')">
-      <div class="card">
-        <img src="../assets/icebox.jpg" alt="" />
-        <div class="details">
-          <h5>IceBox</h5>
-        </div>
+      <div class="col-12">
+        <a href="" @click.prevent="gettingMap('Icebox')">
+          <div class="bg-danger text-white position-relative m-3 rounded">
+            <div class="overlays"></div>
+            <img class="maps" src="../assets/icebox.jpg" alt="" />
+            <div class="card-img-overlay">
+              <h1 class="title position-absolute bottom-0 start-0 m-3">
+                IceBox
+              </h1>
+            </div>
+          </div>
+        </a>
       </div>
-    </a>
-    <a href="" @click.prevent="gettingMap('Pearl')">
-      <div class="card">
-        <img src="../assets/pearl.jpg" alt="" />
-        <div class="details">
-          <h5>Pearl</h5>
-        </div>
+      <div class="col-12">
+        <a href="" @click.prevent="gettingMap('Pearl')">
+          <div class="bg-danger text-white position-relative m-3 rounded">
+            <div class="overlays"></div>
+            <img class="maps" src="../assets/pearl.jpg" alt="" />
+            <div class="card-img-overlay">
+              <h1 class="title position-absolute bottom-0 start-0 m-3">
+                Pearl
+              </h1>
+            </div>
+          </div>
+        </a>
       </div>
-    </a>
+    </div>
   </div>
 </template>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-}
-
 body {
   background-color: #1b2430;
   height: 100vh;
-  display: flex;
 }
 
-.card {
-  width: 200px;
-  height: 150px;
-  margin: 1em;
+.title {
+  font-size: 80px;
+}
+.maps {
+  width: 100%;
+  height: 100%;
+  max-height: 300px;
+  object-fit: cover;
 }
 .cards {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+}
+.overlays {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  background-color: black;
+  opacity: 0;
+  z-index: 1;
+  transition: all 0.5s;
+}
+.overlays:hover {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.333);
 }
 </style>

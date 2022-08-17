@@ -15,8 +15,12 @@ export default {
   components: { AgentCard },
 };
 </script>
-<template class="d-flex">
-  <div class="card" style="width: 500px">
-    <AgentCard v-for="agent in agents" :key="agent.id" :agent="agent" />
+<template>
+  <div class="container" style="margin-top: 100px">
+    <div class="row">
+      <div class="col-3" v-for="agent in agents" :key="agent.id">
+        <AgentCard :agent="agent" />
+      </div>
+    </div>
   </div>
 </template>

@@ -5,6 +5,7 @@ import ChoosePage from "../views/ChoosePage.vue";
 import SiteChoose from "../views/SiteChoose.vue";
 import StrategyPage from "../views/StrategyPage.vue";
 import AgentsPage from "../views/AgentsPage.vue";
+import AgentDetail from "../views/AgentDetail.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -37,6 +38,11 @@ const router = createRouter({
       path: "/agents",
       name: "agents",
       component: AgentsPage,
+    },
+    {
+      path: "/detail",
+      name: "detail",
+      component: AgentDetail,
     },
   ],
 });

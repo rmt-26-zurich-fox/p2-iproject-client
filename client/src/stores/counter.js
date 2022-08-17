@@ -8,6 +8,7 @@ export const useCounterStore = defineStore({
     type: "",
     strategy: [],
     agents: [],
+    agent: {},
   }),
   actions: {
     async getStrategies(map, type, site) {
@@ -41,8 +42,8 @@ export const useCounterStore = defineStore({
       }
     },
     getAgent(agent) {
-      console.log(agent);
       this.agent = agent;
+      router.push("/detail");
     },
   },
 });

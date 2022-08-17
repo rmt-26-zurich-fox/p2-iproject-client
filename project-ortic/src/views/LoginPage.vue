@@ -11,13 +11,27 @@ export default {
         }
     },
     methods: {
-        ...mapActions(useCustomStore, ['loginHandler']),
+        ...mapActions(useCustomStore, ['loginHandler', 'handleCredentialResponse']),
         login() {
             this.loginHandler({
                 email: this.email,
                 password: this.password
             })
+        },
+        handleCredentialResponseGoogle(response) {
+            this.handleCredentialResponse(response)
         }
+    },
+    mounted() {
+        const cb = this.handleCredentialResponseGoogle   
+            google.accounts.id.initialize({
+            client_id: "42731081542-31t6ib7ts68okuj07g9vt32geh9cgf8a.apps.googleusercontent.com",
+            callback: cb
+            });
+            google.accounts.id.renderButton(
+            document.getElementById("buttonDiv"),
+            { theme: "outline", size: "large"}
+            )     
     }
 }
 
@@ -32,7 +46,7 @@ export default {
                 <div class="card-body p-5 text-center">
                   <div class="mb-md-5 mt-md-4 pb-5">
                     <div class="d-flex justify-content-center text-center mt-4 pt-1">
-                      <a href="#!" class="text-white"><img src="../assets/logoOrtic2.png" height="250" width="250"></a>
+                      <a class="text-white"><img src="../assets/logoOrtic2.png" height="250" width="250"></a>
                     </div>
                     <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
                     <p class="text-white-50 mb-5">Please enter your email and password!</p>
@@ -47,8 +61,8 @@ export default {
                     <button class="btn btn-outline-light btn-lg px-5" type="submit" @click="login">Login</button>     
                   </div>  
                   <div>
-                    <p class="mb-0">Don't have an account? <a href="#!" class="text-white-50 fw-bold">Sign In with google</a>
-                    </p>
+                    <p class="mb-0">Don't have an account? </p>
+                    <button type="button" id="buttonDiv" class="text-white-50 fw-bold">Sign In with google</button>            
                   </div>
                 </div>
               </div>

@@ -3,15 +3,29 @@ import { mapActions } from 'pinia'
 import { useCustomStore } from '../stores/custom'
 
 export default {
+    data() {
+        return {
+            token: localStorage.token,
+            username: localStorage.username,
+            role: localStorage.role
+        }
+    },
     props: ['item'],
     methods: {
         onClickDetail(id) {
             this.$router.push(`/detail/${id}`)
         },
-        ...mapActions(useCustomStore, ['addToCart']),
+        ...mapActions(useCustomStore, ['addToCart', 'deleteItem']),
         addCart(id) {
             this.addToCart(id)
+        },
+        onClickUpdate(id) {
+            this.$router.push(`/update/${id}`)
+        },
+        onClickDelete(id) {
+            this.deleteItem(id)
         }
+
     }
 }
 
@@ -26,10 +40,10 @@ export default {
               <p class="card-text">{{item.description}}</p>
               <p class="card-text">{{item.sellPrice}}</p>
               <div class="btn-group">
-              <!-- <a href="#!" class="btn btn-primary">Update</a> -->
+              <button v-if="role==='admin'" @click="onClickUpdate(item.id)" class="btn btn-primary">Update</button>
               <button @click="addCart(item.id)" class="btn btn-primary">Add to Cart</button>
               <button @click="onClickDetail(item.id)" class="btn btn-primary" >Details</button>
-              <!-- <a href="#!" class="btn btn-primary">Delete</a> -->
+              <button v-if="role==='admin'" @click="onClickDelete(item.id)" class="btn btn-primary">Delete</button>
             </div>
             </div>
           </div>

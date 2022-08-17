@@ -1,4 +1,20 @@
 <script>
+import {mapWritableState, mapActions} from 'pinia'
+import {useCustomStore} from '../stores/custom'
+import HistoryCard from '../components/HistoryCard.vue'
+
+export default {
+    methods: {
+        ...mapActions(useCustomStore, ["fetchHistory"])
+    },
+    computed: {
+        ...mapWritableState(useCustomStore, ["histories"])
+    },
+    created() {
+        this.fetchHistory();
+    },
+    components: { HistoryCard }
+}
 
 </script>
 
@@ -11,28 +27,10 @@
                 <th scope="col">Name</th>
                 <th scope="col">Description</th>
                 <th scope="col">Updated By</th>
-                <th scope="col">Item Id</th>
+                <th scope="col">Updated At</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td scope="row">Mark</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <td scope="row">John Doe</td>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <td scope="row">Bruce lee</td>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-              </tr>
-            </tbody>
+            <HistoryCard v-for="history in histories" :key="history.id" :history="history"/>
           </table>
   </div>
 </div>

@@ -1,21 +1,30 @@
 <script>
 import ItemCard from '../components/ItemCard.vue'
+import NewsCard from '../components/NewsCard.vue'
 import { mapActions } from 'pinia'
 import { mapWritableState } from 'pinia'
 import { useCustomStore } from '../stores/custom'
 
 export default {
     components: {
-        ItemCard
+        ItemCard,
+        NewsCard
     },
     methods: {
-        ...mapActions(useCustomStore, ['fetchItems'])
+        ...mapActions(useCustomStore, ['fetchItems' , 'fetchDataItemFilter', 'fetchNews']),
     },
     computed: {
-        ...mapWritableState(useCustomStore, ['items'])
+        ...mapWritableState(useCustomStore, ['items' , 'news'])
     },
     created() {
-        this.fetchItems()
+        this.fetchNews()
+        const searchQuery = this.$route.query.searchQuery
+        if (!searchQuery) {
+            this.fetchItems()
+        }
+        else {
+            this.fetchDataItemFilter(searchQuery)
+        }
     }
 }
 
@@ -39,6 +48,10 @@ export default {
     </div>
   </div>
 
+    <div class="news-container">
+        <NewsCard v-for="newItem in news" :key="newItem.title" :newItem="newItem" />
+    </div>
+
   <!-- item-list -->
   <div class="py-5">
     <div class="container">
@@ -54,6 +67,12 @@ export default {
 <style>
 body {
     background-color:lightsalmon;
+}
+
+.news-container {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: lightskyblue;
 }
 
 </style>

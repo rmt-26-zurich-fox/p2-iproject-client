@@ -5,14 +5,21 @@ import { mapWritableState } from 'pinia'
 import { useCustomStore } from '../stores/custom'
 
 export default {
+    data() {
+        return {
+            token: localStorage.token,
+            username: localStorage.username,
+            role: localStorage.role
+        }
+    },
     components: {
         CartCard
     },
     methods: {
-        ...mapActions(useCustomStore, ['fetchCart'])
+        ...mapActions(useCustomStore, ['fetchCart']),
     },
     computed: {
-        ...mapWritableState(useCustomStore, ['carts'])
+        ...mapWritableState(useCustomStore, ['carts', 'cartDetails'])
     },
     created() {
         this.fetchCart()
@@ -45,8 +52,8 @@ export default {
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Mark</td>
-                    <td>Rp. 100000</td>
+                    <td>{{username}}</td>
+                    <td>{{cartDetails.totalPrice}}</td>
                     <td><button class="btn btn-primary"> print invoice</button></td>     
                   </tr>
                 </tbody>

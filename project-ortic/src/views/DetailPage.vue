@@ -4,7 +4,10 @@ import { useCustomStore } from '../stores/custom'
 
 export default {
     methods: {
-        ...mapActions(useCustomStore, ['fetchDetail'])
+        ...mapActions(useCustomStore, ['fetchDetail', 'addToCart']),
+        addCart(id) {
+            this.addToCart(id)
+        }
     },
     computed: {
         ...mapWritableState(useCustomStore, ['details'])
@@ -18,7 +21,7 @@ export default {
 
 <template>
 <h3 class="text-center">Item Detail</h3>
-<div class="block">
+<div class="block" v-if="details.item">
       <div class="block__body">
         <h3 class="block__heading">
           {{details.item.name}} by {{details.item.Supplier.name}}
@@ -27,7 +30,7 @@ export default {
         <p class="block__copy">In Stock: {{details.item.stock}}</p>
         <p class="block__copy">Rp. {{details.item.sellPrice}}</p>
         <br>
-        <button class="btn btn-primary">Add to Cart</button>
+        <button @click="addCart(details.item.id)" class="btn btn-primary">Add to Cart</button>
       </div>
       <div class="block__img">
         <img

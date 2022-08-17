@@ -9,7 +9,7 @@
      
       <section class="mb-4">
   
-        <a class="btn btn-outline-light btn-floating m-1" href="" role="button"
+        <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/ortic_id/" role="button"
           ><i class="fab fa-instagram"></i
         ></a><p>check us on instagram</p>
       </section>

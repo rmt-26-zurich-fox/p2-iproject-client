@@ -6,6 +6,7 @@ import CartPage from '../views/CartPage.vue'
 import AddPage from '../views/AddPage.vue'
 import HistoryPage from '../views/HistoryPage.vue'
 import DetailPage from '../views/DetailPage.vue'
+import UpdatePage from '../views/UpdatePage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,6 +45,11 @@ const router = createRouter({
           name: 'detail',
           component: DetailPage
         },
+        {
+          path: '/update/:id',
+          name: 'update',
+          component: UpdatePage
+        }
       ]
     }
   ]
@@ -55,7 +61,7 @@ router.beforeEach((to, from, next) => {
   if((to.name === 'login') && token) {
     next('/')
   }
-  else if ((to.name === 'cart' || to.name === 'add' || to.name === 'history' || to.name === 'detail') && !token) {
+  else if ((to.name === 'cart' || to.name === 'add' || to.name === 'history' || to.name === 'detail' || to.name === 'update') && !token) {
     next('/login')
   }
   else {

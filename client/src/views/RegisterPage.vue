@@ -1,5 +1,6 @@
 <template>
-  <div class="container pt-5 pb-5">
+  <LoadingSign v-if="isLoading" />
+  <div v-if="!isLoading" class="container pt-5 pb-5">
     <div class="row justify-content-center">
       <div class="col-md-9 col-lg-5">
         <div class="p-4 p-md-5 border">
@@ -50,14 +51,16 @@
 
 <script>
 import ButtonLayout from "../components/ButtonLayout.vue";
-import { mapActions } from "pinia";
+import { mapActions, mapWritableState } from "pinia";
 import { useRegisterStore } from "../stores/user";
 import { useHouseStore } from "../stores/house";
 import Swal from "sweetalert2";
+import LoadingSign from "../components/LoadingSign.vue";
 
 export default {
   components: {
     ButtonLayout,
+    LoadingSign,
   },
 
   data() {
@@ -78,6 +81,7 @@ export default {
     ...mapActions(useHouseStore, ["errorHandler"]),
 
     async handleRegisterSubmit() {
+      this.isLoading = true;
       try {
         await this.registerSubmission(this.register);
         this.$router.push("/login");
@@ -90,8 +94,14 @@ export default {
         });
       } catch (error) {
         this.errorHandler(error);
+      } finally {
+        this.isLoading = false;
       }
     },
+  },
+
+  computed: {
+    ...mapWritableState(useHouseStore, ["isLoading"]),
   },
 };
 </script>

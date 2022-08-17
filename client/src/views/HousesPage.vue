@@ -1,5 +1,6 @@
 <template>
-  <div class="container">
+  <LoadingSign v-if="isLoading" />
+  <div v-if="!isLoading" class="container">
     <h5 class="mt-3 text-center">Category:</h5>
     <div class="d-flex justify-content-center">
       <input value="" v-model="selectedCategory" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
@@ -16,13 +17,15 @@
 </template>
 
 <script>
-import { mapActions } from "pinia";
+import { mapActions, mapWritableState } from "pinia";
 import { useHouseStore } from "../stores/house";
 import CardLayout from "../components/CardLayout.vue";
+import LoadingSign from "../components/LoadingSign.vue";
 
 export default {
   components: {
     CardLayout,
+    LoadingSign,
   },
   data() {
     return {
@@ -32,25 +35,35 @@ export default {
     };
   },
   methods: {
-    ...mapActions(useHouseStore, ["getAllHouses", "getAllCategories"]),
+    ...mapActions(useHouseStore, ["getAllHouses", "getAllCategories", "errorHandler"]),
 
     async fetchHouses(newSelectedCategory) {
+      this.isLoading = true;
       try {
         const data = await this.getAllHouses(newSelectedCategory);
         this.houses = data;
       } catch (error) {
-        console.log(error);
+        this.errorHandler(error);
+      } finally {
+        this.isLoading = false;
       }
     },
 
     async fetchCategories() {
+      this.isLoading = true;
       try {
         const data = await this.getAllCategories();
         this.categories = data;
       } catch (error) {
-        console.log(error);
+        this.errorHandler(error);
+      } finally {
+        this.isLoading = false;
       }
     },
+  },
+
+  computed: {
+    ...mapWritableState(useHouseStore, ["isLoading"]),
   },
 
   watch: {

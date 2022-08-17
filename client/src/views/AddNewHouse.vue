@@ -1,5 +1,6 @@
 <template>
-  <div class="container pt-5">
+<LoadingSign v-if="isLoading"/>
+  <div v-if="!isLoading" class="container pt-5">
     <h3 class="text-center mb-3">Open your door to hosting</h3>
     <form @submit.prevent="submitHosting">
       <div class="mb-3">
@@ -38,11 +39,16 @@
 </template>
 
 <script>
-import { mapActions } from "pinia";
+import { mapActions, mapWritableState } from "pinia";
 import { useHouseStore } from "../stores/house";
 import Swal from "sweetalert2";
+import LoadingSign from "../components/LoadingSign.vue";
 
 export default {
+  components: {
+    LoadingSign
+},
+
   data() {
     return {
       categories: "",
@@ -62,26 +68,33 @@ export default {
     ...mapActions(useHouseStore, ["getAllCategories", "getAllFacilities", "hostingSubmission", "errorHandler"]),
 
     async fetchCategories() {
+      this.isLoading = true;
       try {
         const data = await this.getAllCategories();
 
         this.categories = data;
       } catch (error) {
-        this.errorHandler(error)
+        this.errorHandler(error);
+      } finally {
+        this.isLoading = false;
       }
     },
 
     async fetchFacilities() {
+      this.isLoading = true;
       try {
         const data = await this.getAllFacilities();
 
         this.facilities = data;
       } catch (error) {
-        this.errorHandler(error)
+        this.errorHandler(error);
+      } finally {
+        this.isLoading = false;
       }
     },
 
     async submitHosting() {
+      this.isLoading = true;
       try {
         const payload = {
           name: this.newHouse.name,
@@ -102,13 +115,19 @@ export default {
           timer: 1000,
         });
       } catch (error) {
-        this.errorHandler(error)
+        this.errorHandler(error);
+      } finally {
+        this.isLoading = false;
       }
     },
 
     async onchangePhoto(event) {
       this.newHouse.imageUrl = event.target.files[0];
     },
+  },
+
+  computed: {
+    ...mapWritableState(useHouseStore, ["isLoading"]),
   },
 
   created() {

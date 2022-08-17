@@ -15,7 +15,10 @@ export default {
     loginHandler() {
       this.login(this.user);
     },
-    ...mapActions(useMain, ["login"]),
+    ...mapActions(useMain, ["login", "handleCredentialResponse"]),
+    forGoogleSignin(response) {
+      this.handleCredentialResponse(response);
+    },
   },
   data() {
     return {
@@ -24,6 +27,19 @@ export default {
         password: "",
       },
     };
+  },
+  mounted() {
+    const cb = this.forGoogleSignin;
+    google.accounts.id.initialize({
+      // Please fill with your own client_id!
+      client_id:
+        "337301136727-7caiota2hf4ml21j5ll1dclgq0jpu32m.apps.googleusercontent.com",
+      callback: cb,
+    });
+    google.accounts.id.renderButton(
+      document.getElementById("google-signin-button"),
+      { theme: "outline", size: "large" } // customization attributes
+    );
   },
   // async created() {
   //   await this.refreshPage();

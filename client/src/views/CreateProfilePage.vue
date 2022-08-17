@@ -275,7 +275,7 @@ export default {
               <ButtonComponent
                 buttonType="submit"
                 buttonClass="btn btn-primary btn-lg"
-                buttonText="Create Profile"
+                buttonText="Edit Profile"
               />
             </form>
           </div>

@@ -5,6 +5,7 @@ import CreateProfilePage from "../views/CreateProfilePage.vue";
 import HomeView from "../views/HomeView.vue";
 import TeamDetailPage from "../views/TeamDetailPage.vue";
 import FavoritePage from "../views/FavoritePage.vue";
+import CreateThread from "../views/CreateThread.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +39,17 @@ const router = createRouter({
       path: "/favourites",
       name: "FavoritePage",
       component: FavoritePage,
+    },
+    {
+      path: "/threads",
+      name: "ParentThread",
+      children: [
+        {
+          path: "create",
+          name: "CreateThread",
+          component: CreateThread,
+        },
+      ],
     },
     // {
     //   path: "/about",

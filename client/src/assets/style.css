@@ -83,6 +83,13 @@ nav li a:hover {
 .login-card {
   background-color: #fcc5c0;
 }
+.create-thread-card {
+  background-color: #fcc5c0;
+  width: 100%;
+}
+.thread-label {
+  font-size: 1.3em;
+}
 
 /* Table */
 #news_table {

@@ -6,6 +6,7 @@ import ParentView from '../views/ParentView.vue'
 import HomeView from '../views/HomeView.vue'
 import SavedView from '../views/SavedView.vue'
 import PopularDetailView from '../views/PopularDetailView.vue'
+import SearchView from '../views/SearchView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +39,11 @@ const router = createRouter({
           path: '',
           name: 'home',
           component: HomeView,
+        },
+        {
+          path: 'search',
+          name: 'search',
+          component: SearchView,
         },
         {
           path: 'saved',

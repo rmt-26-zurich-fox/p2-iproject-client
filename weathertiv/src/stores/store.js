@@ -35,6 +35,19 @@ export const customStore = defineStore({
       icon2next: "",
       temp2next: "",
     },
+    searchWeather: {
+      date: "",
+      location: "",
+      temp: "",
+      icon: "",
+      humid: "",
+      wind: "",
+      windir: "",
+      iconnext: "",
+      tempnext: "",
+      icon2next: "",
+      temp2next: "",
+    }
   }),
   actions: {
 
@@ -139,7 +152,7 @@ export const customStore = defineStore({
         this.isLoading = true
         let { data } = await axios.get(this.baseUrl + '/ip')
 
-        this.popularWeather.date = data.forecast.forecastday[0].date
+        this.ipWeather.date = data.forecast.forecastday[0].date
         this.ipWeather.location = data.location.name
         this.ipWeather.temp = data.current.temp_c
         this.ipWeather.icon = data.current.condition.icon
@@ -151,6 +164,45 @@ export const customStore = defineStore({
         this.ipWeather.icon2next = data.forecast.forecastday[2].day.condition.icon
         this.ipWeather.temp2next = data.forecast.forecastday[2].day.avgtemp_c
         this.isLoading = false
+      } catch (err) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: err.response.data.message,
+        })
+      }
+    },
+
+    //Read SearchLocation
+    async fetchSearchLocation(location) {
+      try {
+        this.isLoading = true
+        let { data } = await axios({
+          method: 'post',
+          url: this.baseUrl + '/search',
+          data: {
+            name: location
+          }
+        })
+        Swal.fire({
+          icon: 'success',
+          title: 'Location Found!',
+        })
+          .then(() => {
+            this.searchWeather.date = data.forecast.forecastday[0].date
+            this.searchWeather.location = data.location.name
+            this.searchWeather.temp = data.current.temp_c
+            this.searchWeather.icon = data.current.condition.icon
+            this.searchWeather.humid = data.current.humidity
+            this.searchWeather.wind = data.current.wind_kph
+            this.searchWeather.windir = data.current.wind_dir
+            this.searchWeather.iconnext = data.forecast.forecastday[1].day.condition.icon
+            this.searchWeather.tempnext = data.forecast.forecastday[1].day.avgtemp_c
+            this.searchWeather.icon2next = data.forecast.forecastday[2].day.condition.icon
+            this.searchWeather.temp2next = data.forecast.forecastday[2].day.avgtemp_c
+            router.push({ name: "search" });
+            this.isLoading = false
+          })
       } catch (err) {
         Swal.fire({
           icon: 'error',

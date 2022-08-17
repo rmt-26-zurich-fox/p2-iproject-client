@@ -1,9 +1,9 @@
 <template>
   <div class="hero">
     <div class="container">
-      <form action="#" class="find-location">
-        <input type="text" placeholder="Find your location...">
-        <button type="submit" class="save">Save</button>
+      <form action="#" class="find-location" @submit.prevent="submitFind">
+        <input type="text" placeholder="Find your location..." v-model="location">
+        <!-- <button type="submit" class="save" v-if="token">Save</button> -->
         <button type="submit" class="find">Find</button>
       </form>
     </div>
@@ -81,13 +81,34 @@ export default {
   },
   data() {
     return {
+      token: localStorage.access_token,
+      location: "",
+      weather: {
+        date: "",
+        location: "",
+        temp: "",
+        icon: "",
+        humid: "",
+        wind: "",
+        windir: "",
+        iconnext: "",
+        tempnext: "",
+        icon2next: "",
+        temp2next: "",
+      }
     }
   },
   computed: {
-    ...mapState(customStore, ["popular", "ipWeather"])
+    ...mapState(customStore, ["popular", "ipWeather", "searchWeather"])
   },
   methods: {
-    ...mapActions(customStore, ["fetchPopularLocations", "fetchIpLocation"]),
+    ...mapActions(customStore, ["fetchPopularLocations", "fetchIpLocation", "fetchSearchLocation"]),
+
+    //Submit find
+    async submitFind() {
+      this.fetchSearchLocation(this.location)
+    }
+
   },
   created() {
     this.fetchPopularLocations()

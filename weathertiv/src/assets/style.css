@@ -1776,10 +1776,18 @@ form input[type="reset"] {
   color: white;
 }
 
-.find-location input[type="submit"] {
+.find-location .find {
   position: absolute;
   top: 5px;
   right: 5px;
+  bottom: 5px;
+  padding: 0 40px;
+}
+
+.find-location .save {
+  position: absolute;
+  top: 5px;
+  right: 115px;
   bottom: 5px;
   padding: 0 40px;
 }

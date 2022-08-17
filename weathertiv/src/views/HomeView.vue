@@ -3,7 +3,8 @@
     <div class="container">
       <form action="#" class="find-location">
         <input type="text" placeholder="Find your location...">
-        <input type="submit" value="Find">
+        <button type="submit" class="save">Save</button>
+        <button type="submit" class="find">Find</button>
       </form>
     </div>
   </div>
@@ -15,19 +16,19 @@
         <div class="today forecast">
           <div class="forecast-header">
             <div class="day">Today</div>
-            <div class="date">1 Jun</div>
+            <div class="date">{{ ipWeather.date }}</div>
           </div> <!-- .forecast-header -->
           <div class="forecast-content">
-            <div class="location">New York</div>
+            <div class="location">{{ ipWeather.location }}</div>
             <div class="degree">
-              <div class="num">19.7<sup>o</sup>C</div>
+              <div class="num">{{ ipWeather.temp }}<sup>o</sup>C</div>
               <div class="forecast-icon">
-                <img src="//cdn.weatherapi.com/weather/64x64/day/308.png">
+                <img :src="ipWeather.icon">
               </div>
             </div>
-            <span><img src="../assets/images/icon-umberella.png" alt="">20%</span>
-            <span><img src="../assets/images/icon-wind.png" alt="">18km/h</span>
-            <span><img src="../assets/images/icon-compass.png" alt="">East</span>
+            <span><img src="../assets/images/icon-umberella.png" alt="">{{ ipWeather.humid }}%</span>
+            <span><img src="../assets/images/icon-wind.png" alt="">{{ ipWeather.wind }}km/h</span>
+            <span><img src="../assets/images/icon-compass.png" alt="">{{ ipWeather.windir }}</span>
           </div>
         </div>
         <div class="forecast">
@@ -36,10 +37,9 @@
           </div> <!-- .forecast-header -->
           <div class="forecast-content">
             <div class="forecast-icon">
-              <img src="//cdn.weatherapi.com/weather/64x64/day/308.png" alt="" width=48>
+              <img :src="ipWeather.iconnext" alt="" width=48>
             </div>
-            <div class="degree">23<sup>o</sup>C</div>
-            <small>18<sup>o</sup></small>
+            <div class="degree">{{ ipWeather.tempnext }}<sup>o</sup>C</div>
           </div>
         </div>
         <div class="forecast">
@@ -48,10 +48,9 @@
           </div> <!-- .forecast-header -->
           <div class="forecast-content">
             <div class="forecast-icon">
-              <img src="//cdn.weatherapi.com/weather/64x64/day/308.png" alt="" width=48>
+              <img :src="ipWeather.icon2next" alt="" width=48>
             </div>
-            <div class="degree">19.7<sup>o</sup>C</div>
-            <small>18<sup>o</sup></small>
+            <div class="degree">{{ ipWeather.temp2next }}<sup>o</sup>C</div>
           </div>
         </div>
       </div>
@@ -85,13 +84,14 @@ export default {
     }
   },
   computed: {
-    ...mapState(customStore, ["popular"])
+    ...mapState(customStore, ["popular", "ipWeather"])
   },
   methods: {
-    ...mapActions(customStore, ["fetchPopularLocations", "fetchPopularLocationWeather"]),
+    ...mapActions(customStore, ["fetchPopularLocations", "fetchIpLocation"]),
   },
   created() {
     this.fetchPopularLocations()
+    this.fetchIpLocation()
   }
 }
 </script>

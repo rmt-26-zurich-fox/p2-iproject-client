@@ -11,23 +11,21 @@
                 <div class="today forecast">
                     <div class="forecast-header">
                         <div class="day">Today</div>
-                        <div class="date">{{ weather.forecast.forecastday[0].date }}</div>
+                        <div class="date">{{ popularWeather.date }}</div>
                     </div> <!-- .forecast-header -->
                     <div class="forecast-content">
-                        <div class="location">{{ weather.location.name }}</div>
+                        <div class="location">{{ popularWeather.location }}</div>
                         <div class="degree">
-                            <div class="num">{{ weather.current.temp_c }}<sup>o</sup>C</div>
+                            <div class="num">{{ popularWeather.temp }}<sup>o</sup>C</div>
                             <div class="forecast-icon">
-                                <img :src="weather.current.condition.icon">
+                                <img :src="popularWeather.icon">
                             </div>
                         </div>
                         <span><img src="../assets/images/icon-umberella.png" alt="">{{
-                                weather.current.humidity
+                                popularWeather.humidity
                         }}%</span>
-                        <span><img src="../assets/images/icon-wind.png" alt="">{{ weather.current.wind_kph
-                        }}km/h</span>
-                        <span><img src="../assets/images/icon-compass.png" alt="">{{ weather.current.wind_dir
-                        }}</span>
+                        <span><img src="../assets/images/icon-wind.png" alt="">{{ popularWeather.wind }}km/h</span>
+                        <span><img src="../assets/images/icon-compass.png" alt="">{{ popularWeather.windir }}</span>
                     </div>
                 </div>
                 <div class="forecast">
@@ -36,9 +34,9 @@
                     </div> <!-- .forecast-header -->
                     <div class="forecast-content">
                         <div class="forecast-icon">
-                            <img :src="weather.forecast.forecastday[1].day.condition.icon" alt="" width=48>
+                            <img :src="popularWeather.iconnext" alt="" width=48>
                         </div>
-                        <div class="degree">{{ weather.forecast.forecastday[1].day.avgtemp_c }}<sup>o</sup>C
+                        <div class="degree">{{ popularWeather.tempnext }}<sup>o</sup>C
                         </div>
                     </div>
                 </div>
@@ -48,9 +46,9 @@
                     </div> <!-- .forecast-header -->
                     <div class="forecast-content">
                         <div class="forecast-icon">
-                            <img :src="weather.forecast.forecastday[2].day.condition.icon" alt="" width=48>
+                            <img :src="popularWeather.icon2next" alt="" width=48>
                         </div>
-                        <div class="degree">{{ weather.forecast.forecastday[2].day.avgtemp_c }}<sup>o</sup>C
+                        <div class="degree">{{ popularWeather.temp2next }}<sup>o</sup>C
                         </div>
                     </div>
                 </div>
@@ -76,7 +74,6 @@ import { customStore } from '../stores/store';
 export default {
     data() {
         return {
-            weather: null,
         }
     },
     computed: {
@@ -87,7 +84,6 @@ export default {
     },
     async created() {
         await this.fetchPopularLocationWeather(this.$route.params.popularId)
-        this.weather = await this.popularWeather
     }
 }
 </script>

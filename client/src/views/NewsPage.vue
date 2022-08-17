@@ -1,28 +1,21 @@
 <script>
 import { mapState, mapActions } from "pinia";
 import { useMain } from "../stores/main";
-import ThreadListCard from "../components/ThreadListCard.vue";
+import NewsListCard from "../components/NewsListCard.vue";
 
 export default {
   name: "CreateThread",
   components: {
-    ThreadListCard,
+    NewsListCard,
   },
   methods: {
     ...mapActions(useMain, ["getAllThreads"]),
   },
   computed: {
-    ...mapState(useMain, ["threads"]),
+    ...mapState(useMain, ["news", "oneTeam"]),
   },
   data() {
-    return {
-      newThread: {
-        title: "",
-        description: "",
-        explicit: "",
-        category: "",
-      },
-    };
+    return {};
   },
   created() {
     this.getAllThreads();
@@ -35,12 +28,12 @@ export default {
       <div class="row d-flex align-items-center justify-content-center h-100">
         <div class="col-sm-12 col-md-12 col-lg-12 mx-auto">
           <!-- <div class="card border-0 shadow rounded-3 my-5 login-card"> -->
-          <h1>Threads</h1>
+          <h1>{{ oneTeam.full_name }} Related News</h1>
           <div class="card-body p-4 p-sm-5 shadow create-thread-card rounded-3">
-            <ThreadListCard
-              v-for="el in threads"
-              :key="'threads' + el.id"
-              :oneThread="el"
+            <NewsListCard
+              v-for="el in news"
+              :key="'news' + el.id"
+              :oneNews="el"
             />
           </div>
         </div>

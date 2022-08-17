@@ -8,13 +8,16 @@ export default {
   },
   async created() {},
   methods: {
-    ...mapActions(useMain, ["fetchOneTeam", "likeATeam"]),
+    ...mapActions(useMain, ["fetchOneTeam", "likeATeam", "getNewsByTeamId"]),
     goBack() {
       //   this.refreshOneNews();
       this.$router.push({ name: "HomePage" });
     },
     addToFavHandler(id) {
       this.likeATeam(id);
+    },
+    getNewsHandler(id) {
+      this.getNewsByTeamId(id);
     },
   },
   computed: {
@@ -100,6 +103,14 @@ export default {
                 <p class="detail-content">
                   Championship(s) : <b>{{ oneTeam.championships }}</b>
                 </p>
+                <button
+                  type="button"
+                  class="card-detail-button"
+                  id="goBack"
+                  @click="getNewsHandler(oneTeam.id)"
+                >
+                  Get News about this team
+                </button>
               </div>
             </div>
           </div>

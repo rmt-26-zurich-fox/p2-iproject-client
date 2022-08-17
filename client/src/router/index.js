@@ -8,6 +8,7 @@ import RegisterPage from "../views/RegisterPage.vue";
 import CreateProfilePage from "../views/CreateProfilePage.vue";
 import HomeView from "../views/HomeView.vue";
 import TeamDetailPage from "../views/TeamDetailPage.vue";
+import NewsPage from "../views/NewsPage.vue";
 import FavoritePage from "../views/FavoritePage.vue";
 import CreateThread from "../views/CreateThread.vue";
 import ThreadList from "../views/ThreadList.vue";
@@ -138,6 +139,34 @@ const router = createRouter({
       path: "/teams/:id",
       name: "TeamDetail",
       component: TeamDetailPage,
+      beforeEnter: async (to, from, next) => {
+        const mainData = useMain();
+        mainData.refreshPage();
+        if (mainData.isLoggedIn === true) {
+          await Swal.fire({
+            title: "Loading",
+            timer: 1200,
+            timerProgressBar: true,
+            didOpen: () => {
+              Swal.showLoading();
+            },
+          });
+          next();
+        } else {
+          await Swal.fire({
+            title: "Error!",
+            icon: "error",
+            text: "Please log in to access app features!",
+            timer: 1500,
+          });
+          next({ name: "LoginPage" });
+        }
+      },
+    },
+    {
+      path: "/teams/:id/news",
+      name: "NewsPage",
+      component: NewsPage,
       beforeEnter: async (to, from, next) => {
         const mainData = useMain();
         mainData.refreshPage();

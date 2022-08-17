@@ -33,5 +33,35 @@ export const customStore = defineStore({
         })
       }
     },
+
+    // Register
+    async handleRegister(email, password, phoneNumber, location) {
+      try {
+        this.isLoading = true;
+        let register = await axios.post(this.baseUrl + "/users/register",
+          {
+            email,
+            password,
+            phoneNumber,
+            location,
+          }
+        )
+        Swal.fire({
+          icon: 'success',
+          title: 'Register Success!',
+          text: "Your account has been registered",
+        })
+          .then(() => {
+            router.push({ name: "login" });
+            this.isLoading = false;
+          })
+      } catch (err) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: err.response.data.message,
+        })
+      }
+    },
   }
 })

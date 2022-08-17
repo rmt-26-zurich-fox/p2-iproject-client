@@ -31,9 +31,9 @@
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <label class="form-label" for="regisAddress">Address</label>
-                                        <input type="text" id="regisAddress" class="form-control form-control-lg"
-                                            placeholder="Input your address" v-model="address">
+                                        <label class="form-label" for="regisLocation">Location</label>
+                                        <input type="text" id="regisLocation" class="form-control form-control-lg"
+                                            placeholder="Input your location" v-model="location">
                                     </div>
 
                                     <button class="btn btn-secondary btn-lg btn-block rounded-pill" type="submit">Create
@@ -63,7 +63,7 @@ export default {
             email: "",
             password: "",
             phoneNumber: "",
-            address: "",
+            location: "",
         }
     },
     methods: {

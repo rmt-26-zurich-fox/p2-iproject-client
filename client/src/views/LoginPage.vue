@@ -3,8 +3,7 @@
     <div class="row justify-content-center">
       <div class="col-md-7 col-lg-5">
         <div class="p-4 p-md-5 border">
-          <h1 class="text-center">Individual Project</h1>
-          <h5 class="text-center text-muted"> </h5>
+          <h1 class="text-center mb-3">Serum</h1>
           <form @submit.prevent="handleLogin">
             <div class="mb-3">
               <label class="form-label">Email address</label>
@@ -23,7 +22,7 @@
             <router-link to="/register" style="text-decoration: none; color: blue">Sign Up</router-link>
           </p>
           <p class="mt-2">
-            Browse product first?
+            Browse houses first?
             <router-link to="/" style="text-decoration: none; color: blue">Back to Home</router-link>
           </p>
           <div class="row">

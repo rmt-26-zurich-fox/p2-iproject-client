@@ -3,9 +3,8 @@
     <div class="row justify-content-center">
       <div class="col-md-9 col-lg-5">
         <div class="p-4 p-md-5 border">
-          <h1 class="text-center">Individual Project</h1>
-          <h5 class="text-center text-muted"></h5>
-          <p class="lead text-center">Sign up.</p>
+          <h1 class="text-center">Serum</h1>
+          <p class="lead text-center">Sign up to see amazing houses.</p>
           <form @submit.prevent="handleRegisterSubmit">
             <div class="form-group mb-3">
               <label class="form-label">First Name</label>

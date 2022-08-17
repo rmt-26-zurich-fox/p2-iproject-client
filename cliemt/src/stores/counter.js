@@ -8,6 +8,7 @@ export const useCounterStore = defineStore({
     isLogin: false,
     allPost: [],
     dataUserLogin: null,
+    dataPostById: null,
 
 
 
@@ -17,6 +18,65 @@ export const useCounterStore = defineStore({
 
   },
   actions: {
+    async likePost(id) {
+      try {
+        const { data } = await axios({
+          url: `${baseUrl}/like/${id}`,
+          method: "POST",
+          headers: {
+            access_token: localStorage.getItem("access_token")
+          },
+        });
+        console.log(data);
+        Swal.fire({
+          icon: "success",
+          title: data.message,
+          showConfirmButton: false,
+          timer: 800,
+        });
+      } catch (error) {
+        console.log(error);
+        const msg = error.response.data.message.join("; ");
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: msg,
+        });
+      }
+    },
+    async addCommentToPost(id, comment) {
+      try {
+        const response = await axios({
+          url: `${baseUrl}/comment/${id}`,
+          method: "POST",
+          headers: {
+            access_token: localStorage.getItem("access_token")
+          },
+          data: {
+            comment
+          }
+        });
+        console.log(response.data);
+        this.readDataPostById(id);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async readDataPostById(id) {
+      try {
+        const response = await axios({
+          url: `${baseUrl}/post/${id}`,
+          method: "GET",
+          headers: {
+            access_token: localStorage.getItem("access_token")
+          }
+        });
+        console.log(response.data);
+        this.dataPostById = response.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async handleLogin(value) {
       try {
         const { email, password } = value;

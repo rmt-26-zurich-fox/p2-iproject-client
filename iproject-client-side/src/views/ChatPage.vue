@@ -1,5 +1,4 @@
 <template>
-  <h2>Chat Messages</h2>
 
   <!-- <div class="container">
     <div style=" margin-left: 570px;">
@@ -23,22 +22,13 @@
               <li class="in"></li>
               <li class="out"></li>
               <li class="in">
-                <div class="chat-body">
+                <div class="chat-body" ref="myRef">
                   <div class="chat-message">
-                    <!-- <h4 class="name">{{ iniPesan }}</h4> -->
-                    <h5 style="font-size: 20px">{{ message }}</h5>
+                    <h5  style="font-size: 20px">{{ message }}</h5>
+                    
                   </div>
                 </div>
               </li>
-              <!-- <li class="out">
-                <div class="chat-body">
-                  <div class="chat-message">
-                    <h4 class="name">{{ username }}</h4>
-                    <h5 style="font-size: 20px ;" >{{ myMessage }}</h5>
-                    <h2></h2>
-                  </div>
-                </div>
-              </li> -->
             </ul>
             <form action="" class="" @submit.prevent="toSendMessage">
               <div class="form-input">
@@ -64,6 +54,7 @@ import { io } from "socket.io-client";
 
 export default {
   data() {
+
     return {
       inputMessage: "",
       iniPesan: "",
@@ -78,7 +69,12 @@ export default {
 
     toSendMessage() {
       this.setupSocketConnection(this.inputMessage);
+
+      this.inputMessage = ''
     },
+
+    
+    
   },
   computed: {
     ...mapState(useQuoteStore, ["message", "testingValue", "myMessage"]),

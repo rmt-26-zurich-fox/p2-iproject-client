@@ -8,14 +8,12 @@
             class="img-responsive center-block"
             alt="Logo"
           />
-          <span>Hello {{ username }}</span>
         </div>
         <br />
         <div class="left-navigation">
           <ul class="list">
             <li><a @click.prevent="fetchProgramming">Programming</a></li>
             <li><a @click.prevent="fetchAnime">Anime</a></li>
-            <li><a @click.prevent="fetchMotivation">Motivation</a></li>
             <li><a @click.prevent="onHandleChat">Chat</a></li>
             <li><a @click.prevent="onHandleAdd">Add Quote</a></li>
             <li><a @click.prevent="onFavoritePage">Favorite Quotes</a></li>
@@ -33,20 +31,30 @@
         </div>
       </div>
       <div class="col-md-10 col-sm-8 main-content">
-        
+        <QuoteCard />
         <div class="container mt-3">
           <!-- <h1 class="text-center">
             <span>Sorry we dont have food, that you lookin for.</span>
           </h1> -->
           <div class="row mt-3">
-
             <!-- Quote Card -->
-              <QuoteCard />
-
+            <ul
+              class="pagination"
+              style="margin-bottom: 10px; margin-top: 10px"
+            >
+              <li
+                class="page-item"
+                v-for="(page, index) in pageNumber(totalPages)"
+                :key="index"
+              >
+                <a class="page-link" @click="changePage(page - 1)">
+                  {{ page }}
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </template>
@@ -54,46 +62,62 @@
 import QuoteCard from "../components/QuoteCard.vue";
 import { mapState, mapActions } from "pinia";
 import { useQuoteStore } from "../stores/qoutes";
-import AnimeQuote from "../components/AnimeQuote.vue";
+// import AnimeQuote from "../components/AnimeQuote.vue";
 
 export default {
-  data(){
-    return{
-      username: localStorage.username
-    }
+  data() {
+    return {
+      username: localStorage.username,
+    };
   },
   components: {
     QuoteCard,
-
-},
+  },
 
   methods: {
-
-    onFavoritePage(){
-      this.$router.push('/favorites')
+    onFavoritePage() {
+      this.$router.push("/favorites");
     },
-    ...mapActions(useQuoteStore, ["fetchQuotes", 'quoteOfTheDay',
-    'fetchAnime', 'fetchProgramming']),
+    ...mapActions(useQuoteStore, [
+      "fetchQuotes",
+      "quoteOfTheDay",
+      "fetchAnime",
+      "fetchProgramming",
+      'getQuiz'
+    ]),
 
-    onHandleAdd(){
-      this.$router.push('/add')
+    onHandleAdd() {
+      this.$router.push("/add");
     },
 
-    onHandleChat(){
-      this.$router.push('/chatting')
+    onHandleChat() {
+      this.$router.push("/chatting");
     },
 
-    
+    toQuiz(){
+
+      this.getQuiz()
+    },
+
+    pageNumber(quote) {
+      let quotes = [];
+      for (let i = 0; i <= quote; i++) {
+        quotes.push(i);
+      }
+      return quotes;
+    },
+
+    changePage(page) {
+      this.fetchQuotes(page);
+    },
   },
 
   computed: {
-
-    ...mapState(useQuoteStore, ['qotd'])
+    ...mapState(useQuoteStore, ["qotd", "totalPages"]),
   },
 
   created() {
     this.fetchQuotes();
-
 
     // if(localStorage.access_token){
 
@@ -103,7 +127,7 @@ export default {
     //       title: "Error!",
     //       text: "Quote of the day " + this.qotd.quote,
     //       type: "error",
-    //       confirmButtonText: "Cool" 
+    //       confirmButtonText: "Cool"
     //     });
     // }
   },

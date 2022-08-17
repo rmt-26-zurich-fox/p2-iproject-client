@@ -3,6 +3,7 @@ import axios from 'axios'
 import { io } from 'socket.io-client';
 import swall from 'sweetalert'
 import swal from 'sweetalert'
+import Swal from 'sweetalert2'
 
 export const useQuoteStore = defineStore({
   id: 'quotes',
@@ -24,11 +25,13 @@ export const useQuoteStore = defineStore({
       quote: ''
     },
 
-    message: {},
+    message: '',
 
     myMessage: [],
 
-    entity: false
+    entity: false,
+
+    totalPages: 0
 
   }),
 
@@ -86,18 +89,20 @@ export const useQuoteStore = defineStore({
 
     async handleRegister(){},
 
-    async fetchQuotes(){
+    async fetchQuotes(page = 0){
 
       try {
 
+
         const { data } = await axios({
           method: 'get',
-          url: this.baseUrl + '/quotes',
+          url: this.baseUrl + `/quotes?page=${page}&size=8`,
         })
 
         console.log(data, 'success')
 
-        this.allQuotes = data
+        this.allQuotes = data.quote
+        this.totalPages = data.totalPages
         
       } catch (error) {
 
@@ -152,22 +157,6 @@ export const useQuoteStore = defineStore({
 
     },
 
-    // testing(value){
-
-    //   // this.socket = io('http://localhost:4000')
-
-    //   // // console.log(this.socket.id , ',<<<<<<<')
-
-    //   // this.socket.on('my broadcast', (data, id) => {
-          
-    //   //   console.log(data, id, 'my broadcast')  
-        
-    //   //   this.message = data
-        
-    //   // })
-
-    // },
-
 
     setupSocketConnection(value) {  
         
@@ -182,7 +171,8 @@ export const useQuoteStore = defineStore({
           this.message = data
           
         });
-        this.myMessage = value
+        // this.myMessage = value
+
         value = ''
 
         this.message = ''
@@ -259,7 +249,7 @@ export const useQuoteStore = defineStore({
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
         confirmButtonText: "Yes, delete it!",
-      }).then(result => {
+      }).then(() => {
         swal("Deleted!", "Your file has been deleted.", "success");
         this.fetchFavorite()
         
@@ -290,11 +280,13 @@ export const useQuoteStore = defineStore({
       })
 
       console.log(data, 'success add quote')
+      swall('Success', 'Success add to Favorite', 'success')
       this.router.push('/home')
       
     } catch (error) {
 
       console.log(error)
+      swall('Error', 'Something went wrong', 'error')
       
     }
 
@@ -312,8 +304,6 @@ export const useQuoteStore = defineStore({
         }
       })
 
-
-
       this.qotd.quote = data.quote.body
 
       swal({
@@ -326,9 +316,34 @@ export const useQuoteStore = defineStore({
     } catch (error) {
 
       console.log(error)
+      swall('Error', 'Something went wrong', 'error')
       
     }
   },
+
+
+  async getQuiz(){
+
+    try {
+
+      const { data } = await axios({
+        method: 'get',
+        url: this.baseUrl + '/quotes/quiz',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+
+      console.log(data)
+     
+      
+    } catch (error) {
+
+      console.log(error)
+      swall('Error', error, 'error')
+      
+    }
+  }
 
 
   }

@@ -2,7 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import LoginPage from "../views/LoginPage.vue";
 import RegisterPage from "../views/RegisterPage.vue";
 import ParentView from "../views/ParentView.vue";
-import HomePage from "../views/HomePage.vue"
+import HomePage from "../views/HomePage.vue";
+import FormComponent from "../components/FormComponent.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,6 +18,18 @@ const router = createRouter({
           name: "home",
           component: HomePage
         },
+        {
+          path: "/posts/:id",
+          name: "Add/Edit Post Page",
+          beforeEnter(to, from, next) {
+            if(localStorage.getItem("role") != "Admin" && !localStorage.getItem("access_token")) {
+              router.push("/");
+            } else {
+              next();
+            }
+          },
+          component: FormComponent
+        }
       ]
     },
     {

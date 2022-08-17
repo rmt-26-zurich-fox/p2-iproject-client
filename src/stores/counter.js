@@ -65,15 +65,17 @@ export const useCounterStore = defineStore({
         }
       }
     },
-    async fetchCategories() {
+    async fetchCategories(value) {
       try {
         const {
           data
         } = await axios({
           url: this.baseUrl + "/categories",
-          method: "get"
+          method: "get",
+          params: value
         });
         this.categories = data.categories;
+        return true;
       } catch (error) {
         // Error fetch categories
         Swal.fire({
@@ -140,6 +142,88 @@ export const useCounterStore = defineStore({
 
             this.router.push("/login");
           } catch (error) {
+            // Error bad request (null field)
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: `${error.response.data.error.message}`,
+            });
+          }
+        }
+      });
+    },
+    handleAddPost(obj) {
+      Swal.fire({
+        title: 'Do you want to save the changes?',
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+            const {
+              data
+            } = await axios({
+              url: this.baseUrl + "/posts/create",
+              method: "post",
+              data: obj,
+              headers: {
+                access_token: localStorage.getItem("access_token"),
+              },
+            });
+
+            // Success Add Data
+            await Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Add Post success!',
+              showConfirmButton: false,
+              timer: 1500
+            });
+
+            this.router.push("/");
+          } catch (error) {
+            console.log(error);
+            // Error bad request (null field)
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: `${error.response.data.error.message}`,
+            });
+          }
+        }
+      });
+    },
+    handleEditPost(obj, id) {
+      Swal.fire({
+        title: 'Do you want to save the changes?',
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+            const {
+              data
+            } = await axios({
+              url: this.baseUrl + "/posts/edit/" + id,
+              method: "put",
+              data: obj,
+              headers: {
+                access_token: localStorage.getItem("access_token"),
+              },
+            });
+
+            // Success Add Data
+            await Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Edit Post success!',
+              showConfirmButton: false,
+              timer: 1500
+            });
+
+            this.router.push("/");
+          } catch (error) {
+            console.log(error);
             // Error bad request (null field)
             Swal.fire({
               icon: 'error',

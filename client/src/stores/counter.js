@@ -5,5 +5,14 @@ export const useCounterStore = defineStore({
   state: () => ({
     counter: 0,
   }),
-  actions: {},
+  actions: {
+    async getStrategies() {
+      try {
+        const { data } = axios.get();
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
 });

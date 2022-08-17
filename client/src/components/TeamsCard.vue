@@ -10,8 +10,10 @@ export default {
   computed: {},
   methods: {
     detailHandler(id) {
-      console.log(id);
+      // console.log(id);
+      this.fetchOneTeam(id);
     },
+    ...mapActions(useMain, ["fetchOneTeam"]),
   },
   props: ["oneTeam"],
 };

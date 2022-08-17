@@ -43,13 +43,27 @@ export default{
         }
     },
     methods:{
-        ...mapActions(useCounterStore,['handlerLogin']),
+        ...mapActions(useCounterStore,['handlerLogin','handleLoginGoogle']),
+        credentials(response){
+            this.handleLoginGoogle(response)
+        },
         handleLogin(){
             this.handlerLogin({
                 email:this.email,
                 password: this.password
             })
         }
+    },
+    mounted(){
+         const callback= this.credentials
+            google.accounts.id.initialize({
+                client_id: "601919494981-vjh3tccae65h3knn02ar9n49005n42h9.apps.googleusercontent.com",
+                callback,
+            })
+            google.accounts.id.renderButton(
+                document.getElementById("loginButtonGoogle"),
+                { theme: "outline", size: "large"}
+            )
     }
 }
 </script>

@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import axios from "axios"
+import Swal from 'sweetalert2'
 
 export const useCounterStore = defineStore({
   id: 'counter',
@@ -9,9 +10,38 @@ export const useCounterStore = defineStore({
     name: "",
     report: [],
     totalPage: "",
-    detail: ""
+    detail: "",
+    hasilAdd: ""
   }),
   actions: {
+    async handleLoginGoogle(response) {
+      try {
+        let {data}= await axios({
+         method: 'post',
+         url: `${this.baseUrl}/google-sign-in`,
+         headers:{
+           token_google: response.credential
+         }
+        })
+       localStorage.setItem("access_token",data.access_token)
+       localStorage.setItem("name",data.name)
+       this.router.push('/')
+        this.fetchReport()
+        Swal.fire({
+          icon: 'Success',
+          title: 'Login Succeed',
+          text: 'Enjoy Your Day'
+      })
+      } catch (error) {
+        console.log(error);
+          Swal.fire({
+              icon: 'error',
+              title: 'Cannot Login',
+              text: error.response.data.message
+          })
+      }
+    
+     },
 
     async verifier(email){
       try {
@@ -21,7 +51,11 @@ export const useCounterStore = defineStore({
         })
         console.log(data);
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+          icon: 'error',
+          title: `Failed Register`,
+          text: error.response.data.message
+        })
       }
     },
 
@@ -42,7 +76,11 @@ export const useCounterStore = defineStore({
           this.router.push('/login')
          console.log(data);
       } catch (error) {
-         console.log(error);
+        Swal.fire({
+          icon: 'error',
+          title: `Failed Register`,
+          text: error.response.data.message
+        })
          
       }
   },
@@ -64,7 +102,11 @@ export const useCounterStore = defineStore({
         this.name= localStorage.getItem("name")
         console.log(data);
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+          icon: 'error',
+          title: `Failed Login`,
+          text: error.response.data.message
+        })
       }
     },
     async fetchReport(value){
@@ -81,7 +123,10 @@ export const useCounterStore = defineStore({
         this.totalPage= data.totalPages
         console.log(data);
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+          icon: 'error',
+          title: `Failed Fetch Report`
+        })
       }
     },
     async reportDelete(id){
@@ -93,10 +138,17 @@ export const useCounterStore = defineStore({
             access_token : localStorage.getItem("access_token")
           }
         })
-        console.log(data);
+        Swal.fire({
+          icon: 'success',
+          title: `success delete id ${id}`
+        })
         this.fetchReport()
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+          icon: 'error',
+          title: `Failed Delete`,
+          text: error.response.data.message
+        })
       }
     },
     async reportDetail(id){
@@ -110,9 +162,12 @@ export const useCounterStore = defineStore({
         })
         this.fetchReport()
         this.detail= data
-        console.log(data);
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+          icon: 'error',
+          title: `Failed Find Detail`,
+          text: error.response.data.message
+        })
       }
     },
     async update(id,value){
@@ -130,9 +185,17 @@ export const useCounterStore = defineStore({
           }
         })
         this.fetchReport()
-        console.log(data);
+        Swal.fire({
+          icon: 'success',
+          title: `Success edit id ${id}`,
+          text: data.message
+        })
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+          icon: 'error',
+          title: `Failed To Update`,
+          text: error.response.data.message
+        })
       }
     },
     async addReport (value){
@@ -149,12 +212,11 @@ export const useCounterStore = defineStore({
             CategoryId: value.CategoryId
           }
         })
-        console.log(data);
+        return data
       } catch (error) {
         console.log(error);
       }
     }
-    
   }
 
 })

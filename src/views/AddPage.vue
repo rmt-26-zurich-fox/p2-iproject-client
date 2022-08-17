@@ -21,33 +21,60 @@
                 <option value="4">Adr Arbitrase</option>
              </select>
         </div>
-        <button class="bg-slate-500 h-10 mt-5 w-24 rounded-xl">Submit</button>
+        <button id="pay-button" class="bg-slate-500 h-10 mt-5 w-24 rounded-xl">Submit</button>
        </form>
     </div>
     </div>
 </section>
 </template>
 <script>
-import { mapActions } from 'pinia'
+import { mapActions, mapState, mapWritableState } from 'pinia'
 import { useCounterStore } from '../stores/counter'
+import Swal from "sweetalert2"
 export default{
     data(){
         return{
             imageUrl: "",
             name: "",
-            CategoryId: ""
+            CategoryId: "",
         }
+    },
+    computed:{
     },
     methods:{
         ...mapActions(useCounterStore,['addReport']),
-        reportAdd(){
-            this.addReport({
+       async reportAdd(){
+           let result= await this.addReport({
                 imageUrl: this.imageUrl,
                 name: this.name,
                 CategoryId: this.CategoryId
             })
-            this.$router.push('/myreport')
-        }
-    }
+        let payButton= document.getElementById('pay-button');
+        payButton.addEventListener('click', function () {
+          // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
+          window.snap.pay(result.trans.token, {
+          onSuccess: function(result){
+            /* You may add your own implementation here */
+            Swal.fire({title: "payment success!"}); console.log(result);
+          },
+          onPending: function(result){
+            /* You may add your own implementation here */
+            Swal.fire({title:"wating your payment!"}); console.log(result);
+          },
+          onError: function(result){
+            /* You may add your own implementation here */
+             Swal.fire({title:"payment failed!"}); console.log(result);
+          },
+          onClose: function(){
+            /* You may add your own implementation here */
+             Swal.fire({title:'you closed the popup without finishing the payment'});
+          }
+        });
+          // customer will be redirected after completing payment pop-up
+        });
+        },
+        
+    },
+   
 }
 </script>

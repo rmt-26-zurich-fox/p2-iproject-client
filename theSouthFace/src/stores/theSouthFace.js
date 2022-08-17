@@ -9,7 +9,8 @@ export const theSouthFace = defineStore({
     products: [],
     notLoggedIn: true,
     access_token: "",
-    oneProduct:[]
+    oneProduct:[],
+    cart:[]
   }),
   actions: {
     async getProducts() {
@@ -35,7 +36,7 @@ export const theSouthFace = defineStore({
           localStorage.setItem("access_token", userLogin.data.access_token);
           localStorage.setItem("userEmail", userLogin.data.findCustomer.email);
           this.access_token = localStorage.getItem("access_token");
-          this.router.push({ path: "/home" });
+          this.router.push({ path: "/" });
           Swal.fire("SUCCESS", "Success login", "success");
         }
       } catch (error) {
@@ -67,6 +68,85 @@ export const theSouthFace = defineStore({
 
           this.oneProduct = getOneProduct.data;
         //   console.log(this.oneProduct)
+        } catch (error) {
+          Swal.fire("ERROR", error.response.data.message, "error");
+        }
+      },
+    
+    //   async discordLogin(){
+    //     try {
+    //         const discordLogin = await axios.get(`${baseUrl}/api/auth/discord/`)
+    //         // if(discordLogin){
+    //         //     try {
+    //         //         const getAccess = await axios.get(`${baseUrl}/api/auth/discord/redirect`)
+    //         //         console.log(getAccess);
+    //         //     } catch (error) {
+    //         //         console.log(error);
+    //         //     }
+    //         // }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    //   }
+
+    async googleLogin(response) {
+        try {
+          const googleUser = await axios({
+            method: "POST",
+            url: `${baseUrl}/cust/googleSignIn`,
+            data: {
+              google_token: response.credential,
+            },
+          });
+          localStorage.setItem("access_token", googleUser.data.access_token);
+          localStorage.setItem("userEmail", googleUser.data.user.email);
+          this.access_token = localStorage.getItem("access_token");
+          this.notLoggedIn = false;
+        } catch (error) {
+          Swal.fire("ERROR", error.response.data.message, "error");
+        }
+      },
+      async addToCart(productId) {
+        // console.log(localStorage.getItem("access_token"));
+        try {
+          const added = await axios ({
+              method:"POST",
+              url:`${baseUrl}/cart/${productId}`,
+              headers:{
+                  access_token:localStorage.getItem("access_token")
+              }
+          })
+  
+          if (added) {
+            Swal.fire("SUCCESS", added.data.message, "success")
+          }
+        } catch (error) {
+          Swal.fire("ERROR", error.response.data.message, "error");
+        }
+      },
+      async fetchAllCarts() {
+        try {
+          const userCart = await axios.get(`${baseUrl}/cart`, {
+            headers: {
+              access_token: localStorage.getItem("access_token"),
+            },
+          });
+          this.cart = userCart.data;
+        } catch (error) {
+          Swal.fire("ERROR", error.response.data.message, "error");
+        }
+      },
+
+      async removeFromCart(cartId) {
+        try {
+          const deleteFromCart = await axios.delete(
+            `${baseUrl}/cart/${cartId}/delete`,
+            {
+              headers: {
+                access_token: localStorage.getItem("access_token"),
+              },
+            }
+          );
         } catch (error) {
           Swal.fire("ERROR", error.response.data.message, "error");
         }

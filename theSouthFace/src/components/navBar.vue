@@ -15,12 +15,10 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item active">
-          <RouterLink class="nav-link" to="/home"
-            >Home</RouterLink
-          >
+          <RouterLink class="nav-link" to="/">Home</RouterLink>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" v-if="access_token">Cart</a>
+        <RouterLink class="nav-link" to="/cart">Cart</RouterLink>
         </li>
         <li class="nav-item">
           <RouterLink class="nav-link" to="/simulate" v-if="access_token"
@@ -38,7 +36,11 @@
           >
         </li>
         <li class="nav-item">
-          <RouterLink class="nav-link" to="/home" v-if="access_token" @click.prevent="logout"
+          <RouterLink
+            class="nav-link"
+            to="/"
+            v-if="access_token"
+            @click.prevent="logout"
             >Log out</RouterLink
           >
         </li>
@@ -53,12 +55,18 @@ import { theSouthFace } from "../stores/theSouthFace";
 
 export default {
   name: "NavBar",
+  data() {
+    return {
+      userEmail :''
+    };
+  },
   computed: {
     ...mapWritableState(theSouthFace, ["access_token", "notLoggedIn"]),
   },
   created() {
     if (localStorage.getItem("access_token")) {
       this.access_token = localStorage.access_token;
+      this.userEmail = localStorage.userEmail
     }
   },
   methods: {

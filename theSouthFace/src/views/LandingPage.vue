@@ -5,7 +5,7 @@
             <h4>For a better typing experience.</h4><br>
 
             <div>
-                <RouterLink to="/home"><button type="button">proceed<span></span></button></RouterLink>
+                <RouterLink to="/"><button type="button">proceed<span></span></button></RouterLink>
             </div>
         </div>
 </template>
@@ -36,7 +36,7 @@ button{
     text-transform: uppercase;
     text-size-adjust: 30px;
     margin: 20px 10px;
-    border-radius: 50px;
+    border-radius: 20px;
     color: rgb(255, 255, 255); 
     font-weight: bold;
     border: 2px solid white;
@@ -49,7 +49,7 @@ span{
     background: linear-gradient(rgba(202, 165, 0, 0.555), rgba(202, 165, 0, 0.555) );
     height: 100%;
     width: 0;
-    border-radius: 50px;
+    border-radius: 20px;
     position: absolute;
     left: 0;
     bottom: 0;

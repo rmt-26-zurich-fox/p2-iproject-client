@@ -4,12 +4,12 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
+      path: '/landing',
       name: 'LandingPage',
       component: ()=> import ('../views/LandingPage.vue')
     },
     {
-      path: '/home',
+      path: '/',
       name: 'HomePage',
       component: ()=> import ('../views/HomePage.vue')
     },
@@ -32,6 +32,11 @@ const router = createRouter({
       path: '/detail/:productId',
       name: "DetailPage",
       component : () => import ('../views/DetailPage.vue')
+    },
+    {
+      path: '/cart',
+      name: "CartPage",
+      component : () => import ('../views/CartPage.vue')
     }
   ]
 })

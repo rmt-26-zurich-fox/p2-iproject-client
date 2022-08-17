@@ -24,13 +24,15 @@
       <button id="submitlogin" type="submit">Login</button>
 
       <div style="justiy-content: center !important">
-        
+        <div style="color: white">
+          or sign in with google! <br />
+          <button id="buttonDiv" @click.prevent="handleCredentialResponse"></button>
+        </div>
 
         <div class="toRegister">
           New user? register
           <router-link to="/register">here</router-link>
         </div>
-
       </div>
     </div>
   </form>
@@ -50,11 +52,30 @@ export default {
     };
   },
   methods: {
-    ...mapActions(theSouthFace, ["loginUser"]),
+    ...mapActions(theSouthFace, ["loginUser", "discordLogin", "googleLogin"]),
     submitLogin() {
       this.loginUser(this.login.email, this.login.password);
     },
+    // submitDiscordLogin(){
+    //   this.discordLogin()
+    // },
+    handleCredentialResponse(response) {
+      this.googleLogin(response);
+      this.$router.push({path:'/'})
+    },
+  },
+  mounted() {
+    const cb = this.handleCredentialResponse;
 
+    google.accounts.id.initialize({
+      client_id:
+        "81638174013-f9r3ollosjpppghq8ia0v1pnklgmgp6n.apps.googleusercontent.com",
+      callback: cb,
+    });
+    google.accounts.id.renderButton(
+      document.getElementById("buttonDiv"),
+      { theme: "outline", size: "large" } // customization attributes
+    );
   },
 };
 </script>

@@ -8,16 +8,17 @@
       CardPost,
     },
     methods: {
-      ...mapActions(useCounterStore, ["readProfilData"]),
+      ...mapActions(useCounterStore, ["readProfilData", "readLikedPostByUser"]),
       readDataUser() {
         this.readProfilData();
       },
     },
     created() {
       this.readDataUser();
+      this.readLikedPostByUser(localStorage.getItem("id"));
     },
     computed: {
-      ...mapState(useCounterStore, ["dataUserLogin"]),
+      ...mapState(useCounterStore, ["dataUserLogin", "likedPostByUser"]),
     },
   };
 </script>
@@ -37,7 +38,10 @@
         <p>{{ dataUserLogin.user.email }}</p>
       </div>
     </div>
-
+    <div>
+      <button>Your Post</button>
+      <button>Your Like</button>
+    </div>
     <div v-if="dataUserLogin">
       <CardPost
         v-for="post in dataUserLogin.post"

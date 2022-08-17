@@ -9,7 +9,7 @@ export const useCounterStore = defineStore({
     allPost: [],
     dataUserLogin: null,
     dataPostById: null,
-
+    likedPostByUser: []
 
 
 
@@ -18,6 +18,21 @@ export const useCounterStore = defineStore({
 
   },
   actions: {
+    async readLikedPostByUser(id) {
+      try {
+        const { data } = await axios({
+          url: `${baseUrl}/profile/${id}/like`,
+          method: "GET",
+          headers: {
+            access_token: localStorage.getItem("access_token")
+          },
+        });
+        this.likedPostByUser = data;
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async likePost(id) {
       try {
         const { data } = await axios({
@@ -111,6 +126,7 @@ export const useCounterStore = defineStore({
     handleLogout() {
       localStorage.clear();
       this.isLogin = false;
+      this.dataUserLogin = null;
     },
     handlesIsLogin() {
       if (localStorage.getItem("access_token")) {

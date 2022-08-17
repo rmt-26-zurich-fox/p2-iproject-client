@@ -1,6 +1,6 @@
 <template>
         <div class="content">
-            <h1>THESOUTHFACE</h1>
+            <h1>THE SOUTH FACE</h1>
             <br>
             <h4>For a better typing experience.</h4><br>
 

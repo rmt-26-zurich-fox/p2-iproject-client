@@ -8,7 +8,8 @@ export const useCounterStore = defineStore({
     tabs: '',
     name: "",
     report: [],
-    totalPage: ""
+    totalPage: "",
+    detail: ""
   }),
   actions: {
 
@@ -78,6 +79,76 @@ export const useCounterStore = defineStore({
         })
         this.report= data
         this.totalPage= data.totalPages
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async reportDelete(id){
+      try {
+        let data= await axios({
+          method: 'delete',
+          url: `${this.baseUrl}/reports/${id}`,
+          headers:{
+            access_token : localStorage.getItem("access_token")
+          }
+        })
+        console.log(data);
+        this.fetchReport()
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async reportDetail(id){
+      try {
+        let {data}= await axios({
+          method: 'get',
+          url: `${this.baseUrl}/reports/${id}`,
+          headers:{
+            access_token: localStorage.getItem("access_token")
+          }
+        })
+        this.fetchReport()
+        this.detail= data
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async update(id,value){
+      try {
+        let {data}= await axios({
+          method: 'put',
+          url: `${this.baseUrl}/reports/${id}`,
+          headers:{
+            access_token: localStorage.getItem("access_token")
+          },
+          data:{
+            imageUrl: value.imageUrl,
+            name: value.name,
+            CategoryId: value.Category
+          }
+        })
+        this.fetchReport()
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async addReport (value){
+      try {
+        let {data} = await axios ({
+          method: 'post',
+          url: `${this.baseUrl}/reports`,
+          headers:{
+            access_token: localStorage.getItem("access_token")
+          },
+          data:{
+            imageUrl: value.imageUrl,
+            name: value.name,
+            CategoryId: value.CategoryId
+          }
+        })
         console.log(data);
       } catch (error) {
         console.log(error);

@@ -1,7 +1,7 @@
 <template>
   <section>
-       <div class="bg-[url('./asset/702871.jpg')] bg-cover">
-    <div style="background-color: rgba(11, 132, 202, 0.336) ;" class="w-screen h-screen">
+       <div class="bg-[url('https://img.freepik.com/premium-photo/low-key-filter-law-bookshelf-with-wooden-judge-s-gavel-golden-scale_34259-438.jpg?w=2000')] bg-cover w-screen h-screen bg-fixed">
+    <div style="background-color: rgba(11, 132, 202, 0.336) ;" class="h-screen w-screen" >
         <div style="font-size: 24pt; font-weight: bold;" class="justify-center items-center text-center flex pt-5">
             <h1 class="text-white">LAYANAN LAPORAN HUKUM MASYARAKAT</h1>
         </div>

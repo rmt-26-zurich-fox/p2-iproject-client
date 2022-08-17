@@ -1,9 +1,9 @@
 <template>
-   <section class="bg-[url('./asset/702871.jpg')] bg-cover">
+   <section class="bg-[url('https://wallpaperaccess.com/full/702861.jpg')] bg-cover">
    <div class="flex justify-center items-center pb-10 pt-10">
         <form action="" @submit.prevent="handleSearch">
         <input type="text" name="" id="" v-model="nama" style="width:500px; height: 48px;" class="focus:outline-none pl-5" placeholder="Search">
-           <button type="submit" class="absolute bg-green-200 hover:bg-green-100  h-12 rounded-r"  style="width:20px; font-size:10pt; font-family: Source Code Pro;" ><i class="fa-solid fa-magnifying-glass"></i></button>
+           <button type="submit" class="absolute bg-blue-400 hover:bg-blue-300  h-12 rounded-r"  style="width:20px; font-size:10pt; font-family: Source Code Pro;" ><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
    </div>
     <div class="flex justify-center">

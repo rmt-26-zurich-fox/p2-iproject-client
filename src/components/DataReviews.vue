@@ -13,8 +13,11 @@ export default {
             }
         },
         toEditPage(input) {
-            this.$router.push({path: `/posts/${input}`})
+            this.$router.push({ path: `/posts/${input}` });
         },
+        toDetailPage(input) {
+            this.$router.push({ path: `/reviews/${input}` });
+        }
     },
     computed: {
         ...mapState(useCounterStore, ["baseUrl"])

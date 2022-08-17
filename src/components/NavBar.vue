@@ -84,7 +84,7 @@ export default {
                         </p>
 
                         <!-- Search input on desktop screen -->
-                        <div class="hidden mx-10 md:block" v-if="$route.fullPath != '/songs'">
+                        <div class="hidden mx-10 md:block" v-if="$route.fullPath == '/'">
                             <div class="relative">
                                 <span class="absolute inset-y-0 left-0 flex items-center pl-3">
                                     <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
@@ -188,7 +188,7 @@ export default {
                                 </svg>
                             </span>
 
-                            <input type="text" v-if="$route.fullPath != '/songs'"
+                            <input type="text" v-if="$route.fullPath == '/'"
                                 class="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300"
                                 placeholder="Search" v-model="search">
                         </div>

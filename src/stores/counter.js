@@ -100,7 +100,6 @@ export const useCounterStore = defineStore({
         this.totalPage = data.totalPage;
         return true;
       } catch (error) {
-        console.log(error);
         if (error.response.data.statusCode == "404") {
           return false;
         } else {

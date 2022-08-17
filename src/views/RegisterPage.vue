@@ -79,6 +79,10 @@ export default {
                     to="/login"><a href="#" class="font-medium text-gray-700 hover:underline">Login</a>
                 </RouterLink>
             </p>
+            <p v-else class="mt-2 text-xs font-light text-center text-gray-600"> Cancel register? <RouterLink to="/"><a
+                        href="#" class="font-medium text-gray-700 hover:underline">Back to Home</a>
+                </RouterLink>
+            </p>
         </div>
     </div>
 </template>

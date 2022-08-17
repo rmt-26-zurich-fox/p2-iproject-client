@@ -9,6 +9,7 @@ export const dashboard = defineStore({
 			news: null,
 			nightwave: null,
 			sortie: null,
+			invasions: null,
 		},
 		secondaryData: {},
 		dealsData: {},
@@ -52,10 +53,31 @@ export const dashboard = defineStore({
 			}
 		},
 
+		async fetchInvasions(platform = "pc") {
+			try {
+				const { data } = await axios({
+					method: "get",
+					url: `${server.url}/events/${platform}/invasions`,
+				});
+				//only check attackerReward & defenderReward length
+				data.response.filter(x => {
+					if (x.completion > 0 && !x.completion < 0) {
+						if (x.attackerReward.countedItems.length || x.defenderReward.countedItems.length) {
+							return x;
+						}
+					}
+				});
+
+				this.primaryData.invasions = data.response;
+			} catch ({ response }) {
+				console.log(response.data.message);
+			}
+		},
+
 		//COMPLEMENT FUNCTION
 		countingDown(startFrom, endTo) {
 			//! INPUT TIME IS ISO TIMESTAMP
-			let startDate = startFrom.toISOString(),
+			let startDate = startFrom,
 				endDate = endTo;
 
 			let interval = intervalToDuration({ start: parseISO(startDate), end: parseISO(endDate) });

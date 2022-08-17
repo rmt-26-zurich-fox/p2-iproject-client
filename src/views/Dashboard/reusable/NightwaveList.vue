@@ -14,9 +14,9 @@
 		computed: {
 			...mapState(dashboard, ["nowDate"]),
 		},
-		mounted() {
+		created() {
 			setInterval(() => {
-				const date = new Date();
+				const date = new Date().toISOString();
 				this.countdown = this.countingDown(date, this.nightwave.expiry);
 			}, 1000);
 		},

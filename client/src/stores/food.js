@@ -5,7 +5,8 @@ import Swal from "sweetalert2"
 export const useFoodStore = defineStore({
   id: "food",
   state: () => ({
-    host: "http://localhost:3000",
+    // host: "http://localhost:3000",
+    host: "https://dieat-server.herokuapp.com",
     foods: {},
     bmi: {},
     bmr: {},

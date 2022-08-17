@@ -37,7 +37,10 @@
     </div>
 
     <div>
-      <router-link :to="{ name: 'post_detail', params: { id: 1 } }">
+      <router-link
+        :to="{ name: 'post_detail', params: { id: 1 } }"
+        style="text-decoration: none"
+      >
         <CardPost />
       </router-link>
 

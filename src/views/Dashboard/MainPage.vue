@@ -7,9 +7,12 @@
 
 <template>
 	<h1 class="text-center">ini template</h1>
-	<div class="d-flex flex-wrap justify-content-center">
-		<div class=""><NewsPage /></div>
-		<div class=""><NightwavePage /></div>
-		<div class=""><SortiePage /></div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-auto"><NewsPage /></div>
+			<div class="col-auto"><NightwavePage /></div>
+			<div class="col-auto"><SortiePage /></div>
+			<div class="col-auto"><SortiePage /></div>
+		</div>
 	</div>
 </template>

@@ -21,7 +21,6 @@
 </script>
 <template>
 	<!-- {{ primaryData.news[0] }} -->
-	{{ test }}
 	<div class="mt-1 mb-5">
 		<table>
 			<thead>

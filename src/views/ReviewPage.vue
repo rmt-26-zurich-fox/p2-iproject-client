@@ -1,6 +1,23 @@
 <script>
 import { useCounterStore } from "../stores/counter";
 import { mapActions, mapState } from "pinia"
+import LoadingComponent from "../components/LoadingComponent.vue";
+
+// // Discus
+// var disqus_config = function () {
+//     this.page.url = this.$route.fullPath;
+//     this.page.identifier = `/reviews/${this.route.params.id}`;
+//     this.page.title = 'review-page';
+// };
+
+// (function () {  // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
+//     var d = document, s = d.createElement('script');
+
+//     s.src = 'audio-id';  // IMPORTANT: Replace EXAMPLE with your forum shortname!
+
+//     s.setAttribute('data-timestamp', +new Date());
+//     (d.head || d.body).appendChild(s);
+// })();
 
 export default {
     methods: {
@@ -11,21 +28,30 @@ export default {
         }
     },
     computed: {
-        ...mapState(useCounterStore, ["reviews"])
+        ...mapState(useCounterStore, ["reviews", "isLoading"])
     },
     async created() {
-        if (this.$route.params.id) {
-            const response = await this.fetchDataReview(+this.$route.params.id);
+        if (this.$route.params) {
+            const obj = {
+                id: +this.$route.params.id
+            }
+            const response = await this.fetchDataReview(obj);
             if (response != true) {
-                this.$router.push("")
+                this.$router.push("/404")
             }
         }
+    },
+    components: {
+        LoadingComponent
     }
 }
 </script>
 
 <template>
-    <div class="bg-white py-6 sm:py-8 lg:py-12 mt-5">
+
+    <LoadingComponent v-if="isLoading"/>
+
+    <div v-else class="bg-white py-6 sm:py-8 lg:py-12 mt-5">
         <div class="max-w-screen-md px-4 md:px-8 mx-auto">
 
             <div class="bg-gray-100 overflow-hidden rounded-lg shadow-lg relative mb-6 md:mb-8">
@@ -51,12 +77,14 @@ export default {
                             <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-100">Who I am</h2>
 
                             <p class="mt-4 text-gray-500 dark:text-gray-400 lg:max-w-md">
-                                Halo saya Ghozi, lulusan salah satu Univ Swasta di Depok yang saat ini sedang mengikuti bootcamp Hacktiv8.
+                                Halo saya Ghozi, lulusan salah satu Univ Swasta di Depok yang saat ini sedang mengikuti
+                                bootcamp Hacktiv8.
                             </p>
 
                             <div class="flex items-center mt-6 -mx-2">
 
-                                <a class="mx-2" href="https://www.linkedin.com/in/ghozi-f-b62772b6/" aria-label="Linkden"  target="_blank">
+                                <a class="mx-2" href="https://www.linkedin.com/in/ghozi-f-b62772b6/"
+                                    aria-label="Linkden" target="_blank">
                                     <svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400"
                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                         <path
@@ -78,8 +106,7 @@ export default {
                             <div class="flex items-center justify-center lg:justify-end">
                                 <div class="max-w-lg">
                                     <img class="object-cover object-center w-full h-64 rounded-md shadow"
-                                        src="../assets/1.jpeg"
-                                        alt="">
+                                        src="../assets/1.jpeg" alt="">
                                 </div>
                             </div>
                         </div>
@@ -87,5 +114,6 @@ export default {
                 </div>
             </section>
         </div>
+        <!-- <Disqus shortname="audio-id" :identifier="this.$route.fullPath" /> -->
     </div>
 </template>

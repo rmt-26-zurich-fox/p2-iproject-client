@@ -1,7 +1,8 @@
 <script>
 import { useCounterStore } from '../stores/counter';
 import { mapState, mapActions } from 'pinia';
-import OptionComponent from "../components/OptionComponent.vue"
+import OptionComponent from "../components/OptionComponent.vue";
+import LoadingComponent from "../components/LoadingComponent.vue";
 
 export default {
     data() {
@@ -37,10 +38,11 @@ export default {
         }
     },
     computed: {
-        ...mapState(useCounterStore, ["categories", "reviews"]),
+        ...mapState(useCounterStore, ["categories", "reviews", "isLoading"]),
     },
     components: {
-        OptionComponent
+        OptionComponent,
+        LoadingComponent
     },
     async created() {
         if (this.$route.params.id) {
@@ -67,7 +69,10 @@ export default {
 </script>
 
 <template>
-    <div class="flex h-screen -mt-20">
+
+    <LoadingComponent v-if="isLoading"/> 
+
+    <div v-else class="flex h-screen -mt-20">
         <div class="w-full max-w-sm p-6 m-auto bg-gray-100 rounded-md shadow-md">
             <h1 class="text-3xl font-semibold text-center text-gray-700">Post Review</h1>
 

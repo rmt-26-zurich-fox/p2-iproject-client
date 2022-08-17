@@ -3,7 +3,7 @@ import { createPinia } from "pinia";
 
 import App from "./App.vue";
 import router from "./router";
-
+import VueDisqus from "vue-disqus";
 import "./assets/main.css";
 
 const app = createApp(App);
@@ -16,4 +16,9 @@ pinia.use(({ store }) => {
 app.use(pinia);
 app.use(router);
 
+
 app.mount("#app");
+
+export default function (Vue, {head}) {
+  Vue.use(VueDisqus);
+}

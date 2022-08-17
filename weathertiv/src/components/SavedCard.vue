@@ -4,7 +4,7 @@
         <div class="photo-preview photo-detail"></div>
         <div class="photo-details">
             <h1 class="photo-title">{{ locationProp.name }}</h1>
-            <button class="btn btn-secondary btn-lg rounded-pill">
+            <button class="btn btn-secondary btn-lg rounded-pill" @click="clickSee(locationProp.id)">
                 See weather forecasting
             </button>
             <br>
@@ -28,6 +28,11 @@ export default {
         // Click Remove
         async clickRemove(savedId) {
             this.deleteSavedLocation(savedId)
+        },
+
+        // Click see
+        async clickSee(savedId) {
+            this.$router.push({ name: "savedDetail", params: { savedId: savedId } });
         }
     },
 }

@@ -7,6 +7,7 @@ import HomeView from '../views/HomeView.vue'
 import SavedView from '../views/SavedView.vue'
 import PopularDetailView from '../views/PopularDetailView.vue'
 import SearchView from '../views/SearchView.vue'
+import SavedDetailView from '../views/SavedDetailView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -59,6 +60,11 @@ const router = createRouter({
           path: 'popularDetail/:popularId',
           name: 'popularDetail',
           component: PopularDetailView,
+        },
+        {
+          path: 'savedDetail/:savedId',
+          name: 'savedDetail',
+          component: SavedDetailView,
         },
       ]
     }

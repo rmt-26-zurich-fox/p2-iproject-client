@@ -26,7 +26,7 @@
                                 <img :src="searchWeather.icon">
                             </div>
                         </div>
-                        <span><img src="../assets/images/icon-umberella.png" alt="">{{ searchWeather.humid }}%</span>
+                        <span><img src="../assets/images/icon-umberella.png" alt="">{{ searchWeather.humid }}</span>
                         <span><img src="../assets/images/icon-wind.png" alt="">{{ searchWeather.wind }}km/h</span>
                         <span><img src="../assets/images/icon-compass.png" alt="">{{ searchWeather.windir }}</span>
                     </div>

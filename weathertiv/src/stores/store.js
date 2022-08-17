@@ -48,7 +48,20 @@ export const customStore = defineStore({
       tempnext: "",
       icon2next: "",
       temp2next: "",
-    }
+    },
+    savedWeather: {
+      date: "",
+      location: "",
+      temp: "",
+      icon: "",
+      humid: "",
+      wind: "",
+      windir: "",
+      iconnext: "",
+      tempnext: "",
+      icon2next: "",
+      temp2next: "",
+    },
   }),
   actions: {
     //Google sign in
@@ -253,6 +266,36 @@ export const customStore = defineStore({
           icon: 'error',
           title: 'Error!',
           text: err.response.data.message,
+        })
+      }
+    },
+
+    //Read Saved location weather
+    async fetchSavedLocationWeather(savedId) {
+      try {
+        this.isLoading = true
+        let { data } = await axios.get(this.baseUrl + `/saved/${savedId}`,
+          {
+            headers: {
+              access_token: localStorage.getItem("access_token")
+            }
+          })
+        this.savedWeather.date = data.forecast.forecastday[0].date
+        this.savedWeather.location = data.location.name
+        this.savedWeather.temp = data.current.temp_c
+        this.savedWeather.icon = data.current.condition.icon
+        this.savedWeather.humid = data.current.humidity
+        this.savedWeather.wind = data.current.wind_kph
+        this.savedWeather.windir = data.current.wind_dir
+        this.savedWeather.iconnext = data.forecast.forecastday[1].day.condition.icon
+        this.savedWeather.tempnext = data.forecast.forecastday[1].day.avgtemp_c
+        this.savedWeather.icon2next = data.forecast.forecastday[2].day.condition.icon
+        this.savedWeather.temp2next = data.forecast.forecastday[2].day.avgtemp_c
+        this.isLoading = false
+      } catch (err) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
         })
       }
     },

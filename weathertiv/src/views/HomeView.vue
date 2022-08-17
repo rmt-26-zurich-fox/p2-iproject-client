@@ -26,7 +26,7 @@
                 <img :src="ipWeather.icon">
               </div>
             </div>
-            <span><img src="../assets/images/icon-umberella.png" alt="">{{ ipWeather.humid }}%</span>
+            <span><img src="../assets/images/icon-umberella.png" alt="">{{ ipWeather.humid }}</span>
             <span><img src="../assets/images/icon-wind.png" alt="">{{ ipWeather.wind }}km/h</span>
             <span><img src="../assets/images/icon-compass.png" alt="">{{ ipWeather.windir }}</span>
           </div>

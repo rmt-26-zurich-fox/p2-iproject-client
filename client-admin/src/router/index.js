@@ -4,6 +4,7 @@ import HomePage from '@/views/HomePage.vue'
 import BrandList from '@/views/brand/BrandList.vue'
 import BrandForm from '@/views/brand/BrandForm.vue'
 import BrandDetail from '@/views/brand/BrandDetail.vue'
+import ProductList from '@/views/product/ProductList.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -36,7 +37,12 @@ const router = createRouter({
           path: 'brands/:brandId',
           name: "showBrand",
           component: BrandDetail
-        }
+        },
+        {
+          path: 'products',
+          name: "products",
+          component: ProductList
+        },
       ]
     }
   ]

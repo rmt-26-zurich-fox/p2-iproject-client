@@ -34,6 +34,18 @@ export default {
                     </li>
                 </ul>
             </li>
+            <li>
+                <a data-bs-toggle="collapse" href="#productSubmenu" role="button" aria-expanded="false"
+                    aria-controls="productSubmenu">
+                    <i class="fa-solid fa-xl fa-list-alt"></i> Products <i class="fa-solid fa-chevron-down"
+                        style="margin-left: 55px;"></i>
+                </a>
+                <ul class="collapse list-unstyled" id="productSubmenu" style="background-color: white; padding: 10px;">
+                    <li>
+                        <RouterLink to="/products">product List</RouterLink>
+                    </li>
+                </ul>
+            </li>
         </ul>
     </nav>
 </template>

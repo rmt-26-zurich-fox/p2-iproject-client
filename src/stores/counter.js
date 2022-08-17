@@ -27,6 +27,7 @@ export const useCounterStore = defineStore({
        localStorage.setItem("name",data.name)
        this.router.push('/')
         this.fetchReport()
+        this.tabs= 'login'
         Swal.fire({
           icon: 'Success',
           title: 'Login Succeed',
@@ -49,7 +50,7 @@ export const useCounterStore = defineStore({
           method:'get',
           url: `https://verifier.meetchopra.com/verify/${email}?token=2b1e810090b21cab8a8753ec6bd1f0919ec90be6ea14ac5d381116f8700ea13cbc8dba7ff7e392b826068e5d306a7d80`
         })
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         Swal.fire({
           icon: 'error',
@@ -72,9 +73,9 @@ export const useCounterStore = defineStore({
                   password: value.password
               }
           })
-          console.log(this.verifier(value.email));
+          // console.log(this.verifier(value.email));
           this.router.push('/login')
-         console.log(data);
+        //  console.log(data);
       } catch (error) {
         Swal.fire({
           icon: 'error',
@@ -100,7 +101,7 @@ export const useCounterStore = defineStore({
         this.router.push('/')
         this.tabs= 'login'
         this.name= localStorage.getItem("name")
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         Swal.fire({
           icon: 'error',
@@ -121,7 +122,7 @@ export const useCounterStore = defineStore({
         })
         this.report= data
         this.totalPage= data.totalPages
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         Swal.fire({
           icon: 'error',
@@ -214,7 +215,11 @@ export const useCounterStore = defineStore({
         })
         return data
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+          icon: 'error',
+          title: `Failed To Add`,
+          text: error.response.data.message
+        })
       }
     }
   }

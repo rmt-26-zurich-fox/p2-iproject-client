@@ -2,7 +2,7 @@
 <section class="bg-[url('https://wallpaperaccess.com/full/1558517.jpg')] bg-cover h-screen w-screen" style="font-family: Source Code Pro;">
     <div style="background-color: rgba(11, 132, 202, 0.336);" class="w-screen h-screen flex justify-center">
         <div  class="bg-slate-300 justify-center items-center flex rounded-lg text-center" style="width: 500px; height:400px; margin-top:30px;">
-       <form action="" @submit.prevent="reportAdd">
+       <form action="" >
        <p class="pb-10 font-bold" style="font-size: 20pt;">ADD REPORT</p>
         <div class="relative">
             <i class="fa-solid fa-image absolute pt-1.5 text-sky-800"></i>
@@ -21,7 +21,7 @@
                 <option value="4">Adr Arbitrase</option>
              </select>
         </div>
-        <button id="pay-button" class="bg-slate-500 h-10 mt-5 w-24 rounded-xl">Submit</button>
+        <button type="submit" @click.prevent="reportAdd" id="pay-button" class="bg-slate-500 h-10 mt-5 w-24 rounded-xl">Submit</button>
        </form>
     </div>
     </div>
@@ -49,8 +49,9 @@ export default{
                 name: this.name,
                 CategoryId: this.CategoryId
             })
-        let payButton= document.getElementById('pay-button');
-        payButton.addEventListener('click', function () {
+            
+            console.log(result.trans.token,"dari page");
+        // let payButton= document.getElementById('pay-button');
           // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
           window.snap.pay(result.trans.token, {
           onSuccess: function(result){
@@ -71,9 +72,8 @@ export default{
           }
         });
           // customer will be redirected after completing payment pop-up
-        });
-        },
         
+        }
     },
    
 }

@@ -13,14 +13,22 @@
       CommentPost,
     },
     methods: {
-      ...mapActions(useCounterStore, ["readDataPostById", "addCommentToPost"]),
+      ...mapActions(useCounterStore, [
+        "readDataPostById",
+        "addCommentToPost",
+        "likePost",
+      ]),
       addComment() {
         this.addCommentToPost(this.$route.params.id, this.comment);
+      },
+      likeThisPost() {
+        this.likePost(this.$route.params.id);
       },
     },
     created() {
       this.readDataPostById(this.$route.params.id);
       console.log(this.$route.params.id);
+      this.comment = "";
     },
     computed: {
       ...mapState(useCounterStore, ["dataPostById"]),
@@ -35,7 +43,7 @@
     </div>
     <div class="detailPost">
       <div class="BTNLIKE">
-        <button>Like</button>
+        <button @click="likeThisPost">Like</button>
       </div>
       <div class="postedBy">
         <div class="p1">di unggah oleh :</div>

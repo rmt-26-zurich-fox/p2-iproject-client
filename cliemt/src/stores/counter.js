@@ -18,6 +18,32 @@ export const useCounterStore = defineStore({
 
   },
   actions: {
+    async likePost(id) {
+      try {
+        const { data } = await axios({
+          url: `${baseUrl}/like/${id}`,
+          method: "POST",
+          headers: {
+            access_token: localStorage.getItem("access_token")
+          },
+        });
+        console.log(data);
+        Swal.fire({
+          icon: "success",
+          title: data.message,
+          showConfirmButton: false,
+          timer: 800,
+        });
+      } catch (error) {
+        console.log(error);
+        const msg = error.response.data.message.join("; ");
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: msg,
+        });
+      }
+    },
     async addCommentToPost(id, comment) {
       try {
         const response = await axios({

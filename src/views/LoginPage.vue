@@ -9,7 +9,7 @@ export default {
             email: "",
             password: ""
         }
-    }, 
+    },
     methods: {
         ...mapActions(useCounterStore, ["handleLogin"]),
         async login() {
@@ -30,9 +30,11 @@ export default {
 
             <form class="mt-6" @submit.prevent="login">
                 <div>
-                    <label for="username" class="block text-sm text-gray-800">Email</label>
-                    <input type="text"
-                        class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" v-model="email">
+                    <label for="email" class="block text-sm text-gray-800">Email</label>
+                    <input type="email"
+                        class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                        required oninvalid="this.setCustomValidity('Please input your email first.')"
+                        oninput="this.setCustomValidity('')" v-model="email">
                 </div>
 
                 <div class="mt-4">
@@ -41,7 +43,9 @@ export default {
                     </div>
 
                     <input type="password"
-                        class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" v-model="password">
+                        class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                        required oninvalid="this.setCustomValidity('Please input your password first.')"
+                        oninput="this.setCustomValidity('')" v-model="password">
                 </div>
 
                 <div class="mt-6">
@@ -74,8 +78,10 @@ export default {
                 </button>
             </div>
 
-            <p class="mt-8 text-xs font-light text-center text-gray-600"> Don't have an account? <RouterLink to="/register"><a href="#"
-                    class="font-medium text-gray-700 hover:underline">Create One</a></RouterLink></p>
+            <p class="mt-8 text-xs font-light text-center text-gray-600"> Don't have an account? <RouterLink
+                    to="/register"><a href="#" class="font-medium text-gray-700 hover:underline">Create One</a>
+                </RouterLink>
+            </p>
         </div>
     </div>
 </template>

@@ -21,14 +21,6 @@
         </ul>
         <div v-if="access_token" class="d-flex nav-item dropdown justify-content-start align-items-center">
           <li class="nav-item dropdown me-3" style="list-style: none">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Category </a>
-            <ul class="dropdown-menu">
-              <li>
-                <a v-for="category in categories" :key="category.id" @click="filterProduct(category.name)" href="#" class="dropdown-item">{{ category.name }}</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown me-3" style="list-style: none">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <img src="https://cdn0.iconfinder.com/data/icons/set-ui-app-android/32/8-512.png" class="rounded-circle bg-dark" style="width: 40px" />
             </a>
@@ -66,6 +58,14 @@ export default {
       this.access_token = "";
       this.$router.push("/login");
     },
+
+    async toHome() {
+      try {
+        this.$router.push({ path: "/" });
+      } catch (error) {
+        this.errorHandler(error);
+      } 
+    }
   },
 
   computed: {

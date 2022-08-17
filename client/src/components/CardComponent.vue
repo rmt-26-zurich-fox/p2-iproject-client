@@ -5,7 +5,8 @@
         </div>
         <div class="content p-2">
             <h5>{{location.nama}}</h5>
-            <button class="btn btn-sm btn-primary py-0 rounded-1" @click="handleVisit(location.id)">Visit</button>
+            <button class="btn btn-sm  py-0 rounded-1" @click="handleVisit(location.id)"><i class="fa-brands fa-invision"></i> Visit</button>
+            <router-link :to="{name: 'detail', params: {id: location.id}}" class="btn btn-sm py-0 rounded-1 ms-1" @click="handleDetail(location.id)"><i class="fa-solid fa-circle-info"></i> detail</router-link>
         </div>
     </div>
 </template>
@@ -16,9 +17,12 @@ import { useCounterStore } from '../stores';
 export default {
     props: ['location'],
     methods: {
-        ...mapActions(useCounterStore, ['addFavorite']),
+        ...mapActions(useCounterStore, ['addFavorite', 'fetchDataById']),
         handleVisit(value){
             this.addFavorite(value)
+        },
+        handleDetail(value){
+            this.fetchDataById(value)
         }
     }
 }

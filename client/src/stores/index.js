@@ -20,7 +20,9 @@ export const useCounterStore = defineStore({
       email: '',
       password: ''
     },
-    myTrip: []
+    myTrip: [],
+    objDataById: {},
+    qrcode:[]
   }),
   getters: {
 
@@ -37,7 +39,11 @@ export const useCounterStore = defineStore({
         this.dataLocation = data.data
         this.totalPage = data.page
       } catch (error) {
-        console.log(error)
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message
+        })
       }
     },
 
@@ -56,7 +62,11 @@ export const useCounterStore = defineStore({
         this.fetchData()
         this.router.push('/')
       } catch (error) {
-        console.log(error)
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message
+        })
       }
     },
 
@@ -73,7 +83,11 @@ export const useCounterStore = defineStore({
           }
         })
       } catch (error) {
-        console.log(error)
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message
+        })
       }
     },
 
@@ -89,13 +103,17 @@ export const useCounterStore = defineStore({
         this.getMytrip()
         this.router.push('/mytrip')
       } catch (error) {
-        console.log(error)
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message
+        })
       }
     },
 
     async getMytrip() {
       try {
-        const  data  = await axios({
+        const data = await axios({
           method: 'get',
           url: this.baseUrl + '/favourite',
           headers: {
@@ -104,7 +122,66 @@ export const useCounterStore = defineStore({
         })
         this.myTrip = data.data
       } catch (error) {
-        console.log(error)
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message
+        })
+      }
+    },
+
+    async cancelTrip(id) {
+      try {
+        const { data } = await axios({
+          method: 'delete',
+          url: this.baseUrl + '/favourite',
+          headers: {
+            access_token: localStorage.access_token
+          },
+          data: { id }
+        })
+        Swal.fire({
+          icon: 'success',
+          title: 'Success Delete'
+        })
+      } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message
+        })
+      }
+    },
+
+    async qrCode(id) {
+      try {
+        const { data } = await axios({
+          method: 'get',
+          url: `https://api.happi.dev/v1/qrcode?data=https://chalange-w3.web.app/detail/${id}&width=&dots=000000&bg=FFFFFF&apikey=08ba957f5KkkuBtdtjTyVGWws94roIUjagxN9KqReoTe5EAvt73LiBeo`
+        })
+        this.qrcode = data.qrcode
+      } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message
+        })
+      }
+    },
+
+    async fetchDataById(id) {
+      try {
+        const { data } = await axios({
+          method: 'get',
+          url: this.baseUrl + `/location/${id}`
+        })
+        this.objDataById = data
+      } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message
+        })
       }
     }
   }

@@ -4,6 +4,7 @@ import LoginPage from '../views/LoginPage.vue'
 import ParentView from '../views/ParentView.vue'
 import MyTripPage from '../views/MyTripPage.vue'
 import RegisterPage from '../views/RegisterPage.vue'
+import DetailView from '../views/DetailView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -29,6 +30,11 @@ const router = createRouter({
           path: '/mytrip',
           name: 'mytrip',
           component: MyTripPage
+        },
+        {
+          path: '/detail/:id',
+          name: 'detail',
+          component: DetailView
         }
       ]
     },

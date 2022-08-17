@@ -87,7 +87,26 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "pinia";
+import { customStore } from '../stores/store';
 
+export default {
+  components: {
+  },
+  data() {
+    return {
+    }
+  },
+  computed: {
+    ...mapState(customStore, ["popular"])
+  },
+  methods: {
+    ...mapActions(customStore, ["fetchPopularLocations"]),
+  },
+  created() {
+    this.fetchPopularLocations()
+  }
+}
 </script>
 
 

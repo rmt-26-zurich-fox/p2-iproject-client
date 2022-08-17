@@ -22,7 +22,11 @@ export const useQuoteStore = defineStore({
     favoriteQuote: [],
     qotd: {
       quote: ''
-    }
+    },
+
+    message: [],
+
+    myMessage: [],
 
   }),
 
@@ -130,18 +134,41 @@ export const useQuoteStore = defineStore({
 
     },
 
+    testing(value){
+      
+      // this.testingValue = value
+    },
+
     setupSocketConnection(value) {  
         
         // console.log(value)
+        
+        this.socket = io('http://localhost:4000');
+        
+        this.message = value
 
-        this.socket = io('http://localhost:4000');  
+        console.log(value.message, ' <<<<<<<<< my massage')
+
+        // const data = {
+        //   id: this.socket,
+        //   message: value.message
+        // }
+
+        this.myMessage = value.message
         
         this.socket.emit('my message', value.message);
 
+        value.message = ''
+        
         this.socket.on('my broadcast', (data) => {
-            console.log(data);
+          // this.testingValue = data
+          // console.log(data, 'dari server');
+          // console.log(this.message, 'msg.vau')
+          this.message = data
         });
-    
+
+        this.message = ''
+        
     },
 
    async addFavorite(PostId){

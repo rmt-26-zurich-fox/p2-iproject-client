@@ -16,7 +16,7 @@ class SocketioService {
         this.socket.emit('my message', 'Hello there from Vue.');
 
         this.socket.on('my broadcast', (data) => {
-            console.log(data, 'ini data');
+            console.log(data);
           });
         
       }

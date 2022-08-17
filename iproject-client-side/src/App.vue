@@ -6,27 +6,24 @@
 
 <script>
 import SocketioService from './services/socketio.service.js'
-import NavBar from './components/NavBar.vue';
+// import NavBar from './components/NavBar.vue';
 
 export default {
-  components: {
-
-  },
-  // sockets: {
-    
-  //   connect(){
-  //     console.log('socket connected....')
-  //   },
-
-  //   disconnect(){
-  //     console.log('socket disconnected')
+  // data(){
+  //   return{
+  //     connection: null
   //   }
-  // }
-  // created(){
-  //    SocketioService.setupSocketConnection();
+  // },
+  // components: {
+
   // },
   beforeUnmount() {
     SocketioService.disconnect();
-  }
+  },
+  // created(){
+
+  //   // console.log(s)
+
+  // },
 }
 </script>

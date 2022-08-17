@@ -6,14 +6,15 @@ import { mapWritableState, mapActions } from "pinia";
 export default {
   methods: {
     ...mapActions(useCounterStore, ["parseJwt"])
-  },  
+  },
   computed: {
     ...mapWritableState(useCounterStore, ["isLogin", "username"])
   },
-  created () {
+  created() {
     if (localStorage.getItem("access_token")) {
       const payload = this.parseJwt(localStorage.getItem("access_token"));
       this.username = payload.username;
+      this.role = payload.role;
       this.isLogin = true;
     }
   }

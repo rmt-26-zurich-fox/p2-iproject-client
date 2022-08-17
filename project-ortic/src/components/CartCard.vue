@@ -13,6 +13,7 @@ export default {
             <div class="card-body">
               <h5 class="card-title">{{cart.Item.name}}</h5>
               <p class="card-text">{{cart.Item.description}}</p>
+              <p class="card-text">Rp .{{cart.Item.sellPrice}}</p>
               <div class="btn-group">
               <a href="" class="btn btn-primary">Delete from cart</a>
             </div>

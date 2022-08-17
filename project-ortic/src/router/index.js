@@ -40,7 +40,7 @@ const router = createRouter({
           component: HistoryPage
         },
         {
-          path: '/detail',
+          path: '/detail/:id',
           name: 'detail',
           component: DetailPage
         },

@@ -3,7 +3,16 @@ import { mapActions } from 'pinia'
 import { useCustomStore } from '../stores/custom'
 
 export default {
-    props: ['item']
+    props: ['item'],
+    methods: {
+        onClickDetail(id) {
+            this.$router.push(`/detail/${id}`)
+        },
+        ...mapActions(useCustomStore, ['addToCart']),
+        addCart(id) {
+            this.addToCart(id)
+        }
+    }
 }
 
 </script>
@@ -18,8 +27,8 @@ export default {
               <p class="card-text">{{item.sellPrice}}</p>
               <div class="btn-group">
               <!-- <a href="#!" class="btn btn-primary">Update</a> -->
-              <a href="#!" class="btn btn-primary">Add to Cart</a>
-              <router-link to="/detail" class="btn btn-primary">Details</router-link>
+              <button @click="addCart(item.id)" class="btn btn-primary">Add to Cart</button>
+              <button @click="onClickDetail(item.id)" class="btn btn-primary" >Details</button>
               <!-- <a href="#!" class="btn btn-primary">Delete</a> -->
             </div>
             </div>

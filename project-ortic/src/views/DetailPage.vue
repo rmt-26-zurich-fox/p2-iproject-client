@@ -1,5 +1,18 @@
 <script>
+import { mapWritableState, mapActions } from 'pinia'
+import { useCustomStore } from '../stores/custom'
 
+export default {
+    methods: {
+        ...mapActions(useCustomStore, ['fetchDetail'])
+    },
+    computed: {
+        ...mapWritableState(useCustomStore, ['details'])
+    },
+    created() {
+        this.fetchDetail(this.$route.params.id)
+    }
+}
 </script>
 
 
@@ -8,18 +21,17 @@
 <div class="block">
       <div class="block__body">
         <h3 class="block__heading">
-          Alkohol
+          {{details.item.name}} by {{details.item.Supplier.name}}
         </h3>
-        <p class="block__copy">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus sequi minima illo quia optio amet? Explicabo ipsa placeat molestias nihil? Ratione culpa veritatis laboriosam eveniet consectetur nihil possimus deserunt hic.</p>
-        <p class="block__copy">In Stock: 30</p>
-        <p class="block__copy">Rp. 13000</p>
+        <p class="block__copy">{{details.item.description}}</p>
+        <p class="block__copy">In Stock: {{details.item.stock}}</p>
+        <p class="block__copy">Rp. {{details.item.sellPrice}}</p>
         <br>
         <button class="btn btn-primary">Add to Cart</button>
       </div>
       <div class="block__img">
         <img
-          src="https://cf.shopee.co.id/file/3b2f74860b24ab7fb88f47a897421367"
-          alt="placeholder image"
+          :src="details.item.imageUrl"
         />
       </div>
     </div>

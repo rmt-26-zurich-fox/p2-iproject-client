@@ -7,6 +7,7 @@ import TeamDetailPage from "../views/TeamDetailPage.vue";
 import FavoritePage from "../views/FavoritePage.vue";
 import CreateThread from "../views/CreateThread.vue";
 import ThreadList from "../views/ThreadList.vue";
+import ThreadDetail from "../views/ThreadDetail.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -54,6 +55,11 @@ const router = createRouter({
           path: "",
           name: "ThreadList",
           component: ThreadList,
+        },
+        {
+          path: ":id",
+          name: "ThreadDetail",
+          component: ThreadDetail,
         },
       ],
     },

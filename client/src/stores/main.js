@@ -9,6 +9,7 @@ export const useMain = defineStore({
     isLoggedIn: false,
     profileFound: false,
     userProfile: {},
+    teams: [],
   }),
   actions: {
     async login(user) {
@@ -152,23 +153,13 @@ export const useMain = defineStore({
 
     async fetchTeams() {
       try {
-        const response = await ServerAxios.get(
-          `/profiles/edit/${this.userProfile.id}`,
-          {
-            firstName: user.firstName,
-            lastName: user.lastName,
-            selfDescription: user.selfDescription,
-            address: user.address,
-            phoneNumber: user.phoneNumber,
-            profilePicture: user.profilePicture,
-            birthdate: user.birthdate,
+        const response = await ServerAxios.get(`/teams`, {
+          headers: {
+            access_token: localStorage.getItem("access_token"),
           },
-          {
-            headers: {
-              access_token: localStorage.getItem("access_token"),
-            },
-          }
-        );
+        });
+        const { data } = response;
+        this.teams = data;
       } catch (error) {
         Swal.fire({
           title: "Error!",

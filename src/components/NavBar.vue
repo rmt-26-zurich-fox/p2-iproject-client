@@ -23,6 +23,7 @@ export default {
                 this.dropdownPopoverShow = false;
             } else {
                 this.dropdownPopoverShow = true;
+                this.dropdownPopoverShowLogout = false;
                 createPopper(this.$refs.btnDropdownRef, this.$refs.popoverDropdownRef, {
                     placement: "bottom-start"
                 });
@@ -33,6 +34,7 @@ export default {
                 this.dropdownPopoverShowLogout = false;
             } else {
                 this.dropdownPopoverShowLogout = true;
+                this.dropdownPopoverShow = false;
                 createPopper(this.$refs.btnDropdownRefLogout, this.$refs.popoverDropdownRefLogout, {
                     placement: "bottom-start"
                 });
@@ -40,7 +42,7 @@ export default {
         }
     },
     computed: {
-        ...mapState(useCounterStore, ["username", "isLogin", "categories"])
+        ...mapState(useCounterStore, ["username", "isLogin", "categories", "role"])
     },
     components: {
         DropdownButton
@@ -96,10 +98,15 @@ export default {
                 <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
                 <div class="items-center md:flex">
                     <div class="flex flex-col mt-2 md:flex-row md:mt-0 md:mx-1">
-                        <a class="my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform md:mx-4 md:my-0 font-bold"
-                            href="#">Home</a>
-                        <a class="my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform md:mx-4 md:my-0 font-bold"
-                            href="#">Search Songs!</a>
+                        <RouterLink to="/"><a v-if="role == 'Admin'"
+                                class="my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform md:mx-4 md:my-0 font-bold"
+                                href="#">Add Review</a></RouterLink>
+                        <RouterLink to="/"><a
+                                class="my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform md:mx-4 md:my-0 font-bold"
+                                href="#">Home</a></RouterLink>
+                        <RouterLink to="/songs"> <a
+                                class="my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform md:mx-4 md:my-0 font-bold"
+                                href="#">Search Songs!</a></RouterLink>
                     </div>
 
                     <!-- Dropdown Button -->
@@ -124,7 +131,7 @@ export default {
                                 class="my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform md:my-0 font-bold px-4 py-2.5 text-center inline-flex items-center"
                                 href="#">Login</a></RouterLink>
                         <button v-if="isLogin"
-                            class="my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform md:my-0 font-bold px-4 py-2.5 text-center inline-flex items-center bg-gray-300 rounded-md md:mx-0 md:w-auto"
+                            class="my-1 text-sm leading-5 text-gray-800 transition-colors duration-200 transform md:my-0 font-bold px-4 py-2.5 text-center inline-flex items-center bg-gray-300 rounded-md md:mx-0 md:w-auto"
                             type="button" v-on:click="toggleDropdownLogout()" ref="btnDropdownRefLogout"> Hello, {{
                                     username
                             }} <svg class="h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -137,9 +144,10 @@ export default {
                         <div v-bind:class="{ 'hidden': !dropdownPopoverShowLogout, 'block': dropdownPopoverShowLogout }"
                             class="bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
                             style="min-width:12rem" ref="popoverDropdownRefLogout">
-                            <a v-if="isLogin"
-                                class="my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform md:mx-4 md:my-0 font-bold"
-                                href="#" @click.prevent="logout">Logout</a>
+                            <button v-on:click="logout()"
+                                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700  hover:bg-gray-100 font-bold">
+                                Logout
+                            </button>
                         </div>
                     </div>
 
@@ -156,7 +164,7 @@ export default {
                             </span>
 
                             <input type="text" v-if="$route.fullPath != '/songs'"
-                                class="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300"
+                                class="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300"
                                 placeholder="Search" v-model="search">
                         </div>
                     </div>

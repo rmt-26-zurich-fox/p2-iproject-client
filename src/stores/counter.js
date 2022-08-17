@@ -10,7 +10,10 @@ export const useCounterStore = defineStore({
     baseUrl: "http://localhost:3000",
     isLogin: false,
     username: "",
-    categories: []
+    role: "",
+    totalPage: "",
+    categories: [],
+    reviews: []
   }),
   actions: {
     parseJwt(token) {
@@ -29,6 +32,7 @@ export const useCounterStore = defineStore({
         localStorage.setItem("access_token", data.access_token);
         localStorage.setItem("role", payload.role);
         this.username = payload.username;
+        this.role = payload.role;
         this.isLogin = true;
 
         // Success Login
@@ -67,7 +71,30 @@ export const useCounterStore = defineStore({
         });
         this.categories = data.categories;
       } catch (error) { 
-        console.log(error);
+         // Error fetch categories
+         Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: `${error.code}`,
+        });
+      }
+    },
+    async fetchDataReview(obj) {
+      try {
+        const { data } = await axios ({
+          url: this.baseUrl + "/posts",
+          method: "get",
+          params: obj
+        });
+        this.reviews = data.reviews;
+        this.totalPage = data.totalPage;
+      } catch (error) {
+        // Error fetch reviews
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: `${error.code}`,
+        });
       }
     },
     handleRegister(obj) {

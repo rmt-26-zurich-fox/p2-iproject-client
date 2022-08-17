@@ -44,6 +44,9 @@ export default {
                     <li>
                         <RouterLink to="/products">product List</RouterLink>
                     </li>
+                    <li>
+                        <RouterLink to="/products/create">Add Product</RouterLink>
+                    </li>
                 </ul>
             </li>
         </ul>

@@ -46,6 +46,33 @@ export const useProductStore = defineStore({
             } catch (error) {
                 this.alertError(error)
             }
-        }
+        },
+        async addProduct(obj) {
+            try {
+                let formData = new FormData();
+                formData.append("nameProduct", obj.nameProduct)
+                formData.append("imageProduct", obj.imageProduct)
+                formData.append("price", obj.price)
+                formData.append("weight", obj.weight)
+                formData.append("skinCategory", obj.skinCategory)
+                formData.append("productCategory", obj.productCategory)
+                formData.append("BrandId", obj.BrandId)
+                formData.append("description", obj.description)
+                const { data } = await axiosInstance({
+                    method: "POST",
+                    url: "/products",
+                    headers: {
+                        access_token: localStorage.access_token,
+                        "Content-Type": "multipart/form-data",
+                    },
+                    data: formData
+                })
+
+                this.router.push({ name: "products" })
+                this.alertSuccess(data)
+            } catch (error) {
+                this.alertError(error)
+            }
+        },
     }
 })

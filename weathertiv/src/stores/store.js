@@ -300,6 +300,38 @@ export const customStore = defineStore({
       }
     },
 
+    //Create Saved locations
+    async createSavedLocation(location) {
+      try {
+        this.isLoading = true
+        let create = await axios({
+          method: "post",
+          url: this.baseUrl + `/saved`,
+          headers: {
+            access_token: localStorage.getItem("access_token")
+          },
+          data: {
+            name: location
+          }
+        })
+        Swal.fire({
+          icon: 'success',
+          title: 'Location Saved!',
+        })
+          .then(() => {
+            this.fetchSavedLocation()
+            router.push({ name: "saved" });
+            this.isLoading = false
+          })
+      } catch (err) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: err.response.data.message,
+        })
+      }
+    },
+
     //Delete Saved Location
     async deleteSavedLocation(savedId) {
       try {

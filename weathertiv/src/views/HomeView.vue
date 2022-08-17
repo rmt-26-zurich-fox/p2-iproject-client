@@ -1,10 +1,10 @@
 <template>
   <div class="hero">
     <div class="container">
-      <form action="#" class="find-location" @submit.prevent="submitFind">
+      <form action="#" class="find-location">
         <input type="text" placeholder="Find your location..." v-model="location">
-        <button type="submit" class="save" v-if="token">Save</button>
-        <button type="submit" class="find">Find</button>
+        <button class="save" @click.prevent="submitSave" v-if="token">Save</button>
+        <button class="find" @click.prevent="submitFind">Find</button>
       </form>
     </div>
   </div>
@@ -89,11 +89,16 @@ export default {
     ...mapState(customStore, ["popular", "ipWeather", "searchWeather"])
   },
   methods: {
-    ...mapActions(customStore, ["fetchPopularLocations", "fetchIpLocation", "fetchSearchLocation"]),
+    ...mapActions(customStore, ["fetchPopularLocations", "fetchIpLocation", "fetchSearchLocation", "createSavedLocation"]),
 
     //Submit find
     async submitFind() {
       this.fetchSearchLocation(this.location)
+    },
+
+    //Submit save
+    async submitSave() {
+      this.createSavedLocation(this.location)
     }
 
   },

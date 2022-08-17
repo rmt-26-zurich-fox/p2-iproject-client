@@ -15,24 +15,33 @@
             </div>
           </a>
           <div class="card-body text-center">
-            <h4 class="card-title" v-if="element.type==='prebuilt'"> Prebuilt: {{ element.name }}</h4>
-            <h4 class="card-title" v-if="element.type==='barebones'"> Barebones: {{ element.name }}</h4>
-            <h4 class="card-title" v-if="element.type==='switch'"> Switch: {{ element.name }}</h4>
-            <h4 class="card-title" v-if="element.type==='addon'"> Add-on: {{ element.name }}</h4>
-            <h4 class="card-title" v-if="element.type==='keycaps'"> Keycaps: {{ element.name }}</h4>
-            <p>
-              {{
-                element.price.toLocaleString("id-ID", {
-                  style: "currency",
-                  currency: "IDR",
-                })
-              }}
-            </p>
+            <h4 class="card-title" v-if="element.type === 'prebuilt'">
+              Prebuilt: {{ element.name }}
+            </h4>
+            <h4 class="card-title" v-if="element.type === 'barebones'">
+              Barebones: {{ element.name }}
+            </h4>
+            <h4 class="card-title" v-if="element.type === 'switch'">
+              Switch: 90 pcs {{ element.name }}
+            </h4>
+            <h4 class="card-title" v-if="element.type === 'addon'">
+              Add-on: {{ element.name }}
+            </h4>
+            <h4 class="card-title" v-if="element.type === 'keycaps'">
+              Keycaps: {{ element.name }}
+            </h4>
 
-            <a class="btn btn-outline-light btn-md" href="#" data-abc="true"
-              >View Product</a
+            <RouterLink
+              to="/detail/{{element.id}}"
+              class="btn btn-outline-light btn-md"
+              @click.prevent="productDetail(element.id)"
+              >Details</RouterLink
             >
-            <a class="btn btn-outline-light btn-md" href="#" data-abc="true"
+            <a
+              class="btn btn-outline-light btn-md"
+              href="#"
+              data-abc="true"
+              v-if="access_token"
               >Add to Cart</a
             >
           </div>
@@ -43,19 +52,25 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "pinia";
+import { mapActions, mapState, mapWritableState } from "pinia";
 import { theSouthFace } from "../stores/theSouthFace";
 export default {
   name: "HomePage",
   computed: {
     ...mapState(theSouthFace, ["products"]),
+    ...mapWritableState(theSouthFace, ["access_token"]),
   },
   methods: {
     ...mapActions(theSouthFace, ["getProducts"]),
+    productDetail(productId) {
+      this.$router.push({ name: "DetailPage", params: { productId } });
+    },
   },
   created() {
     this.getProducts();
-    // console.log(this.products); // masuk
+    if (localStorage.getItem("access_token")) {
+      this.access_token = localStorage.access_token;
+    }
   },
 };
 </script>
@@ -116,7 +131,6 @@ export default {
   display: block;
   width: 100%;
   margin-bottom: 6px;
-
 }
 .thumblist {
   width: 35%;

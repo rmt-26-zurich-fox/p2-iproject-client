@@ -18,9 +18,25 @@ const router = createRouter({
       name: 'Simulationpage',
       component: ()=> import ('../views/SimulationPage.vue')
     },
-
-
+    {
+      path: '/login',
+      name: "LoginPage",
+      component : () => import ('../views/LoginPage.vue')
+    },
+    {
+      path: '/detail/:productId',
+      name: "DetailPage",
+      component : () => import ('../views/DetailPage.vue')
+    }
   ]
 })
+router.beforeEach((to, from, next) => {
+  const access_token = localStorage.getItem("access_token");
+
+  if (to.path == "/cart" && !access_token) next("/login");
+  else if (to.path == "/login" && access_token) next("/");
+  else if (to.path == "/register" && access_token) next("/");
+  else next();
+});
 
 export default router

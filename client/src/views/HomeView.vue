@@ -1,9 +1,15 @@
-<script setup>
-import TheWelcome from "@/components/TheWelcome.vue";
+<script>
+import SideBar from "../components/SideBar.vue";
+export default {
+  components: { SideBar },
+};
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <div
+    class="flex"
+  >
+    <SideBar />
+  </div>
+  <RouterView />
 </template>

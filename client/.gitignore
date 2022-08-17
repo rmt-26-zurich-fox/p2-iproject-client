@@ -26,3 +26,7 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+
+sidebar fix.html
+loginPage.html
+src/stores/product.js

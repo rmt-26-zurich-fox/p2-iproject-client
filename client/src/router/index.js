@@ -4,6 +4,7 @@ import RegisterPage from "../views/RegisterPage.vue";
 import CreateProfilePage from "../views/CreateProfilePage.vue";
 import HomeView from "../views/HomeView.vue";
 import TeamDetailPage from "../views/TeamDetailPage.vue";
+import FavoritePage from "../views/FavoritePage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
       path: "/teams/:id",
       name: "TeamDetail",
       component: TeamDetailPage,
+    },
+    {
+      path: "/favourites",
+      name: "FavoritePage",
+      component: FavoritePage,
     },
     // {
     //   path: "/about",

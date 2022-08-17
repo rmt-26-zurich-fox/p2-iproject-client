@@ -8,10 +8,13 @@ export default {
   },
   async created() {},
   methods: {
-    ...mapActions(useMain, ["fetchOneTeam"]),
+    ...mapActions(useMain, ["fetchOneTeam", "likeATeam"]),
     goBack() {
       //   this.refreshOneNews();
       this.$router.push({ name: "HomePage" });
+    },
+    addToFavHandler(id) {
+      this.likeATeam(id);
     },
   },
   computed: {
@@ -123,9 +126,9 @@ export default {
               type="button"
               class="card-detail-button"
               id="goBack"
-              @click="goBack"
+              @click="addToFavHandler(oneTeam.id)"
             >
-              Go Back
+              Add this team to your favorite list!
             </button>
           </div>
         </div>

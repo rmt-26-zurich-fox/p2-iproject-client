@@ -77,28 +77,30 @@ export const useHouseStore = defineStore({
     },
 
     hostingSubmission(newHouse) {
+      const data = new FormData();
+      data.append("name", newHouse.name);
+      data.append("location", newHouse.location);
+      data.append("price", newHouse.price);
+      data.append("CategoryId", newHouse.CategoryId);
+      data.append("FacilityId", newHouse.FacilityId);
+      data.append("imageUrl", newHouse.imageUrl);
+      
       return new Promise((resolve, reject) => {
         axios({
           method: "post",
-          url: 'http://localhost:3000/houses',
+          url: "http://localhost:3000/houses",
           headers: {
             access_token: localStorage.getItem("access_token"),
           },
-          data: {
-            name: newHouse.name,
-            location: newHouse.location,
-            price: newHouse.price,
-            CategoryId: newHouse.CategoryId,
-            FacilityId: newHouse.FacilityId,
-          }
+          data,
         })
-        .then(() => {
-          resolve()
-        })
-        .catch(err => {
-          reject(err)
-        })
-      })
+          .then(() => {
+            resolve();
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
     },
   },
 });

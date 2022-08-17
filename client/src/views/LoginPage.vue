@@ -64,7 +64,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(useLoginStore, ["loginSubmission"]),
+    ...mapActions(useLoginStore, ["loginSubmission", 'loginGoogle']),
     ...mapActions(useHouseStore, ["errorHandler"]),
 
     async handleLogin() {
@@ -75,6 +75,25 @@ export default {
         this.errorHandler(error);
       }
     },
+
+    async handleCredentialResponse(response) {
+      try {
+        await this.loginGoogle(response);
+        this.$router.push("/");
+      } catch (error) {
+        this.errorHandler(error);
+      }
+    },
+  },
+
+  mounted() {
+    const cb = this.handleCredentialResponse;
+
+    google.accounts.id.initialize({
+      client_id: "549755604066-jhc6otku5r65km7tam2ev48pjmnv0rnn.apps.googleusercontent.com",
+      callback: cb,
+    });
+    google.accounts.id.renderButton(document.getElementById("googleLogin"), { theme: "outline", size: "large" });
   },
 };
 </script>

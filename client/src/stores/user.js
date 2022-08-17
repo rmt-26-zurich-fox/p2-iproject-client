@@ -1,8 +1,8 @@
-import { defineStore } from 'pinia'
+import { defineStore } from "pinia";
 import housesInstance from "../apis/house";
 
 export const useLoginStore = defineStore({
-  id: 'login',
+  id: "login",
   state: () => ({
     access_token: localStorage.getItem("access_token"),
   }),
@@ -16,7 +16,7 @@ export const useLoginStore = defineStore({
           })
           .then(({ data }) => {
             localStorage.setItem("access_token", data.access_token);
-            this.access_token = localStorage.getItem("access_token");
+            this.access_token = data.access_token;
             resolve();
           })
           .catch((err) => {
@@ -24,8 +24,27 @@ export const useLoginStore = defineStore({
           });
       });
     },
-  }
-})
+
+    loginGoogle(response) {
+      return new Promise((resolve, reject) => {
+        housesInstance
+          .post("login-google", {}, {
+            headers: {
+              token_google: response.credential,
+            },
+          })
+          .then(({ data }) => {
+            localStorage.setItem("access_token", data.access_token);
+            this.access_token = data.access_token;
+            resolve();
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
+  },
+});
 
 export const useRegisterStore = defineStore({
   id: "register",

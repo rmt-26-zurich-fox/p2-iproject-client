@@ -16,7 +16,7 @@
       </div>
       <div class="mb-3">
         <label for="image" class="form-label">Photos</label>
-        <input type="file" class="form-control" id="image" />
+        <input @change="onchangePhoto" type="file" class="form-control" id="image" />
       </div>
       <div class="mb-3">
         <label for="category" class="form-label">Category</label>
@@ -29,7 +29,7 @@
         <label for="Facility" class="form-label">Facilities</label>
         <div v-for="facility in facilities" :key="facility.id">
           <input type="checkbox" :value="facility.id" v-model="newHouse.FacilityId" />
-          <label class="form-label ms-2">{{facility.name}}</label>
+          <label class="form-label ms-2">{{ facility.name }}</label>
         </div>
       </div>
       <button type="submit" class="btn btn-primary">Host</button>
@@ -40,7 +40,7 @@
 <script>
 import { mapActions } from "pinia";
 import { useHouseStore } from "../stores/house";
-// import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 export default {
   data() {
@@ -59,7 +59,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(useHouseStore, ["getAllCategories", 'getAllFacilities', 'hostingSubmission']),
+    ...mapActions(useHouseStore, ["getAllCategories", "getAllFacilities", "hostingSubmission"]),
 
     async fetchCategories() {
       try {
@@ -73,9 +73,9 @@ export default {
 
     async fetchFacilities() {
       try {
-        const data = await this.getAllFacilities()
+        const data = await this.getAllFacilities();
 
-        this.facilities = data
+        this.facilities = data;
       } catch (error) {
         console.log(error);
       }
@@ -83,24 +83,37 @@ export default {
 
     async submitHosting() {
       try {
-        await this.hostingSubmission(this.newHouse)
+        const payload = {
+          name: this.newHouse.name,
+          location: this.newHouse.location,
+          price: this.newHouse.price,
+          CategoryId: this.newHouse.CategoryId,
+          FacilityId: this.newHouse.FacilityId,
+          imageUrl: this.newHouse.imageUrl,
+        };
+
+        await this.hostingSubmission(payload);
         this.$router.push("/");
-          // Swal.fire({
-          //   title: "Your house successfully opened for hosting",
-          //   icon: "success",
-          //   position: "top-end",
-          //   showConfirmButton: false,
-          //   timer: 1000,
-          // });
+        Swal.fire({
+          title: "Your house successfully opened for hosting",
+          icon: "success",
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 1000,
+        });
       } catch (error) {
         console.log(error);
       }
-    }
+    },
+
+    async onchangePhoto(event) {
+      this.newHouse.imageUrl = event.target.files[0];
+    },
   },
 
   created() {
     this.fetchCategories();
-    this.fetchFacilities()
+    this.fetchFacilities();
   },
 };
 </script>

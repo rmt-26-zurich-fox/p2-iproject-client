@@ -1,6 +1,7 @@
 <template>
   <section class="register">
     <div class="container shadow-lg rounded">
+      <span @click="$router.push('/home')">&#10005;</span>
       <div class="logo">
         <h1><a>Movie</a><a>Ku</a></h1>
       </div>

@@ -36,6 +36,18 @@ body {
   max-width: 500px;
 }
 
+.login .container span,
+.register .container span {
+  align-self: flex-end;
+}
+
+.login .container span:hover,
+.register .container span:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+  transition: 0.2s;
+}
+
 button:hover {
   opacity: 0.9;
   transition: 0.3s;
@@ -100,7 +112,13 @@ header div:nth-child(3) {
   text-align: right;
 }
 
+header div:nth-child(3) h4:hover {
+  cursor: pointer;
+}
+
 header div:nth-child(2) a {
+  text-decoration: none;
+  color: var(--dark);
   margin: 0 10px;
 }
 

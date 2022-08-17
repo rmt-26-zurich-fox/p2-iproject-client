@@ -23,6 +23,11 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: LoginView,
+      beforeEnter() {
+        if (localStorage.access_token) {
+          router.push({ name: 'home' })
+        }
+      }
     },
     {
       path: '/',
@@ -37,6 +42,11 @@ const router = createRouter({
           path: 'saved',
           name: 'saved',
           component: SavedView,
+          beforeEnter() {
+            if (!localStorage.access_token) {
+              router.push({ name: 'login' })
+            }
+          }
         },
       ]
     }

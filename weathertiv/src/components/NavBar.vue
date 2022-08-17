@@ -17,10 +17,13 @@
                     <li class="menu-item">
                         <router-link to="/">Home</router-link>
                     </li>
-                    <li class="menu-item">
+                    <li class="menu-item" v-if="token">
                         <router-link to="/saved">Saved Location</router-link>
                     </li>
-                    <li class="menu-item"><a>Logout</a></li>
+                    <li class="menu-item" v-if="!token">
+                        <router-link to="/login">Login</router-link>
+                    </li>
+                    <li class="menu-item" v-if="token"><a @click="handleLogout">Logout</a></li>
                 </ul>
             </div>
 
@@ -31,4 +34,17 @@
 </template>
 
 <script>
+export default {
+    data() {
+        return {
+            token: localStorage.access_token,
+        }
+    },
+    methods: {
+        async handleLogout() {
+            localStorage.clear();
+            this.$router.push({ name: "login" })
+        },
+    }
+}
 </script>

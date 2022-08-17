@@ -9,7 +9,7 @@
 export default {
   data() {
     return {
-      keyword: "",
+      keyword: this.$route.query.search || "",
     };
   },
 };

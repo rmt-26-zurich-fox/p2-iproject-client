@@ -1,6 +1,6 @@
 <template>
   <MovieSearch @search="searchMovie" />
-  <div class="movie-all">
+  <div v-if="results.length !== 0" class="movie-all">
     <div class="cards">
       <MovieCard v-for="el in results" :key="el.id" :el="el" />
     </div>
@@ -31,6 +31,7 @@ export default {
     ...mapActions(useGlobalStore, ["errorHandler"]),
     async searchMovie(keyword) {
       try {
+        this.$router.push({ query: { search: keyword } });
         const { data } = await axios.get(this.baseUrl + "/movies", {
           params: { keyword },
         });
@@ -43,6 +44,10 @@ export default {
         this.errorHandler(error);
       }
     },
+  },
+  created() {
+    const { search } = this.$route.query;
+    if (search) this.searchMovie(search);
   },
 };
 </script>

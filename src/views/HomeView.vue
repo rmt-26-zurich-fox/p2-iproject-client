@@ -6,6 +6,7 @@
     <section>
       <main>
         <RouterView />
+        <MovieList title="Trending" />
       </main>
     </section>
     <section>
@@ -16,7 +17,8 @@
 <script>
 import HeaderBar from "../components/HeaderBar.vue";
 import FooterBar from "../components/FooterBar.vue";
+import MovieList from "../components/MovieList.vue";
 export default {
-  components: { HeaderBar, FooterBar },
+  components: { HeaderBar, FooterBar, MovieList },
 };
 </script>

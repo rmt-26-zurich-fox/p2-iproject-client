@@ -2,10 +2,28 @@
 import CartProductRow from "../components/CartProductRow.vue";
 
 export default {
+  data() {
+    return {
+      totalCostNeedToPay: 0,
+    };
+  },
   components: {
     CartProductRow,
   },
   props: ["carts"],
+  computed: {
+    totalCostProduct() {
+      let allProductCost = 0;
+      for (let x = 0; x < this.carts.length; x++) {
+        allProductCost += this.carts[x].totalCost;
+      }
+      this.totalCostNeedToPay = allProductCost;
+      return new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+      }).format(allProductCost);
+    },
+  },
 };
 </script>
 
@@ -33,6 +51,10 @@ export default {
         :cart="cart"
         :index="index"
       />
+      <tr v-if="carts.length !== 0">
+        <td colspan="5">Total item in cart cost :</td>
+        <td colspan="2">{{ totalCostProduct }}</td>
+      </tr>
     </tbody>
   </table>
   <button class="btn btn-success">Buy All Item in Cart</button>
@@ -41,5 +63,8 @@ export default {
 <style scoped>
 th {
   font-family: monospace;
+}
+td {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 </style>

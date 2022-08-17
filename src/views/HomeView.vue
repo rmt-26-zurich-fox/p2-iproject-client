@@ -1,25 +1,14 @@
 <template>
-  <div class="main-page">
-    <section>
-      <HeaderBar />
-    </section>
-    <section>
-      <main>
-        <RouterView />
-        <MovieList title="Trending" />
-        <MovieList title="Top Vote" />
-      </main>
-    </section>
-    <section>
-      <FooterBar />
-    </section>
-  </div>
+  <MovieAll />
+  <MovieList title="Trending" />
+  <MovieList title="Top Vote" />
 </template>
+
 <script>
-import HeaderBar from "../components/HeaderBar.vue";
-import FooterBar from "../components/FooterBar.vue";
+import MovieAll from "../components/MovieAll.vue";
 import MovieList from "../components/MovieList.vue";
+
 export default {
-  components: { HeaderBar, FooterBar, MovieList },
+  components: { MovieAll, MovieList },
 };
 </script>

@@ -220,7 +220,7 @@ main .movie-list .cards .img img:hover {
 }
 
 .detail {
-  margin: 0 auto;
+  margin: 20px auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -244,6 +244,7 @@ main .movie-list .cards .img img:hover {
 
 .detail div:nth-child(1) .img {
   width: 600px;
+  aspect-ratio: 4/6;
 }
 
 .detail div:nth-child(1) .img img {
@@ -255,6 +256,11 @@ main .movie-list .cards .img img:hover {
   padding: 3px 8px;
   border-radius: 10px;
   background-color: var(--secondary);
+}
+
+.trailer {
+  width: 1280px;
+  aspect-ratio: 16/9;
 }
 
 footer {
@@ -288,6 +294,9 @@ footer div:nth-child(3) button {
   }
   main .movie-all {
     width: 80vw;
+  }
+  .trailer {
+    width: 100%;
   }
 }
 

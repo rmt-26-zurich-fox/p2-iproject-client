@@ -25,7 +25,9 @@
 <template>
 	<table>
 		<thead>
-			<th colspan="4" class="text-center fw-bold">Fissures</th>
+			<tr>
+				<th colspan="4" class="text-center fw-bold">Fissures</th>
+			</tr>
 		</thead>
 		<tbody>
 			<tr style="border: 1px solid black">

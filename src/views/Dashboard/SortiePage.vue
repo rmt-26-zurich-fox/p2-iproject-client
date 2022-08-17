@@ -20,19 +20,19 @@
 	};
 </script>
 <template>
-	<div>
-		<table>
-			<thead>
+	<table>
+		<thead>
+			<tr>
 				<th colspan="3" class="text-center">Sortie</th>
-			</thead>
-			<tbody class="border border-dark">
-				<tr style="border-bottom: 1px solid black">
-					<td class="text-center">Type</td>
-					<td class="text-center">Modifier</td>
-					<td class="text-center">Node</td>
-				</tr>
-				<SortieList v-for="(sortie, index) of localPrimaryData" :key="index" :sortie="sortie" />
-			</tbody>
-		</table>
-	</div>
+			</tr>
+		</thead>
+		<tbody class="border border-dark">
+			<tr style="border-bottom: 1px solid black">
+				<td class="text-center">Type</td>
+				<td class="text-center">Modifier</td>
+				<td class="text-center">Node</td>
+			</tr>
+			<SortieList v-for="(sortie, index) of localPrimaryData" :key="index" :sortie="sortie" />
+		</tbody>
+	</table>
 </template>

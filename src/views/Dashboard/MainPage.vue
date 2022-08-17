@@ -21,14 +21,21 @@
 		<div class="text-center"><CyclePage /></div>
 	</div>
 	<div class="d-flex justify-content-center align-items-center">
-		<div class="w-auto">
+		<div class="container-fluid">
 			<div class="row">
-				<div class="col"><NewsPage class="col-12 table-style-mantul" /><FissuresPage class="col-12" /></div>
-				<div class="col"><NightwavePage class="col-12" /><SyndicatePages /></div>
 				<div class="col">
-					<SortiePage class="col-auto" />
+					<NewsPage class="col-12" />
+					<br />
+					<FissuresPage class="col-12" />
+				</div>
+				<div class="col">
+					<NightwavePage class="col-12" />
+					<br />
+					<SyndicatePages />
+				</div>
+				<div class="col">
 					<div class="row">
-						<div class="col"><InvasionsPage class="col-12" /></div>
+						<div class="col"><SortiePage class="col-12" /><br /><InvasionsPage class="col-12" /></div>
 					</div>
 				</div>
 			</div>

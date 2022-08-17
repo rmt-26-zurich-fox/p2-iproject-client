@@ -4,9 +4,25 @@
 	import SyndicateList from "./reusable/SyndicateList.vue";
 	export default {
 		components: { SyndicateList },
-		data() {},
+		data() {
+			return {
+				icon: {
+					ostron: "https://raw.githubusercontent.com/WFCD/genesis-assets/1131d527894088ea8141a5a859cd85e569ea8b40/svg/ostron.svg",
+					solaris:
+						"https://raw.githubusercontent.com/WFCD/genesis-assets/1131d527894088ea8141a5a859cd85e569ea8b40/svg/solaris.svg",
+					entrati:
+						"https://raw.githubusercontent.com/WFCD/genesis-assets/1131d527894088ea8141a5a859cd85e569ea8b40/svg/entrati.svg",
+				},
+				useIcon: null,
+			};
+		},
 		computed: {
 			...mapWritableState(dashboard, ["dataBounty"]),
+			categoryChecker() {
+				if (this.dataBounty.inCategory === "cetus") return this.icon.ostron;
+				if (this.dataBounty.inCategory === "solaris") return this.icon.solaris;
+				if (this.dataBounty.inCategory === "entrati") return this.icon.entrati;
+			},
 		},
 		methods: {
 			...mapActions(dashboard, ["fetchSyndicate"]),
@@ -22,11 +38,15 @@
 <template>
 	<table class="w-100">
 		<thead>
-			<th colspan="3" class="text-center">Bounty</th>
+			<tr>
+				<th colspan="3" class="text-center">Bounty</th>
+			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td colspan="3" class="text-center fw-bold text-capitalize">{{ dataBounty.inCategory }}</td>
+				<td colspan="3" class="text-center fw-bold text-capitalize">
+					<img :src="categoryChecker" class="icon" />{{ dataBounty.inCategory }}
+				</td>
 			</tr>
 			<tr style="border: 1px solid black">
 				<td class="text-center">Mission</td>

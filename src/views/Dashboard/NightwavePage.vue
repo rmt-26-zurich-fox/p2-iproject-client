@@ -24,12 +24,14 @@
 </script>
 
 <template>
-	<table>
+	<table class="">
 		<thead>
-			<th colspan="3" class="text-center">Nightwave</th>
+			<tr>
+				<th colspan="3" class="text-center fw-bold">Nightwave</th>
+			</tr>
 		</thead>
-		<tbody class="border border-dark">
-			<tr style="border-bottom: 1px solid black">
+		<tbody class="border">
+			<tr>
 				<td class="text-center">Mission</td>
 				<td class="text-center">Reward</td>
 				<td class="text-center">Timer</td>

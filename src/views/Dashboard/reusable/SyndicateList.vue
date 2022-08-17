@@ -37,7 +37,12 @@
 			</span>
 			<div class="collapse test" :id="`${this.data.id}`" v-html="reward"></div>
 		</td>
-		<td class="text-center">{{ standing }}</td>
+		<td class="text-center">
+			<img
+				src="https://raw.githubusercontent.com/WFCD/genesis-assets/1131d527894088ea8141a5a859cd85e569ea8b40/svg/standing.svg"
+				class="icon"
+			/>&nbsp;{{ standing }}
+		</td>
 		<td class="text-end pe-3">{{ level }}</td>
 	</tr>
 </template>

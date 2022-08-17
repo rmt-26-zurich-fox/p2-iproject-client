@@ -24,7 +24,9 @@
 <template>
 	<table>
 		<thead>
-			<th colspan="3" class="text-center">Invasions</th>
+			<tr>
+				<th colspan="3" class="text-center">Invasions</th>
+			</tr>
 		</thead>
 		<tbody class="border border-dark">
 			<tr style="border-bottom: 1px solid black">

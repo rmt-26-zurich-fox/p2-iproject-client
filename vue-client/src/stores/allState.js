@@ -20,12 +20,12 @@ export const useAllStateStore = defineStore({
   actions: {
     async postLoginHandler(loginForm) {
       try {
-
+        
         const response = await axios.post(`${baseUrl}/login`, {
           email: loginForm.email,
           password: loginForm.password,
         });
-
+        console.log(response);
         localStorage.setItem("access_token", response.data.access_token);
         localStorage.setItem("firstName", response.data.firstName);
         localStorage.setItem("lastName", response.data.lastName);
@@ -38,7 +38,7 @@ export const useAllStateStore = defineStore({
 
       } catch (err) {
         console.log(err);
-        this.sweetAlert(err.response.data.message, "error", "center");
+        this.sweetAlert(err.response.data.message, "error");
 
       }
     },

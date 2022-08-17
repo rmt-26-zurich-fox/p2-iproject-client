@@ -9,13 +9,13 @@ export default {
   methods: {
     ...mapActions(useAllStateStore, []),
   },
-  created(){
+  created() {
   }
 }
 </script>
 
-<template>
+<!-- <template>
   <main>
     <h1>Init Vue</h1>
   </main>
-</template>
+</template> -->

@@ -1,16 +1,20 @@
 import { defineStore } from 'pinia'
 
-export const useCounterStore = defineStore({
-  id: 'counter',
+export const useCustom2Store = defineStore({
+  id: 'custom2',
   state: () => ({
-    counter: 0
+    custom2: 0
   }),
   getters: {
-    doubleCount: (state) => state.counter * 2
+    doubleCount: (state) => state.custom2 * 2
   },
   actions: {
-    increment() {
-      this.counter++
+    async addShopCart(id){
+        try {
+
+        } catch (err) {
+            console.log(err)
+        }
     }
 }
 

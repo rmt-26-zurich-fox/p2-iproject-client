@@ -64,22 +64,7 @@
       <div class="container">
         <h2 class="section-title">Popular Location</h2>
         <div class="row">
-
-          <!-- single place -->
-          <div class="col-md-3 col-sm-6">
-            <div id="product-1" class="single-product">
-              <div class="part-1">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b6/Jakarta_Skyline_Part_2.jpg"
-                  class="product-image rounded">
-              </div>
-              <div class="live-camera">
-                <h3 class="location">London</h3>
-                <small class="date">8 oct, 8:00AM</small>
-              </div>
-            </div>
-          </div>
-
-
+          <PopularCard v-for="location in popular" :key="location.id" :locationProp="location" />
         </div>
       </div>
     </div>
@@ -87,11 +72,13 @@
 </template>
 
 <script>
+import PopularCard from '../components/PopularCard.vue'
 import { mapState, mapActions } from "pinia";
 import { customStore } from '../stores/store';
 
 export default {
   components: {
+    PopularCard,
   },
   data() {
     return {

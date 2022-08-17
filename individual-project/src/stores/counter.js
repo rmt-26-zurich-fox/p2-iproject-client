@@ -1,3 +1,4 @@
+import axios from "axios";
 import { defineStore } from "pinia";
 import Swal from "sweetalert2";
 import axiosInstance from "../apis/instance";
@@ -6,6 +7,9 @@ export const useCounterStore = defineStore({
   state: () => ({
     isLogin: false,
     topDoctor: [],
+    symptom: [],
+    disease: [],
+    profile: {},
   }),
 
   actions: {
@@ -56,11 +60,64 @@ export const useCounterStore = defineStore({
     },
     async fetchTopDoctor() {
       try {
-        const data = await axiosInstance.get("/doctors/favouriteDoctors", {
+        const data = await axiosInstance.get("/doctors/favouriteDoctors");
+
+        this.topDoctor = data.data.getFavourite;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async fetchSymptoms() {
+      try {
+        const data = await axiosInstance.get("/symptom");
+        this.symptom = data.data.symptom;
+      } catch (error) {}
+    },
+
+    async fetchDisease(symptomId) {
+      try {
+        const data = await axiosInstance.get(
+          `/diseases?symptomId=${symptomId}`
+        );
+
+        this.disease = data.data.getDisease;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async fetchProfile() {
+      try {
+        const data = await axiosInstance.get(`/profiles`, {
           headers: { access_token: localStorage.access_token },
         });
-        console.log(data);
-        this.topDoctor = data.data.getFavourite;
+
+        this.profile = data.data.getProfile;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async updateProfile(userId) {
+      console.log(userId);
+      try {
+        const data = await axiosInstance.put(
+          `/profiles/${userId}`,
+          {
+            data: {
+              firstName: this.profile.firstName,
+              lastName: this.profile.lastName,
+              dateOfBirth: this.profile.dateOfBirth,
+              gender: this.profile.gender,
+              height: this.profile.height,
+              imageUrl: this.profile.imageUrl,
+              userId: this.profile.userId,
+            },
+          },
+          {
+            headers: { access_token: localStorage.access_token },
+          }
+        );
       } catch (error) {
         console.log(error);
       }

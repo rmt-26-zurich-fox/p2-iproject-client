@@ -3,7 +3,7 @@ import NavBar from "../components/NavBar.vue";
 import FooterBar from "../components/FooterBar.vue";
 import TopDoctorCard from "../components/TopDoctorCard.vue";
 import FilterBar from "../components/FilterFeatures.vue";
-import FilterResult from "../components/FilterResult.vue";
+
 export default {
   name: "LoginView",
   components: {
@@ -11,7 +11,6 @@ export default {
     FooterBar,
     TopDoctorCard,
     FilterBar,
-    FilterResult,
   },
 };
 </script>
@@ -23,7 +22,7 @@ export default {
       <div class="banner">
         <div class="banner-content">
           <h1>
-            <span class="toBlue">Kesehatanmu</span>
+            <span class="toBlue">Kesehatanmu </span>
             <span class="toGray"
               >adalah <br />
               <em>urusan kami</em></span
@@ -49,25 +48,7 @@ export default {
         </div>
       </div>
       <div class="features-filter">
-        <div class="filter">
-          <div class="features-filter-title"><h2>Filter pencarianmu</h2></div>
-          <!--Filter-->
-          <FilterBar />
-          <hr />
-          <p>
-            Tidak menemukan pencarian? <br /><span class="fontSize"
-              >Tanya dokter
-              <span class="toBlue underscore features-cursor-pointer"
-                >disini</span
-              ></span
-            >
-          </p>
-        </div>
-        <div class="diagnosa">
-          <div class="diagnosa-title"><h1>Diagnosa penyakitmu</h1></div>
-          <!--Filter Result-->
-          <FilterResult />
-        </div>
+        <FilterBar />
       </div>
     </main>
     <!--Footer-->

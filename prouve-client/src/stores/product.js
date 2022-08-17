@@ -77,6 +77,7 @@ export const productStore = defineStore({
           icon: "error",
           confirmButtonText: "OK",
         });
+        this.isLoading = false;
       }
     },
 
@@ -113,7 +114,13 @@ export const productStore = defineStore({
         this.fetchCart();
         this.isLoading = false;
       } catch (error) {
-        this.errorHandler(error);
+        if (
+          error.response.data.message[0] !== "Validation min on amount failed"
+        ) {
+          this.errorHandler(error);
+        } else {
+          this.isLoading = false;
+        }
       }
     },
 

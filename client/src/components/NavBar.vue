@@ -50,15 +50,26 @@
 </template>
 
 <script>
+import { mapWritableState } from 'pinia';
+import { useLoginStore } from '../stores/user';
+
 export default {
   data() {
     return {
-      categories: []
-    }
+      categories: [],
+    };
   },
 
   methods: {
+    logout() {
+      localStorage.clear();
+      this.access_token = "";
+      this.$router.push("/login");
+    },
+  },
 
+  computed: {
+    ...mapWritableState(useLoginStore, ["access_token"]),
   }
-}
+};
 </script>

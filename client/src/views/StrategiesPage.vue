@@ -1,8 +1,19 @@
-<script></script>
+<script>
+import { mapActions } from "pinia";
+import { useCounterStore } from "../stores/counter";
+export default {
+  methods: {
+    ...mapActions(useCounterStore, ["getMap"]),
+    gettingMap(map) {
+      this.getMap(map);
+    },
+  },
+};
+</script>
 <template>
   <h1>ini strategi</h1>
   <div class="cards">
-    <a href="">
+    <a href="" @click.prevent="gettingMap('Ascent')">
       <div class="card">
         <img src="../assets/Ascent.jpg" alt="" />
         <div class="details">
@@ -10,51 +21,51 @@
         </div>
       </div>
     </a>
-    <a href="">
+    <a href="" @click.prevent="gettingMap('Bind')">
       <div class="card">
-        <img src="../assets/Ascent.jpg" alt="" />
+        <img src="../assets/Bind.jpg" alt="" />
         <div class="details">
-          <h5>Ascent</h5>
+          <h5>Bind</h5>
+        </div>
+      </div>
+    </a>
+    <a href="" @click.prevent="gettingMap('Breeze')">
+      <div class="card">
+        <img src="../assets/breeze.jpg" alt="" />
+        <div class="details">
+          <h5>Breeze</h5>
         </div>
       </div>
     </a>
     <a href="">
-      <div class="card">
-        <img src="../assets/Ascent.jpg" alt="" />
+      <div class="card" @click.prevent="gettingMap('Fracture')">
+        <img src="../assets/Fracture.jpeg" alt="" />
         <div class="details">
-          <h5>Ascent</h5>
+          <h5>Fracture</h5>
         </div>
       </div>
     </a>
-    <a href="">
+    <a href="" @click.prevent="gettingMap('Haven')">
       <div class="card">
-        <img src="../assets/Ascent.jpg" alt="" />
+        <img src="../assets/haven.jpg" alt="" />
         <div class="details">
-          <h5>Ascent</h5>
+          <h5>Haven</h5>
         </div>
       </div>
     </a>
-    <a href="">
+    <a href="" @click.prevent="gettingMap('Icebox')">
       <div class="card">
-        <img src="../assets/Ascent.jpg" alt="" />
+        <img src="../assets/icebox.jpg" alt="" />
         <div class="details">
-          <h5>Ascent</h5>
+          <h5>IceBox</h5>
         </div>
       </div>
     </a>
-    <a href="">
+    <a href="" @click.prevent="gettingMap('Pearl')">
       <div class="card">
-        <img src="../assets/Ascent.jpg" alt="" />
+        <img src="../assets/pearl.jpg" alt="" />
         <div class="details">
-          <h5>Ascent</h5>
-        </div>
-      </div>
-    </a>
-    <a href="">
-      <div class="card">
-        <img src="../assets/Ascent.jpg" alt="" />
-        <div class="details">
-          <h5>Ascent</h5>
+          <h5>Pearl</h5>
         </div>
       </div>
     </a>

@@ -1,18 +1,48 @@
 import { defineStore } from "pinia";
 import axios from "axios";
+import router from "../router";
 export const useCounterStore = defineStore({
   id: "counter",
   state: () => ({
-    counter: 0,
+    map: "",
+    type: "",
+    strategy: [],
+    agents: [],
   }),
   actions: {
-    async getStrategies() {
+    async getStrategies(map, type, site) {
       try {
-        const { data } = axios.get();
-        console.log(data);
+        const { data } = await axios.get(
+          `http://localhost:3000/${map}/${type}/${site}`
+        );
+        this.strategy = data;
+        router.push("/strategy");
       } catch (error) {
         console.log(error);
       }
+    },
+    getMap(map) {
+      this.map = map;
+      router.push("/type");
+    },
+    getType(type) {
+      this.type = type;
+      router.push("/site");
+    },
+    getSite(site) {
+      this.getStrategies(this.map, this.type, site);
+    },
+    async getAgents() {
+      try {
+        const { data } = await axios.get("http://localhost:3000/agents");
+        this.agents = data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    getAgent(agent) {
+      console.log(agent);
+      this.agent = agent;
     },
   },
 });

@@ -24,14 +24,14 @@
 
           Price :
 
-          {{
-            oneProduct.price.toLocaleString("id-ID", {
-              style: "currency",
-              currency: "IDR",
-            })
-          }}
-        </div> <br>
-        <a class="btn btn-outline-light btn-md" href="#" data-abc="true"
+          {{ currency(oneProduct.price) }}
+        </div>
+        <br />
+        <a
+          class="btn btn-outline-light btn-md"
+          href="#"
+          data-abc="true"
+          @click.prevent="submitAddToCart(oneProduct.id)"
           >Add to Cart</a
         >
       </div>
@@ -53,7 +53,16 @@ export default {
     ...mapState(theSouthFace, ["oneProduct"]),
   },
   methods: {
-    ...mapActions(theSouthFace, ["fetchOneProduct"]),
+    ...mapActions(theSouthFace, ["fetchOneProduct", "addToCart"]),
+    currency(price) {
+      return price.toLocaleString("id-ID", {
+        style: "currency",
+        currency: "IDR",
+      });
+    },
+    submitAddToCart(productId) {
+      this.addToCart(productId);
+    },
   },
   created() {
     this.fetchOneProduct(this.$route.params.productId);
@@ -83,7 +92,7 @@ export default {
   border-radius: 10px;
 }
 .btn {
-align-items: center;
-justify-content: center;
+  align-items: center;
+  justify-content: center;
 }
 </style>

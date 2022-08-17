@@ -1,49 +1,41 @@
 <template>
-  <div class="containerHome">
+  <div class="containerCart">
     <div class="row">
       <div
         class="col-md-4 col-sm-6"
-        v-for="element in products"
-        v-bind:key="element.id"
+        v-for="element in cart"
+        v-bind:key="element.Product.id"
       >
         <div class="card mb-30">
           <a class="card-img-tiles" href="#" data-abc="true">
             <div class="inner">
               <div class="main-img">
-                <img v-bind:src="element.imageUrl1" />
+                <img v-bind:src="element.Product.imageUrl1" />
               </div>
             </div>
           </a>
           <div class="card-body text-center">
-            <h4 class="card-title" v-if="element.type === 'prebuilt'">
-              Prebuilt: {{ element.name }}
+            <h4 class="card-title" v-if="element.Product.type === 'prebuilt'">
+              Prebuilt: {{ element.Product.name }}
             </h4>
-            <h4 class="card-title" v-if="element.type === 'barebones'">
-              Barebones: {{ element.name }}
+            <h4 class="card-title" v-if="element.Product.type === 'barebones'">
+              Barebones: {{ element.Product.name }}
             </h4>
-            <h4 class="card-title" v-if="element.type === 'switch'">
-              Switch: 90 pcs {{ element.name }}
+            <h4 class="card-title" v-if="element.Product.type === 'switch'">
+              Switch: 90 pcs {{ element.Product.name }}
             </h4>
-            <h4 class="card-title" v-if="element.type === 'addon'">
-              Add-on: {{ element.name }}
+            <h4 class="card-title" v-if="element.Product.type === 'addon'">
+              Add-on: {{ element.Product.name }}
             </h4>
-            <h4 class="card-title" v-if="element.type === 'keycaps'">
-              Keycaps: {{ element.name }}
+            <h4 class="card-title" v-if="element.Product.type === 'keycaps'">
+              Keycaps: {{ element.Product.name }}
             </h4>
 
             <RouterLink
               to="/detail/{{element.id}}"
               class="btn btn-outline-light btn-md"
-              @click.prevent="productDetail(element.id)"
-              >Details</RouterLink
-            >
-            <a
-              class="btn btn-outline-light btn-md"
-              href="#"
-              data-abc="true"
-              v-if="access_token"
-              @click.prevent="submitAddToCart(element.id)"
-              >Add to Cart</a
+              @click.prevent="submitRemoveFromCart(element.id)"
+              >Remove</RouterLink
             >
           </div>
         </div>
@@ -58,21 +50,17 @@ import { theSouthFace } from "../stores/theSouthFace";
 export default {
   name: "HomePage",
   computed: {
-    ...mapState(theSouthFace, ["products"]),
+    ...mapState(theSouthFace, ["cart"]),
     ...mapWritableState(theSouthFace, ["access_token"]),
   },
   methods: {
-    ...mapActions(theSouthFace, ["getProducts",'addToCart']),
-    productDetail(productId) {
-      this.$router.push({ name: "DetailPage", params: { productId } });
-    },
-    submitAddToCart(productId){
-      this.addToCart(productId)
+    ...mapActions(theSouthFace, ["fetchAllCarts", 'removeFromCart']),
+    submitRemoveFromCart(cartId){
+        this.removeFromCart(cartId)
     }
-    
   },
   created() {
-    this.getProducts();
+    this.fetchAllCarts();
     if (localStorage.getItem("access_token")) {
       this.access_token = localStorage.access_token;
     }
@@ -81,7 +69,7 @@ export default {
 </script>
 
 <style>
-.containerHome {
+.containerCart {
   margin-top: 20px;
   display: flex !important;
   flex-direction: row !important;
@@ -134,7 +122,6 @@ export default {
 .card-img-tiles .main-img > img,
 .card-img-tiles .thumblist > img {
   display: block;
-  width: 100%;
   margin-bottom: 6px;
 }
 .thumblist {

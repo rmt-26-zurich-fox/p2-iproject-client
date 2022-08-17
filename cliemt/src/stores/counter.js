@@ -7,10 +7,13 @@ export const useCounterStore = defineStore({
   state: () => ({
     isLogin: false,
     dataUserLogin: {},
+    allPost: []
 
 
   }),
-  getters: {},
+  getters: {
+    
+  },
   actions: {
     async handleLogin(value) {
       try {
@@ -89,6 +92,38 @@ export const useCounterStore = defineStore({
       } catch (error) {
         console.log(error);
       }
+    },
+    async readAllPost() {
+      try {
+        const response = await axios({
+          url: `${baseUrl}/post`,
+          method: "get",
+          headers: {
+            access_token: localStorage.getItem("access_token")
+          }
+        });
+        this.allPost = response.data;
+        console.log(this.allPost);
+      } catch (error) {
+        console.log(error);
+      }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   },
 });

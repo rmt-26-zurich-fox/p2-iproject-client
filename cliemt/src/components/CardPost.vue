@@ -1,24 +1,73 @@
-<script></script>
+<script>
+  import { mapActions, mapState, mapGetters } from "pinia";
+  import { useCounterStore } from "../stores/counter";
+  export default {
+    props: {
+      post: Object,
+    },
+    methods: {
+      timeSince(date) {
+        var seconds = Math.floor((new Date() - date) / 1000);
+
+        var interval = seconds / 31536000;
+
+        if (interval > 1) {
+          return Math.floor(interval) + " years";
+        }
+        interval = seconds / 2592000;
+        if (interval > 1) {
+          return Math.floor(interval) + " months";
+        }
+        interval = seconds / 86400;
+        if (interval > 1) {
+          return Math.floor(interval) + " days";
+        }
+        interval = seconds / 3600;
+        if (interval > 1) {
+          return Math.floor(interval) + " hours";
+        }
+        interval = seconds / 60;
+        if (interval > 1) {
+          return Math.floor(interval) + " minutes";
+        }
+        return Math.floor(seconds) + " seconds";
+      },
+      countLike(like) {
+        if (like === 0) {
+          return `${like} Like`;
+        } else if (like === 1) {
+          return `${like} Like`;
+        } else if (like > 1) {
+          return `${like} Likes`;
+        }
+      },
+    },
+  };
+</script>
 
 <template>
   <div class="instagram-card">
     <div class="instagram-card-header">
-      <p class="profilName">followmeto</p>
-      <div class="instagram-card-time">58 min ago</div>
+      <p class="profilName">{{ post.User.username }}</p>
+      <div class="instagram-card-time">
+        {{ this.timeSince(new Date(post.createdAt)) }} ago
+      </div>
     </div>
     <div class="instagram-card-content">
-      <img
-        class="imagePost"
-        src="https://stringfixer.com/files/31927252.jpg"
-        alt=""
-      />
+      <router-link
+        :to="{ name: 'post_detail', params: { id: post.id } }"
+        style="text-decoration: none"
+      >
+        <img class="imagePost" :src="post.imgUrl" alt="" />
+      </router-link>
+
       <div class="like">
         <img
           src="https://cdn-icons.flaticon.com/png/512/3128/premium/3128313.png?token=exp=1660722693~hmac=8640e3991af33de3dabe45f892ea2a84"
           alt=""
           style="max-height: 30px"
         />
-        <p class="likes">18.068 Likes</p>
+        <p class="likes">{{ this.countLike(post.Likes.length) }}</p>
       </div>
     </div>
   </div>
@@ -47,6 +96,7 @@
     padding-top: 20px;
     padding-left: 20px;
     height: 40px;
+    margin-bottom: 10px;
   }
   .intagram-card-image {
     width: 100%;
@@ -59,7 +109,6 @@
   }
 
   .instagram-card-time {
-    width: 80px;
     padding-top: 10px;
     text-align: left;
     color: #999;

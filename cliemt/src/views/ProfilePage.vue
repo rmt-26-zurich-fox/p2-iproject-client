@@ -12,10 +12,12 @@
     },
     methods: {
       ...mapActions(useCounterStore, ["readProfilData"]),
+      readDataUser() {
+        this.readProfilData();
+      },
     },
     created() {
-      this.readProfilData();
-      //   console.log(this.dataUserLogin);
+      this.readDataUser();
     },
   };
 </script>
@@ -37,12 +39,7 @@
     </div>
 
     <div>
-      <router-link
-        :to="{ name: 'post_detail', params: { id: 1 } }"
-        style="text-decoration: none"
-      >
-        <CardPost />
-      </router-link>
+      <CardPost />
 
       <CardPost />
       <CardPost />

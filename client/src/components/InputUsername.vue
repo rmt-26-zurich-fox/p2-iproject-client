@@ -18,20 +18,21 @@ export default {
 </script>
 <template>
   <div id="nameInput" v-show="!isLogged">
+    <h4 class="text-center">Join Live Chat Now!</h4>
     <div class="field is-grouped">
       <div class="control">
         <input
           v-model="userName"
           v-on:keydown.enter="sendUserName"
-          class="input is-primary"
+          class="form-control"
           placeholder="Your name"
         />
       </div>
-      <div class="control">
+      <div class="text-center">
         <button
-          v-on:click="sendUserName"
+          v-on:click.prevent="sendUserName"
           :disabled="!userName"
-          class="button is-primary"
+          class="btn btn-primary message-button"
         >
           Enter
         </button>

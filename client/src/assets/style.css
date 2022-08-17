@@ -528,3 +528,27 @@ table tr:last-child td:last-child {
   color: white !important;
   border: #17408b !important;
 }
+
+.chat-container {
+  width: 40%;
+}
+
+.message-button {
+  margin-top: 10px;
+  width: 40%;
+}
+.list-of-users {
+  margin-top: 20px;
+  width: 100%;
+}
+
+#messages {
+  background-color: white;
+  border-radius: 25px;
+  margin-bottom: 10px;
+}
+
+.send-message-container .form-control {
+  border-radius: 15px !important;
+  width: 100% !important;
+}

@@ -13,6 +13,7 @@ export const productStore = defineStore({
     replies: [],
     paymentToken: "",
     isLogin: false,
+    isLoading: false,
     recipeById: {},
     threadById: {},
     initialPage: 2,
@@ -54,7 +55,7 @@ export const productStore = defineStore({
 
     async fetchCart() {
       try {
-        // this.isLoading = true;
+        this.isLoading = true;
         const response = await axios({
           method: "get",
           url: this.baseUrl + "carts",
@@ -63,7 +64,7 @@ export const productStore = defineStore({
           },
         });
         this.cart = response.data;
-        // this.isLoading = false;
+        this.isLoading = false;
       } catch (error) {
         console.log(error.response);
       }
@@ -71,7 +72,7 @@ export const productStore = defineStore({
 
     async updateCart(amount, cartId) {
       try {
-        // this.isLoading = true;
+        this.isLoading = true;
         const response = await axios({
           method: "patch",
           url: this.baseUrl + `carts/${cartId}`,
@@ -83,7 +84,7 @@ export const productStore = defineStore({
           },
         });
         this.fetchCart();
-        // this.isLoading = false;
+        this.isLoading = false;
       } catch (error) {
         console.log(error.response);
       }
@@ -91,7 +92,7 @@ export const productStore = defineStore({
 
     async deleteItem(cartId) {
       try {
-        // this.isLoading = true;
+        this.isLoading = true;
         const response = await axios({
           method: "delete",
           url: this.baseUrl + `carts/${cartId}`,
@@ -101,7 +102,7 @@ export const productStore = defineStore({
         });
         this.fetchCart();
         console.log(response.data);
-        // this.isLoading = false;
+        this.isLoading = false;
       } catch (error) {
         console.log(error.response);
       }
@@ -109,7 +110,7 @@ export const productStore = defineStore({
 
     async fetchPayment() {
       try {
-        // this.isLoading = true;
+        this.isLoading = true;
         const response = await axios({
           method: "get",
           url: this.baseUrl + "payment",
@@ -118,7 +119,7 @@ export const productStore = defineStore({
           },
         });
         this.paymentToken = response.data.trans_token;
-        // this.isLoading = false;
+        this.isLoading = false;
       } catch (error) {
         console.log(error.response);
       }
@@ -126,7 +127,7 @@ export const productStore = defineStore({
 
     async removeCheckout() {
       try {
-        // this.isLoading = true;
+        this.isLoading = true;
         const response = await axios({
           method: "delete",
           url: this.baseUrl + "carts",
@@ -135,7 +136,7 @@ export const productStore = defineStore({
           },
         });
         console.log(response.data);
-        // this.isLoading = false;
+        this.isLoading = false;
       } catch (error) {
         console.log(error.response);
       }
@@ -143,6 +144,7 @@ export const productStore = defineStore({
 
     async fetchRecipe(search) {
       try {
+        this.isLoading = true;
         const response = await axios({
           method: "get",
           url: this.baseUrl + "recipes",
@@ -151,6 +153,7 @@ export const productStore = defineStore({
           },
         });
         this.recipes = response.data;
+        this.isLoading = false;
       } catch (error) {
         console.log(error.response);
       }
@@ -158,6 +161,7 @@ export const productStore = defineStore({
 
     async fetchNextRecipe(page, search) {
       try {
+        this.isLoading = true;
         const response = await axios({
           method: "get",
           url: this.baseUrl + "recipes",
@@ -169,6 +173,7 @@ export const productStore = defineStore({
         response.data.forEach((el) => {
           this.recipes.push(el);
         });
+        this.isLoading = false;
       } catch (error) {
         console.log(error.response);
       }
@@ -176,11 +181,13 @@ export const productStore = defineStore({
 
     async fetchRecipeById(recipeId) {
       try {
+        this.isLoading = true;
         const response = await axios({
           method: "get",
           url: this.baseUrl + `recipes/${recipeId}`,
         });
         this.recipeById = response.data;
+        this.isLoading = false;
       } catch (error) {
         console.log(error.response);
       }
@@ -188,6 +195,7 @@ export const productStore = defineStore({
 
     async fetchProduct(query) {
       try {
+        this.isLoading = true;
         const response = await axios({
           method: "get",
           url: this.baseUrl + "products",
@@ -196,6 +204,7 @@ export const productStore = defineStore({
           },
         });
         this.cakes = response.data;
+        this.isLoading = false;
       } catch (error) {
         console.log(error.response);
       }
@@ -203,6 +212,7 @@ export const productStore = defineStore({
 
     async fetchNextProduct(page, category) {
       try {
+        this.isLoading = true;
         const response = await axios({
           method: "get",
           url: this.baseUrl + "products",
@@ -214,6 +224,7 @@ export const productStore = defineStore({
         response.data.forEach((el) => {
           this.cakes.push(el);
         });
+        this.isLoading = false;
       } catch (error) {
         console.log(error.response);
       }
@@ -221,11 +232,13 @@ export const productStore = defineStore({
 
     async fetchThread() {
       try {
+        this.isLoading = true;
         const response = await axios({
           method: "get",
           url: this.baseUrl + "threads",
         });
         this.threads = response.data;
+        this.isLoading = false;
       } catch (error) {
         console.log(error.response);
       }
@@ -233,11 +246,13 @@ export const productStore = defineStore({
 
     async fetchThreadById(threadId) {
       try {
+        this.isLoading = true;
         const response = await axios({
           method: "get",
           url: this.baseUrl + `threads/${threadId}`,
         });
         this.threadById = response.data;
+        this.isLoading = false;
       } catch (error) {
         console.log(error.response);
       }
@@ -245,6 +260,7 @@ export const productStore = defineStore({
 
     async createThread(title, content) {
       try {
+        this.isLoading = true;
         const response = await axios({
           method: "post",
           url: this.baseUrl + "threads",
@@ -256,9 +272,8 @@ export const productStore = defineStore({
             content,
           },
         });
-        console.log(response.data);
         this.fetchThread();
-        // this.threads = response.data;
+        this.isLoading = false;
       } catch (error) {
         console.log(error.response);
       }
@@ -266,6 +281,7 @@ export const productStore = defineStore({
 
     async createReply(content, ThreadId) {
       try {
+        this.isLoading = true;
         const response = await axios({
           method: "post",
           url: this.baseUrl + "replies",
@@ -277,21 +293,22 @@ export const productStore = defineStore({
             ThreadId,
           },
         });
-        console.log(response.data);
         this.fetchReply(ThreadId);
+        this.isLoading = false;
       } catch (error) {
         console.log(error.response);
       }
     },
 
     async fetchReply(ThreadId) {
-      console.log(ThreadId);
       try {
+        this.isLoading = true;
         const response = await axios({
           method: "get",
           url: this.baseUrl + `replies/${ThreadId}`,
         });
         this.replies = response.data;
+        this.isLoading = false;
       } catch (error) {
         console.log(error.response);
       }

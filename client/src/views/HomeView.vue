@@ -91,36 +91,36 @@ export default {
     </div>
 
     <!-- SOCKET -->
-    <!-- <div class="columns"> -->
-    <!-- <div class="column is-two-thirds"> -->
-    <!-- inputs user name -->
-    <!-- we pass isLogged as a property to input-name component, this prop is used to show or not the component -->
-    <!-- we also listen to set-name event, when user inputs the username, the component emits an event -->
-    <!-- <InputUsername :isLogged="isLogged" v-on:set-name="setName" /> -->
+    <div class="columns">
+      <div class="column is-two-thirds">
+        <!-- inputs user name -->
+        <!-- we pass isLogged as a property to input-name component, this prop is used to show or not the component -->
+        <!-- we also listen to set-name event, when user inputs the username, the component emits an event -->
+        <InputUsername :isLogged="isLogged" v-on:set-name="setName" />
 
-    <!-- message list -->
-    <!-- we show the chatbox if user has username (isLogged) -->
-    <!-- <div class="box" v-if="isLogged"> -->
-    <!-- <div id="#messages" class="messages"> -->
-    <!-- <ul> -->
-    <!-- iterating over messages -->
-    <!-- <li v-for="message in messages"> -->
-    <!-- <TextMessage :messageData="message" /> -->
-    <!-- bind each message data to the message component -->
-    <!-- </li> -->
-    <!-- </ul> -->
-    <!-- </div> -->
-    <!-- inputs new message -->
-    <!-- when a message is sent, input-message component emits an event (send-message) which is captured here -->
-    <!-- <MessageInput v-on:send-message="sendMessage" /> -->
-    <!-- </div> -->
-    <!-- </div> -->
+        <!-- message list -->
+        <!-- we show the chatbox if user has username (isLogged) -->
+        <div class="box" v-if="isLogged">
+          <div id="#messages" class="messages">
+            <ul>
+              <!-- iterating over messages -->
+              <li v-for="message in messages">
+                <TextMessage :messageData="message" />
+                <!-- bind each message data to the message component -->
+              </li>
+            </ul>
+          </div>
+          <!-- inputs new message -->
+          <!-- when a message is sent, input-message component emits an event (send-message) which is captured here -->
+          <!-- <MessageInput v-on:send-message="sendMessage" /> -->
+        </div>
+      </div>
 
-    <!-- user list -->
-    <!-- <div class="column"> -->
-    <!-- <UserComponent :users="users" /> -->
-    <!-- the user list is passed as prop to users component -->
-    <!-- </div> -->
-    <!-- </div> -->
+      <!-- user list -->
+      <div class="column">
+        <UserComponent :users="users" />
+        <!-- the user list is passed as prop to users component -->
+      </div>
+    </div>
   </section>
 </template>

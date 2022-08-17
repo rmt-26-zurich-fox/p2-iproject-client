@@ -1,4 +1,7 @@
 <script>
+import { mapState, mapActions } from "pinia";
+import { useCustomStore } from "../stores/custom";
+
 export default {
   data() {
     return {
@@ -8,9 +11,33 @@ export default {
     };
   },
   methods: {
+    ...mapActions(useCustomStore, [
+      "fetchProductCart",
+      "fetchTokenPaymentMidtrans",
+    ]),
     logoutClearStorage() {
       localStorage.clear();
     },
+    cartClickButtonHandler() {
+      this.fetchProductCart();
+
+      let allProductCost = 0;
+      for (let x = 0; x < this.carts.length; x++) {
+        allProductCost += this.carts[x].totalCost;
+      }
+
+      if (this.carts.length === 0) {
+        this.$router.push("/cart");
+      } else {
+        this.fetchTokenPaymentMidtrans(allProductCost);
+      }
+    },
+  },
+  computed: {
+    ...mapState(useCustomStore, ["carts"]),
+  },
+  created() {
+    this.fetchProductCart();
   },
 };
 </script>
@@ -21,13 +48,14 @@ export default {
     <div class="container-fluid" style="justify-content: center; gap: 10px">
       <div class="mx-auto" style="padding-left: 11rem">
         <router-link class="navbar-link" to="/">Home </router-link>
-        <router-link
+        <a
           class="navbar-link"
-          to="/cart"
           v-if="access_token && email !== 'guest@guest.com'"
+          @click.prevent="cartClickButtonHandler"
+          style="cursor: pointer"
         >
           Cart
-        </router-link>
+        </a>
         <router-link
           class="navbar-link"
           to="/order-list"

@@ -10,11 +10,14 @@ export const dashboard = defineStore({
 			nightwave: null,
 			sortie: null,
 			invasions: null,
-			fissures: {
-				normal: [],
-				storm: [],
-				isDefaultState: true,
-			},
+			fissures: {},
+		},
+		dataFissures: { normal: [], storm: [], isDefaultState: true },
+		dataBounty: {
+			entrati: null,
+			cetus: null,
+			solaris: null,
+			inCategory: "cetus", //cetus / entrati / olaris / zariman
 		},
 		secondaryData: {},
 		dealsData: {},
@@ -89,13 +92,39 @@ export const dashboard = defineStore({
 				data.response.forEach(data => {
 					const { isStorm } = data;
 					if (isStorm) {
-						this.primaryData.fissures.storm.push(data);
-					} else if (!isStorm) {
-						this.primaryData.fissures.normal.push(data);
+						this.dataFissures.storm.push(data);
+					} else {
+						this.dataFissures.normal.push(data);
 					}
 				});
 			} catch ({ response }) {
 				console.log(response.data.message);
+			}
+		},
+
+		async fetchSyndicate(platform = "pc") {
+			try {
+				const { data } = await axios({
+					method: "get",
+					url: `${server.url}/events/${platform}/syndicates`,
+				});
+				/** id
+				 * "1660762043465EntratiSyndicate"
+				 * "1660762043465CetusSyndicate"
+				 * "1660762043465SolarisSyndicate"
+				 * "1660762043465ZarimanSyndicate"
+				 */
+				data.response.forEach(data => {
+					if (data.syndicate === "Ostrons") {
+						this.dataBounty.cetus = data;
+					} else if (data.syndicate === "Entrati") {
+						this.dataBounty.entrati = data;
+					} else if (data.syndicate === "Solaris United") {
+						this.dataBounty.solaris = data;
+					}
+				});
+			} catch (error) {
+				console.log(error);
 			}
 		},
 

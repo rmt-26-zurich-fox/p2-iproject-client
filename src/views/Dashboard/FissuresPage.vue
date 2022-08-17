@@ -1,5 +1,5 @@
 <script>
-	import { mapActions, mapState } from "pinia";
+	import { mapActions, mapWritableState } from "pinia";
 	import { dashboard } from "@/stores/dashboard";
 	import FissuresList from "./reusable/FissuresList.vue";
 
@@ -9,16 +9,15 @@
 		},
 		methods: {
 			...mapActions(dashboard, ["fetchFissures"]),
+			toggleButton() {
+				this.dataFissures.isDefaultState = !this.dataFissures.isDefaultState;
+			},
 		},
 		computed: {
-			...mapState(dashboard, ["primaryData"]),
+			...mapWritableState(dashboard, ["dataFissures"]),
 		},
 		async created() {
 			await this.fetchFissures();
-			// this.normalFissure = this.primaryData.fissures.normal;
-			// console.log(this.localPrimaryData.normal);
-			// const { normal, storm } = this.primaryData.fissures;
-			// this.localPrimaryData = { normal, storm };
 		},
 		components: { FissuresList },
 	};
@@ -36,13 +35,23 @@
 				<td class="text-center">duration</td>
 			</tr>
 			<FissuresList
-				v-if="primaryData.fissures.isDefaultState"
-				v-for="(dataNormal, index) of primaryData.fissures.normal"
+				v-if="dataFissures.isDefaultState"
+				v-for="(dataNormal, index) of dataFissures.normal"
 				:key="index"
 				:data="dataNormal"
 			/>
+			<FissuresList
+				v-if="!dataFissures.isDefaultState"
+				v-for="(dataStorm, index) of dataFissures.storm"
+				:key="index"
+				:data="dataStorm"
+			/>
 			<tr>
-				<td colspan="4" class="d-flex justify-content-center align-items-center"><button>BUTTON PAGINATION</button></td>
+				<td colspan="4" style="border: 1px solid black">
+					<div class="d-flex justify-content-center align-items-center">
+						<button class="btn btn-dark" @click.prevent="toggleButton">BUTTON PAGINATION</button>
+					</div>
+				</td>
 			</tr>
 		</tbody>
 	</table>

@@ -22,9 +22,9 @@
 </script>
 <template>
 	<tr style="border: 1px solid black">
-		<td style="padding-inline: 10px">{{ data.node }}</td>
-		<td style="padding-inline: 10px" class="text-center">{{ data.missionKey }}</td>
-		<td style="padding-inline: 10px" class="text-center">{{ data.tier }}</td>
-		<td style="padding-inline: 10px" class="fw-bold">{{ countdown }}</td>
+		<td>{{ data.node }}</td>
+		<td class="text-center padding-table">{{ data.missionKey }}</td>
+		<td class="text-center padding-table">{{ data.tier }}</td>
+		<td class="fw-bold">{{ countdown }}</td>
 	</tr>
 </template>

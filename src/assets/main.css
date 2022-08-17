@@ -2,6 +2,7 @@
 
 body {
 	background-color: aqua;
+	padding-bottom: 5vh;
 }
 
 .button-patchnote-first {
@@ -10,4 +11,19 @@ body {
 
 .button-patchnote-last {
 	border-radius: 0 0 25px 25px !important;
+}
+
+.button-custom {
+	border: none;
+	background-color: transparent;
+}
+
+.button-custom:hover,
+.button-custom:active {
+	border: none;
+	background-color: white;
+}
+
+.padding-table {
+	padding-inline: 10px;
 }

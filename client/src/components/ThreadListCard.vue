@@ -1,6 +1,15 @@
 <script>
+import { mapState, mapActions } from "pinia";
+import { useMain } from "../stores/main";
+import ThreadListCard from "../components/ThreadListCard.vue";
 export default {
   props: ["oneThread"],
+  methods: {
+    fetchOneThreadHandler() {
+      this.fetchOneThread(this.oneThread.id);
+    },
+    ...mapActions(useMain, ["fetchOneThread"]),
+  },
 };
 </script>
 
@@ -16,7 +25,10 @@ export default {
             {{ oneThread.Profile.lastName }}
           </p>
         </div>
-        <div class="text-center button-to-thread-detail-container">
+        <div
+          class="text-center button-to-thread-detail-container"
+          @click="fetchOneThreadHandler"
+        >
           <router-link
             :to="{
               name: `ThreadDetail`,

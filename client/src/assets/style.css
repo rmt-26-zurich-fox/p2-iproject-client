@@ -83,9 +83,26 @@ nav li a:hover {
 .login-card {
   background-color: #fcc5c0;
 }
+.container-thread-detail {
+  background-color: white;
+}
 .create-thread-card {
   background-color: #fcc5c0;
   width: 100%;
+}
+.comment-section {
+  width: 70%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.add-comment-section {
+  width: 100%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.separator-thread {
+  margin-top: 20px;
 }
 .thread-label {
   font-size: 1.3em;

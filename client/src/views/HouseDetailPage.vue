@@ -43,7 +43,7 @@
           <input v-model="night" type="number" class="form-control" />
           <h5 class="card-title mt-5">Total price:</h5>
           <h5 class="card-title">{{ formatPrice }}</h5>
-          <button @click="paymentGenerator" id="pay-button" class="btn btn-primary mt-3" :class="{ disabled: night < 1 }">Book now</button>
+          <button @click="paymentGenerator" id="pay-button" class="btn btn-primary mt-3 form-control" :class="{ disabled: night < 1 }">Book now</button>
         </div>
       </div>
     </div>

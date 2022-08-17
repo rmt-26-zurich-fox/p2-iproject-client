@@ -35,6 +35,11 @@ nav {
   /* background-color: red; */
 }
 
+nav img {
+  width: 200px;
+  height: 60px;
+}
+
 ul {
   display: flex;
 }
@@ -212,7 +217,7 @@ button {
 
 .card-specialization {
   margin: auto;
-  width: 75%;
+  width: 95%;
   height: 100%;
   /* background-color: red; */
 }
@@ -225,7 +230,8 @@ button {
 
 .card-specialization-item span {
   /* border: 1px solid #26abeb; */
-  margin-top: 5px;
+  width: 80px;
+  margin-top: 3px;
   background-color: #e9f6fc;
   color: #656565;
   padding: 5px 50px;
@@ -373,13 +379,17 @@ footer p {
   width: 40vw;
   height: 100%;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+
+  /* background-color: blue; */
+}
+
+.form-register {
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* background-color: blue; */
 }
-
 .register-form-action-form input {
   border-radius: 5px;
   width: 35%;

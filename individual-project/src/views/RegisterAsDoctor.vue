@@ -4,7 +4,7 @@ import FooterBar from "../components/FooterBar.vue";
 import { mapActions } from "pinia";
 import { useCounterStore } from "../stores/counter";
 export default {
-  name: "RegisterView",
+  name: "RegisterAsDoctor",
   components: {
     NavBar,
     FooterBar,
@@ -14,18 +14,24 @@ export default {
       email: "",
       password: "",
     },
+    dataSpecialization: {
+      specialization_one: "",
+      specialization_two: "",
+      specialization_three: "",
+      specialization_four: "",
+    },
   }),
   methods: {
     ...mapActions(useCounterStore, ["handleRegister"]),
     btnSubmit() {
-      this.handleRegister(this.dataForm);
+      this.handleRegister(this.dataForm, this.dataSpecialization);
     },
   },
 };
 </script>
+
 <template>
   <div class="register-form">
-    <!--Navbar-->
     <NavBar />
     <div class="register-form-action">
       <div class="register-form-action-banner">
@@ -45,19 +51,31 @@ export default {
             placeholder="Password..."
             v-model="dataForm.password"
           />
+
+          <input
+            type="text"
+            placeholder="Specialization..."
+            v-model="dataSpecialization.specialization_one"
+          />
+          <input
+            type="text"
+            placeholder="Specialization..."
+            v-model="dataSpecialization.specialization_two"
+          />
+          <input
+            type="text"
+            placeholder="Specialization..."
+            v-model="dataSpecialization.specialization_three"
+          />
+          <input
+            type="text"
+            placeholder="Specialization..."
+            v-model="dataSpecialization.specialization_four"
+          />
           <button class="button-style">Daftar</button>
-          <p>
-            Register as Doctor?
-            <router-link :to="{ name: 'registerAsDoctor' }"
-              ><span class="toBlue features-cursor-pointer"
-                >Click here</span
-              ></router-link
-            >
-          </p>
         </form>
       </div>
     </div>
-    <!--Footer-->
     <FooterBar />
   </div>
 </template>

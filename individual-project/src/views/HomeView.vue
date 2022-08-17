@@ -1,8 +1,24 @@
-<script></script>
-
+<script>
+import NavBar from "../components/NavBar.vue";
+import FooterBar from "../components/FooterBar.vue";
+import TopDoctorCard from "../components/TopDoctorCard.vue";
+import FilterBar from "../components/FilterFeatures.vue";
+import FilterResult from "../components/FilterResult.vue";
+export default {
+  name: "LoginView",
+  components: {
+    NavBar,
+    FooterBar,
+    TopDoctorCard,
+    FilterBar,
+    FilterResult,
+  },
+};
+</script>
 <template>
   <div class="container">
     <!--Navbar-->
+    <NavBar />
     <main>
       <div class="banner">
         <div class="banner-content">
@@ -20,7 +36,7 @@
           <button class="button-style">Cari Gejala <span>›</span></button>
         </div>
         <div class="banner-image">
-          <img src="./banner.png" alt="banner-image" />
+          <img src="../assets/banner.png" alt="banner-image" />
         </div>
       </div>
       <div class="content">
@@ -29,12 +45,14 @@
         </div>
         <div class="card-content">
           <!--Doctor Card-->
+          <TopDoctorCard />
         </div>
       </div>
       <div class="features-filter">
         <div class="filter">
           <div class="features-filter-title"><h2>Filter pencarianmu</h2></div>
           <!--Filter-->
+          <FilterBar />
           <hr />
           <p>
             Tidak menemukan pencarian? <br /><span class="fontSize"
@@ -48,9 +66,11 @@
         <div class="diagnosa">
           <div class="diagnosa-title"><h1>Diagnosa penyakitmu</h1></div>
           <!--Filter Result-->
+          <FilterResult />
         </div>
       </div>
     </main>
     <!--Footer-->
+    <FooterBar />
   </div>
 </template>

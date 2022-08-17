@@ -6,7 +6,6 @@
 
             <div>
                 <RouterLink to="/home"><button type="button">proceed<span></span></button></RouterLink>
-
             </div>
         </div>
 </template>

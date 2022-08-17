@@ -21,7 +21,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(useBrandStore, ["editBrand", "deleteBrand"]),
+        ...mapActions(useBrandStore, ["editBrand", "deleteBrand", "showBrand"]),
         handleEdit() {
             const { fullPath } = this.$route
 
@@ -34,6 +34,13 @@ export default {
 
             if (fullPath === "/brands") {
                 this.deleteBrand(this.trow.id)
+            }
+        },
+        handleShow() {
+            const { fullPath } = this.$route
+
+            if (fullPath === "/brands") {
+                this.showBrand(this.trow.id)
             }
         }
     }
@@ -52,7 +59,7 @@ export default {
         </td>
         <td v-if="actionData.length > 0">
             <span v-if="actionData.includes('show')">
-                <button type="button" class="btn btn-outline-info btn-sm"><i class="fa-solid fa-eye"></i></button>
+                <a @click.prevent="handleShow" class="btn btn-outline-info btn-sm"><i class="fa-solid fa-eye"></i></a>
             </span>
             <span v-if="actionData.includes('edit')" class="m-2">
                 <a @click.prevent="handleEdit" class="btn btn-outline-primary btn-sm"><i class="fas fa-edit"></i></a>

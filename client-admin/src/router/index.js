@@ -3,6 +3,7 @@ import LoginPage from '@/views/LoginPage.vue'
 import HomePage from '@/views/HomePage.vue'
 import BrandList from '@/views/brand/BrandList.vue'
 import BrandForm from '@/views/brand/BrandForm.vue'
+import BrandDetail from '@/views/brand/BrandDetail.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,6 +31,11 @@ const router = createRouter({
           path: 'brands/:brandId',
           name: "editBrand",
           component: BrandForm
+        },
+        {
+          path: 'brands/:brandId',
+          name: "showBrand",
+          component: BrandDetail
         }
       ]
     }

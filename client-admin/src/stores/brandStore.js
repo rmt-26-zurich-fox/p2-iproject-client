@@ -105,6 +105,23 @@ export const useBrandStore = defineStore({
                 this.alertError(error)
             }
         },
+        async showBrand(id) {
+            try {
+                const { data } = await axiosInstance({
+                    method: "GET",
+                    url: "/brands/" + id,
+                    headers: {
+                        access_token: localStorage.access_token
+                    }
+                })
+
+                this.brandById = data
+
+                this.router.push({ name: "showBrand", params: { brandId: id}})
+            } catch (error) {
+                this.alertError(error)
+            }
+        },
         async deleteBrand(id) {
             try {
                 const { data } = await axiosInstance({

@@ -65,11 +65,16 @@
     <!-- pagination -->
         <div class="d-flex justify-content-center mt-3">
         <nav aria-label="Page navigation example">
+        <p style="font-size:15px; font-weight:500; margin-bottom:1px; color:darkgray">Page {{this.data.page + 1}} from total page {{this.totalPage}}</p>
             <ul class="pagination">
-                <li class="page-item"><a class="page-link" @click.prevent="handleCategory('-')"><i class="fa-solid fa-arrow-left-long"></i> Prev</a>
+                <li class="page-item" v-if="data.page <= 0"><span class="page-link"><i class="fa-solid fa-arrow-left-long"></i> Prev</span>
                 </li>
-                <li class="page-item"><a class="page-link" @click.prevent="handleCategory('+')">Next <i
+                <li class="page-item" v-if="data.page > 0"><a class="page-link" @click.prevent="handleCategory('-')"><i class="fa-solid fa-arrow-left-long"></i> Prev</a>
+                </li>
+                <li class="page-item rounded-2"><a class="page-link" @click.prevent="handleCategory('+')" v-if="data.page + 1 < totalPage">Next <i
                             class="fa-solid fa-arrow-right-long"></i></a></li>
+                <li class="page-item rounded-2"><span class="page-link" v-if="data.page + 1 >= totalPage">Next <i
+                            class="fa-solid fa-arrow-right-long"></i></span></li>
             </ul>
         </nav>
     </div>
@@ -99,14 +104,15 @@ export default {
       handleCategory(value){
         if(value === '-'){
           this.data.page = this.data.page - 1
-        }else{
+          this.fetchData(this.data)
+        }else if(value === '+'){
           this.data.page = this.data.page + 1
+          this.fetchData(this.data)
         }
-        console.log(this.fetchData(this.data))
     }
   },
   computed: {
-    ...mapState(useCounterStore, ['dataLocation'])
+    ...mapState(useCounterStore, ['dataLocation', 'totalPage'])
   },
   created() {
     this.fetchData(this.data)
@@ -115,16 +121,22 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
 .category-link {
   color: rgb(49, 48, 48);
   text-decoration: none;
 }
 
 .category-link:hover {
-  color: rgb(255, 187, 1);
+  color: rgb(1, 73, 255);
+  padding:5px 2px;
+  border-radius: 20%;
+  background-color: rgba(213, 213, 213, 0.244);
 }
 
+ul li {
+ cursor: pointer;
+}
 
 .text-banner {
   position: absolute;

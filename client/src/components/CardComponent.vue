@@ -11,11 +11,14 @@
 </template>
 
 <script>
+import { mapActions } from 'pinia';
+import { useCounterStore } from '../stores';
 export default {
     props: ['location'],
     methods: {
+        ...mapActions(useCounterStore, ['addFavorite']),
         handleVisit(value){
-            console.log(value)
+            this.addFavorite(value)
         }
     }
 }

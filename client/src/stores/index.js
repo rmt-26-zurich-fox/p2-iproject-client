@@ -8,9 +8,9 @@ export const useCounterStore = defineStore({
     dataLocation: [],
     location: {
       category: '',
-      page: ''
+      page: '',
     },
-    page: 0,
+    totalPage: 0,
     objLogin: {
       email: '',
       password: ''
@@ -19,13 +19,15 @@ export const useCounterStore = defineStore({
       username: '',
       email: '',
       password: ''
-    }
+    },
+    myTrip: []
   }),
   getters: {
 
   },
   actions: {
     async fetchData(value) {
+      this.location = value
       try {
         this.location = value
         const { data } = await axios({
@@ -33,7 +35,7 @@ export const useCounterStore = defineStore({
           url: this.baseUrl + `/location?page=${this.location.page}&category=${this.location.category}`
         })
         this.dataLocation = data.data
-        this.page = data.page
+        this.totalPage = data.page
       } catch (error) {
         console.log(error)
       }
@@ -70,6 +72,37 @@ export const useCounterStore = defineStore({
             password: this.objRegister.password
           }
         })
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
+    async addFavorite(id) {
+      try {
+        const { data } = await axios({
+          method: 'post',
+          url: this.baseUrl + '/favourite/' + id,
+          headers: {
+            access_token: localStorage.access_token
+          }
+        })
+        this.getMytrip()
+        this.router.push('/mytrip')
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
+    async getMytrip() {
+      try {
+        const  data  = await axios({
+          method: 'get',
+          url: this.baseUrl + '/favourite',
+          headers: {
+            access_token: localStorage.access_token
+          }
+        })
+        this.myTrip = data.data
       } catch (error) {
         console.log(error)
       }

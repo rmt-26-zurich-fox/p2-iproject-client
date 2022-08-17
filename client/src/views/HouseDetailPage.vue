@@ -4,11 +4,11 @@
     <p class="text-muted">{{ house.location }}</p>
     <hr />
     <div class="row justify-content-center">
-      <div class="col-6 ">
+      <div class="col-6">
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
-            <div v-for="(image, index) in house.Images" class="carousel-item" style="object-fit: cover;" :class="{'active': index === 0}">
-              <img :src="image.imageUrl" class="img-fluid d-block"/>
+            <div v-for="(image, index) in house.Images" class="carousel-item" style="object-fit: cover" :class="{ active: index === 0 }">
+              <img :src="image.imageUrl" class="img-fluid d-block" />
             </div>
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -35,14 +35,17 @@
         <h5>Review</h5>
         <p v-if="!house.review" class="text-muted">no review available</p>
         <p v-if="house.review">{{ house.review }}</p>
+        <hr />
+        <h5>Share this house</h5>
+        <img :src="qrcode" alt="qrcode" style="height: 100px; border: 5px solid" class="mb-5" />
       </div>
-      <div class="card ms-5 col" style="max-height: 300px;">
+      <div class="card ms-5 col" style="max-height: 300px">
         <div class="card-body">
-          <label >Night(s): </label>
-          <input v-model="night" type="number" class="form-control">
-          <h5 class="card-title mt-5">Total price: </h5>
-          <h5 class="card-title">{{formatPrice}}</h5>
-          <a href="#" class="btn btn-primary mt-3" :class="{'disabled': night < 1}">Book now</a>
+          <label>Night(s): </label>
+          <input v-model="night" type="number" class="form-control" />
+          <h5 class="card-title mt-5">Total price:</h5>
+          <h5 class="card-title">{{ formatPrice }}</h5>
+          <a href="#" class="btn btn-primary mt-3" :class="{ disabled: night < 1 }">Book now</a>
         </div>
       </div>
     </div>
@@ -57,29 +60,40 @@ export default {
   data() {
     return {
       house: "",
-      night: 1
+      night: 1,
+      qrcode: "",
     };
   },
 
   methods: {
-    ...mapActions(useHouseStore, ["getDetailHouse"]),
+    ...mapActions(useHouseStore, ["getDetailHouse", 'generateQr']),
 
     async fetchDetailHouse() {
       try {
         const data = await this.getDetailHouse(this.$route.params.houseId);
         this.house = data;
+        this.handleQr(this.house.id)
       } catch (error) {
         console.log(error);
       }
+    },
+
+    async handleQr(houseId) {
+      try {
+        const data = await this.generateQr(houseId);
+        this.qrcode = data.qrcode;
+      } catch (error) {
+        console.log(error);
+      } 
     },
   },
 
   computed: {
     formatPrice() {
       if (this.night < 1) {
-        return 0
+        return 0;
       } else {
-        return (this.house.price*this.night).toLocaleString("id-ID", { style: "currency", currency: "IDR" }).replace(",00", "");
+        return (this.house.price * this.night).toLocaleString("id-ID", { style: "currency", currency: "IDR" }).replace(",00", "");
       }
     },
   },

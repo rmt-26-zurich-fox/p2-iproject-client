@@ -106,5 +106,26 @@ export const useHouseStore = defineStore({
           });
       });
     },
+
+    generateQr(houseId){
+      return new Promise ((resolve, reject) => {
+       axios({
+        method: 'get',
+        url: "https://api.happi.dev/v1/qrcode",
+        params: {
+          data: `http://localhost:8080/houses/${houseId}`
+        },
+        headers: {
+          "x-happi-key": "ad594cn7OzVy8LBvI22lTeZdTQb0JGnUQRgONkPUmLR5yIzzeX3ZeaaV"
+        }
+       })
+        .then(({data}) => {
+          resolve(data)
+        })
+        .catch(err => {
+          reject(err)
+        })
+      })
+    }
   },
 });

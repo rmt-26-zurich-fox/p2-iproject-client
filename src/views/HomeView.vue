@@ -7,6 +7,7 @@
       <main>
         <RouterView />
         <MovieList title="Trending" />
+        <MovieList title="Top Vote" />
       </main>
     </section>
     <section>

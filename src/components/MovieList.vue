@@ -2,7 +2,7 @@
   <div class="movie-list">
     <h2>{{ title }}</h2>
     <div class="cards">
-      <MovieCard v-for="el in trending" :key="el.id" :el="el" />
+      <MovieCard v-for="el in movieList" :key="el.id" :el="el" />
     </div>
   </div>
 </template>
@@ -18,7 +18,7 @@ export default {
   components: { MovieCard },
   data() {
     return {
-      trending: [],
+      movieList: [],
     };
   },
   computed: {
@@ -26,17 +26,22 @@ export default {
   },
   methods: {
     ...mapActions(useGlobalStore, ["errorHandler"]),
-    async trendingMovies() {
+    async movieListBy() {
       try {
-        const { data } = await axios.get(this.baseUrl + "/movies/trending");
-        this.trending = data.results;
+        let url = "";
+        if (this.title === "Trending") url = this.baseUrl + "/movies/trending";
+        else if (this.title === "Top Vote")
+          url = this.baseUrl + "/movies/top-vote";
+        console.log(url, "masukkkk");
+        const { data } = await axios.get(url);
+        this.movieList = data.results;
       } catch (error) {
         this.errorHandler(error);
       }
     },
   },
   created() {
-    this.trendingMovies();
+    this.movieListBy();
   },
 };
 </script>

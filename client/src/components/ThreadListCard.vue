@@ -29,16 +29,7 @@ export default {
           class="text-center button-to-thread-detail-container"
           @click="fetchOneThreadHandler"
         >
-          <router-link
-            :to="{
-              name: `ThreadDetail`,
-              params: {
-                id: oneThread.id,
-              },
-            }"
-          >
-            <a class="btn btn-primary button-to-thread-detail">Go somewhere</a>
-          </router-link>
+          <a class="btn btn-primary button-to-thread-detail">Go somewhere</a>
         </div>
       </div>
     </div>

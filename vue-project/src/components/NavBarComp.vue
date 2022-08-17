@@ -16,6 +16,7 @@ export default {
       "fetchTokenPaymentMidtrans",
     ]),
     logoutClearStorage() {
+      google.accounts.id.disableAutoSelect();
       localStorage.clear();
     },
     cartClickButtonHandler() {

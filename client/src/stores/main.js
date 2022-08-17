@@ -10,6 +10,8 @@ export const useMain = defineStore({
     profileFound: false,
     userProfile: {},
     teams: [],
+    oneTeam: {},
+    players: [],
   }),
   actions: {
     async login(user) {
@@ -160,6 +162,47 @@ export const useMain = defineStore({
         });
         const { data } = response;
         this.teams = data;
+      } catch (error) {
+        Swal.fire({
+          title: "Error!",
+          icon: "error",
+          text: error.response.data.message,
+          timer: 1500,
+        });
+      }
+    },
+
+    async fetchOneTeam(id) {
+      try {
+        const response = await ServerAxios.get(`/teams/${id}`, {
+          headers: { access_token: localStorage.getItem("access_token") },
+        });
+        const { data } = response;
+        this.oneTeam = data;
+        this.getPlayersbyTeamId(id);
+        this.router.push({
+          name: "TeamDetail",
+          params: {
+            id: id,
+          },
+        });
+      } catch (error) {
+        Swal.fire({
+          title: "Error!",
+          icon: "error",
+          text: error.response.data.message,
+          timer: 1500,
+        });
+      }
+    },
+
+    async getPlayersbyTeamId(id) {
+      try {
+        const response = await ServerAxios.get(`/teams/${id}/players`, {
+          headers: { access_token: localStorage.getItem("access_token") },
+        });
+        const { data } = response;
+        this.players = data;
       } catch (error) {
         Swal.fire({
           title: "Error!",

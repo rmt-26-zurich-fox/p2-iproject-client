@@ -434,6 +434,39 @@ table tr:last-child td:last-child {
   flex-direction: column;
   justify-content: center;
 }
+.image-container-detail {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .team-image {
   max-height: 80%;
+}
+
+.table td,
+.table th {
+  border-color: black !important;
+  font-size: larger;
+}
+
+.table-title {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+#go-back-button {
+  align-self: flex-start;
+  justify-self: flex-start;
+  width: 20%;
+  font-size: 115%;
+  margin-bottom: 15px;
+  font-size: 20px;
+  font-weight: 600 !important ;
+  border-radius: 20px;
+  background-color: #c689c6;
+  border: none;
+}
+
+.go-back-container {
+  justify-self: right;
 }

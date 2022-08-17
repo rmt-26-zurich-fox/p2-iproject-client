@@ -13,11 +13,13 @@ export const useCustom1Store = defineStore({
     doubleCount: (state) => state.counter * 2
   },
   actions: {
-    async fetchProduct(){
+    async fetchProduct(page,  search){
+        console.log(page)
         try {
             let { data } = await axios({
-                url: `${this.url}/products?page=3`,
+                url: `${this.url}/products`,
                 method: "GET",
+                params: { page : page, search: search}
             })
             this.products = data.products.rows
             this.totalPages = data.totalPages

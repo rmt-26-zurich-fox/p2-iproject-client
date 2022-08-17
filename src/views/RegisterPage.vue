@@ -12,14 +12,19 @@ export default {
         }
     },
     methods: {
-        ...mapActions(useCounterStore, ["handleRegister"]),
+        ...mapActions(useCounterStore, ["handleRegister", "handleRegisterAdmin"]),
         async register() {
             const obj = {
                 username: this.username,
                 email: this.email,
                 password: this.password
             }
-            await this.handleRegister(obj);
+
+            if (this.$route.fullPath != "/register/admin") {
+                await this.handleRegister(obj);
+            } else {
+                await this.handleRegisterAdmin(obj);
+            }
         }
     }
 }
@@ -69,7 +74,8 @@ export default {
                 </div>
             </form>
 
-            <p class="mt-8 text-xs font-light text-center text-gray-600"> Already have an account? <RouterLink
+            <p v-if="this.$route.fullPath != '/register/admin'"
+                class="mt-8 text-xs font-light text-center text-gray-600"> Already have an account? <RouterLink
                     to="/login"><a href="#" class="font-medium text-gray-700 hover:underline">Login</a>
                 </RouterLink>
             </p>

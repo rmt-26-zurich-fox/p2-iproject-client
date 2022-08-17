@@ -58,7 +58,7 @@ const router = createRouter({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Please login first',
-              })
+              });
             } else {
               next();
             }
@@ -87,6 +87,25 @@ const router = createRouter({
           router.push("/");
         } else {
           next();
+        }
+      },
+      component: RegisterPage
+    },
+    {
+      path: "/register/admin",
+      name: "Register Page Admin",
+      beforeEnter(to, from, next) {
+        if (localStorage.getItem("access_token") && localStorage.getItem("role") == "Admin") {
+          next();
+        } else {
+          router.push("/");
+
+          // Notification before login 
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'User not Authorized',
+          });
         }
       },
       component: RegisterPage

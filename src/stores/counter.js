@@ -171,6 +171,44 @@ export const useCounterStore = defineStore({
         }
       });
     },
+    handleRegisterAdmin(obj) {
+      // Handle before register
+      Swal.fire({
+        title: 'Do you want to save the changes?',
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+            const {
+              data
+            } = await axios({
+              url: this.baseUrl + "/users/register/admin",
+              method: "post",
+              data: obj
+            });
+
+            // Success Register
+            await Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Register success!',
+              showConfirmButton: false,
+              timer: 1500
+            });
+
+            this.router.push("/");
+          } catch (error) {
+            // Error bad request (null field)
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: `${error.response.data.error.message}`,
+            });
+          }
+        }
+      });
+    },
     handleAddPost(obj) {
       Swal.fire({
         title: 'Do you want to save the changes?',

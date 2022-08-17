@@ -46,7 +46,7 @@ button{
     overflow: hidden;
 }
 span{
-    background: linear-gradient(rgba(234, 255, 0, 0.205), rgba(234, 255, 0, 0.322) );
+    background: linear-gradient(rgba(202, 165, 0, 0.555), rgba(202, 165, 0, 0.555) );
     height: 100%;
     width: 0;
     border-radius: 50px;

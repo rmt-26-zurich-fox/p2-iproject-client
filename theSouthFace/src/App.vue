@@ -11,8 +11,9 @@ export default{
 </script>
 
 <template>
-<navBarVue/>
+<navBarVue v-if="this.$route.name!=='LandingPage'"/>
   <RouterView />
+  <h2 v-if="this.$route.name==='HomePage'">More products coming soon!</h2>
   <h6 class="copyright">All images used in this website belongs to their respectful owner</h6>
 </template>
 
@@ -30,9 +31,13 @@ body {
 }.copyright {
   position:fixed;
   color : white;
-  font-size: 12px;
+  font-size: 10px;
   bottom: 0 ;
-  text-align: center;
   padding-left: 20px;
+}
+h2{
+  color: white;
+  text-align: center;
+  margin-bottom: 20px;
 }
 </style>

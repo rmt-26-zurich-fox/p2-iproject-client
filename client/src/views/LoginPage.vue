@@ -56,7 +56,6 @@ export default {
                 email: this.emailLogin,
                 password: this.passwordLogin
             }
-            console.log(obj)
             this.login(obj)
         }
     },

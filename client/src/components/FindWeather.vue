@@ -7,34 +7,30 @@
                     <p class="mt-2 text-center text-sm text-gray-600">
                     </p>
                 </div>
-                <form class="mt-8 space-y-6" @submit.prevent="handleRegister">
+                <form class="mt-8 space-y-6" @submit.prevent="handleSearch">
                     <input type="hidden" name="remember" value="true">
                     <div class="rounded-md shadow-sm -space-y-px text-center">
                         <div>
                             <label for="City" class="sr-only">City</label>
                             <input id="City" name="City" type="text"
                                 class="appearance-none rounded-t-lg relative px-24 py-3 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm text-center"
-                                placeholder="Ex: Batam" v-model="Customer.username">
+                                placeholder="Ex: Batam" v-model="city">
                         </div>
                         <div>
-                            <label for="State" class="sr-only">State</label>
-                            <input id="State" name="text" type="text" autocomplete="State Name"
-                                class="appearance-none relative px-24 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-none focus:outline-none focus:ring-indigo-700 focus:border-indigo-700 focus:z-10 sm:text-sm text-center"
-                                placeholder="Ex: Riau Islands" v-model="Customer.email">
-                        </div>
-                        <div>
-                            <label for="Country" class="sr-only">Country</label>
-                            <input id="Country" name="Country" type="text" autocomplete="current-Country"
-                                class="appearance-none relative px-24 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-lg focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm text-center"
-                                placeholder="Ex: Indonesia" v-model="Customer.password">
+                            <label for="StateName" class="sr-only">State Name</label>
+                            <select name="StateName" id="StateName"
+                                class="appearance-none rounded-none relative pl-32 pr-24 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm mb-2 rounded-b-lg"
+                                v-model="state">
+                                <option class="text-justify" value="">State List</option>
+                                <option v-for="state in liststate" :key="state.id" class="text-justify"
+                                    :value="state.state">
+                                    {{ state.state }}</option>
+                            </select>
                         </div>
                     </div>
 
                     <div class="flex item-center justify-center gap-2 pb-2">
                         <ButtonUsage nameButton="Submit" />
-                        <RouterLink to="/login">
-                            <ButtonUsage nameButton="Cancel" />
-                        </RouterLink>
                     </div>
                 </form>
             </div>
@@ -42,9 +38,35 @@
     </section>
 </template>
 <script>
+import { mapActions, mapState } from 'pinia';
 import ButtonUsage from '../components/ButtomUsage.vue'
+import { useCounterStore } from '../stores/counter';
 export default {
     components: { ButtonUsage },
+    computed: {
+        ...mapState(useCounterStore, ['liststate'])
+    },
+    methods: {
+        ...mapActions(useCounterStore, ['fetchState', 'fetchWeather']),
+        handleSearch() {
+            let obj = {
+                city: this.city,
+                state: this.state,
+                country: "indonesia",
+                key: "adff6230-bca9-4190-972a-219e13fb5087"
+            }
+            this.fetchWeather(obj)
+        }
+    },
+    created() {
+        this.fetchState()
+    },
+    data() {
+        return {
+            city: "",
+            state: ""
+        }
+    }
 }
 </script>
 

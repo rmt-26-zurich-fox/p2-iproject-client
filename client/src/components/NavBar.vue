@@ -22,9 +22,9 @@
                             </RouterLink>
                         </li>
                         <li>
-                            <RouterLink to="/likeMovie"
+                            <RouterLink to="/bookmarks"
                                 class="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-amber-300 md:hover:text-slate-100 md:p-0 dark:text-white text-xl">
-                                {{ likename }}</RouterLink>
+                                {{ namebookmark }}</RouterLink>
                         </li>
                         <li class="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-amber-300 md:hover:text-slate-100 md:p-0 dark:text-white text-xl"
                             @click="changeAction">
@@ -38,4 +38,51 @@
 </template>
 
 <script>
+import { mapActions, mapState, mapWritableState } from 'pinia';
+import { useCounterStore } from '../stores/counter';
+export default {
+    data() {
+        return {
+            name: "Login",
+            namebookmark: ""
+        }
+    },
+    methods: {
+        ...mapActions(useCounterStore, ['linklogout', 'linklogin']),
+        changeName() {
+            if (!this.isLogin) {
+                this.name = "Login"
+            } else {
+                this.name = "Logout"
+            }
+        },
+        changeAction() {
+            if (this.name == 'Login') {
+                this.linklogin()
+            } else {
+                this.linklogout()
+            }
+        },
+        changeBookmark() {
+            if (!this.isLogin) {
+                this.namebookmark = " "
+            } else {
+                this.namebookmark = "My Bookmarks"
+            }
+        }
+    },
+    computed: {
+        ...mapState(useCounterStore, ['isLogin']),
+        ...mapWritableState(useCounterStore, ['isLogin'])
+    },
+    watch: {
+        isLogin(input) {
+            this.changeName()
+            this.changeBookmark()
+        }
+    },
+    created() {
+
+    }
+}
 </script>

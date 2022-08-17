@@ -82,6 +82,10 @@ export default {
                     to="/register"><a href="#" class="font-medium text-gray-700 hover:underline">Create One</a>
                 </RouterLink>
             </p>
+            <p class="mt-2 text-xs font-light text-center text-gray-600"> Don't want to login? <RouterLink
+                    to="/"><a href="#" class="font-medium text-gray-700 hover:underline">Back to Home</a>
+                </RouterLink>
+            </p>
         </div>
     </div>
 </template>

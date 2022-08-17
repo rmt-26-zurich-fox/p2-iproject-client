@@ -9,6 +9,7 @@ import HomePage from "../views/HomePage.vue";
 import FormComponent from "../components/FormComponent.vue";
 import SearchSongPage from "../views/SearchSongPage.vue";
 import ReviewPage from "../views/ReviewPage.vue";
+import NotFound from "../components/NotFound.vue";
 import Swal from "sweetalert2";
 
 const router = createRouter({
@@ -115,6 +116,11 @@ const router = createRouter({
         }
       },
       component: RegisterPage
+    },
+    {
+      path: "/404",
+      name: "Review Not Found",
+      component: NotFound
     },
   ],
 });

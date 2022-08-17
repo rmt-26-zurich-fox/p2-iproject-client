@@ -296,5 +296,23 @@ export const productStore = defineStore({
         console.log(error.response);
       }
     },
+
+    async handleCredentialResponse(response) {
+      console.log("masuk");
+      try {
+        let { data } = await axios({
+          method: "post",
+          url: this.baseUrl + "google-sign-in",
+          headers: {
+            google_token: response.credential,
+          },
+        });
+        localStorage.setItem("access_token", data.access_token);
+        await this.fetchCart();
+        this.router.push({ name: "shop" });
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 });

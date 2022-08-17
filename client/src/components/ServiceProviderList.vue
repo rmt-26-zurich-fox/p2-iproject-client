@@ -6,9 +6,11 @@ export default {
   components: {},
   created() {},
   methods: {
-    ...mapActions(useOtoStore, [""]),
+    ...mapActions(useOtoStore, ['']),
   },
 };
 </script>
 
-<template></template>
+<template>
+hallo
+</template>

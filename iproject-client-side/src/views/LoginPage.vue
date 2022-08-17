@@ -58,8 +58,12 @@
 <script>
 import { mapActions, mapState } from 'pinia';
 import { useQuoteStore } from '../stores/qoutes'
- 
+// import NavBarVue from '../components/NavBar.vue';
 export default {
+
+  components: {
+
+  },
 
   data(){
     return {

@@ -3,11 +3,6 @@
     <div class="container">
       <div class="row">
         <!-- Quote Card -->
-          <QuoteValue
-           v-for="quotes in allQuotes"
-           :key="quotes.id"
-           :quote="quotes"
-          />
 
       </div>
     </div>

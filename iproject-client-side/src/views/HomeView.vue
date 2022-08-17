@@ -42,6 +42,7 @@
 
             <!-- Quote Card -->
               <QuoteCard />
+
           </div>
         </div>
       </div>
@@ -53,6 +54,7 @@
 import QuoteCard from "../components/QuoteCard.vue";
 import { mapState, mapActions } from "pinia";
 import { useQuoteStore } from "../stores/qoutes";
+import AnimeQuote from "../components/AnimeQuote.vue";
 
 export default {
   data(){
@@ -62,15 +64,16 @@ export default {
   },
   components: {
     QuoteCard,
- 
-  },
+
+},
 
   methods: {
 
     onFavoritePage(){
       this.$router.push('/favorites')
     },
-    ...mapActions(useQuoteStore, ["fetchQuotes", 'quoteOfTheDay']),
+    ...mapActions(useQuoteStore, ["fetchQuotes", 'quoteOfTheDay',
+    'fetchAnime', 'fetchProgramming']),
 
     onHandleAdd(){
       this.$router.push('/add')
@@ -78,7 +81,9 @@ export default {
 
     onHandleChat(){
       this.$router.push('/chatting')
-    }
+    },
+
+    
   },
 
   computed: {
@@ -88,6 +93,7 @@ export default {
 
   created() {
     this.fetchQuotes();
+
 
     // if(localStorage.access_token){
 

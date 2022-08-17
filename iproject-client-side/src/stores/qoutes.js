@@ -24,17 +24,35 @@ export const useQuoteStore = defineStore({
       quote: ''
     },
 
-    message: [],
+    message: {},
 
     myMessage: [],
+
+    entity: false
 
   }),
 
   actions: {
 
+    
+    // handleLogout(){
+      // swal({
+      //   title: "Are you sure?",
+      //   text: "You will not be able to see our Quotes anymore!",
+      //   type: "warning",
+      //   showCancelButton: true,
+      //   confirmButtonColor: "#DD6B55",
+      // }).then(() => {
+      //   swal("See you again buddy!", "Have a nice day.", "success");
+        // this.router.push("/");
+        // localStorage.clear()
+      // });
+    // },
+
     async loginHandle(value){
 
       this.loginValue = value
+      this.entity = true
 
       try {
 
@@ -54,7 +72,7 @@ export const useQuoteStore = defineStore({
         localStorage.setItem('username', data.username)
         this.router.push('/home')
  
-
+        this.entity = false
         
 
       } catch (error) {
@@ -95,7 +113,7 @@ export const useQuoteStore = defineStore({
 
         const { data } = await axios({
           method: 'get',
-          url: this.baseUrl + '/programming',
+          url: this.baseUrl + '/quotes/programming',
           headers: {
             access_token: localStorage.access_token
           }
@@ -118,7 +136,7 @@ export const useQuoteStore = defineStore({
         
         const { data } = await axios({
           method: 'get',
-          url: this.baseUrl + '/anime',
+          url: this.baseUrl + '/quotes/anime',
           headers: {
             access_token: localStorage.access_token
           }
@@ -134,38 +152,38 @@ export const useQuoteStore = defineStore({
 
     },
 
-    testing(value){
-      
-      // this.testingValue = value
-    },
+    // testing(value){
+
+    //   // this.socket = io('http://localhost:4000')
+
+    //   // // console.log(this.socket.id , ',<<<<<<<')
+
+    //   // this.socket.on('my broadcast', (data, id) => {
+          
+    //   //   console.log(data, id, 'my broadcast')  
+        
+    //   //   this.message = data
+        
+    //   // })
+
+    // },
+
 
     setupSocketConnection(value) {  
         
-        // console.log(value)
-        
         this.socket = io('http://localhost:4000');
         
-        this.message = value
-
-        console.log(value.message, ' <<<<<<<<< my massage')
-
-        // const data = {
-        //   id: this.socket,
-        //   message: value.message
-        // }
-
-        this.myMessage = value.message
-        
-        this.socket.emit('my message', value.message);
-
-        value.message = ''
+        this.socket.emit('my message', value);
         
         this.socket.on('my broadcast', (data) => {
-          // this.testingValue = data
-          // console.log(data, 'dari server');
-          // console.log(this.message, 'msg.vau')
+          
+          console.log(data, 'my broadcast')  
+          
           this.message = data
+          
         });
+        this.myMessage = value
+        value = ''
 
         this.message = ''
         
@@ -310,7 +328,8 @@ export const useQuoteStore = defineStore({
       console.log(error)
       
     }
-  }
+  },
+
 
   }
 })

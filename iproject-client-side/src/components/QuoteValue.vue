@@ -1,10 +1,9 @@
 <template>
   <div class="col-xs-4 col-sm-6 col-md-3 col-lg-3">
-    <a href="">
+    <a>
       <div class="card-flyer">
         <div class="text-box">
           <div class="image-box">
-            <!-- <img src="http://frontendfreecode.com/img/deer.jpg" alt="" /> -->
           </div>
           <div class="text-container">
             
@@ -36,24 +35,6 @@
       </div>
     </a>
   </div>
-
-  <!-- <div class="col-12 col-md-4">
-    <br />
-    <div class="card">
-      <img src="food.imgUrl" class="card-img-top" />
-      <div class="card-body">
-        <h5 class="card-title"></h5>
-        <p class="card-text"></p>
-        <span>{{ quote.User.username }}</span>
-        <br />
-        <span>{{ quote.desc }}</span>
-        <br />
-        <span>Status: <b></b></span>
-      </div>
-      <button class="btn btn-primary">add to favorite</button>
-      <button class="btn btn-info">See Detail</button>
-    </div>
-  </div> -->
 </template>
 <script>
 import { mapActions } from 'pinia';

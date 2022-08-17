@@ -20,29 +20,27 @@
           <div class="card-header">Chat</div>
           <div class="card-body height3">
             <ul class="chat-list">
+              <li class="in"></li>
+              <li class="out"></li>
               <li class="in">
+                <div class="chat-body">
+                  <div class="chat-message">
+                    <!-- <h4 class="name">{{ iniPesan }}</h4> -->
+                    <h5 style="font-size: 20px">{{ message }}</h5>
+                  </div>
+                </div>
               </li>
-              <li class="out">
-              </li>
-              <li class="in">
-                <div class="chat-body" v-if="myMessage">
+              <!-- <li class="out">
+                <div class="chat-body">
                   <div class="chat-message">
                     <h4 class="name">{{ username }}</h4>
                     <h5 style="font-size: 20px ;" >{{ myMessage }}</h5>
-                  </div>
-                </div>
-              </li>
-              <li class="out">
-                <div class="chat-body">
-                  <div class="chat-message">
-                    <!-- <h4 class="name">{{ username }}</h4> -->
-                    <h5 style="font-size: 20px ;" >{{ message }}</h5>
                     <h2></h2>
                   </div>
                 </div>
-              </li>
+              </li> -->
             </ul>
-            <form action="" class="">
+            <form action="" class="" @submit.prevent="toSendMessage">
               <div class="form-input">
                 <textarea
                   class="form-control"
@@ -50,9 +48,7 @@
                   id="comment"
                   v-model="inputMessage"
                 ></textarea>
-                <button type="submit" @click.prevent="toSendMessage">
-                  Send
-                </button>
+                <button type="submit">Send</button>
               </div>
             </form>
           </div>
@@ -64,13 +60,16 @@
 <script>
 import { mapActions, mapState } from "pinia";
 import { useQuoteStore } from "../stores/qoutes";
+import { io } from "socket.io-client";
 
 export default {
   data() {
     return {
       inputMessage: "",
+      iniPesan: "",
 
-      username: localStorage.username
+      username: localStorage.username,
+      socket: io(),
     };
   },
 
@@ -78,31 +77,14 @@ export default {
     ...mapActions(useQuoteStore, ["setupSocketConnection", "testing"]),
 
     toSendMessage() {
-      this.setupSocketConnection({
-        message: this.inputMessage,
-      });
-
-      this.inputMessage = "";
-      // this.testing({
-      //     value: this.inputMessage
-      // })
-      
+      this.setupSocketConnection(this.inputMessage);
     },
   },
   computed: {
-    ...mapState(useQuoteStore, ["message", "testingValue", 'myMessage']),
+    ...mapState(useQuoteStore, ["message", "testingValue", "myMessage"]),
   },
 
-  created() {
-    this.setupSocketConnection({
-      message: this.inputMessage,
-    });
-  },
-
-  // mounted(){
-
-  //     console.log(this.message, 'dari chatepage')
-  // }
+  created() {},
 };
 </script>
 <style>

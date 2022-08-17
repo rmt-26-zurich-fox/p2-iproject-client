@@ -27,6 +27,7 @@
                         <option value="1">Motivation</option>
                         <option value="2">Programmer</option>
                         <option value="3">Anime</option>
+                        <option value="4">Jokes</option>
                       </select>
                     </div>
                       <button type="submit" @click.prevent="toAdd">Add</button>

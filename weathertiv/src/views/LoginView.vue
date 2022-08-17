@@ -67,7 +67,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(customStore, ["handleLogin"]),
+        ...mapActions(customStore, ["handleLogin", "handleGoogleLogin"]),
 
         //Submit Login
         async submitLogin() {
@@ -79,5 +79,18 @@ export default {
             await this.handleGoogleLogin(response);
         },
     },
+    mounted() {
+        const callback = this.handleCredentialResponse
+
+        google.accounts.id.initialize({
+            client_id: "859738134038-o13q0rhpmhqjemomlmjjevkc2tuh6qc2.apps.googleusercontent.com",
+            callback
+        });
+
+        google.accounts.id.renderButton(
+            document.getElementById("google-button-login"),
+            { theme: "outline", size: "large" }
+        );
+    }
 }
 </script>

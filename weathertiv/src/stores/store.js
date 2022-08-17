@@ -50,6 +50,29 @@ export const customStore = defineStore({
     }
   }),
   actions: {
+    //Google sign in
+    async handleGoogleLogin(response) {
+      try {
+        this.isLoading = true
+        let google = await axios({
+          method: "post",
+          url: this.baseUrl + "/users/googleSignIn",
+          headers: {
+            token_google: response.credential
+          }
+        })
+        localStorage.setItem("access_token", google.data.access_token);
+        localStorage.setItem("email", google.data.email);
+        router.push({ name: "home" });
+        this.isLoading = false
+      } catch (err) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: err.response.data.message,
+        })
+      }
+    },
 
     // Login
     async handleLogin(email, password) {

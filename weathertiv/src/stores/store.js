@@ -9,6 +9,7 @@ export const customStore = defineStore({
     baseUrl: "http://localhost:3000",
     isLoading: false,
     popular: [],
+    popularWeather: null,
   }),
   actions: {
 
@@ -71,6 +72,22 @@ export const customStore = defineStore({
         this.isLoading = true
         let { data } = await axios.get(this.baseUrl + '/popular')
         this.popular = data.locations
+        this.isLoading = false
+      } catch (err) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: err.response.data.message,
+        })
+      }
+    },
+
+    //Read Popular location weather
+    async fetchPopularLocationWeather(popularId) {
+      try {
+        this.isLoading = true
+        let { data } = await axios.get(this.baseUrl + `/popular/${popularId}`)
+        this.popularWeather = data
         this.isLoading = false
       } catch (err) {
         Swal.fire({

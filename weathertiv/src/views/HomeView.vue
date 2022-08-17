@@ -15,7 +15,7 @@
         <div class="today forecast">
           <div class="forecast-header">
             <div class="day">Today</div>
-            <div class="date">6 Oct</div>
+            <div class="date">1 Jun</div>
           </div> <!-- .forecast-header -->
           <div class="forecast-content">
             <div class="location">New York</div>
@@ -88,7 +88,7 @@ export default {
     ...mapState(customStore, ["popular"])
   },
   methods: {
-    ...mapActions(customStore, ["fetchPopularLocations"]),
+    ...mapActions(customStore, ["fetchPopularLocations", "fetchPopularLocationWeather"]),
   },
   created() {
     this.fetchPopularLocations()

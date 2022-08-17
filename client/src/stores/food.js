@@ -11,6 +11,7 @@ export const useFoodStore = defineStore({
     bmi: {},
     bmr: {},
     fat: {},
+    favourite: [],
     isLogin: false,
     isLogout: true
   }),
@@ -146,5 +147,67 @@ export const useFoodStore = defineStore({
         this.errorAlert(error)
       }
     },
+    async fetchFavourite() {
+      try {
+        const { data } = await axios({
+          method: 'get',
+          url: `${this.host}/favourites`,
+          headers: {
+            access_token: localStorage.getItem("access_token")
+          }
+        })
+        this.favourite = data
+      } catch (error) {
+        this.errorAlert(error)
+      }
+    },
+    async postFavourite(foodId) {
+      try {
+        const { data } = await axios({
+          method: 'post',
+          url: `${this.host}/favourites/${foodId}`,
+          headers: {
+            access_token: localStorage.getItem("access_token")
+          }
+        })
+        router.push("/cravings")
+      } catch (error) {
+        this.errorAlert(error)
+      }
+    },
+    async deleteFavourite(id) {
+      try {
+        const { data } = await axios({
+          method: 'delete',
+          url: `${this.host}/favourites/${id}`,
+          headers: {
+            access_token: localStorage.getItem("access_token")
+          }
+        }).then(() => {
+          Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              )
+            }
+          }).then(() => {
+            this.fetchFavourite()
+            router.push({ name: "craving" })
+          })
+        })
+      } catch (error) {
+        this.errorAlert(error)
+      }
+    }
   },
 });

@@ -2,8 +2,7 @@
     <main class="main-content">
         <div class="container">
             <div class="breadcrumb">
-                <a href="index.html">Home</a>
-                <span>Saved</span>
+                <h2 style="margin:auto">Saved Location</h2>
             </div>
         </div>
 

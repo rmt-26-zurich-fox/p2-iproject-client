@@ -2,13 +2,13 @@
     <!-- Navbar -->
     <div class="site-header">
         <div class="container">
-            <a href="index.html" class="branding">
+            <router-link to="/" class="branding">
                 <img src="https://i.ibb.co/yqzp4qT/weathertive-logo.png" alt="" class="logo" style="width:5rem">
                 <div class="logo-type">
                     <h1 class="site-title">Weathertive</h1>
                     <small class="site-description">Hacktiv8's forecasting weather website</small>
                 </div>
-            </a>
+            </router-link>
 
             <!-- Navigation -->
             <div class="main-navigation">

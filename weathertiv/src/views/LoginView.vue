@@ -73,6 +73,11 @@ export default {
         async submitLogin() {
             await this.handleLogin(this.email, this.password)
         },
+
+        //Google
+        async handleCredentialResponse(response) {
+            await this.handleGoogleLogin(response);
+        },
     },
 }
 </script>

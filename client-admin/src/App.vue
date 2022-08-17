@@ -1,5 +1,15 @@
 <script>
 import { RouterView } from 'vue-router'
+
+export default {
+  created() {
+    if (localStorage.access_token) {
+      this.$router.push({ name: "brands" })
+    } else {
+      this.$router.push({ name: "login" })
+    }
+  }
+}
 </script>
 
 <template>

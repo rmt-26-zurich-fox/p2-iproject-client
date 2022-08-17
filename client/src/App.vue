@@ -1,10 +1,13 @@
 <script>
+import RegisterView from "./views/RegisterView.vue";
+export default {
+  components: { RegisterView },
+};
 </script>
 
 <template>
-
-<RouterView />
+  <!-- <RegisterView /> -->
+  <RouterView />
 </template>
 
-<style>
-</style>
+<style></style>

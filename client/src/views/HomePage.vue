@@ -1,13 +1,14 @@
 <template>
-  <HousesList/>
+  <NavBar />
+  <RouterView />
 </template>
 
 <script>
-import HousesList from '../components/HousesList.vue';
+import NavBar from "../components/NavBar.vue";
 
 export default {
   components: {
-    HousesList
-  }
-}
+    NavBar,
+  },
+};
 </script>

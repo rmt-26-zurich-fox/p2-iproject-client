@@ -32,10 +32,10 @@ export const useHouseStore = defineStore({
             },
           })
           .then(({ data }) => {
-            console.log(data);
+            resolve(data)
           })
-          .catch((err) => {
-            console.log(err);
+          .catch(err => {
+            reject(err)
           });
       });
     },

@@ -56,6 +56,9 @@
 </template>
 
 <script>
+import { mapActions } from 'pinia';
+import { customStore } from '../stores/store';
+
 export default {
     data() {
         return {
@@ -64,6 +67,12 @@ export default {
         }
     },
     methods: {
+        ...mapActions(customStore, ["handleLogin"]),
+
+        //Submit Login
+        async submitLogin() {
+            await this.handleLogin(this.email, this.password)
+        },
     },
 }
 </script>

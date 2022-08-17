@@ -58,8 +58,8 @@ export default {
             this.fetchWeather(obj)
         }
     },
-    created() {
-        this.fetchState()
+    async created() {
+        await this.fetchState()
     },
     data() {
         return {

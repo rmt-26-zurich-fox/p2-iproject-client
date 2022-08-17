@@ -8,7 +8,9 @@ export const useCounterStore = defineStore({
     //fetch state
     liststate: [],
     //detail weather
-    detailstate: []
+    detailstate: [],
+    //fetch mybookmarks
+    listbookmarks: []
   }),
   actions: {
     async register(user) {
@@ -84,6 +86,37 @@ export const useCounterStore = defineStore({
             access_token: localStorage.getItem("access_token")
           },
           data: input
+        })
+        this.fetchMybookmark
+        this.router.push('/bookmark')
+      } catch (error) {
+        console.log(error.response.data.message)
+      }
+    },
+    async fetchMybookmark() {
+      try {
+        const { data } = await axios({
+          method: "GET",
+          url: this.baseUrl + "/bookmarks",
+          headers: {
+            access_token: localStorage.getItem("access_token")
+          },
+        })
+        console.log(data)
+        this.listbookmarks = data.data
+      } catch (error) {
+        console.log(error.response.data.message)
+      }
+    },
+    async deleteBookmark(id) {
+      try {
+        console.log(id)
+        await axios({
+          method: "DELETE",
+          url: this.baseUrl + `/bookmarks/${id}`,
+          headers: {
+            access_token: localStorage.getItem("access_token")
+          },
         })
         this.router.push('/bookmark')
       } catch (error) {

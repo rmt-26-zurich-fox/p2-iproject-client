@@ -25,6 +25,11 @@ const router = createRouter({
           path: 'brands/create',
           name: "createBrand",
           component: BrandForm
+        },
+        {
+          path: 'brands/:brandId',
+          name: "editBrand",
+          component: BrandForm
         }
       ]
     }

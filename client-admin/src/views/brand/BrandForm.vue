@@ -1,25 +1,40 @@
 <script>
-import { mapActions } from 'pinia'
+import { mapActions, mapState } from 'pinia'
 import { useBrandStore } from '../../stores/brandStore'
+import { RouterLink } from 'vue-router'
 
 export default {
     data() {
         return {
-            newBrand: {
+            dataBrand: {
                 nameBrand: '',
                 logoBrand: ''
             },
             previewImage: ''
         }
     },
+    computed: {
+        ...mapState(useBrandStore, ["brandById", "isPage"])
+    },
     methods: {
-        ...mapActions(useBrandStore, ["addBrand"]),
+        ...mapActions(useBrandStore, ["addBrand", "updateBrand"]),
         upload(event) {
-            this.newBrand.logoBrand = event.target.files[0]
+            this.dataBrand.logoBrand = event.target.files[0]
             this.previewImage = URL.createObjectURL(event.target.files[0])
         },
         postBrand() {
-            this.addBrand(this.newBrand)
+            if (this.brandById.nameBrand) {
+                this.updateBrand(this.brandById.id, this.dataBrand)
+            } else {
+                this.addBrand(this.dataBrand)
+            }
+        }
+    },
+    created() {
+        if (this.brandById.nameBrand) {
+            this.dataBrand.nameBrand = this.brandById.nameBrand
+            this.dataBrand.logoBrand = this.brandById.logoBrand
+            this.previewImage = this.brandById.logoBrand
         }
     }
 }
@@ -33,7 +48,7 @@ export default {
                 <form @submit.prevent="postBrand" autocomplete="off" class="mt-4" enctype="multipart/form-data">
                     <div class="form-group mb-3">
                         <label for="nameBrand">Name Brand</label>
-                        <input type="text" id="nameBrand" v-model="newBrand.nameBrand" class="form-control mt-2">
+                        <input type="text" id="nameBrand" v-model="dataBrand.nameBrand" class="form-control mt-2">
                     </div>
                     <div class="form-group mb-3">
                         <label for="logoBrand">Logo Brand</label>
@@ -41,10 +56,11 @@ export default {
                             <img :src="previewImage" style="height: 150px">
                         </div>
                         <input type="file" id="logoBrand" @change="upload" class="form-control mt-2">
+                        <small v-if="brandById.logoBrand">leave it blank if you don't want to change the image</small>
                     </div>
 
                     <div class="form-group mt-4">
-                        <a href="" id="btn-cancel-add-movie" class="btn btn-outline-primary float-start">Cancel</a>
+                        <RouterLink to="/brands" class="btn btn-outline-primary float-start">Cancel</RouterLink>
                         <button type="submit" class="btn btn-primary float-end">Add Brand</button>
                     </div>
                 </form>

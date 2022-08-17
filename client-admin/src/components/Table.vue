@@ -10,7 +10,25 @@ export default {
         Trow
     },
     computed: {
-        ...mapState(useBrandStore, ["data", "thead"])
+        ...mapState(useBrandStore, ["brands", "theadBrand", "actionBrand"]),
+        throwData() {
+            const { fullPath } = this.$route
+            if (fullPath === "/brands") {
+                return this.brands
+            }
+        },
+        theadData() {
+            const { fullPath } = this.$route
+            if (fullPath === "/brands") {
+                return this.theadBrand
+            }
+        },
+        actionData() {
+            const { fullPath } = this.$route
+            if (fullPath === "/brands") {
+                return this.actionBrand.length
+            }
+        }
     },
     methods: {
         ...mapActions(useBrandStore, ["readAllBrand"])
@@ -29,10 +47,11 @@ export default {
         <table class="table table-hover">
             <thead>
                 <th>No</th>
-                <Thead v-for="(th, idx) in thead" :key="idx" :thead="th" />
+                <Thead v-for="(th, idx) in theadData" :key="idx" :thead="th" />
+                <th v-if="actionData > 0">Action</th>
             </thead>
             <tbody>
-                <Trow v-for="(tr, idx) in data" :key="idx" :trow="tr" />
+                <Trow v-for="(tr, idx) in throwData" :key="idx" :trow="tr" />
             </tbody>
         </table>
     </div>

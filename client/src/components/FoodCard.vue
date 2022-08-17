@@ -1,6 +1,20 @@
 <script>
+import { useFoodStore } from "../stores/food";
+import { mapActions, mapState } from "pinia";
 export default {
-	props: ["f"],
+	props: ["f", "fId"],
+	methods: {
+		...mapActions(useFoodStore, ["postFavourite", "deleteFavourite"]),
+		addCraving(foodId) {
+			this.postFavourite(foodId);
+		},
+		deleteCraving(foodId) {
+			this.deleteFavourite(foodId);
+		},
+	},
+	computed: {
+		...mapState(useFoodStore, []),
+	},
 };
 </script>
 <template>
@@ -36,14 +50,22 @@ export default {
 						<strong>protein: </strong> {{ f.protein }}
 					</div>
 				</div>
-				<a class="no-underline text-grey-darker hover:text-red-dark">
-					<span class="hidden">Like</span>
-				</a>
+
 				<button
+					v-if="this.$route.name === 'home'"
+					@click.prevent="addCraving(f.id)"
 					type="button"
 					class="text-white bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:focus:ring-yellow-800 shadow-lg shadow-yellow-500/50 dark:shadow-lg dark:shadow-yellow-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
 				>
 					favourite
+				</button>
+				<button
+					v-if="this.$route.name === 'craving'"
+					@click.prevent="deleteCraving(fId)"
+					type="button"
+					class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+				>
+					Delete
 				</button>
 			</footer>
 		</article>

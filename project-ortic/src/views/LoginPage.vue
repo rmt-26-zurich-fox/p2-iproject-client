@@ -43,7 +43,7 @@ export default {
                 <div class="card-body p-5 text-center">
                   <div class="mb-md-5 mt-md-4 pb-5">
                     <div class="d-flex justify-content-center text-center mt-4 pt-1">
-                      <a class="text-white"><img src="../assets/logoOrtic2.png" height="250" width="250"></a>
+                      <a class="text-white"><img src="../assets/logoOrtic2.png" height="280" width="280"></a>
                     </div>
                     <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
                     <p class="text-white-50 mb-5">Please enter your email and password!</p>

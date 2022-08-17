@@ -6,7 +6,8 @@ import Swal from 'sweetalert2'
 export const useCustomStore = defineStore({
     id: 'custom',
     state: () => ({
-    baseURL: "http://localhost:3000",
+    // baseURL: "http://localhost:3000",
+    baseURL: "https://iproject-ortic-2712.herokuapp.com",
     items: [],
     carts: [],
     details: {},
@@ -21,6 +22,24 @@ export const useCustomStore = defineStore({
 
     }),
     actions: {
+
+        alertSuccess(message) {
+            Swal.fire({
+                icon: 'success',
+                title: 'success',
+                text: message
+            })
+        },
+
+        alertError(err) {
+            const errorMessage = err.response.data.message
+            Swal.fire({
+                icon: 'error',
+                title: 'error',
+                text: errorMessage
+            })
+        },
+
         async loginHandler(value) {
             try {
                 const {data} = await axios({
@@ -34,9 +53,10 @@ export const useCustomStore = defineStore({
                 localStorage.setItem('token', data.token)
                 localStorage.setItem('username', data.userName)
                 localStorage.setItem('role', data.role)
+                this.alertSuccess(data.message)
                 this.router.push('/')
             } catch (error) {
-                console.log(error)
+                this.alertError(error)
             }
         },
 
@@ -49,7 +69,7 @@ export const useCustomStore = defineStore({
                 this.items = data.items
 
             } catch (error) {
-                console.log(error)
+                this.alertError(error)
             }
         },
 
@@ -70,7 +90,7 @@ export const useCustomStore = defineStore({
                 this.carts = data
                 this.cartDetails = { totalPrice }
             } catch (error) {
-                console.log(error)
+                this.alertError(error)
             }
         },
 
@@ -86,7 +106,7 @@ export const useCustomStore = defineStore({
                     callback()
                 }
             } catch (error) {
-                console.log(error)
+                this.alertError(error)
             }
         },
 
@@ -101,8 +121,9 @@ export const useCustomStore = defineStore({
                 })
                 
                 this.router.push('/cart')
+                this.alertSuccess()
             } catch (error) {
-                console.log(error)
+                this.alertError(error)
             }
         },
 
@@ -125,8 +146,9 @@ export const useCustomStore = defineStore({
                     }
                 })
                 this.router.push('/')
+                this.alertSuccess()
             } catch (error) {
-                console.log(error)
+                this.alertError(error)
             }
         },
 
@@ -148,10 +170,10 @@ export const useCustomStore = defineStore({
                         access_token: localStorage.token
                     }
                 })
-                console.log(data)
                 this.router.push('/')
+                this.alertSuccess()
             } catch (error) {
-                console.log(error)
+                this.alertError(error)
             }
         },
 
@@ -167,7 +189,7 @@ export const useCustomStore = defineStore({
                 this.histories = data.history
                 console.log(data)
             } catch (error) {
-                console.log(error)
+                this.alertError(error)
             }
         },
 
@@ -182,8 +204,9 @@ export const useCustomStore = defineStore({
                 })
                 
                 this.router.push('/')
+                this.alertSuccess()
             } catch (error) {
-                console.log(error)
+                this.alertError(error)
             }
         },
 
@@ -199,7 +222,7 @@ export const useCustomStore = defineStore({
                 this.fetchCart()
                 this.router.push('/cart')
             } catch (error) {
-                console.log(error)
+                this.alertError(error)
             }
         },
 
@@ -211,7 +234,7 @@ export const useCustomStore = defineStore({
                 })
                 this.items = data.items.tutorials
             } catch (error) {
-                console.log(error)
+                this.alertError(error)
             }
         },
 
@@ -225,7 +248,7 @@ export const useCustomStore = defineStore({
                 this.maxPage = data.items.totalPages - 1
 
             } catch (error) {
-               console.log(error) 
+                this.alertError(error) 
             }
         },
 
@@ -242,9 +265,9 @@ export const useCustomStore = defineStore({
                 localStorage.setItem("username", data.userName)
                 localStorage.setItem("role", data.role)
                 this.router.push('/')
-
+                this.alertSuccess()
             } catch (error) {
-                console.log(error)
+                this.alertError(error)
             }
         },
 
@@ -257,7 +280,7 @@ export const useCustomStore = defineStore({
                 this.news = data.data.slice(0, 5)
 
             } catch (error) {
-                console.log(error)
+                this.alertError(error)
             }
         },
 
@@ -267,10 +290,9 @@ export const useCustomStore = defineStore({
                     method: 'GET',
                     url: `${this.baseURL}/time`
                 })
-                console.log(data)
                 this.times = data
             } catch (error) {
-                console.log(error)
+                this.alertError(error)
             }
         },
     }

@@ -13,22 +13,22 @@ export default{
         searchFunction(){
         this.fetchProduct(undefined, this.search)
         } ,
-    //     localLogoutHandler(){
-    //         localStorage.removeItem('access_token')
-    //         this.isLogin = false
-    //     }
+        localLogoutHandler(){
+            localStorage.removeItem('access_token')
+            this.isLogin = false
+        }
     },
-    // computed:{
-    //     ...mapWritableState(useCustomerStore,['isLogin'])
-    // },
+    computed:{
+        ...mapWritableState(useCustom1Store,['isLogin'])
+    },
     created(){
         this.fetchProduct(undefined, this.search)
-    //     // this.searchFunction()
-    //     if(localStorage.access_token){
-    //         this.isLogin = true
-    //     }else{
-    //         this.isLogin = false
-    //     }
+        this.searchFunction()
+        if(localStorage.access_token){
+            this.isLogin = true
+        }else{
+            this.isLogin = false
+        }
     }
 }
 </script>
@@ -67,11 +67,11 @@ export default{
                     </li>
                     
                     <li class="flex-1 md:flex-none md:mr-3">
-                        <router-link to="/login" class="inline-block  no-underline text-gray-400 font-isi text-xl hover:text-white py-2 px-4" >login</router-link>
+                        <router-link to="/login" class="inline-block  no-underline text-gray-400 font-isi text-xl hover:text-white py-2 px-4" v-if="!isLogin" >login</router-link>
                     </li>
                     <li class="flex-1 md:flex-none md:mr-3">
                         <div class="relative inline-block">
-                        <router-link to="/" class="inline-block text-gray-400 no-underline font-isi text-xl hover:text-white py-2 px-4">logout</router-link>
+                        <button @click="localLogoutHandler" class="inline-block text-gray-400 no-underline font-isi text-xl hover:text-white py-2 px-4" v-if="isLogin" >logout</button>
 
                         </div>
                     </li>

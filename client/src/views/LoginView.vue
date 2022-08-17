@@ -1,35 +1,36 @@
 <script>
 import { mapActions ,mapWritableState} from 'pinia';
-// import {useCustomerStore} from "../stores/customerStore";
+import { useCustom1Store} from '../stores/custom1'
+
 
 export default{
   data(){
-  //  const localEmail = localStorage.getItem('email')
-  //       const localPassword = localStorage.getItem("password")
+   const localUsername = localStorage.getItem('username')
+        const localPassword = localStorage.getItem("password")
         let obj ={
-        email:'',
+        username:'',
         password:'',
         rememberMe: true,
         }
-        // if(localEmail && localPassword){
-        //     obj.email = localEmail
-        //     obj.password = localPassword
-        // }
+        if(localUsername && localPassword){
+            obj.username = localUsername
+            obj.password = localPassword
+        }
         return obj
   },
   methods:{
-  //   ...mapActions(useCustomerStore, ['loginHandler','handleCredential']),
+    ...mapActions(useCustom1Store, ['loginHandler']),
     localLoginHandler(){
-  //     this.loginHandler(this.email,this.password, this.rememberMe)
-  //     this.isLogin = true
+      this.loginHandler(this.username,this.password, this.rememberMe)
+      this.isLogin = true
     },
-  //   Credential(response){
-  //         this.handleCredential(response)
-  //         this.isLogin = true
-  //       }
+    // Credential(response){
+    //       this.handleCredential(response)
+    //       this.isLogin = true
+    //     }
   },
   // computed:{
-  //   ...mapWritableState(useCustomerStore, ['isLogin'])
+    ...mapWritableState(useCustom1Store, ['isLogin'])
   // },
   //  mounted(){
   //     let callback = this.Credential
@@ -62,10 +63,10 @@ class="mx-auto flex  items-center justify-center bg-[#464E2E]  text-gray-200  ">
       class="w-full transform border-b-2 bg-transparent text-lg duration-300 focus-within:border-gray-400"
     >
       <input
-        type="email"
-        placeholder="Email"
+        type="username"
+        placeholder="username"
         class="w-full border-none bg-transparent outline-none placeholder:italic focus:outline-none"
-        v-model ="email"
+        v-model ="username"
       />
     </div>
 

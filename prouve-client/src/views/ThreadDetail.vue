@@ -1,4 +1,8 @@
 <template>
+  <div class="ml-20 mt-5">
+    <p class="text-3xl font-semibold">{{ threadById.title }}</p>
+  </div>
+  <div class="pt-4 mt-2 mb-20 space-y-2 border-t border-gray-200"></div>
   <div class="flex justify-center mt-10">
     <div class="bg-white rounded-lg shadow-md mr-10 h-fit">
       <div class="container3 flex justify-center">

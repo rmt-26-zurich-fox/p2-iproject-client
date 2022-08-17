@@ -59,7 +59,7 @@ export default {
             const response = await this.fetchDataReview();
             this.dataFound = true;
             if (response) this.$router.push("/");
-        }
+        },
     },
     computed: {
         ...mapState(useCounterStore, ["username", "isLogin", "categories", "role"]),
@@ -80,8 +80,8 @@ export default {
             <div class="flex flex-col md:flex-row md:justify-between md:items-center">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center">
-                        <p class="text-2xl font-bold text-gray-800 transition-colors duration-200 transform"
-                            >audio-id</p>
+                        <p class="text-2xl font-bold text-gray-800 transition-colors duration-200 transform">audio-id
+                        </p>
 
                         <!-- Search input on desktop screen -->
                         <div class="hidden mx-10 md:block" v-if="$route.fullPath != '/songs'">
@@ -165,6 +165,10 @@ export default {
                         <div v-bind:class="{ 'hidden': !dropdownPopoverShowLogout, 'block': dropdownPopoverShowLogout }"
                             class="bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
                             style="min-width:12rem" ref="popoverDropdownRefLogout">
+                            <RouterLink to="/register/admin"><button v-on:click="addAdmin()"
+                                    class="text-sm py-2 px-4 block w-full whitespace-nowrap bg-transparent text-slate-700  hover:bg-gray-200 font-bold">
+                                    Add Admin
+                                </button></RouterLink>
                             <button v-on:click="logout()"
                                 class="text-sm py-2 px-4 block w-full whitespace-nowrap bg-transparent text-slate-700  hover:bg-gray-200 font-bold">
                                 Logout
@@ -186,7 +190,7 @@ export default {
 
                             <input type="text" v-if="$route.fullPath != '/songs'"
                                 class="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300"
-                                placeholder="Search"  v-model="search">
+                                placeholder="Search" v-model="search">
                         </div>
                     </div>
                 </div>

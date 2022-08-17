@@ -3,7 +3,7 @@ import HomeView from "../views/HomeView.vue";
 import RegisterView from "../views/RegisterView.vue";
 import LoginView from "../views/LoginView.vue";
 import TanyaDokter from "../views/TanyaDokter.vue";
-
+import RegisterAsDoctor from "../views/RegisterAsDoctor.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -27,13 +27,23 @@ const router = createRouter({
       name: "tanyaDokter",
       component: TanyaDokter,
     },
+    {
+      path: "/registerAsDoctor",
+      name: "registerAsDoctor",
+      component: RegisterAsDoctor,
+    },
   ],
 });
 
 router.beforeEach((to, from, next) => {
   const isAuthenticated = localStorage.access_token;
   if (to.name === "tanyaDokter" && !isAuthenticated) next({ name: "login" });
-  else if ((to.name === "login" || top.name === "register") && isAuthenticated)
+  else if (
+    (to.name === "login" ||
+      to.name === "register" ||
+      to.name === "registerAsDoctor") &&
+    isAuthenticated
+  )
     next({ name: "home" });
   else next();
 });

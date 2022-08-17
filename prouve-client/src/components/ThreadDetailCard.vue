@@ -14,11 +14,9 @@
     >
       <div class="flex justify-start">
         <div class="w-full">
-          <a href="">
-            <p class="text-lg font-normal text-gray-800 mt-5">
-              {{ reply.content }}
-            </p>
-          </a>
+          <p class="text-lg font-normal text-gray-800 mt-5">
+            {{ reply.content }}
+          </p>
           <div class="mt-10">
             <span class="text-base text-gray-800">
               {{ reply.User.userName }}

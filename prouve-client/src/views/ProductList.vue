@@ -43,7 +43,6 @@ export default {
           document.documentElement.scrollTop + window.innerHeight ===
           document.documentElement.offsetHeight;
         if (bottomOfWindow) {
-          console.log(this.$route.query.category);
           this.fetchNextProduct(this.initialPage, this.$route.query.category);
           this.initialPage++;
         }

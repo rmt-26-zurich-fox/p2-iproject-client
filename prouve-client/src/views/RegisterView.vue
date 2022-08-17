@@ -11,16 +11,30 @@
           Create your account
         </h2>
       </div>
-      <form class="mt-8 space-y-6">
+      <form class="mt-8 space-y-6" @submit.prevent="createAccount">
         <input type="hidden" name="remember" value="true" />
         <div class="rounded-md shadow-sm -space-y-px">
+          <div>
+            <label for="username" class="sr-only">Username</label>
+            <input
+              id="username"
+              name="username"
+              type="text"
+              v-model="username"
+              required
+              class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              placeholder="Username"
+            />
+          </div>
           <div>
             <label for="email-address" class="sr-only">Email address</label>
             <input
               id="email-address"
               name="email"
               type="email"
-              class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              v-model="email"
+              required
+              class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               placeholder="Email address"
             />
           </div>
@@ -30,18 +44,10 @@
               id="password"
               name="password"
               type="password"
+              v-model="password"
+              required
               class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               placeholder="Password"
-            />
-          </div>
-          <div>
-            <label for="address" class="sr-only">Address</label>
-            <input
-              id="address"
-              name="address"
-              type="text"
-              class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              placeholder="Address"
             />
           </div>
           <div>
@@ -50,6 +56,7 @@
               id="phone"
               name="phone"
               type="phone"
+              v-model="phoneNumber"
               class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               placeholder="Phone Number"
             />
@@ -84,3 +91,39 @@
     </div>
   </div>
 </template>
+<script>
+import { mapActions } from "pinia";
+import { productStore } from "../stores/product";
+
+export default {
+  data() {
+    return {
+      username: "",
+      email: "",
+      password: "",
+      phoneNumber: "",
+    };
+  },
+
+  methods: {
+    ...mapActions(productStore, ["register", "loginHandler", "fetchCart"]),
+
+    createAccount() {
+      this.register(this.username, this.email, this.password, this.phoneNumber)
+        .then(() => {
+          return this.loginHandler(this.email, this.password);
+        })
+        .then((response) => {
+          localStorage.setItem("access_token", response.data.access_token);
+          return this.fetchCart();
+        })
+        .then(() => {
+          this.$router.push({ name: "shop" });
+        })
+        .catch((err) => {
+          console.log(err.response.data.message[0]);
+        });
+    },
+  },
+};
+</script>

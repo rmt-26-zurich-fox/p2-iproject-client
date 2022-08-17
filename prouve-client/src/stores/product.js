@@ -26,6 +26,19 @@ export const productStore = defineStore({
       });
     },
 
+    register(userName, email, password, phoneNumber) {
+      return axios({
+        method: "post",
+        url: this.baseUrl + "register",
+        data: {
+          userName,
+          email,
+          password,
+          phoneNumber,
+        },
+      });
+    },
+
     createCart(cakeId) {
       return axios({
         method: "post",

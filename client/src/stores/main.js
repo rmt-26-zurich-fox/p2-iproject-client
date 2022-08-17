@@ -12,6 +12,7 @@ export const useMain = defineStore({
     teams: [],
     oneTeam: {},
     players: [],
+    favTeams: [],
   }),
   actions: {
     async login(user) {
@@ -203,6 +204,54 @@ export const useMain = defineStore({
         });
         const { data } = response;
         this.players = data;
+      } catch (error) {
+        Swal.fire({
+          title: "Error!",
+          icon: "error",
+          text: error.response.data.message,
+          timer: 1500,
+        });
+      }
+    },
+
+    async getFavoriteTeams() {
+      try {
+        const response = await ServerAxios.get(
+          `/teams/users/${this.userProfile.id}`,
+          {
+            headers: { access_token: localStorage.getItem("access_token") },
+          }
+        );
+        const { data } = response;
+        this.favTeams = data.map((el) => {
+          return el.Team;
+        });
+      } catch (error) {
+        Swal.fire({
+          title: "Error!",
+          icon: "error",
+          text: error.response.data.message,
+          timer: 1500,
+        });
+      }
+    },
+
+    async likeATeam(id) {
+      try {
+        const response = await ServerAxios.post(
+          `/teams/${id}/like`,
+          {},
+          {
+            headers: { access_token: localStorage.getItem("access_token") },
+          }
+        );
+        this.getFavoriteTeams();
+        this.router.push({
+          name: "FavoritePage",
+          params: {
+            id: id,
+          },
+        });
       } catch (error) {
         Swal.fire({
           title: "Error!",

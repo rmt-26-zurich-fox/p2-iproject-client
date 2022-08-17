@@ -8,8 +8,8 @@ export const useCounterStore = defineStore({
   id: "counter",
   state: () => ({
     baseUrl: "http://localhost:3000",
+    isLogin: false,
     username: "",
-    role: ""
   }),
   actions: {
     parseJwt(token) {
@@ -26,8 +26,9 @@ export const useCounterStore = defineStore({
         });
         const payload = this.parseJwt(data.access_token);
         localStorage.setItem("access_token", data.access_token);
+        localStorage.setItem("role", payload.role);
         this.username = payload.username;
-        this.role = payload.role;
+        this.isLogin = true;
 
         // Success Login
         Swal.fire({
@@ -94,6 +95,22 @@ export const useCounterStore = defineStore({
           }
         }
       });
+    },
+    handleLogout() {
+      localStorage.clear();
+      this.isLogin = false;
+      this.username = false;
+
+      // Success Logout
+      Swal.fire({
+        position: 'top',
+        icon: 'success',
+        title: 'Logout Success',
+        showConfirmButton: false,
+        timer: 1500
+      });
+
+      this.router.push("/login");
     }
   },
 });

@@ -10,6 +10,9 @@
 		},
 		computed: {
 			...mapState(dashboard, ["primaryData"]),
+			// test() {
+			// 	return this.primaryData.news[0].translations.;
+			// },
 		},
 		async created() {
 			await this.fetchNews();
@@ -18,8 +21,9 @@
 </script>
 <template>
 	<!-- {{ primaryData.news[0] }} -->
+	{{ test }}
 	<div class="mt-1 mb-5">
-		<table class="col-4">
+		<table>
 			<thead>
 				<th colspan="2" class="text-center">NEWS</th>
 			</thead>

@@ -1,5 +1,4 @@
 <script>
-	import moment from "moment";
 	export default {
 		props: ["patchnote", "isFirstOrLast"],
 		data() {
@@ -7,11 +6,7 @@
 				firstOrLast: { div: {}, button: {} },
 			};
 		},
-		methods: {
-			dateFormat(dataTime) {
-				return moment(dataTime).format("LLLL");
-			},
-		},
+		methods: {},
 		computed: {
 			fixes() {
 				let result = this.patchnote.fixes
@@ -89,7 +84,7 @@
 					<div class="collapse navbar-collapse" id="navbarButtonsExample">
 						<a target="_blank" :href="patchnote.url" class="me-auto ms-3">Forum link</a>
 						<div class="d-flex align-items-center">
-							<div class="d-flex align-items-center me-3">{{ dateFormat(patchnote.date) }}</div>
+							<div class="d-flex align-items-center me-3">{{ patchnote.date }}</div>
 						</div>
 					</div>
 				</div>

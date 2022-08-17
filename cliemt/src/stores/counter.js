@@ -6,11 +6,16 @@ export const useCounterStore = defineStore({
   id: "counter",
   state: () => ({
     isLogin: false,
-    dataUserLogin: {},
+    allPost: [],
+    dataUserLogin: null,
+
+
 
 
   }),
-  getters: {},
+  getters: {
+
+  },
   actions: {
     async handleLogin(value) {
       try {
@@ -27,10 +32,12 @@ export const useCounterStore = defineStore({
         localStorage.setItem("access_token", access_token);
         localStorage.setItem("email", data.email);
         localStorage.setItem("id", id);
-        console.log("berhasil login");
+        // console.log("berhasil login");
         this.isLogin = true;
-        this.router.push("/");
         this.readProfilData();
+
+        this.router.push("/");
+
       } catch (error) {
         console.log(error);
         const msg = error.response.data.message;
@@ -61,7 +68,7 @@ export const useCounterStore = defineStore({
             username, email, password
           }
         });
-        console.log(data);
+        // console.log(data);
         this.router.push("/login");
       } catch (error) {
         console.log(error);
@@ -84,11 +91,44 @@ export const useCounterStore = defineStore({
             access_token: localStorage.getItem("access_token")
           }
         });
+        console.log(response.data);
         this.dataUserLogin = response.data;
-        console.log(this.dataUserLogin.user);
+        // console.log(this.dataUserLogin.user);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async readAllPost() {
+      try {
+        const response = await axios({
+          url: `${baseUrl}/post`,
+          method: "get",
+          headers: {
+            access_token: localStorage.getItem("access_token")
+          }
+        });
+        this.allPost = response.data;
+        console.log(this.allPost);
       } catch (error) {
         console.log(error);
       }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   },
 });

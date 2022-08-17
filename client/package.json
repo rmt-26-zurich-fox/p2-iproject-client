@@ -2,7 +2,7 @@
   "name": "iproject_ekpp",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "npx vite --port 8080",
     "build": "vite build",
     "preview": "vite preview --port 4173",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
@@ -11,6 +11,7 @@
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
     "pinia": "^2.0.17",
+    "socket.io-client": "^4.5.1",
     "sweetalert2": "^11.4.27",
     "vue": "^3.2.37",
     "vue-router": "^4.1.3"

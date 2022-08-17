@@ -18,6 +18,24 @@ export const useCounterStore = defineStore({
 
   },
   actions: {
+    async addCommentToPost(id, comment) {
+      try {
+        const response = await axios({
+          url: `${baseUrl}/comment/${id}`,
+          method: "POST",
+          headers: {
+            access_token: localStorage.getItem("access_token")
+          },
+          data: {
+            comment
+          }
+        });
+        console.log(response.data);
+        this.readDataPostById(id);
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async readDataPostById(id) {
       try {
         const response = await axios({

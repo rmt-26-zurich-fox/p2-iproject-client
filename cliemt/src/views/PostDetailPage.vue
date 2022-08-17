@@ -4,11 +4,19 @@
   import CommentPost from "../components/CommentPost.vue";
 
   export default {
+    data() {
+      return {
+        comment: "",
+      };
+    },
     components: {
       CommentPost,
     },
     methods: {
-      ...mapActions(useCounterStore, ["readDataPostById"]),
+      ...mapActions(useCounterStore, ["readDataPostById", "addCommentToPost"]),
+      addComment() {
+        this.addCommentToPost(this.$route.params.id, this.comment);
+      },
     },
     created() {
       this.readDataPostById(this.$route.params.id);
@@ -55,8 +63,9 @@
             class="commentArea"
             type="text"
             placeholder="comment here..."
+            v-model="comment"
           />
-          <button id="commentBTN">Comment</button>
+          <button id="commentBTN" @click="addComment">Comment</button>
         </div>
         <div class="labelComment">KOMENTAR :</div>
         <div v-if="dataPostById.post.Comments.length > 0">
@@ -66,7 +75,6 @@
             :comment="comment"
           />
         </div>
-       
       </div>
     </div>
   </div>

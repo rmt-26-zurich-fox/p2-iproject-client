@@ -17,7 +17,7 @@ export const useProductStore = defineStore({
         Swal.fire(error.response.data.message)
       }
     },
-    async fetchRequestProduct() {
+    async requestProduct() {
       try {
         const product = await axios.get(`${baseUrl}/request/product/:productId`, {
           headers: { access_token: localStorage.getItem("access_token") },

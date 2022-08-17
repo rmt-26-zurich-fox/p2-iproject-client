@@ -1,11 +1,28 @@
-<script></script>
+<script>
+  import { mapActions, mapState } from "pinia";
+  import { useCounterStore } from "../stores/counter";
+  export default {
+    computed: {
+      ...mapState(useCounterStore, ["isLogin"]),
+    },
+    methods: {
+      ...mapActions(useCounterStore, ["handlesIsLogin", "handleLogout"]),
+      handleLogoutBtn() {
+        this.handleLogout();
+      },
+    },
+    created() {
+      this.handlesIsLogin();
+    },
+  };
+</script>
 
 <template>
   <div id="Navbar">
     <h1>
       <router-link class="logo" to="/">社交</router-link>
     </h1>
-    <div class="searchContainer">
+    <div v-if="isLogin" class="searchContainer">
       <input type="text" name="" id="search" placeholder="Search" />
       <button class="BTNsearch">
         <img
@@ -17,21 +34,25 @@
     </div>
 
     <div>
-      <router-link class="buttonNav" to="/">
+      <router-link v-if="isLogin" class="buttonNav" to="/">
         <img
           class="imageLogout"
           src="https://cdn-icons-png.flaticon.com/512/565/565504.png"
           alt=""
         />
       </router-link>
-      <router-link class="buttonNav" to="/profile">
+      <router-link v-if="isLogin" class="buttonNav" to="/profile">
         <img
           class="imageLogout"
           src="https://cdn-icons-png.flaticon.com/512/64/64572.png"
           alt=""
         />
       </router-link>
-      <router-link @click="handleLogoutBtn" class="buttonNav" to="/login"
+      <router-link
+        v-if="isLogin"
+        @click="handleLogoutBtn"
+        class="buttonNav"
+        to="/login"
         ><img
           class="imageLogout"
           src="https://cdn-icons-png.flaticon.com/512/1828/1828479.png"
@@ -61,7 +82,7 @@
     min-height: 15px;
     padding: 5px;
     border-radius: 10px;
-    border: rgb(255, 217, 0) solid;
+    border: rgb(153, 153, 153) solid;
     margin-right: 5px;
   }
   .buttonNav {
@@ -87,7 +108,7 @@
     flex-direction: row;
     justify-content: space-between;
     color: white;
-    background-color: rgb(224, 108, 0);
+    background-color: rgb(200, 0, 0);
     font-family: Arial, Helvetica, sans-serif;
     padding: 18px 24px;
     box-shadow: 0 4px 2px -2px rgb(71, 71, 71);

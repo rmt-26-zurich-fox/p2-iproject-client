@@ -1,4 +1,24 @@
-<script></script>
+<script>
+  import { mapActions, mapState } from "pinia";
+  import { useCounterStore } from "../stores/counter";
+  export default {
+    data() {
+      return {
+        email: "",
+        password: "",
+      };
+    },
+    methods: {
+      ...mapActions(useCounterStore, ["handleLogin"]),
+      login() {
+        this.handleLogin({
+          email: this.email,
+          password: this.password,
+        });
+      },
+    },
+  };
+</script>
 
 <template>
   <h1>ini Login Page</h1>
@@ -6,13 +26,13 @@
     <div></div>
     <div>
       <div>
-        <input type="text" placeholder="Email" />
+        <input type="text" placeholder="Email" v-model="email" />
       </div>
       <div>
-        <input type="password" placeholder="Password" />
+        <input type="password" placeholder="Password" v-model="password" />
       </div>
       <div>
-        <button>Log In</button>
+        <button @click="login">Log In</button>
       </div>
       <div>
         <button>

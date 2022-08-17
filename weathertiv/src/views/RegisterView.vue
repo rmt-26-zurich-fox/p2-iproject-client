@@ -56,6 +56,8 @@
 </template>
 
 <script>
+import { mapActions } from 'pinia';
+import { customStore } from '../stores/store';
 
 export default {
     data() {
@@ -67,6 +69,12 @@ export default {
         }
     },
     methods: {
+        ...mapActions(customStore, ["handleRegister"]),
+
+        //Submit register
+        async submitRegister() {
+            this.handleRegister(this.email, this.password, this.phoneNumber, this.location)
+        },
     },
 }
 </script>

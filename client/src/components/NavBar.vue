@@ -42,8 +42,9 @@
 </template>
 
 <script>
-import { mapWritableState } from 'pinia';
+import { mapActions, mapWritableState } from 'pinia';
 import { useLoginStore } from '../stores/user';
+import { useHouseStore } from '../stores/house';
 
 export default {
   data() {
@@ -53,6 +54,8 @@ export default {
   },
 
   methods: {
+    ...mapActions(useHouseStore, ['getAllHouses']),
+
     logout() {
       localStorage.clear();
       this.access_token = "";
@@ -61,6 +64,7 @@ export default {
 
     async toHome() {
       try {
+        await this.getAllHouses();
         this.$router.push({ path: "/" });
       } catch (error) {
         this.errorHandler(error);

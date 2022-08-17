@@ -4,6 +4,7 @@
   export default {
     props: {
       post: Object,
+      like: Object,
     },
     methods: {
       timeSince(date) {
@@ -68,6 +69,31 @@
           style="max-height: 30px"
         />
         <p class="likes">{{ this.countLike(post.Likes.length) }}</p>
+      </div>
+    </div>
+  </div>
+  <div v-if="like" class="instagram-card">
+    <div class="instagram-card-header">
+      <p class="profilName">{{ like.Post.User.username }}</p>
+      <div class="instagram-card-time">
+        {{ this.timeSince(new Date(like.Post.createdAt)) }} ago
+      </div>
+    </div>
+    <div class="instagram-card-content">
+      <router-link
+        :to="{ name: 'post_detail', params: { id: like.PostId } }"
+        style="text-decoration: none"
+      >
+        <img class="imagePost" :src="like.Post.imgUrl" alt="" />
+      </router-link>
+
+      <div class="like">
+        <img
+          src="https://cdn-icons.flaticon.com/png/512/3128/premium/3128313.png?token=exp=1660722693~hmac=8640e3991af33de3dabe45f892ea2a84"
+          alt=""
+          style="max-height: 30px"
+        />
+        <p class="likes">{{ this.countLike(like.Post.Likes.length) }}</p>
       </div>
     </div>
   </div>

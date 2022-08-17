@@ -4,6 +4,11 @@
   import CardPost from "../components/CardPost.vue";
 
   export default {
+    data() {
+      return {
+        page: "post",
+      };
+    },
     components: {
       CardPost,
     },
@@ -11,6 +16,12 @@
       ...mapActions(useCounterStore, ["readProfilData", "readLikedPostByUser"]),
       readDataUser() {
         this.readProfilData();
+      },
+      pagePost() {
+        this.page = "post";
+      },
+      pageLike() {
+        this.page = "like";
       },
     },
     created() {
@@ -37,22 +48,51 @@
       <div class="emailUser">
         <p>{{ dataUserLogin.user.email }}</p>
       </div>
+      <div class="buttonPage">
+        <button @click="pagePost" class="POSTBTN">Your Post</button>
+        <button @click="pageLike" class="LIKEDPOSTBTN">Your Like</button>
+      </div>
     </div>
-    <div>
-      <button>Your Post</button>
-      <button>Your Like</button>
-    </div>
-    <div v-if="dataUserLogin">
+
+    <div v-show="this.page === 'post'">
       <CardPost
         v-for="post in dataUserLogin.post"
         :key="post.id"
         :post="post"
       />
     </div>
+    <div v-show="this.page === 'like'">
+      <CardPost v-for="like in likedPostByUser" :key="like.id" :like="like" />
+    </div>
   </div>
 </template>
 
 <style scoped>
+  .buttonPage {
+    margin-top: 100px;
+  }
+  .POSTBTN {
+    margin-right: 5px;
+    width: 100px;
+    padding: 10px;
+    text-align: center;
+    background-color: rgb(251, 46, 46);
+    color: white;
+    border-radius: 15px;
+    cursor: pointer;
+    border: none;
+  }
+  .LIKEDPOSTBTN {
+    margin-left: 5px;
+    width: 100px;
+    padding: 10px;
+    text-align: center;
+    background-color: rgb(251, 46, 46);
+    color: white;
+    border-radius: 15px;
+    cursor: pointer;
+    border: none;
+  }
   .container {
     padding: 5px;
     font-family: Arial, Helvetica, sans-serif;

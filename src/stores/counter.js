@@ -5,7 +5,7 @@ import Swal from 'sweetalert2'
 export const useCounterStore = defineStore({
   id: 'counter',
   state: () => ({
-    baseUrl : "https://court-application-e7619.web.app",
+    baseUrl : "http://localhost:3000",
     tabs: '',
     name: "",
     report: [],
@@ -25,6 +25,7 @@ export const useCounterStore = defineStore({
         })
        localStorage.setItem("access_token",data.access_token)
        localStorage.setItem("name",data.name)
+       this.name= localStorage.getItem("name")
        this.router.push('/')
         this.fetchReport()
         this.tabs= 'login'

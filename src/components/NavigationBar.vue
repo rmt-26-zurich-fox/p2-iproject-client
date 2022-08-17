@@ -70,6 +70,7 @@ export default{
             localStorage.clear()
             this.$router.push('/login')
             this.tabs= 'notLogin'
+            this.name= ''
             Swal.fire({
                 icon: 'success',
                 title: 'Log Out Success',

@@ -91,6 +91,27 @@ nav li a:hover {
   font-size: 1.3em;
 }
 
+.thread-list-card {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.card-thread-container {
+  display: flex !important;
+  flex-direction: row !important;
+}
+.card-content-thread {
+  width: 85%;
+}
+.button-to-thread-detail-container {
+  width: 15%;
+  max-width: 100%;
+}
+.button-to-thread-detail {
+  padding-top: 20px;
+  text-align: right;
+}
+
 /* Table */
 #news_table {
   margin-top: 25px;

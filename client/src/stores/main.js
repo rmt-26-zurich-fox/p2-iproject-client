@@ -13,6 +13,7 @@ export const useMain = defineStore({
     oneTeam: {},
     players: [],
     favTeams: [],
+    threads: [],
   }),
   actions: {
     async login(user) {
@@ -277,6 +278,24 @@ export const useMain = defineStore({
           }
         );
         console.log(response.data);
+      } catch (error) {
+        Swal.fire({
+          title: "Error!",
+          icon: "error",
+          text: error.response.data.message,
+          timer: 1500,
+        });
+      }
+    },
+
+    async getAllThreads() {
+      try {
+        const response = await ServerAxios.get(`/threads`, {
+          headers: { access_token: localStorage.getItem("access_token") },
+        });
+        const { data } = response;
+        this.threads = data;
+        console.log(this.threads);
       } catch (error) {
         Swal.fire({
           title: "Error!",

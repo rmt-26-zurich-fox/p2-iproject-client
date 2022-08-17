@@ -6,7 +6,8 @@ export const useCustom1Store = defineStore({
   state: () => ({
     url: 'http://localhost:3000',
     products: [],
-    totalPages: 0
+    totalPages: 0,
+    product: {}
   }),
   getters: {
     doubleCount: (state) => state.counter * 2
@@ -20,7 +21,17 @@ export const useCustom1Store = defineStore({
             })
             this.products = data.products.rows
             this.totalPages = data.totalPages
-            console.log(this.products)
+        } catch (err) {
+            console.log(err)
+        }
+    },
+    async productDetail(id){
+        try {
+            let { data } = await axios({
+                url: `${this.url}/products/${id}`,
+                method: 'GET'
+            })
+            this.product = data
         } catch (err) {
             console.log(err)
         }

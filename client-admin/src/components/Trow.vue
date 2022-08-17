@@ -21,12 +21,19 @@ export default {
         }
     },
     methods: {
-        ...mapActions(useBrandStore, ["editBrand"]),
+        ...mapActions(useBrandStore, ["editBrand", "deleteBrand"]),
         handleEdit() {
             const { fullPath } = this.$route
 
             if (fullPath === "/brands") {
                 this.editBrand(this.trow.id)
+            }
+        },
+        handleDelete() {
+            const { fullPath } = this.$route
+
+            if (fullPath === "/brands") {
+                this.deleteBrand(this.trow.id)
             }
         }
     }
@@ -51,9 +58,7 @@ export default {
                 <a @click.prevent="handleEdit" class="btn btn-outline-primary btn-sm"><i class="fas fa-edit"></i></a>
             </span>
             <span v-if="actionData.includes('delete')">
-                <button type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"
-                        aria-hidden="true"></i>
-                </button>
+                <a @click.prevent="handleDelete" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></a>
             </span>
         </td>
     </tr>

@@ -3,7 +3,7 @@
     <div class="photo">
         <div class="photo-preview photo-detail"></div>
         <div class="photo-details">
-            <h1 class="photo-title">Jakarta</h1>
+            <h1 class="photo-title">{{ locationProp.name }}</h1>
             <button class="btn btn-secondary btn-lg rounded-pill">
                 See weather forecasting
             </button>

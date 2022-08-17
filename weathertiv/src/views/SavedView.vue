@@ -10,7 +10,7 @@
             <div class="container">
                 <div class="row">
                     <div>
-                        <SavedCard />
+                        <SavedCard v-for="location in saved" :key="location.id" :locationProp="location" />
                     </div>
                 </div>
             </div>
@@ -47,14 +47,14 @@ export default {
         }
     },
     computed: {
-        ...mapState(customStore, ["popular", "ipWeather", "searchWeather"])
+        ...mapState(customStore, ["saved"])
     },
     methods: {
-        ...mapActions(customStore, ["fetchPopularLocations", "fetchIpLocation", "fetchSearchLocation"]),
+        ...mapActions(customStore, ["fetchSavedLocation"]),
 
     },
     created() {
-        this.fetchPopularLocations()
+        this.fetchSavedLocation()
     }
 }
 </script>

@@ -22,18 +22,16 @@
 	};
 </script>
 <template>
-	<div class="mt-1 mb-5 col">
-		<table>
-			<thead>
-				<th colspan="3" class="text-center">Invasions</th>
-			</thead>
-			<tbody class="border border-dark">
-				<tr style="border-bottom: 1px solid black">
-					<td class="text-center" colspan="1">Location</td>
-					<td class="text-center" colspan="2">Mission</td>
-				</tr>
-				<InvasionsList v-for="(invasion, index) of primaryData.invasions" :key="index" :invasion="invasion" />
-			</tbody>
-		</table>
-	</div>
+	<table>
+		<thead>
+			<th colspan="3" class="text-center">Invasions</th>
+		</thead>
+		<tbody class="border border-dark">
+			<tr style="border-bottom: 1px solid black">
+				<td class="text-center" colspan="1">Location</td>
+				<td class="text-center" colspan="2">Mission</td>
+			</tr>
+			<InvasionsList v-for="(invasion, index) of primaryData.invasions" :key="index" :invasion="invasion" />
+		</tbody>
+	</table>
 </template>

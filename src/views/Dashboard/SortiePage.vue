@@ -20,7 +20,7 @@
 	};
 </script>
 <template>
-	<div class="mt-1 mb-5">
+	<div>
 		<table>
 			<thead>
 				<th colspan="3" class="text-center">Sortie</th>

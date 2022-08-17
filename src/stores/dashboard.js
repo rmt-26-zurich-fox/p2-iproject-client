@@ -10,6 +10,11 @@ export const dashboard = defineStore({
 			nightwave: null,
 			sortie: null,
 			invasions: null,
+			fissures: {
+				normal: [],
+				storm: [],
+				isDefaultState: true,
+			},
 		},
 		secondaryData: {},
 		dealsData: {},
@@ -74,11 +79,38 @@ export const dashboard = defineStore({
 			}
 		},
 
+		async fetchFissures(platform = "pc") {
+			try {
+				const { data } = await axios({
+					method: "get",
+					url: `${server.url}/events/${platform}/fissures`,
+				});
+
+				data.response.forEach(data => {
+					const { isStorm } = data;
+					if (isStorm) {
+						this.primaryData.fissures.storm.push(data);
+					} else if (!isStorm) {
+						this.primaryData.fissures.normal.push(data);
+					}
+				});
+			} catch ({ response }) {
+				console.log(response.data.message);
+			}
+		},
+
 		//COMPLEMENT FUNCTION
 		countingDown(startFrom, endTo) {
 			//! INPUT TIME IS ISO TIMESTAMP
-			let startDate = startFrom,
+			//! make sure the input is not converted to ISOString
+			let startDate, endDate;
+			if (startFrom > endTo) {
+				startDate = endTo;
+				endDate = startFrom;
+			} else {
+				startDate = startFrom;
 				endDate = endTo;
+			}
 
 			let interval = intervalToDuration({ start: parseISO(startDate), end: parseISO(endDate) });
 			let { years, months, days, hours, minutes, seconds } = interval;

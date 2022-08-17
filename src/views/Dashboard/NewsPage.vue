@@ -21,14 +21,13 @@
 </script>
 <template>
 	<!-- {{ primaryData.news[0] }} -->
-	<div class="mt-1 mb-5">
-		<table>
-			<thead>
-				<th colspan="2" class="text-center">NEWS</th>
-			</thead>
-			<tbody class="border border-dark">
-				<NewsList v-for="(news, index) of primaryData.news" :key="index" :news="news" />
-			</tbody>
-		</table>
-	</div>
+
+	<table>
+		<thead>
+			<th colspan="2" class="text-center">NEWS</th>
+		</thead>
+		<tbody class="border border-dark">
+			<NewsList v-for="(news, index) of primaryData.news" :key="index" :news="news" />
+		</tbody>
+	</table>
 </template>

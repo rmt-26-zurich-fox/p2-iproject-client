@@ -40,6 +40,24 @@
 				data = data.join(".") + "%";
 				return data;
 			},
+			tooltipDefend() {
+				const defend = this.invasion.attackerReward.countedItems[0] ? this.invasion.defenderReward.countedItems[0].key : null;
+				if (defend) {
+					const title = `${this.invasion.defenderReward.countedItems[0].key}`;
+					return title;
+				} else {
+					return "";
+				}
+			},
+			tooltipAttack() {
+				const attack = this.invasion.attackerReward.countedItems[0] ? this.invasion.attackerReward.countedItems[0].key : null;
+				if (attack) {
+					const title = `${this.invasion.attackerReward.countedItems[0].key}`;
+					return title;
+				} else {
+					return "";
+				}
+			},
 		},
 		created() {
 			setInterval(() => {
@@ -48,10 +66,10 @@
 			}, 1000);
 		},
 	};
-	// style="`background-color:${}`"
 </script>
 
 <template>
+	{{ invasions }}
 	<tr style="border-bottom: 1px solid black">
 		<td style="padding-inline: 10px">{{ invasion.node }}</td>
 		<!-- ATTACKER FIRST -->
@@ -60,8 +78,24 @@
 	<tr>
 		<td style="border: 1px solid" colspan="3">
 			<div class="position-relative">
-				<div class="float-start"><img :src="this.invasion.attackerReward.thumbnail" style="height: 30px" /></div>
-				<div class="float-end"><img :src="this.invasion.defenderReward.thumbnail" style="height: 30px" /></div>
+				<div class="float-start">
+					<img
+						:src="this.invasion.attackerReward.thumbnail"
+						data-mdb-toggle="tooltip"
+						data-mdb-html="true"
+						:title="tooltipAttack"
+						style="height: 30px"
+					/>
+				</div>
+				<div class="float-end">
+					<img
+						:src="this.invasion.defenderReward.thumbnail"
+						data-mdb-toggle="tooltip"
+						data-mdb-html="true"
+						:title="tooltipDefend"
+						style="height: 30px"
+					/>
+				</div>
 				<b class="d-flex justify-content-center pt-1">{{ countdown }}</b>
 			</div>
 		</td>

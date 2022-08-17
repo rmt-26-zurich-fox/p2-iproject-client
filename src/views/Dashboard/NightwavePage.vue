@@ -24,19 +24,17 @@
 </script>
 
 <template>
-	<div class="mt-1 mb-5">
-		<table>
-			<thead>
-				<th colspan="3" class="text-center">Nightwave</th>
-			</thead>
-			<tbody class="border border-dark">
-				<tr style="border-bottom: 1px solid black">
-					<td class="text-center">mission</td>
-					<td class="text-center">reward</td>
-					<td class="text-center">timer</td>
-				</tr>
-				<NightwaveList v-for="(nightwave, index) of testVar" :key="index" :nightwave="nightwave" />
-			</tbody>
-		</table>
-	</div>
+	<table>
+		<thead>
+			<th colspan="3" class="text-center">Nightwave</th>
+		</thead>
+		<tbody class="border border-dark">
+			<tr style="border-bottom: 1px solid black">
+				<td class="text-center">Mission</td>
+				<td class="text-center">Reward</td>
+				<td class="text-center">Timer</td>
+			</tr>
+			<NightwaveList v-for="(nightwave, index) of testVar" :key="index" :nightwave="nightwave" />
+		</tbody>
+	</table>
 </template>

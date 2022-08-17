@@ -60,7 +60,6 @@ export default {
     if (localStorage.getItem("access_token")) {
       this.access_token = localStorage.access_token;
     }
-    console.log(this.access_token);
   },
   methods: {
     logout() {

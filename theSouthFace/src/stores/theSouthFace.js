@@ -43,6 +43,22 @@ export const theSouthFace = defineStore({
       }
     },
 
+    async registerUser(email, password) {
+        try {
+          const userRegister = await axios.post(`${baseUrl}/cust/register`, {
+            email,
+            password,
+          });
+          if (userRegister) {
+            this.router.push({ path: "/login" });
+            Swal.fire("SUCCESS", "woohoo! new account ready to be used", "success")
+          }
+        } catch (error) {
+            console.log(error);
+          Swal.fire("ERROR", error.response.data, "error");
+        }
+      },
+
     async fetchOneProduct(productId) {
         try {
           const getOneProduct = await axios.get(

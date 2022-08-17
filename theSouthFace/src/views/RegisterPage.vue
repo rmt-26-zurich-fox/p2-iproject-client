@@ -1,66 +1,57 @@
 <template>
-  <form @submit.prevent="submitLogin">
+  <form class="formRegister" @submit.prevent="submitRegister">
     <div class="headerText">
-      <h1>THE SOUTH FACE</h1>
+      <h1>Sign up here!</h1>
     </div>
 
-    <div class="container">
+    <div class="containerRegister">
       <label class="email"><b>Email</b></label>
       <input
         type="text"
-        placeholder="Your login email here"
-        v-model="login.email"
+        placeholder="Your Register email here"
+        v-model="register.email"
         required
       />
 
       <label class="password"><b>Password</b></label>
       <input
         type="password"
-        placeholder="your login password here"
-        v-model="login.password"
+        placeholder="Your register password here"
+        v-model="register.password"
         required
       />
 
-      <button id="submitlogin" type="submit">Login</button>
-
-      <div style="justiy-content: center !important">
-        
-
-        <div class="toRegister">
-          New user? register
-          <router-link to="/register">here</router-link>
-        </div>
-
-      </div>
+      <button type="submit">Register</button>
+      <router-link to="/login">Cancel and return to login page</router-link>
     </div>
   </form>
 </template>
 
 <script>
-import { mapActions } from "pinia";
+import { mapState, mapActions } from "pinia";
 import { theSouthFace } from "../stores/theSouthFace";
+
 export default {
-  name: "LoginPage",
+  name: "RegisterPage",
   data() {
     return {
-      login: {
+      register: {
         email: "",
         password: "",
       },
     };
   },
   methods: {
-    ...mapActions(theSouthFace, ["loginUser"]),
-    submitLogin() {
-      this.loginUser(this.login.email, this.login.password);
+    ...mapActions(theSouthFace, ["registerUser"]),
+    submitRegister() {
+      this.registerUser(this.register.email, this.register.password);
     },
-
   },
 };
 </script>
 
 <style>
-form {
+.formRegister {
   padding-left: 10%;
   padding-right: 10%;
   padding-bottom: 5%;
@@ -78,6 +69,12 @@ form {
 }
 a {
   color: white;
+  padding-top: 0;
+  margin-left: 0%;
+  text-decoration: none;
+}
+a:hover {
+  color: #0489aa;
 }
 
 input[type="text"],
@@ -91,8 +88,8 @@ input[type="password"] {
   box-sizing: border-box;
 }
 
-#submitlogin {
-  background-color: #927700;
+button {
+  background-color:#927700;
   border-radius: 6px;
   opacity: 1 !important;
   color: white;
@@ -105,9 +102,6 @@ input[type="password"] {
 .headerText {
   text-align: center;
   color: white;
-}
-a {
-  text-decoration: none;
 }
 a:hover {
   color: #889200;

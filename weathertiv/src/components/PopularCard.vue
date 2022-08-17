@@ -3,8 +3,10 @@
     <div class="col-md-3 col-sm-6">
         <div id="product-1" class="single-product">
             <div class="part-1">
-                <a @click="clickPopular(locationProp.id)"><img :src="locationProp.imgUrl"
-                        class="product-image rounded"></a>
+                <div class="overlay">
+                    <a @click="clickPopular(locationProp.id)"><img :src="locationProp.imgUrl"
+                            class="product-image rounded"></a>
+                </div>
             </div>
             <hr class="my-4">
             <div class="live-camera">

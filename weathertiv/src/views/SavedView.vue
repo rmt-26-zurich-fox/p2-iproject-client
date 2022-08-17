@@ -10,77 +10,51 @@
             <div class="container">
                 <div class="row">
                     <div>
-
-                        <!-- single card -->
-                        <div class="photo">
-                            <div class="photo-preview photo-detail"></div>
-                            <div class="photo-details">
-                                <h1 class="photo-title">Jakarta</h1>
-                                <button class="btn btn-secondary btn-lg rounded-pill">
-                                    See weather forecasting
-                                </button>
-                                <br>
-                                <br>
-                                <button class="btn btn-danger btn-lg rounded-pill">
-                                    Remove from my saved location
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- single card -->
-                        <div class="photo">
-                            <div class="photo-preview photo-detail"></div>
-                            <div class="photo-details">
-                                <h1 class="photo-title">Jakarta</h1>
-                                <button class="btn btn-secondary btn-lg rounded-pill">
-                                    See weather forecasting
-                                </button>
-                                <br>
-                                <br>
-                                <button class="btn btn-danger btn-lg rounded-pill">
-                                    Remove from my saved location
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- single card -->
-                        <div class="photo">
-                            <div class="photo-preview photo-detail"></div>
-                            <div class="photo-details">
-                                <h1 class="photo-title">Jakarta</h1>
-                                <button class="btn btn-secondary btn-lg rounded-pill">
-                                    See weather forecasting
-                                </button>
-                                <br>
-                                <br>
-                                <button class="btn btn-danger btn-lg rounded-pill">
-                                    Remove from my saved location
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- single card -->
-                        <div class="photo">
-                            <div class="photo-preview photo-detail"></div>
-                            <div class="photo-details">
-                                <h1 class="photo-title">Jakarta</h1>
-                                <button class="btn btn-secondary btn-lg rounded-pill">
-                                    See weather forecasting
-                                </button>
-                                <br>
-                                <br>
-                                <button class="btn btn-danger btn-lg rounded-pill">
-                                    Remove from my saved location
-                                </button>
-                            </div>
-                        </div>
+                        <SavedCard />
                     </div>
                 </div>
             </div>
         </div>
-
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
     </main> <!-- .main-content -->
 </template>
 
 <script>
+import SavedCard from '../components/SavedCard.vue'
+import { mapState, mapActions } from "pinia";
+import { customStore } from '../stores/store';
+
+export default {
+    components: {
+        SavedCard,
+    },
+    data() {
+        return {
+        }
+    },
+    computed: {
+        ...mapState(customStore, ["popular", "ipWeather", "searchWeather"])
+    },
+    methods: {
+        ...mapActions(customStore, ["fetchPopularLocations", "fetchIpLocation", "fetchSearchLocation"]),
+
+    },
+    created() {
+        this.fetchPopularLocations()
+    }
+}
 </script>

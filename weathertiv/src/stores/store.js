@@ -9,6 +9,7 @@ export const customStore = defineStore({
     baseUrl: "http://localhost:3000",
     isLoading: false,
     popular: [],
+    saved: [],
     ipWeather: {
       date: "",
       location: "",
@@ -234,5 +235,28 @@ export const customStore = defineStore({
         })
       }
     },
+
+    ///Read Saved Location
+    async fetchSavedLocation() {
+      try {
+        this.isLoading = true
+        let { data } = await axios.get(this.baseUrl + '/saved',
+          {
+            headers: {
+              access_token: localStorage.getItem("access_token")
+            }
+          })
+        this.saved = data.saved
+        this.isLoading = false
+      } catch (err) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: err.response.data.message,
+        })
+      }
+    },
+
+
   }
 })

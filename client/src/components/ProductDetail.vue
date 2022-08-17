@@ -15,10 +15,7 @@ export default{
         ...mapActions(useCustom2Store,['addShopCart']),
 
        localAddShopCart(id){
-            let from = 'car detail'
-            console.log("masukkkdmsf" ,id)
             this.addShopCart(id)
-
         }
     },
     computed:{

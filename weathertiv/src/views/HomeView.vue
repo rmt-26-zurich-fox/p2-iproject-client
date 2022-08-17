@@ -1,31 +1,5 @@
 <template>
   <div class="site-content">
-    <div class="site-header">
-      <div class="container">
-        <a href="index.html" class="branding">
-          <img src="../assets/images/logo.png" alt="" class="logo">
-          <div class="logo-type">
-            <h1 class="site-title">Company name</h1>
-            <small class="site-description">tagline goes here</small>
-          </div>
-        </a>
-
-        <!-- Default snippet for navigation -->
-        <div class="main-navigation">
-          <button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
-          <ul class="menu">
-            <li class="menu-item current-menu-item"><a href="index.html">Home</a></li>
-            <li class="menu-item"><a href="news.html">News</a></li>
-            <li class="menu-item"><a href="live-cameras.html">Live cameras</a></li>
-            <li class="menu-item"><a href="photos.html">Photos</a></li>
-            <li class="menu-item"><a href="contact.html">Contact</a></li>
-          </ul> <!-- .menu -->
-        </div> <!-- .main-navigation -->
-
-        <div class="mobile-navigation"></div>
-
-      </div>
-    </div> <!-- .site-header -->
 
     <div class="hero">
       <div class="container">
@@ -33,23 +7,24 @@
           <input type="text" placeholder="Find your location...">
           <input type="submit" value="Find">
         </form>
-
       </div>
     </div>
+
+    <!-- Daily -->
     <div class="forecast-table">
       <div class="container">
         <div class="forecast-container">
           <div class="today forecast">
             <div class="forecast-header">
-              <div class="day">Monday</div>
+              <div class="day">Today</div>
               <div class="date">6 Oct</div>
             </div> <!-- .forecast-header -->
             <div class="forecast-content">
               <div class="location">New York</div>
               <div class="degree">
-                <div class="num">23<sup>o</sup>C</div>
+                <div class="num">19.7<sup>o</sup>C</div>
                 <div class="forecast-icon">
-                  <img src="../assets/images/icons/icon-1.svg" alt="" width=90>
+                  <img src="//cdn.weatherapi.com/weather/64x64/day/308.png">
                 </div>
               </div>
               <span><img src="../assets/images/icon-umberella.png" alt="">20%</span>
@@ -59,11 +34,11 @@
           </div>
           <div class="forecast">
             <div class="forecast-header">
-              <div class="day">Tuesday</div>
+              <div class="day">Tommorow</div>
             </div> <!-- .forecast-header -->
             <div class="forecast-content">
               <div class="forecast-icon">
-                <img src="../assets/images/icons/icon-3.svg" alt="" width=48>
+                <img src="//cdn.weatherapi.com/weather/64x64/day/308.png" alt="" width=48>
               </div>
               <div class="degree">23<sup>o</sup>C</div>
               <small>18<sup>o</sup></small>
@@ -71,148 +46,53 @@
           </div>
           <div class="forecast">
             <div class="forecast-header">
-              <div class="day">Wednesday</div>
+              <div class="day">Next 2 Days</div>
             </div> <!-- .forecast-header -->
             <div class="forecast-content">
               <div class="forecast-icon">
-                <img src="../assets/images/icons/icon-5.svg" alt="" width=48>
+                <img src="//cdn.weatherapi.com/weather/64x64/day/308.png" alt="" width=48>
               </div>
-              <div class="degree">23<sup>o</sup>C</div>
-              <small>18<sup>o</sup></small>
-            </div>
-          </div>
-          <div class="forecast">
-            <div class="forecast-header">
-              <div class="day">Thursday</div>
-            </div> <!-- .forecast-header -->
-            <div class="forecast-content">
-              <div class="forecast-icon">
-                <img src="../assets/images/icons/icon-7.svg" alt="" width=48>
-              </div>
-              <div class="degree">23<sup>o</sup>C</div>
-              <small>18<sup>o</sup></small>
-            </div>
-          </div>
-          <div class="forecast">
-            <div class="forecast-header">
-              <div class="day">Friday</div>
-            </div> <!-- .forecast-header -->
-            <div class="forecast-content">
-              <div class="forecast-icon">
-                <img src="../assets/images/icons/icon-12.svg" alt="" width=48>
-              </div>
-              <div class="degree">23<sup>o</sup>C</div>
-              <small>18<sup>o</sup></small>
-            </div>
-          </div>
-          <div class="forecast">
-            <div class="forecast-header">
-              <div class="day">Saturday</div>
-            </div> <!-- .forecast-header -->
-            <div class="forecast-content">
-              <div class="forecast-icon">
-                <img src="../assets/images/icons/icon-13.svg" alt="" width=48>
-              </div>
-              <div class="degree">23<sup>o</sup>C</div>
-              <small>18<sup>o</sup></small>
-            </div>
-          </div>
-          <div class="forecast">
-            <div class="forecast-header">
-              <div class="day">Sunday</div>
-            </div> <!-- .forecast-header -->
-            <div class="forecast-content">
-              <div class="forecast-icon">
-                <img src="../assets/images/icons/icon-14.svg" alt="" width=48>
-              </div>
-              <div class="degree">23<sup>o</sup>C</div>
+              <div class="degree">19.7<sup>o</sup>C</div>
               <small>18<sup>o</sup></small>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Popular location -->
     <main class="main-content">
       <div class="fullwidth-block">
         <div class="container">
-          <h2 class="section-title">Live cameras</h2>
+          <h2 class="section-title">Popular Location</h2>
           <div class="row">
-            <div class="col-md-3 col-sm-6">
-              <div class="live-camera">
-                <figure class="live-camera-cover"><img src="../assets/images/live-camera-1.jpg" alt=""></figure>
-                <h3 class="location">New York</h3>
-                <small class="date">8 oct, 8:00AM</small>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-              <div class="live-camera">
-                <figure class="live-camera-cover"><img src="../assets/images/live-camera-2.jpg" alt=""></figure>
-                <h3 class="location">Los Angeles</h3>
-                <small class="date">8 oct, 8:00AM</small>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-              <div class="live-camera">
-                <figure class="live-camera-cover"><img src="../assets/images/live-camera-3.jpg" alt=""></figure>
-                <h3 class="location">Chicago</h3>
-                <small class="date">8 oct, 8:00AM</small>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-              <div class="live-camera">
-                <figure class="live-camera-cover"><img src="../assets/images/live-camera-4.jpg" alt=""></figure>
-                <h3 class="location">London</h3>
-                <small class="date">8 oct, 8:00AM</small>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="fullwidth-block" data-bg-color="#262936">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-4">
-              <div class="news">
-                <div class="date">06.10</div>
-                <h3><a href="#">Doloremque laudantium totam sequi </a></h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo saepe assumenda dolorem modi, expedita
-                  voluptatum ducimus necessitatibus. Asperiores quod reprehenderit necessitatibus harum, mollitia, odit
-                  et consequatur maxime nisi amet doloremque.</p>
+            <!-- single place -->
+            <div class="col-md-3 col-sm-6">
+              <div id="product-1" class="single-product">
+                <div class="part-1">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/b/b6/Jakarta_Skyline_Part_2.jpg"
+                    class="product-image rounded">
+                </div>
+                <div class="live-camera">
+                  <h3 class="location">London</h3>
+                  <small class="date">8 oct, 8:00AM</small>
+                </div>
               </div>
             </div>
-            <div class="col-md-4">
-              <div class="news">
-                <div class="date">06.10</div>
-                <h3><a href="#">Doloremque laudantium totam sequi </a></h3>
-                <p>Nobis architecto consequatur ab, ea, eum autem aperiam accusantium placeat vitae facere explicabo
-                  temporibus minus distinctio cum optio quis, dignissimos eius aspernatur fuga. Praesentium totam,
-                  corrupti beatae amet expedita veritatis.</p>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="news">
-                <div class="date">06.10</div>
-                <h3><a href="#">Doloremque laudantium totam sequi </a></h3>
-                <p>Enim impedit officiis placeat qui recusandae doloremque possimus, iusto blanditiis, quam optio
-                  delectus maiores. Possimus rerum, velit cum natus eos. Cumque pariatur beatae asperiores, esse libero
-                  quas ad dolorem. Voluptates.</p>
-              </div>
-            </div>
+
+
           </div>
         </div>
       </div>
     </main> <!-- .main-content -->
 
-    <footer class="site-footer">
-      <div class="container">
-        <p class="colophon">Copyright 2022 Hacktiv8. Designed by Joshua. All rights reserved</p>
-      </div>
-    </footer> <!-- .site-footer -->
+
   </div>
 </template>
 
 <script>
+
 </script>
 
 

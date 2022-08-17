@@ -11,7 +11,7 @@
                                     <br>
                                     <br>
                                     <div>
-                                        <h3 class="mb-5">Log In</h3>
+                                        <h2 class="mb-5">Log In</h2>
                                         <div class="form-outline mb-4">
                                             <label class="form-label" for="loginEmail">Email</label>
                                             <input type="email" id="loginEmail" class="form-control form-control-lg"

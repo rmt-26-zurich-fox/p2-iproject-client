@@ -2299,10 +2299,9 @@ progress {
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #212529;
-    background-color: #fff;
+    color: #ffffff;
+    background-color: #20242c;
     background-clip: padding-box;
-    border: 1px solid #ced4da;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -2325,8 +2324,8 @@ progress {
 }
 
 .form-control:focus {
-    color: #212529;
-    background-color: #fff;
+    color: #ffffff;
+    background-color: #464d5d;
     border-color: #303030;
     outline: 0;
     box-shadow: 0 0 0 .25rem rgba(63, 63, 63, 0.25)
@@ -2347,7 +2346,7 @@ progress {
 }
 
 .form-control:disabled {
-    background-color: #e9ecef;
+    background-color: #20242c;
     opacity: 1
 }
 
@@ -2356,8 +2355,8 @@ progress {
     margin: -.375rem -.75rem;
     -webkit-margin-end: .75rem;
     margin-inline-end: .75rem;
-    color: #212529;
-    background-color: #e9ecef;
+    color: #ffffff;
+    background-color: #20242c;
     pointer-events: none;
     border-color: inherit;
     border-style: solid;
@@ -2373,8 +2372,8 @@ progress {
     margin: -.375rem -.75rem;
     -webkit-margin-end: .75rem;
     margin-inline-end: .75rem;
-    color: #212529;
-    background-color: #e9ecef;
+    color: #ffffff;
+    background-color: #20242c;
     pointer-events: none;
     border-color: inherit;
     border-style: solid;
@@ -4811,7 +4810,7 @@ fieldset:disabled .btn {
     --bs-card-cap-color: ;
     --bs-card-height: ;
     --bs-card-color: ;
-    --bs-card-bg: #fff;
+    --bs-card-bg: #383444;
     --bs-card-img-overlay-padding: 1rem;
     --bs-card-group-margin: 0.75rem;
     position: relative;
@@ -8639,7 +8638,7 @@ fieldset:disabled .btn {
 
 .my-4 {
     margin-top: 1.5rem !important;
-    margin-bottom: 1.5rem !important
+    margin-bottom: 1.5rem !important;
 }
 
 .my-5 {

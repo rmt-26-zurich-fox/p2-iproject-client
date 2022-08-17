@@ -6,7 +6,8 @@ import Swal from 'sweetalert2'
 export const useCustomStore = defineStore({
     id: 'custom',
     state: () => ({
-    baseURL: "http://localhost:3000"
+    baseURL: "http://localhost:3000",
+    items: []
 
 
 
@@ -23,11 +24,24 @@ export const useCustomStore = defineStore({
                         password: value.password
                     }
                 })
-                console.log(data)
                 localStorage.setItem('token', data.token)
                 localStorage.setItem('username', data.userName)
                 localStorage.setItem('role', data.role)
                 this.router.push('/')
+            } catch (error) {
+                console.log(error)
+            }
+        },
+
+        async fetchItems() {
+            try {
+                const {data} = await axios({
+                    method: 'GET',
+                    url: `${this.baseURL}/items`
+                })
+                console.log(data)
+                this.items = data.items
+
             } catch (error) {
                 console.log(error)
             }

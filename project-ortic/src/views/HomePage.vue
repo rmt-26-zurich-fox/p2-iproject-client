@@ -1,4 +1,23 @@
 <script>
+import ItemCard from '../components/ItemCard.vue'
+import { mapActions } from 'pinia'
+import { mapWritableState } from 'pinia'
+import { useCustomStore } from '../stores/custom'
+
+export default {
+    components: {
+        ItemCard
+    },
+    methods: {
+        ...mapActions(useCustomStore, ['fetchItems'])
+    },
+    computed: {
+        ...mapWritableState(useCustomStore, ['items'])
+    },
+    created() {
+        this.fetchItems()
+    }
+}
 
 </script>
 
@@ -23,100 +42,10 @@
   <!-- item-list -->
   <div class="py-5">
     <div class="container">
-      <div class="row hidden-md-up">
-        <div class="col-md-4 ">
-          <div class="card">
-            <img src="https://cf.shopee.co.id/file/8e34d56c8206bb098c63252aaf650a58" class="card-img-top" height="380"/>
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <div class="btn-group">
-              <!-- <a href="#!" class="btn btn-primary">Update</a> -->
-              <a href="#!" class="btn btn-primary">Add to Cart</a>
-              <router-link to="/detail" class="btn btn-primary">Details</router-link>
-              <!-- <a href="#!" class="btn btn-primary">Delete</a> -->
-            </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card">
-            <img src="https://cf.shopee.co.id/file/8e34d56c8206bb098c63252aaf650a58" class="card-img-top" height="380"/>
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <div class="btn-group">
-              <!-- <a href="#!" class="btn btn-primary">Update</a> -->
-              <a href="#!" class="btn btn-primary">Add to Cart</a>
-              <a href="#!" class="btn btn-primary">Details</a>
-              <!-- <a href="#!" class="btn btn-primary">Delete</a> -->
-            </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card">
-            <img src="https://cf.shopee.co.id/file/8e34d56c8206bb098c63252aaf650a58" class="card-img-top" height="380"/>
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <div class="btn-group">
-              <!-- <a href="#!" class="btn btn-primary">Update</a> -->
-              <a href="#!" class="btn btn-primary">Add to Cart</a>
-              <a href="#!" class="btn btn-primary">Details</a>
-              <!-- <a href="#!" class="btn btn-primary">Delete</a> -->
-            </div>
-            </div>
-          </div>
-        </div>
-      </div><br>
       <div class="row">
-        <div class="col-md-4">
-          <div class="card">
-            <img src="https://cf.shopee.co.id/file/8e34d56c8206bb098c63252aaf650a58" class="card-img-top" height="380"/>
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <div class="btn-group">
-              <!-- <a href="#!" class="btn btn-primary">Update</a> -->
-              <a href="#!" class="btn btn-primary">Add to Cart</a>
-              <a href="#!" class="btn btn-primary">Details</a>
-              <!-- <a href="#!" class="btn btn-primary">Delete</a> -->
-            </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card">
-            <img src="https://cf.shopee.co.id/file/8e34d56c8206bb098c63252aaf650a58" class="card-img-top" height="380"/>
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <div class="btn-group">
-              <!-- <a href="#!" class="btn btn-primary">Update</a> -->
-              <a href="#!" class="btn btn-primary">Add to Cart</a>
-              <a href="#!" class="btn btn-primary">Details</a>
-              <!-- <a href="#!" class="btn btn-primary">Delete</a> -->
-            </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card">
-            <img src="https://cf.shopee.co.id/file/8e34d56c8206bb098c63252aaf650a58" class="card-img-top" height="380"/>
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <div class="btn-group">
-              <!-- <a href="#!" class="btn btn-primary">Update</a> -->
-              <a href="#!" class="btn btn-primary">Add to Cart</a>
-              <a href="#!" class="btn btn-primary">Details</a>
-              <!-- <a href="#!" class="btn btn-primary">Delete</a> -->
-            </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        
+    <ItemCard v-for="item in items" :key="item.id" :item="item"/>
+     </div>  
     </div>
   </div>
 

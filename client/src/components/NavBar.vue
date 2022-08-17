@@ -18,6 +18,9 @@
           <li v-if="!access_token">
             <router-link to="/register" class="nav-link">Sign up</router-link>
           </li>
+          <li v-if="access_token">
+            <router-link to="/houses/host" class="nav-link">Become a Host</router-link>
+          </li>
         </ul>
         <div v-if="access_token" class="d-flex nav-item dropdown justify-content-start align-items-center">
           <li class="nav-item dropdown me-3" style="list-style: none">
@@ -26,11 +29,6 @@
             </a>
             <ul class="dropdown-menu">
               <li style="cursor: pointer">
-                <div @click="toWishlist" class="d-flex">
-                  <img src="../assets/heart.png" style="width: 20px; height: 20px; margin-left: 10px" title="logout icons" />
-                  <p class="mb-0 ms-2">Wishlist</p>
-                </div>
-                <hr class="dropdown-divider" />
                 <p @click="logout" class="ms-3 mb-0">Logout</p>
               </li>
             </ul>
@@ -42,19 +40,13 @@
 </template>
 
 <script>
-import { mapActions, mapWritableState } from 'pinia';
-import { useLoginStore } from '../stores/user';
-import { useHouseStore } from '../stores/house';
+import { mapActions, mapWritableState } from "pinia";
+import { useLoginStore } from "../stores/user";
+import { useHouseStore } from "../stores/house";
 
 export default {
-  data() {
-    return {
-      categories: [],
-    };
-  },
-
   methods: {
-    ...mapActions(useHouseStore, ['getAllHouses']),
+    ...mapActions(useHouseStore, ["getAllHouses"]),
 
     logout() {
       localStorage.clear();
@@ -68,12 +60,12 @@ export default {
         this.$router.push({ path: "/" });
       } catch (error) {
         this.errorHandler(error);
-      } 
-    }
+      }
+    },
   },
 
   computed: {
     ...mapWritableState(useLoginStore, ["access_token"]),
-  }
+  },
 };
 </script>

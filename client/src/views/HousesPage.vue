@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row row-cols-1 row-cols-md-3 mt-5">
-      <CardLayout v-for="house in houses" :key="house.id" :house="house" />
+      <CardLayout v-for="house in houses" :key="house.id" :house="house" :image="house.Images[0]" />
     </div>
   </div>
 </template>
@@ -17,7 +17,7 @@ export default {
   },
   data() {
     return {
-      houses: [],
+      houses: "",
     };
   },
   methods: {

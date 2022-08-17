@@ -9,9 +9,12 @@ export const productStore = defineStore({
     recipes: [],
     cakes: [],
     cart: [],
+    threads: [],
+    replies: [],
     paymentToken: "",
     isLogin: false,
     recipeById: {},
+    threadById: {},
     initialPage: 2,
   }),
   actions: {
@@ -211,6 +214,84 @@ export const productStore = defineStore({
         response.data.forEach((el) => {
           this.cakes.push(el);
         });
+      } catch (error) {
+        console.log(error.response);
+      }
+    },
+
+    async fetchThread() {
+      try {
+        const response = await axios({
+          method: "get",
+          url: this.baseUrl + "threads",
+        });
+        this.threads = response.data;
+      } catch (error) {
+        console.log(error.response);
+      }
+    },
+
+    async fetchThreadById(threadId) {
+      try {
+        const response = await axios({
+          method: "get",
+          url: this.baseUrl + `threads/${threadId}`,
+        });
+        this.threadById = response.data;
+      } catch (error) {
+        console.log(error.response);
+      }
+    },
+
+    async createThread(title, content) {
+      try {
+        const response = await axios({
+          method: "post",
+          url: this.baseUrl + "threads",
+          headers: {
+            access_token: localStorage.getItem("access_token"),
+          },
+          data: {
+            title,
+            content,
+          },
+        });
+        console.log(response.data);
+        this.fetchThread();
+        // this.threads = response.data;
+      } catch (error) {
+        console.log(error.response);
+      }
+    },
+
+    async createReply(content, ThreadId) {
+      try {
+        const response = await axios({
+          method: "post",
+          url: this.baseUrl + "replies",
+          headers: {
+            access_token: localStorage.getItem("access_token"),
+          },
+          data: {
+            content,
+            ThreadId,
+          },
+        });
+        console.log(response.data);
+        this.fetchReply(ThreadId);
+      } catch (error) {
+        console.log(error.response);
+      }
+    },
+
+    async fetchReply(ThreadId) {
+      console.log(ThreadId);
+      try {
+        const response = await axios({
+          method: "get",
+          url: this.baseUrl + `replies/${ThreadId}`,
+        });
+        this.replies = response.data;
       } catch (error) {
         console.log(error.response);
       }

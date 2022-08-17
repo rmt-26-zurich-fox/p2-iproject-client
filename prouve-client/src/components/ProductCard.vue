@@ -1,22 +1,20 @@
 <template>
   <div class="max-w-sm bg-white rounded-lg shadow-md">
-    <a href="">
-      <div class="container1">
-        <div class="vertical-center">
-          <img
-            class="p-8 rounded-t-lg"
-            :src="cake.imageUrl"
-            alt="product image"
-          />
-        </div>
+    <div class="container1">
+      <div class="vertical-center">
+        <img
+          class="p-8 rounded-t-lg"
+          :src="cake.imageUrl"
+          alt="product image"
+        />
       </div>
-    </a>
+    </div>
+
     <div class="px-5 pb-5 mb-0">
-      <a href="#">
-        <h5 class="text-l font-semibold tracking-tight text-gray-900">
-          {{ cake.name }}
-        </h5>
-      </a>
+      <h5 class="text-l font-semibold tracking-tight text-gray-900">
+        {{ cake.name }}
+      </h5>
+
       <div class="flex items-center mt-2.5 mb-5"></div>
       <div class="flex justify-between items-center">
         <span class="text-l font-semibold text-gray-900">{{ priceIDR }}</span>

@@ -4,34 +4,35 @@
       <div class="container3 flex justify-center">
         <div class="vertical-center3">
           <img
-            class="rounded-t-lg"
-            src="https://img.icons8.com/external-anggara-basic-outline-anggara-putra/48/000000/external-user-social-media-interface-anggara-basic-outline-anggara-putra.png"
-            alt="product image"
+            src="https://img.icons8.com/external-sbts2018-outline-color-sbts2018/58/000000/external-user-ecommerce-basic-1-sbts2018-outline-color-sbts2018.png"
           />
         </div>
       </div>
     </div>
     <div
-      class="block p-6 w-9/12 bg-gray-200 rounded-lg border border-gray-200 shadow-md h-fit"
+      class="block p-6 w-9/12 bg-gray-100 rounded-lg border border-gray-200 shadow-md h-fit"
     >
       <div class="flex justify-start">
         <div class="w-full">
           <a href="">
             <p class="text-lg font-normal text-gray-800 mt-5">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              {{ threadById.content }}
             </p>
           </a>
           <div class="mt-10">
-            <span class="text-base text-gray-800"> User </span>
-            <span class="text-base text-gray-800 ml-5"> Reply </span>
+            <span class="text-base text-gray-800">
+              {{ threadById.User.userName }}
+            </span>
+            <a href="" @click.prevent="showForm"
+              ><span
+                class="text-base text-gray-800 ml-5 hover:bg-green-300 p-2 pr-3 rounded-lg"
+              >
+                Reply
+              </span></a
+            >
+
             <span class="text-base text-gray-800 float-right">
-              created date
+              {{ dateTime }}
             </span>
           </div>
         </div>
@@ -39,40 +40,99 @@
       </div>
     </div>
   </div>
-  <div class="flex justify-center mt-10">
-    <div class="bg-white rounded-lg shadow-md mr-10 h-fit">
-      <div class="container3 flex justify-center">
-        <div class="vertical-center3">
-          <img
-            class="rounded-t-lg"
-            src="https://img.icons8.com/external-anggara-basic-outline-anggara-putra/48/000000/external-user-social-media-interface-anggara-basic-outline-anggara-putra.png"
-            alt="product image"
-          />
-        </div>
-      </div>
-    </div>
+  <div class="flex justify-center ml-24 mt-10" v-if="show">
     <div
       class="block p-6 w-9/12 bg-white rounded-lg border border-gray-200 shadow-md h-fit"
     >
-      <div class="flex justify-start">
-        <div class="w-full">
-          <a href="">
-            <p class="text-lg font-normal text-gray-800 mt-5">
-              How firm is the count? Is the count including church members
-              acting as volunteers working the event? Any unexpected arrivals?
-              Could the count end up considerably less for any reason?
-            </p>
-          </a>
-          <div class="mt-10">
-            <span class="text-base text-gray-800"> User </span>
-            <span class="text-base text-gray-800 ml-5"> Reply </span>
-            <span class="text-base text-gray-800 float-right">
-              created date
-            </span>
-          </div>
-        </div>
-        <div class="mr-0"></div>
-      </div>
+      <form @submit.prevent="submit">
+        <label
+          for="message"
+          class="block mb-2 text-sm font-medium text-gray-900"
+          >Your message</label
+        >
+        <textarea
+          id="message"
+          rows="4"
+          v-model="content"
+          class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+          placeholder="Leave a comment..."
+        ></textarea>
+        <button
+          type="submit"
+          class="flex float-right items-center p-2 pl-3 text-base font-normal rounded-lg bg-green-300 mt-5"
+        >
+          <img
+            class="w-6"
+            src="https://img.icons8.com/offices/40/000000/enter-key.png"
+          />
+          <span class="font-semibold text-gray-800 text-base ml-2 pr-2"
+            >Post</span
+          >
+        </button>
+      </form>
     </div>
   </div>
+  <ThreadDetailCard v-for="reply in replies" :key="reply.id" :reply="reply" />
 </template>
+
+<script>
+import { mapState } from "pinia";
+import { mapActions } from "pinia";
+import { productStore } from "../stores/product";
+import ThreadDetailCard from "../components/ThreadDetailCard.vue";
+export default {
+  components: {
+    ThreadDetailCard,
+  },
+  data() {
+    return {
+      show: false,
+      content: "",
+    };
+  },
+  methods: {
+    ...mapActions(productStore, [
+      "fetchThreadById",
+      "createReply",
+      "fetchReply",
+    ]),
+
+    showForm() {
+      if (localStorage.access_token) {
+        this.show = true;
+      } else {
+        this.$router.push({ name: "login" });
+      }
+    },
+
+    submit() {
+      this.createReply(this.content, this.threadById.id).then(() => {
+        this.show = false;
+        this.content = "";
+      });
+    },
+  },
+  computed: {
+    ...mapState(productStore, ["threadById", "replies"]),
+
+    dateTime() {
+      const options = {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric",
+        hour12: false,
+      };
+      let date = new Date(this.threadById.createdAt);
+      return new Intl.DateTimeFormat("default", options).format(date);
+    },
+  },
+
+  beforeMount() {
+    this.fetchThreadById(this.$route.params.threadId);
+    this.fetchReply(this.$route.params.threadId);
+  },
+};
+</script>

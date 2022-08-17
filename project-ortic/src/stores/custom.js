@@ -7,7 +7,8 @@ export const useCustomStore = defineStore({
     id: 'custom',
     state: () => ({
     baseURL: "http://localhost:3000",
-    items: []
+    items: [],
+    carts: []
 
 
 
@@ -39,9 +40,24 @@ export const useCustomStore = defineStore({
                     method: 'GET',
                     url: `${this.baseURL}/items`
                 })
-                console.log(data)
                 this.items = data.items
 
+            } catch (error) {
+                console.log(error)
+            }
+        },
+
+        async fetchCart() {
+            try {
+                const {data} = await axios({
+                    method: 'GET',
+                    url: `${this.baseURL}/cart`,
+                    headers: {
+                        access_token: localStorage.token
+                    }
+                })
+                console.log(data)
+                this.carts = data
             } catch (error) {
                 console.log(error)
             }

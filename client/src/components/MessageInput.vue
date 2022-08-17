@@ -18,20 +18,23 @@ export default {
 };
 </script>
 <template>
-  <div class="controls field has-addons">
-    <div class="control is-expanded">
-      <input
-        v-model="message"
-        v-on:keydown.enter="send"
-        class="input is-primary"
-        placeholder="Write message"
-      />
-    </div>
-    <div class="control">
-      <!-- we disable the button when message has not completed -->
-      <button v-on:click="send" :disabled="!message" class="button is-primary">
-        Send
-      </button>
-    </div>
+  <div class="send-message-container">
+    <input
+      v-model="message"
+      v-on:keydown.enter="send"
+      class="form-control"
+      placeholder="Write message"
+    />
+  </div>
+
+  <!-- we disable the button when message has not completed -->
+  <div class="text-center">
+    <button
+      v-on:click="send"
+      :disabled="!message"
+      class="btn btn-primary message-button"
+    >
+      Send
+    </button>
   </div>
 </template>

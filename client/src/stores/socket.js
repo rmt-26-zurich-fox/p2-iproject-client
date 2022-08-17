@@ -6,7 +6,7 @@ export const useSocket = defineStore({
   state: () => ({
     messages: [],
     users: [],
-    socket: io(`http://localhost:3000/socket-chat`),
+    socket: io(`http://localhost:3000`),
     // socket: io(),
   }),
   actions: {
@@ -17,20 +17,24 @@ export const useSocket = defineStore({
           user: message.user,
           date: message.date,
         });
+        console.log(this.messages, "INI APAA");
       });
     },
     userConnect() {
       this.socket.on("user-connected", function (userId) {
+        console.log(userId);
         this.users.push(userId);
       });
     },
     initChat() {
       this.socket.on("init-chat", function (messages) {
+        console.log(messages, "init chat");
         this.messages = messages;
       });
     },
     updateUser() {
       this.socket.on("update-users", function (users) {
+        console.log(users);
         this.users = users;
       });
     },

@@ -5,7 +5,7 @@ export default {
 </script>
 <template>
   <div>
-    <h4 class="title is-4">Current users ({{ users.length }})</h4>
+    <h4 class="title is-4">Online users ({{ users.length }})</h4>
     <ul>
       <li v-for="user in users">
         <div class="media-content">

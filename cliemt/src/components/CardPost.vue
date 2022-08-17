@@ -46,7 +46,7 @@
 </script>
 
 <template>
-  <div class="instagram-card">
+  <div v-if="post" class="instagram-card">
     <div class="instagram-card-header">
       <p class="profilName">{{ post.User.username }}</p>
       <div class="instagram-card-time">

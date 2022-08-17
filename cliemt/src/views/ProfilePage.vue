@@ -7,9 +7,6 @@
     components: {
       CardPost,
     },
-    computed: {
-      ...mapState(useCounterStore, ["dataUserLogin"]),
-    },
     methods: {
       ...mapActions(useCounterStore, ["readProfilData"]),
       readDataUser() {
@@ -19,10 +16,13 @@
     created() {
       this.readDataUser();
     },
+    computed: {
+      ...mapState(useCounterStore, ["dataUserLogin"]),
+    },
   };
 </script>
 <template>
-  <div class="container">
+  <div v-if="dataUserLogin" class="container">
     <div class="profileHeader">
       <div class="profilIcon">
         <img
@@ -31,18 +31,19 @@
         />
       </div>
       <div>
-        <h1>{{ this.dataUserLogin.user.username }}</h1>
+        <h1>{{ dataUserLogin.user.username }}</h1>
       </div>
       <div class="emailUser">
-        <p>{{ this.dataUserLogin.user.email }}</p>
+        <p>{{ dataUserLogin.user.email }}</p>
       </div>
     </div>
 
-    <div>
-      <CardPost />
-
-      <CardPost />
-      <CardPost />
+    <div v-if="dataUserLogin">
+      <CardPost
+        v-for="post in dataUserLogin.post"
+        :key="post.id"
+        :post="post"
+      />
     </div>
   </div>
 </template>

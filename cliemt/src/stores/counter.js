@@ -6,13 +6,15 @@ export const useCounterStore = defineStore({
   id: "counter",
   state: () => ({
     isLogin: false,
-    dataUserLogin: {},
-    allPost: []
+    allPost: [],
+    dataUserLogin: null,
+
+
 
 
   }),
   getters: {
-    
+
   },
   actions: {
     async handleLogin(value) {
@@ -32,8 +34,10 @@ export const useCounterStore = defineStore({
         localStorage.setItem("id", id);
         // console.log("berhasil login");
         this.isLogin = true;
-        this.router.push("/");
         this.readProfilData();
+
+        this.router.push("/");
+
       } catch (error) {
         console.log(error);
         const msg = error.response.data.message;
@@ -87,6 +91,7 @@ export const useCounterStore = defineStore({
             access_token: localStorage.getItem("access_token")
           }
         });
+        console.log(response.data);
         this.dataUserLogin = response.data;
         // console.log(this.dataUserLogin.user);
       } catch (error) {

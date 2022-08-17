@@ -1,7 +1,13 @@
 <template>
   <div class="search">
-    <input v-model="keyword" class="form-control" type="text" />
+    <input
+      @keyup.enter="$emit('search', keyword)"
+      v-model="keyword"
+      class="form-control"
+      type="text"
+    />
     <button @click="$emit('search', keyword)" class="rounded">Search</button>
+    <button @click="$emit('clear')" class="rounded">Clear</button>
   </div>
 </template>
 

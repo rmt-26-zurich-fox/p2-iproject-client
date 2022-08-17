@@ -27,7 +27,9 @@ export const useGlobalStore = defineStore({
       });
     },
     errorHandler(err) {
-      const { message } = err.response.data;
+      let message;
+      if (err.response) message = err.response.data;
+      else message = err
       Toast.fire({
         icon: "error",
         title: message,

@@ -3,8 +3,8 @@
         <section id="register" class="vh-100">
             <form id="formRegister" @submit.prevent="submitRegister">
                 <div class="container py-5 h-100">
-                    <div class="row d-flex justify-content-center align-items-center h-100">
-                        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="row d-flex justify-content-center align-items-center h-100" style="margin-top: 5%">
+                        <div class=" col-12 col-md-8 col-lg-6 col-xl-5">
                             <div class="card shadow-2-strong" style="border-radius: 1rem;">
                                 <div class="card-body p-5 text-center">
                                     <img src='https://i.ibb.co/yqzp4qT/weathertive-logo.png' style="width:50%;" />

@@ -8,6 +8,7 @@ export const customStore = defineStore({
   state: () => ({
     baseUrl: "http://localhost:3000",
     isLoading: false,
+    popular: [],
   }),
   actions: {
 
@@ -55,6 +56,22 @@ export const customStore = defineStore({
             router.push({ name: "login" });
             this.isLoading = false;
           })
+      } catch (err) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: err.response.data.message,
+        })
+      }
+    },
+
+    //Read Popular Location
+    async fetchPopularLocations() {
+      try {
+        this.isLoading = true
+        let { data } = await axios.get(this.baseUrl + '/popular')
+        this.popular = data.locations
+        this.isLoading = false
       } catch (err) {
         Swal.fire({
           icon: 'error',

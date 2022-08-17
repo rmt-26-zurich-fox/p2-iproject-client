@@ -1,7 +1,7 @@
 <template>
-  <MovieList :data="unwatched" title="Unwatched" />
-  <MovieList :data="currentlyWatch" title="Currently watch" />
-  <MovieList :data="watched" title="Watched" />
+  <MovieList :data="unwatched" title="Unwatched" btnText="Update" />
+  <MovieList :data="currentlyWatch" title="Currently watch" btnText="Update" />
+  <MovieList :data="watched" title="Watched" class="watched" btnText="Delete" />
 </template>
 
 <script>

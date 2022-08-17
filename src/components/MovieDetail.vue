@@ -18,7 +18,10 @@
         <a v-if="detail.homepage" target="_blank" :href="detail.homepage"
           >Visit official website
         </a>
-        <button @click="$router.go(-1)">Back</button>
+        <div>
+          <button @click="$router.go(-1)">Back</button>
+          <button @click="addBookmark">&#10084; Add Bookmark</button>
+        </div>
       </div>
     </div>
     <!-- <div class="content">3</div> -->
@@ -50,7 +53,7 @@ export default {
     ...mapState(useGlobalStore, ["baseUrl"]),
   },
   methods: {
-    ...mapActions(useGlobalStore, ["errorHandler"]),
+    ...mapActions(useGlobalStore, ["errorHandler", "successHandler"]),
     async detailMovie({ id }) {
       try {
         const { data } = await axios.get(this.baseUrl + "/movies/" + id);
@@ -65,6 +68,24 @@ export default {
           this.baseUrl + "/movies/" + id + "/trailer"
         );
         this.trailerUrl = data.key;
+      } catch (error) {
+        this.errorHandler(error);
+      }
+    },
+    async addBookmark() {
+      try {
+        const { access_token } = localStorage;
+        const { title, poster_path: imgUrl, id: movie_id } = this.detail;
+        const { data } = await axios.post(
+          this.baseUrl + "/bookmark",
+          {
+            title,
+            imgUrl,
+            movie_id,
+          },
+          { headers: { access_token } }
+        );
+        this.successHandler(data.message);
       } catch (error) {
         this.errorHandler(error);
       }

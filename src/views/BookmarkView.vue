@@ -1,7 +1,23 @@
 <template>
-  <MovieList :data="unwatched" title="Unwatched" btnText="Update" />
-  <MovieList :data="currentlyWatch" title="Currently watch" btnText="Update" />
-  <MovieList :data="watched" title="Watched" class="watched" btnText="Delete" />
+  <MovieList
+    :data="unwatched"
+    title="Unwatched"
+    btnText="Update"
+    @updateBookmark="toCurrent"
+  />
+  <MovieList
+    :data="currentlyWatch"
+    title="Currently watch"
+    btnText="Update"
+    @updateBookmark="toWatched"
+  />
+  <MovieList
+    :data="watched"
+    title="Watched"
+    class="watched"
+    btnText="Delete"
+    @updateBookmark="toDelete"
+  />
 </template>
 
 <script>
@@ -23,7 +39,7 @@ export default {
     ...mapState(useGlobalStore, ["baseUrl"]),
   },
   methods: {
-    ...mapActions(useGlobalStore, ["errorHandler"]),
+    ...mapActions(useGlobalStore, ["errorHandler", "successHandler"]),
     async getBookmark() {
       try {
         const { access_token } = localStorage;
@@ -36,6 +52,54 @@ export default {
         this.currentlyWatch = data["Currently watch"];
         this.unwatched = data.Unwatched;
         this.watched = data.Watched;
+      } catch (error) {
+        this.errorHandler(error);
+      }
+    },
+    async toCurrent(id) {
+      try {
+        const { access_token } = localStorage;
+        const { data } = await axios.patch(
+          this.baseUrl + "/bookmark/" + id,
+          {
+            status: "Currently watch",
+          },
+          {
+            headers: { access_token },
+          }
+        );
+        this.successHandler(data.message);
+        this.getBookmark()
+      } catch (error) {
+        this.errorHandler(error);
+      }
+    },
+    async toWatched(id) {
+      try {
+        const { access_token } = localStorage;
+        const { data } = await axios.patch(
+          this.baseUrl + "/bookmark/" + id,
+          {
+            status: "Watched",
+          },
+          {
+            headers: { access_token },
+          }
+        );
+        this.successHandler(data.message);
+        this.getBookmark()
+      } catch (error) {
+        this.errorHandler(error);
+      }
+    },
+    async toDelete(id) {
+      try {
+        const { access_token } = localStorage;
+        const { data } = await axios.delete(this.baseUrl + "/bookmark/" + id, {
+          headers: { access_token },
+        });
+        this.successHandler(data.message);
+        this.getBookmark()
       } catch (error) {
         this.errorHandler(error);
       }

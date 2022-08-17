@@ -206,48 +206,45 @@ main .movie-list .cards .movie-card {
   box-shadow: 0 0 15px black;
   margin: 5px 10px;
   border-radius: 10px;
+}
+
+main .movie-list .cards .movie-card .img {
   position: relative;
 }
 
-main .movie-list .cards .img img {
+main .movie-list .cards .movie-card .img:hover > div h6 {
+  display: block;
+  transition: 0.2s;
+}
+
+main .movie-list .cards .movie-card .img img {
   aspect-ratio: 4/6;
   width: 220px;
   border-radius: 10px;
 }
 
-main .movie-list .cards .movie-card:hover > .img img {
+main .movie-list .cards .movie-card .img:hover > img {
   filter: brightness(50%);
   transition: 0.3s;
   cursor: pointer;
 }
 
 main .movie-list .cards .movie-card div:nth-child(2) {
-  display: none;
-  flex-direction: column;
+  display: flex;
   justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
 }
 
 main .movie-list .cards .movie-card div:nth-child(2) button {
+  margin: 6px 0;
   border: none;
   border-radius: 10px;
   padding: 5px 10px;
-  margin-top: auto;
 }
 
-main .movie-list .cards .movie-card div:nth-child(2) h6 {
-  margin-top: auto;
-  margin-bottom: 20px;
-}
-
-main .movie-list .cards .movie-card:hover div:nth-child(2) {
-  display: flex;
+main .movie-list .cards .movie-card > .img > div > h6 {
+  display: none;
+  bottom: 8px;
+  position: absolute;
 }
 
 .detail {

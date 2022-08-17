@@ -2,7 +2,13 @@
   <div class="movie-list">
     <h2>{{ title }}</h2>
     <div class="cards">
-      <MovieCard v-for="el in data" :key="el.id" :el="el" :btnText="btnText" />
+      <MovieCard
+        v-for="el in data"
+        :key="el.id"
+        :el="el"
+        :btnText="btnText"
+        @updateBookmark="(x) => $emit('updateBookmark', x)"
+      />
     </div>
   </div>
 </template>

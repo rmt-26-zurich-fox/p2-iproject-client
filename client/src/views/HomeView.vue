@@ -1,9 +1,28 @@
 <script>
+import { mapActions, mapState } from "pinia";
+import { useAllStore } from "../stores/useAllStore";
+
 import ProductCard from "../components/ProductCard.vue";
 
 export default {
   components: {
     ProductCard,
+  },
+
+  computed: {
+    ...mapState(useAllStore, ["products"]),
+  },
+
+  methods: {
+    ...mapActions(useAllStore, ["fetchAllProducts"]),
+
+    async getAllProducts() {
+      await this.fetchAllProducts();
+    },
+  },
+  created() {
+    this.getAllProducts();
+    console.log(this.fetchAllProducts);
   },
 };
 </script>
@@ -22,7 +41,11 @@ export default {
       <!-- Product List-->
       <div class="row mt-4">
         <!-- Product Card -->
-        <ProductCard />
+        <ProductCard
+          v-for="product in products"
+          :key="product.id"
+          :product="product"
+        />
       </div>
     </div>
   </div>

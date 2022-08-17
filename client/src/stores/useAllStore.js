@@ -9,6 +9,7 @@ export const useAllStore = defineStore({
   state: () => ({
     counter: 0,
     isLogin: false,
+    products: [],
   }),
   getters: {
     doubleCount: (state) => state.counter * 2,
@@ -42,6 +43,14 @@ export const useAllStore = defineStore({
         text: success.response.data.message,
         icon: "success",
       });
+    },
+
+    formatRupiah(price) {
+      let formattedPrice = price.toLocaleString("id-ID", {
+        style: "currency",
+        currency: "IDR",
+      });
+      return formattedPrice;
     },
 
     async registerHandler(email, password) {
@@ -80,6 +89,21 @@ export const useAllStore = defineStore({
         localStorage.setItem("id", data.idLoggedIn);
         this.isLogin = true;
       } catch (error) {
+        this.errorShow(error);
+      }
+    },
+
+    async fetchAllProducts() {
+      try {
+        const { data } = await axios({
+          method: "get",
+          url: `${baseUrl}/products`,
+        });
+
+        console.log(data);
+        this.products = data.products;
+      } catch (error) {
+        console.log(error);
         this.errorShow(error);
       }
     },

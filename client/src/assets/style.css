@@ -427,3 +427,13 @@ table tr:last-child td:last-child {
   background-color: #937dc2 !important;
   border-color: #937dc2 !important;
 }
+
+.image-container {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.team-image {
+  max-height: 80%;
+}

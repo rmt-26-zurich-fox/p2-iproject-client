@@ -1,4 +1,7 @@
 import { defineStore } from 'pinia'
+import axios from 'axios'
+import Swal from 'sweetalert2'
+import router from '../router'
 
 export const customStore = defineStore({
   id: 'custom',
@@ -7,5 +10,28 @@ export const customStore = defineStore({
     isLoading: false,
   }),
   actions: {
+
+    // Login
+    async handleLogin(email, password) {
+      try {
+        this.isLoading = true;
+        let login = await axios.post(this.baseUrl + "/users/login",
+          {
+            email,
+            password
+          }
+        );
+        localStorage.setItem("access_token", login.data.access_token);
+        localStorage.setItem("email", login.data.email);
+        router.push({ name: "home" });
+        this.isLoading = false;
+      } catch (err) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: err.response.data.message,
+        })
+      }
+    },
   }
 })

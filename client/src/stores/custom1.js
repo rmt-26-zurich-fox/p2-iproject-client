@@ -70,8 +70,27 @@ export const useCustom1Store = defineStore({
             console.log(err.response)
         }
     },
-    async handleCredentrial(){
-
+    async handleCredential(response){
+        try{
+            const { data } = await axios({
+              url:`${this.url}/google-sign-in`,
+              method:"POST",
+              headers:{access_token: response.credential}
+            })
+              if(data){
+                  localStorage.setItem("access_token", data.access_token)
+                  this.customer = {
+                    id: data.id,
+                  }
+                  
+  
+              await this.fetchProduct()
+              this.router.push(`/`)
+                  }
+          }catch(err){
+              console.log(err.response)
+  
+          }
     }
   },
 })

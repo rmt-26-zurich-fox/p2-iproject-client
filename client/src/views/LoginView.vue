@@ -19,32 +19,32 @@ export default{
         return obj
   },
   methods:{
-    ...mapActions(useCustom1Store, ['loginHandler']),
+    ...mapActions(useCustom1Store, ['loginHandler' , 'handleCredential']),
     localLoginHandler(){
       this.loginHandler(this.username,this.password, this.rememberMe)
       this.isLogin = true
     },
-    // Credential(response){
-    //       this.handleCredential(response)
-    //       this.isLogin = true
-    //     }
+    Credential(response){
+          this.handleCredential(response)
+          this.isLogin = true
+        }
   },
-  // computed:{
+  computed:{
     ...mapWritableState(useCustom1Store, ['isLogin'])
-  // },
-  //  mounted(){
-  //     let callback = this.Credential
+  },
+   mounted(){
+      let callback = this.Credential
 
-  //       google.accounts.id.initialize({
-  //             client_id: "98948154373-7i08t8qbfqfqos5o254hkouv8p6ld7pc.apps.googleusercontent.com",
-  //             callback,
-  //         })
-  //         google.accounts.id.renderButton(
-  //             document.getElementById("googleButton"),
-  //             { theme: "outline", size: "large", width:'800px'}
-  //         )
+        google.accounts.id.initialize({
+              client_id: "98948154373-mo5fvqcuc6vdusgp0ruqi7ohrlrvv2id.apps.googleusercontent.com",
+              callback,
+          })
+          google.accounts.id.renderButton(
+              document.getElementById("googleButton"),
+              { theme: "outline", size: "large", width:'800px'}
+          )
 
-  //  },
+   },
   // created(){
     
   // }

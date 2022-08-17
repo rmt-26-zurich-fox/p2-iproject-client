@@ -8,6 +8,7 @@ export const useCounterStore = defineStore({
     isLogin: false,
     allPost: [],
     dataUserLogin: null,
+    dataPostById: null,
 
 
 
@@ -17,6 +18,21 @@ export const useCounterStore = defineStore({
 
   },
   actions: {
+    async readDataPostById(id) {
+      try {
+        const response = await axios({
+          url: `${baseUrl}/post/${id}`,
+          method: "GET",
+          headers: {
+            access_token: localStorage.getItem("access_token")
+          }
+        });
+        console.log(response.data);
+        this.dataPostById = response.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async handleLogin(value) {
       try {
         const { email, password } = value;

@@ -44,6 +44,9 @@ export const useCustomStore = defineStore({
 
         // Order List Space
         orders: [],
+
+        // Midtrans Token
+        midtransToken: "",
     }),
 
     actions: {
@@ -278,7 +281,14 @@ export const useCustomStore = defineStore({
                     }
                 });
 
-                this.router.push(`/cart`);
+                this.fetchProductCart();
+
+                let allProductCost = 0;
+                for (let x = 0; x < this.carts.length; x++) {
+                    allProductCost += this.carts[x].totalCost;
+                }
+
+                this.fetchTokenPaymentMidtrans(allProductCost);
             } catch (error) {
                 console.log(error);
             }
@@ -295,7 +305,6 @@ export const useCustomStore = defineStore({
                 });
 
                 this.carts = data.data;
-                this.router.push("/cart");
             } catch (error) {
                 console.log(error);
             }
@@ -334,5 +343,41 @@ export const useCustomStore = defineStore({
                 console.log(error);
             }
         },
+
+        async fetchTokenPaymentMidtrans(cost) {
+            try {
+                const { data } = await axios({
+                    method: "POST",
+                    url: this.baseURL + "/midtrans/snap-token",
+                    headers: {
+                        access_token: localStorage.access_token
+                    },
+                    data: {
+                        totalCostNeedToPay: cost
+                    }
+                });
+
+                this.midtransToken = data.transaction.token;
+                this.router.push("/cart");
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        async changeCartToPayed() {
+            try {
+                await axios({
+                    method: "PATCH",
+                    url: this.baseURL + "/midtrans/change-cart-to-payed",
+                    headers: {
+                        access_token: localStorage.access_token
+                    }
+                });
+
+                this.router.push("/order-list")
+            } catch (error) {
+                console.log(error);
+            }
+        }
     },
 });

@@ -32,7 +32,9 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const isAuthenticated = localStorage.access_token;
-  if (to.name !== "tanyaDokter" && !isAuthenticated) next({ name: "login" });
+  if (to.name === "tanyaDokter" && !isAuthenticated) next({ name: "login" });
+  else if ((to.name === "login" || top.name === "register") && isAuthenticated)
+    next({ name: "home" });
   else next();
 });
 export default router;

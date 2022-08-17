@@ -49,6 +49,11 @@ export default {
             />
           </router-link>
         </li>
+        <li v-if="isLoggedIn">
+          <router-link to="/profile">
+            <ButtonComponent buttonClass="navbarButton" buttonText="Profile" />
+          </router-link>
+        </li>
         <li>
           <router-link to="/login">
             <ButtonComponent buttonClass="navbarButton" buttonText="Login" />

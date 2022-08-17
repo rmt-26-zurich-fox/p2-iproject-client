@@ -7,6 +7,8 @@ export const useMain = defineStore({
   id: "main",
   state: () => ({
     isLoggedIn: false,
+    profileFound: false,
+    userProfile: {},
   }),
   actions: {
     async login(user) {
@@ -17,6 +19,7 @@ export const useMain = defineStore({
         });
         const { access_token } = response.data;
         localStorage.setItem("access_token", access_token);
+        this.findProfile();
         await Swal.fire({
           title: "Success!",
           icon: "success",
@@ -24,6 +27,7 @@ export const useMain = defineStore({
           timer: 1500,
         });
         this.isLoggedIn = true;
+        this.router.push({ name: "HomePage" });
       } catch (error) {
         Swal.fire({
           title: "Error!",
@@ -36,6 +40,7 @@ export const useMain = defineStore({
     logout() {
       localStorage.clear();
       this.isLoggedIn = false;
+      this.router.push({ name: "LoginPage" });
     },
     refreshPage() {
       if (localStorage.getItem("access_token")) {
@@ -57,6 +62,83 @@ export const useMain = defineStore({
           timer: 1500,
         });
         this.router.push({ name: "LoginPage" });
+      } catch (error) {
+        Swal.fire({
+          title: "Error!",
+          icon: "error",
+          text: error.response.data.message,
+          timer: 1500,
+        });
+      }
+    },
+    async findProfile() {
+      try {
+        const response = await ServerAxios.get("/profiles", {
+          headers: {
+            access_token: localStorage.getItem("access_token"),
+          },
+        });
+        const { data } = response;
+        if (data !== null) {
+          this.profileFound = true;
+        }
+        this.userProfile = data;
+      } catch (error) {
+        Swal.fire({
+          title: "Error!",
+          icon: "error",
+          text: error.response.data.message,
+          timer: 1500,
+        });
+      }
+    },
+    async createProfile(user) {
+      try {
+        const response = await ServerAxios.post(
+          "/profiles/create",
+          {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            selfDescription: user.selfDescription,
+            address: user.address,
+            phoneNumber: user.phoneNumber,
+            profilePicture: user.profilePicture,
+            birthdate: user.birthdate,
+          },
+          {
+            headers: {
+              access_token: localStorage.getItem("access_token"),
+            },
+          }
+        );
+      } catch (error) {
+        Swal.fire({
+          title: "Error!",
+          icon: "error",
+          text: error.response.data.message,
+          timer: 1500,
+        });
+      }
+    },
+    async editProfile(user) {
+      try {
+        const response = await ServerAxios.post(
+          `/profiles/edit/${this.userProfile.id}`,
+          {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            selfDescription: user.selfDescription,
+            address: user.address,
+            phoneNumber: user.phoneNumber,
+            profilePicture: user.profilePicture,
+            birthdate: user.birthdate,
+          },
+          {
+            headers: {
+              access_token: localStorage.getItem("access_token"),
+            },
+          }
+        );
       } catch (error) {
         Swal.fire({
           title: "Error!",

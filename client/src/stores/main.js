@@ -43,6 +43,33 @@ export const useMain = defineStore({
         });
       }
     },
+    async handleCredentialResponse(response) {
+      try {
+        const { credential } = response;
+        const data = await ServerAxios.post(
+          "/users/google-signin",
+          {},
+          {
+            headers: {
+              google_token: credential,
+            },
+          }
+        );
+        const { access_token, user } = data.data;
+        localStorage.setItem("access_token", access_token);
+        this.isLoggedIn = true;
+        const success = await Swal.fire({
+          title: "Success!",
+          icon: "success",
+          text: "Logged in succesfully",
+          timer: 1500,
+        });
+        this.findProfile();
+        this.router.push({ name: "HomePage" });
+      } catch (error) {
+        console.error("error", "Oops Login with Google failed...", error);
+      }
+    },
     logout() {
       localStorage.clear();
       this.isLoggedIn = false;
@@ -119,6 +146,7 @@ export const useMain = defineStore({
             },
           }
         );
+        this.findProfile();
         this.router.push("/");
       } catch (error) {
         Swal.fire({

@@ -1,8 +1,7 @@
 
 <script>
 import { mapActions, mapState } from 'pinia';
-import { useCarStore } from '../stores/carStore'
-import { useWishlistStore } from '../stores/wishlistStore'
+import { useCustom1Store} from '../stores/custom1'
 export default{
     data(){
         return{
@@ -10,20 +9,20 @@ export default{
         }
     },
     methods:{
-        ...mapActions(useCarStore,['carDetail', 'thirdPartyAPI']),
-        ...mapActions(useWishlistStore,['addWishlist']), 
-        localAddWishlist(id){
-            let from = 'car detail'
-            this.addWishlist(id , from)
+        ...mapActions(useCarStore,['useCustom1Store']),
+    //     ...mapActions(useWishlistStore,['addWishlist']), 
+    //     localAddWishlist(id){
+    //         let from = 'car detail'
+    //         this.addWishlist(id , from)
 
-        }
+    //     }
     },
-    computed:{
-        ...mapState(useCarStore,['selectedCar','qrCode'])
-    },
+    // computed:{
+    //     ...mapState(useCarStore,['selectedCar','qrCode'])
+    // },
     created(){
-    this.carDetail(this.id)
-    this.thirdPartyAPI(this.id)
+    this.useCustom1Store(this.id)
+    // this.thirdPartyAPI(this.id)
     }
 }
 </script>

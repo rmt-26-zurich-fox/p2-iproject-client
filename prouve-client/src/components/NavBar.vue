@@ -91,13 +91,14 @@ import { productStore } from "../stores/product";
 
 export default {
   computed: {
-    ...mapWritableState(productStore, ["isLogin"]),
+    ...mapWritableState(productStore, ["isLogin", "cart"]),
   },
 
   methods: {
     logout() {
       localStorage.clear();
       this.isLogin = false;
+      this.cart = [];
       this.changePage("shop");
     },
 

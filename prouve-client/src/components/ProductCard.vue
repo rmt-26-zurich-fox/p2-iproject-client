@@ -22,6 +22,8 @@
         <span class="text-l font-semibold text-gray-900">{{ priceIDR }}</span>
         <a
           href=""
+          v-if="showIcon"
+          @click.prevent="addCart"
           class="text-white hover:bg-green-100 font-medium rounded-lg text-sm text-center"
           ><img
             class="w-6"
@@ -32,10 +34,15 @@
   </div>
 </template>
 <script>
+import { mapActions } from "pinia";
+import { mapState } from "pinia";
+import { productStore } from "../stores/product";
+
 export default {
   props: ["cake"],
 
   computed: {
+    ...mapState(productStore, ["cart"]),
     priceIDR() {
       let price = new Intl.NumberFormat("id-ID", {
         style: "currency",
@@ -43,6 +50,34 @@ export default {
       }).format(this.cake.price);
 
       return price;
+    },
+
+    showIcon() {
+      let show = true;
+      for (let i = 0; i < this.cart.length; i++) {
+        if (this.cart[i].CakeId === this.cake.id) {
+          show = false;
+        }
+      }
+      return show;
+    },
+  },
+  methods: {
+    ...mapActions(productStore, ["createCart", "fetchCart"]),
+
+    addCart() {
+      if (!localStorage.access_token) {
+        this.$router.push({ name: "login" });
+      } else {
+        this.createCart(this.cake.id)
+          .then((response) => {
+            console.log(response.data.message);
+            this.fetchCart();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     },
   },
 };

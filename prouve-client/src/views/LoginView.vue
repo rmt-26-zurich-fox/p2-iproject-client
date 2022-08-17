@@ -95,12 +95,15 @@ export default {
     };
   },
   methods: {
-    ...mapActions(productStore, ["loginHandler"]),
+    ...mapActions(productStore, ["loginHandler", "fetchCart"]),
 
     login() {
       this.loginHandler(this.email, this.password)
         .then((response) => {
           localStorage.setItem("access_token", response.data.access_token);
+          return this.fetchCart();
+        })
+        .then(() => {
           this.$router.push({ name: "shop" });
         })
         .catch((err) => {

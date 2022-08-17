@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { productStore } from "../stores/product";
 import ProductList from "../views/ProductList.vue";
 import LandingView from "../views/LandingView.vue";
 import LoginView from "../views/LoginView.vue";
@@ -73,6 +74,10 @@ const router = createRouter({
 router.beforeEach((to, from) => {
   if (!to.name) {
     return { name: "shop" };
+  }
+  if (localStorage.access_token) {
+    const store = productStore();
+    store.isLogin = true;
   }
 });
 

@@ -8,6 +8,8 @@ export const productStore = defineStore({
     counter: 0,
     recipes: [],
     cakes: [],
+    cart: [],
+    paymentToken: "",
     isLogin: false,
     recipeById: {},
     initialPage: 2,
@@ -22,6 +24,105 @@ export const productStore = defineStore({
           password,
         },
       });
+    },
+
+    createCart(cakeId) {
+      return axios({
+        method: "post",
+        url: this.baseUrl + `carts/${cakeId}`,
+        headers: {
+          access_token: localStorage.getItem("access_token"),
+        },
+      });
+    },
+
+    async fetchCart() {
+      try {
+        // this.isLoading = true;
+        const response = await axios({
+          method: "get",
+          url: this.baseUrl + "carts",
+          headers: {
+            access_token: localStorage.getItem("access_token"),
+          },
+        });
+        this.cart = response.data;
+        // this.isLoading = false;
+      } catch (error) {
+        console.log(error.response);
+      }
+    },
+
+    async updateCart(amount, cartId) {
+      try {
+        // this.isLoading = true;
+        const response = await axios({
+          method: "patch",
+          url: this.baseUrl + `carts/${cartId}`,
+          headers: {
+            access_token: localStorage.getItem("access_token"),
+          },
+          data: {
+            amount,
+          },
+        });
+        this.fetchCart();
+        // this.isLoading = false;
+      } catch (error) {
+        console.log(error.response);
+      }
+    },
+
+    async deleteItem(cartId) {
+      try {
+        // this.isLoading = true;
+        const response = await axios({
+          method: "delete",
+          url: this.baseUrl + `carts/${cartId}`,
+          headers: {
+            access_token: localStorage.getItem("access_token"),
+          },
+        });
+        this.fetchCart();
+        console.log(response.data);
+        // this.isLoading = false;
+      } catch (error) {
+        console.log(error.response);
+      }
+    },
+
+    async fetchPayment() {
+      try {
+        // this.isLoading = true;
+        const response = await axios({
+          method: "get",
+          url: this.baseUrl + "payment",
+          headers: {
+            access_token: localStorage.getItem("access_token"),
+          },
+        });
+        this.paymentToken = response.data.trans_token;
+        // this.isLoading = false;
+      } catch (error) {
+        console.log(error.response);
+      }
+    },
+
+    async removeCheckout() {
+      try {
+        // this.isLoading = true;
+        const response = await axios({
+          method: "delete",
+          url: this.baseUrl + "carts",
+          headers: {
+            access_token: localStorage.getItem("access_token"),
+          },
+        });
+        console.log(response.data);
+        // this.isLoading = false;
+      } catch (error) {
+        console.log(error.response);
+      }
     },
 
     async fetchRecipe(search) {

@@ -5,25 +5,24 @@
       class="block p-6 w-full bg-white rounded-lg border border-gray-200 shadow-md h-fit"
     >
       <!-- <CART CARD> -->
-      <CheckoutCard />
-      <CheckoutCard />
-      <CheckoutCard />
-      <CheckoutCard />
+      <CheckoutCard v-for="item in cart" :key="cart.id" :item="item" />
       <div class="pt-4 mt-4 space-y-2 border-t border-gray-200"></div>
       <div class="flex justify-end">
         <div class="w-1/4">
-          <p class="text-xl font-semibold text-gray-800 mt-5 text-center">
+          <p class="text-lg font-semibold text-gray-800 mt-5 text-center">
             Total Price
           </p>
         </div>
         <div class="w-1/4 text-center">
-          <p class="text-xl font-semibold text-gray-800 mt-5">Price</p>
+          <p class="text-lg font-semibold text-gray-800 mt-5 pr-16">
+            {{ priceIDR }}
+          </p>
         </div>
-        <div class="mr-0"></div>
       </div>
       <div class="flex justify-end mt-10">
         <div class="flex w-1/4 justify-end">
           <button
+            @click="payment"
             class="flex items-center p-2 pl-3 text-base font-normal rounded-lg bg-green-300 mx-20"
           >
             <img
@@ -43,8 +42,56 @@
 
 <script>
 import CheckoutCard from "../components/CheckoutCard.vue";
+import { mapState } from "pinia";
+import { mapActions } from "pinia";
+import { productStore } from "../stores/product";
+
 export default {
   components: { CheckoutCard },
+
+  methods: {
+    ...mapActions(productStore, [
+      "fetchCart",
+      "fetchPayment",
+      "removeCheckout",
+    ]),
+    payment() {
+      this.fetchPayment().then(() => {
+        window.snap.pay(this.paymentToken, {
+          onSuccess: () => {
+            this.removeCheckout().then(() => {
+              this.$router.push({ name: "shop" });
+            });
+          },
+        });
+      });
+    },
+  },
+
+  computed: {
+    ...mapState(productStore, ["cart", "paymentToken"]),
+
+    totalPrice() {
+      let total = 0;
+      this.cart.forEach((el) => {
+        total += el.price;
+      });
+      return total;
+    },
+
+    priceIDR() {
+      let price = new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+      }).format(this.totalPrice);
+
+      return price;
+    },
+  },
+
+  beforeMount() {
+    this.fetchCart();
+  },
 };
 </script>
 

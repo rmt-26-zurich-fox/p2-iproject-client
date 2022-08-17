@@ -11,7 +11,6 @@
         <ProductCard v-for="cake in cakes" :key="cake.id" :cake="cake" />
       </div>
     </div>
-    <!-- <pagination / loadmore> -->
   </div>
 </template>
 <script>
@@ -32,7 +31,11 @@ export default {
   },
 
   methods: {
-    ...mapActions(productStore, ["fetchProduct", "fetchNextProduct"]),
+    ...mapActions(productStore, [
+      "fetchProduct",
+      "fetchNextProduct",
+      "fetchCart",
+    ]),
 
     getNextProduct() {
       window.onscroll = () => {
@@ -48,12 +51,25 @@ export default {
     },
   },
 
+  beforeUpdate() {
+    console.log("before list");
+  },
+
+  updated() {
+    console.log("update list");
+  },
+
   beforeMount() {
     if (localStorage.access_token) {
       this.isLogin = true;
+      this.fetchCart().then(() => {
+        this.fetchProduct(this.$route.query);
+      });
+    } else {
+      this.fetchProduct(this.$route.query);
     }
     console.log("beforemount");
-    this.fetchProduct(this.$route.query);
+
     this.initialPage = 2;
   },
 

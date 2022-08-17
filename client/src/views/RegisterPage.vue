@@ -10,6 +10,7 @@ export default {
   },
   methods: {
     registerHandler() {
+      // console.log(this.newUser);
       this.register(this.newUser);
     },
     ...mapActions(useMain, ["register"]),
@@ -19,101 +20,62 @@ export default {
       newUser: {
         email: "",
         password: "",
-        username: "",
-        address: "",
-        phoneNumber: "",
       },
     };
   },
 };
 </script>
 <template>
-  <section class="vh-200" id="register_page">
+  <section class="vh-100" id="login_page">
     <div class="container py-5 h-100">
       <div class="row d-flex align-items-center justify-content-center h-100">
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-          <!-- <div class="card border-0 shadow rounded-3 my-5 login-card"> -->
-          <div class="card-body p-4 p-sm-5 shadow login-card rounded-3">
-            <form id="registerForm" @submit.prevent="registerHandler">
-              <div class="form-outline mb-4">
-                <h1 class="text-center">Register</h1>
-              </div>
-              <!-- Username input -->
-              <div class="form-outline mb-4">
-                <label class="form-label" for="registerUsername"
-                  >Username</label
-                >
-                <input
-                  id="registerUsername"
-                  type="text"
-                  class="form-control"
-                  placeholder="Your Username"
-                  v-model="newUser.username"
-                />
-              </div>
-
+          <div class="card-body p-4 p-sm-5 shadow rounded-3 login-card">
+            <div class="form-outline mb-4">
+              <h1 class="text-center">Register</h1>
+            </div>
+            <form id="loginForm" @submit.prevent="registerHandler">
               <!-- Email input -->
               <div class="form-outline mb-4">
-                <label class="form-label" for="registerEmail"
-                  >Email address</label
-                >
+                <label class="form-label" for="loginEmail">Email address</label>
                 <input
                   v-model="newUser.email"
-                  id="registerEmail"
                   type="email"
-                  class="form-control"
-                  placeholder="Register Email address"
+                  id="loginEmail"
+                  class="form-control form-control-lg"
+                  placeholder="Enter your registered email ..."
                 />
               </div>
 
               <!-- Password input -->
               <div class="form-outline mb-4">
-                <label class="form-label" for="registerPassword"
-                  >Password</label
-                >
+                <label class="form-label" for="loginPassword">Password</label>
                 <input
                   v-model="newUser.password"
-                  id="registerPassword"
                   type="password"
-                  class="form-control"
-                  placeholder="Please input Password"
+                  id="loginPassword"
+                  class="form-control form-control-lg"
+                  placeholder="Enter your password ..."
                 />
               </div>
 
-              <!-- phone number input -->
-              <div class="form-outline mb-4">
-                <label class="form-label" for="registerPhoneNumber"
-                  >Phone Number</label
-                >
-                <input
-                  v-model="newUser.phoneNumber"
-                  id="registerPhoneNumber"
-                  type="text"
-                  class="form-control"
-                  placeholder="Please input your Phone Number"
-                />
+              <div class="text-center">
+                <p>
+                  Already have an account? Please login
+                  <router-link to="/login">
+                    <span id="registerButton"> here</span>
+                  </router-link>
+                </p>
               </div>
-
-              <!-- address input -->
-              <div class="form-outline mb-4">
-                <label class="form-label" for="registerAddress">Address</label>
-                <input
-                  v-model="newUser.address"
-                  id="registerAddress"
-                  type="text"
-                  class="form-control"
-                  placeholder="Please input your Address"
-                />
-              </div>
+              <!-- Submit button -->
               <ButtonComponent
                 buttonType="submit"
                 buttonClass="btn btn-primary btn-lg"
-                buttonText="Sign Up"
+                buttonText="Sign In"
               />
             </form>
           </div>
         </div>
-        <!-- </div> -->
       </div>
     </div>
   </section>

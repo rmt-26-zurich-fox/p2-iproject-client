@@ -68,7 +68,7 @@ export default {
               <div class="text-center">
                 <p>
                   Do not have an account? Please register
-                  <router-link to="/users/register">
+                  <router-link to="/register">
                     <span id="registerButton"> here</span>
                   </router-link>
                 </p>

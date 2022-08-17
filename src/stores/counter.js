@@ -12,6 +12,7 @@ export const useCounterStore = defineStore({
     username: "",
     role: "",
     totalPage: "",
+    songList: "",
     dataFound: true,
     isLoading: false,
     categories: [],
@@ -110,6 +111,24 @@ export const useCounterStore = defineStore({
             text: `${error.code}`,
           });
         }
+      } finally {
+        this.isLoading = false;
+      }
+    },
+    async handleSearchArtist(query) {
+      try {
+        this.isLoading = true;
+        const { data } = await axios({
+          url: this.baseUrl + "/api?search=" + query,
+          method: "get",
+          headers: {
+            access_token: localStorage.getItem("access_token")
+          }
+        });
+        this.songList = data;
+        this.router.push({path: "/songs", query: {search: query}});
+      } catch (error) {
+        console.log(error);
       } finally {
         this.isLoading = false;
       }

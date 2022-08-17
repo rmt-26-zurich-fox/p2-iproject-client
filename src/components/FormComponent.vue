@@ -43,7 +43,7 @@ export default {
         OptionComponent
     },
     async created() {
-        if (this.$route.params) {
+        if (this.$route.params.id) {
             const id = this.$route.params.id;
             const response = await this.fetchDataReview(id);
             if (response) {

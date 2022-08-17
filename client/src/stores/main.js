@@ -111,6 +111,7 @@ export const useMain = defineStore({
             },
           }
         );
+        this.router.push("/");
       } catch (error) {
         Swal.fire({
           title: "Error!",
@@ -123,6 +124,35 @@ export const useMain = defineStore({
     async editProfile(user) {
       try {
         const response = await ServerAxios.post(
+          `/profiles/edit/${this.userProfile.id}`,
+          {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            selfDescription: user.selfDescription,
+            address: user.address,
+            phoneNumber: user.phoneNumber,
+            profilePicture: user.profilePicture,
+            birthdate: user.birthdate,
+          },
+          {
+            headers: {
+              access_token: localStorage.getItem("access_token"),
+            },
+          }
+        );
+      } catch (error) {
+        Swal.fire({
+          title: "Error!",
+          icon: "error",
+          text: error.response.data.message,
+          timer: 1500,
+        });
+      }
+    },
+
+    async fetchTeams() {
+      try {
+        const response = await ServerAxios.get(
           `/profiles/edit/${this.userProfile.id}`,
           {
             firstName: user.firstName,

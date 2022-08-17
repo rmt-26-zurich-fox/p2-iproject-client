@@ -1,6 +1,8 @@
 <script>
 import { mapState, mapActions, mapWritableState } from "pinia";
 import { useCustom1Store} from '../stores/custom1'
+import { useCustom2Store} from '../stores/custom2'
+
 
 export default{
     data(){
@@ -19,7 +21,8 @@ export default{
         }
     },
     computed:{
-        ...mapWritableState(useCustom1Store,['isLogin'])
+        ...mapWritableState(useCustom1Store,['isLogin']),
+        ...mapState(useCustom2Store, ['payments'])
     },
     created(){
         this.fetchProduct(undefined, this.search)
@@ -47,7 +50,7 @@ export default{
                 <span class="relative w-full">
                     <form @submit.prevent="searchFunction">
 
-                    <input type="search" placeholder="Search" v-model="search" class="w-full bg-[#464E2E] text-gray-400 font-isi transition border border-transparent focus:outline-none focus:border-gray-300 rounded py-3 px-2 pl-10 appearance-none leading-normal">
+                    <input type="search" placeholder="Search" v-model="search" class="text-xl w-full bg-[#464E2E] text-gray-400 font-isi transition border border-transparent focus:outline-none focus:border-gray-300 rounded py-3 px-2 pl-10 appearance-none leading-normal">
                     <div class="absolute search-icon" style="top: 1rem; left: .8rem;">
                         <svg class="fill-current pointer-events-none text-gray-300 w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                             <path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"></path>
@@ -63,7 +66,7 @@ export default{
                         <router-link to="/Shoppingcart" class="inline-block py-2 px-4 text-gray-400 font-isi text-xl hover:text-white no-underline">Shopping cart</router-link>
                     </li>
                     <li class="flex-1 md:flex-none md:mr-3">
-                        <router-link to="/payment" class="inline-block py-2 px-4 text-gray-400 font-isi text-xl hover:text-white no-underline">Check Out!</router-link>
+                        <router-link to="/payment" class="inline-block py-2 px-4 text-gray-400 font-isi text-xl hover:text-white no-underline" v-if="islogin || payments.length !== 0">Check Out!</router-link>
                     </li>
                     
                     <li class="flex-1 md:flex-none md:mr-3">

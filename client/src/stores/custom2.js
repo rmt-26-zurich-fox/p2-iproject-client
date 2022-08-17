@@ -6,7 +6,8 @@ export const useCustom2Store = defineStore({
   id: 'custom2',
   state: () => ({
     url: 'http://localhost:3000',
-    custom2: 0
+    shoppingCarts: [],
+    payments:[]
   }),
   getters: {
     doubleCount: (state) => state.custom2 * 2
@@ -62,6 +63,21 @@ export const useCustom2Store = defineStore({
                 `Request failed: ${error}`
               )
             console.log(err)
+        }
+    },
+    async fetchCart(){
+        try {
+            this.loading()
+            const { data } = await axios({
+                url: `${this.url}/shoppingcarts`,
+                method: "get",
+                headers:{access_token: localStorage.access_token}
+            })
+
+            this.shoppingCarts = data
+            Swal.close()
+        } catch (err) {
+            this.errAlert(err)
         }
     },
     errAlert(err){

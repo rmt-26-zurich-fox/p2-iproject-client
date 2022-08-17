@@ -5,7 +5,13 @@
         <img class="w-80" src="../assets/logo moren.png" alt="" />
       </div>
       <div class="flex justify-end mb-10 mr-10">
-        <a href="" @click.prevent="changePage('login')">
+        <a href="" @click.prevent="logout" v-if="isLogin">
+          <img
+            class="w-6"
+            src="https://img.icons8.com/windows/64/000000/exit.png"
+          />
+        </a>
+        <a href="" @click.prevent="changePage('login')" v-if="!isLogin">
           <img
             class="w-6"
             src="https://img.icons8.com/external-those-icons-fill-those-icons/48/000000/external-User-users-those-icons-fill-those-icons-5.png"
@@ -13,7 +19,7 @@
         </a>
         <a href="">
           <img
-            class="w-6 ml-5"
+            class="w-6 ml-3"
             src="https://img.icons8.com/ios-glyphs/60/000000/shopping-cart--v1.png"
           />
         </a>
@@ -80,8 +86,21 @@
 </template>
 
 <script>
+import { mapWritableState } from "pinia";
+import { productStore } from "../stores/product";
+
 export default {
+  computed: {
+    ...mapWritableState(productStore, ["isLogin"]),
+  },
+
   methods: {
+    logout() {
+      localStorage.clear();
+      this.isLogin = false;
+      this.changePage("shop");
+    },
+
     changePage(page) {
       this.$router.push({ name: page });
     },

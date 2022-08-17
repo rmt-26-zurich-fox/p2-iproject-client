@@ -8,10 +8,22 @@ export const productStore = defineStore({
     counter: 0,
     recipes: [],
     cakes: [],
+    isLogin: false,
     recipeById: {},
     initialPage: 2,
   }),
   actions: {
+    loginHandler(email, password) {
+      return axios({
+        method: "post",
+        url: this.baseUrl + "login",
+        data: {
+          email,
+          password,
+        },
+      });
+    },
+
     async fetchRecipe(search) {
       try {
         const response = await axios({

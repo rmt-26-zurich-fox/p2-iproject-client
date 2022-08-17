@@ -28,7 +28,7 @@ export default {
   },
 
   computed: {
-    ...mapWritableState(productStore, ["cakes", "initialPage"]),
+    ...mapWritableState(productStore, ["cakes", "initialPage", "isLogin"]),
   },
 
   methods: {
@@ -49,6 +49,9 @@ export default {
   },
 
   beforeMount() {
+    if (localStorage.access_token) {
+      this.isLogin = true;
+    }
     console.log("beforemount");
     this.fetchProduct(this.$route.query);
     this.initialPage = 2;

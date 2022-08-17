@@ -25,11 +25,21 @@ const router = createRouter({
       path: "/login",
       name: "login",
       component: LoginView,
+      beforeEnter() {
+        if (localStorage.access_token) {
+          return { name: "shop" };
+        }
+      },
     },
     {
       path: "/register",
       name: "register",
       component: RegisterView,
+      beforeEnter() {
+        if (localStorage.access_token) {
+          return { name: "shop" };
+        }
+      },
     },
     {
       path: "/recipe",

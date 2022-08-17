@@ -16,6 +16,6 @@ export default {
 
 <template>
   <main>
-    <h1>Init Vue</h1>
+    <h1>Registe</h1>
   </main>
 </template>

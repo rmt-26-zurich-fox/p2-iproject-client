@@ -1,6 +1,7 @@
 <script>
 import { mapState } from 'pinia';
 import { useCounterStore } from '@/stores/counter';
+import { RouterLink } from 'vue-router';
 
 export default {
     computed: {
@@ -26,10 +27,10 @@ export default {
                 </a>
                 <ul class="collapse list-unstyled" id="homeSubmenu" style="background-color: white; padding: 10px;">
                     <li>
-                        <a href="#">Brand List</a>
+                        <RouterLink to="/brands">Brand List</RouterLink>
                     </li>
                     <li>
-                        <a href="#">Add Brand</a>
+                        <RouterLink to="/brands/create">Add Brand</RouterLink>
                     </li>
                 </ul>
             </li>

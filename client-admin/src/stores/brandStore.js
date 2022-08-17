@@ -44,6 +44,28 @@ export const useBrandStore = defineStore({
             } catch (error) {
                 this.alertError(error)
             }
+        },
+        async addBrand(obj) {
+            try {
+                let formData = new FormData();
+                formData.append("logoBrand", obj.logoBrand)
+                formData.append("nameBrand", obj.nameBrand)
+                const { data } = await axiosInstance({
+                    method: "POST",
+                    url: "/brands",
+                    headers: {
+                        access_token: localStorage.access_token,
+                        "Content-Type": "multipart/form-data",
+                    },
+                    data: formData
+                })
+
+                this.router.push({ name: "brands" })
+                this.alertSuccess(data)
+            } catch (error) {
+                console.log(error);
+                this.alertError(error)
+            }
         }
     }
 })

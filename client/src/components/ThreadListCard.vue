@@ -26,10 +26,10 @@ export default {
           </p>
         </div>
         <div
-          class="text-center button-to-thread-detail-container"
+          class="text-center button-to-thread-detail-container my-auto"
           @click="fetchOneThreadHandler"
         >
-          <a class="btn btn-primary button-to-thread-detail">Go somewhere</a>
+          <a class="btn btn-primary button-to-thread-detail">Go to Thread</a>
         </div>
       </div>
     </div>

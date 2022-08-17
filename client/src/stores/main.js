@@ -15,6 +15,7 @@ export const useMain = defineStore({
     favTeams: [],
     threads: [],
     oneThread: {},
+    news: [],
   }),
   actions: {
     async login(user) {
@@ -374,8 +375,30 @@ export const useMain = defineStore({
           }
         );
         const { data } = response;
-        console.log(data.message);
         this.fetchOneThread(id);
+      } catch (error) {
+        Swal.fire({
+          title: "Error!",
+          icon: "error",
+          text: error.response.data.message,
+          timer: 1500,
+        });
+      }
+    },
+
+    async getNewsByTeamId(id) {
+      try {
+        const response = await ServerAxios.get(`/teams/${id}/news`, {
+          headers: { access_token: localStorage.getItem("access_token") },
+        });
+        const { data } = response;
+        this.news = data;
+        this.router.push({
+          name: `NewsPage`,
+          params: {
+            id: id,
+          },
+        });
       } catch (error) {
         Swal.fire({
           title: "Error!",

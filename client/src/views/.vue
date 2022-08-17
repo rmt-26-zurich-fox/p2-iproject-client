@@ -35,7 +35,6 @@ export default {
       <div class="row d-flex align-items-center justify-content-center h-100">
         <div class="col-sm-12 col-md-12 col-lg-12 mx-auto">
           <!-- <div class="card border-0 shadow rounded-3 my-5 login-card"> -->
-          <h1>Threads</h1>
           <div class="card-body p-4 p-sm-5 shadow create-thread-card rounded-3">
             <ThreadListCard
               v-for="el in threads"

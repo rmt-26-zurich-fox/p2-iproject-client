@@ -10,7 +10,7 @@ export default {
         ...mapActions(useCounterStore, ["fetchDataReview"])
     },
     computed: {
-        ...mapState(useCounterStore, ["reviews", "totalPage", "dataFound", "isLoading"])
+        ...mapState(useCounterStore, ["reviews", "totalPage", "dataFound", "isLoading", "role"])
     },
     components: {
         DataReviews,
@@ -41,5 +41,5 @@ export default {
     </div>
     <h2 v-if="!dataFound" class="font-bold mt-10 text-center ... ">Data Not Found</h2>
     <!-- Data Reviews -->
-    <DataReviews v-else v-for="review in reviews" :key="review.id" :review="review" />
+    <DataReviews v-else v-for="review in reviews" :key="review.id" :review="review" :role="role" />
 </template>

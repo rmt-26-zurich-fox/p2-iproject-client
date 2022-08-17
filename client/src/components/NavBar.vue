@@ -50,6 +50,11 @@ export default {
           </router-link>
         </li>
         <li v-if="isLoggedIn">
+          <router-link to="/threads">
+            <ButtonComponent buttonClass="navbarButton" buttonText="Threads" />
+          </router-link>
+        </li>
+        <li v-if="isLoggedIn">
           <router-link to="/threads/create">
             <ButtonComponent
               buttonClass="navbarButton"

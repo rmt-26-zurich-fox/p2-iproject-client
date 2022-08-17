@@ -59,7 +59,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(useHouseStore, ["getAllCategories", "getAllFacilities", "hostingSubmission"]),
+    ...mapActions(useHouseStore, ["getAllCategories", "getAllFacilities", "hostingSubmission", "errorHandler"]),
 
     async fetchCategories() {
       try {
@@ -67,7 +67,7 @@ export default {
 
         this.categories = data;
       } catch (error) {
-        console.log(error);
+        this.errorHandler(error)
       }
     },
 
@@ -77,7 +77,7 @@ export default {
 
         this.facilities = data;
       } catch (error) {
-        console.log(error);
+        this.errorHandler(error)
       }
     },
 
@@ -102,7 +102,7 @@ export default {
           timer: 1000,
         });
       } catch (error) {
-        console.log(error);
+        this.errorHandler(error)
       }
     },
 

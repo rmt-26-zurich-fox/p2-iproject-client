@@ -24,10 +24,14 @@ export const useHouseStore = defineStore({
       });
     },
 
-    getAllHouses() {
+    getAllHouses(category) {
       return new Promise((resolve, reject) => {
         housesInstance
-          .get("houses")
+          .get("houses", {
+            params: {
+              category,
+            },
+          })
           .then(({ data }) => {
             resolve(data);
           })
@@ -84,7 +88,7 @@ export const useHouseStore = defineStore({
       data.append("CategoryId", newHouse.CategoryId);
       data.append("FacilityId", newHouse.FacilityId);
       data.append("imageUrl", newHouse.imageUrl);
-      
+
       return new Promise((resolve, reject) => {
         axios({
           method: "post",

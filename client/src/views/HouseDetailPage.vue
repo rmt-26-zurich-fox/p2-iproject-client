@@ -38,11 +38,11 @@
       </div>
       <div class="card ms-5 col" style="max-height: 300px;">
         <div class="card-body">
-          <h5 class="card-title">Total price: </h5>
-          <h5 class="card-title">{{formatPrice}}</h5>
-          <label class="mt-5">Night: </label>
+          <label >Night(s): </label>
           <input v-model="night" type="number" class="form-control">
-          <a href="#" class="btn btn-primary mt-3">Book now</a>
+          <h5 class="card-title mt-5">Total price: </h5>
+          <h5 class="card-title">{{formatPrice}}</h5>
+          <a href="#" class="btn btn-primary mt-3" :class="{'disabled': night < 1}">Book now</a>
         </div>
       </div>
     </div>
@@ -76,7 +76,11 @@ export default {
 
   computed: {
     formatPrice() {
-      return (this.house.price*this.night).toLocaleString("id-ID", { style: "currency", currency: "IDR" }).replace(",00", "");
+      if (this.night < 1) {
+        return 0
+      } else {
+        return (this.house.price*this.night).toLocaleString("id-ID", { style: "currency", currency: "IDR" }).replace(",00", "");
+      }
     },
   },
 

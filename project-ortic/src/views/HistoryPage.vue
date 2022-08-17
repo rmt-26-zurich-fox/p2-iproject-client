@@ -20,7 +20,7 @@ export default {
 
 <template>
 <div class="py-5">
-    <div class="container" style="border: black;">
+    <div class="container" style="background-color: azure; border: black;">
         <table class="table">
             <thead>
               <tr>

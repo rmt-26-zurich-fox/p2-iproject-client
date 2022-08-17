@@ -1,37 +1,34 @@
 <script>
 
-import {mapActions} from 'pinia'
+import {mapActions, mapWritableState} from 'pinia'
 import {useCustomStore} from '../stores/custom'
   
 export default {
     data() {
         return {
-            email: '',
-            password: ''
-        }
+            email: "",
+            password: ""
+        };
     },
     methods: {
-        ...mapActions(useCustomStore, ['loginHandler', 'handleCredentialResponse']),
+        ...mapActions(useCustomStore, ["loginHandler", "handleCredentialResponse"]),
         login() {
             this.loginHandler({
                 email: this.email,
                 password: this.password
-            })
+            });
         },
         handleCredentialResponseGoogle(response) {
-            this.handleCredentialResponse(response)
+            this.handleCredentialResponse(response);
         }
     },
     mounted() {
-        const cb = this.handleCredentialResponseGoogle   
-            google.accounts.id.initialize({
+        const cb = this.handleCredentialResponseGoogle;
+        google.accounts.id.initialize({
             client_id: "42731081542-31t6ib7ts68okuj07g9vt32geh9cgf8a.apps.googleusercontent.com",
             callback: cb
-            });
-            google.accounts.id.renderButton(
-            document.getElementById("buttonDiv"),
-            { theme: "outline", size: "large"}
-            )     
+        });
+        google.accounts.id.renderButton(document.getElementById("buttonDiv"), { theme: "outline", size: "large" });
     }
 }
 

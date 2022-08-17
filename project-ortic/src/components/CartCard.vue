@@ -23,7 +23,7 @@ export default {
               <p class="card-text">{{cart.Item.description}}</p>
               <p class="card-text">Rp .{{cart.Item.sellPrice}}</p>
               <div class="btn-group">
-              <button @click="deleteFromCart(cart.Item.id)" class="btn btn-primary">Delete from cart</button>
+              <button @click="deleteFromCart(cart.Item.id)" class="btn btn-dark">Delete from cart</button>
             </div>
             </div>
           </div>

@@ -12,7 +12,9 @@ export const useCustomStore = defineStore({
     details: {},
     histories: [],
     cartDetails: {},
-    news: []
+    news: [],
+    data: [],
+    times: {}
 
 
 
@@ -227,22 +229,6 @@ export const useCustomStore = defineStore({
             }
         },
 
-        async fetchNews() {
-            try {
-                const {data} = await axios({
-                    method: 'GET',
-                    url: `${this.baseURL}/history/list`,
-                    headers: {
-                        access_token: localStorage.token
-                    }
-                })
-                this.histories = data.history
-                console.log(data)
-            } catch (error) {
-                console.log(error)
-            }
-        },
-
         async handleCredentialResponse(response) {
             try {
                 const {data} = await axios ({
@@ -270,6 +256,19 @@ export const useCustomStore = defineStore({
                 })
                 this.news = data.data.slice(0, 5)
 
+            } catch (error) {
+                console.log(error)
+            }
+        },
+
+        async fetchTime() {
+            try {
+                const {data} = await axios({
+                    method: 'GET',
+                    url: `${this.baseURL}/time`
+                })
+                console.log(data)
+                this.times = data
             } catch (error) {
                 console.log(error)
             }

@@ -32,7 +32,7 @@ export default {
 <div class="py-5">
     <div class="container">
         <div>
-        <h3 class="text-center" style="color: Black;">Your Cart</h3>
+        <p class="text-center" style="margin-bottom: 15px; text-align: inherit">Your Cart</p>
         </div>
       <div class="row hidden-md-up">
         <CartCard v-for="cart in carts" :key="cart.id" :cart="cart"/>
@@ -54,7 +54,7 @@ export default {
                   <tr>
                     <td>{{username}}</td>
                     <td>{{cartDetails.totalPrice}}</td>
-                    <td><button class="btn btn-primary"> print invoice</button></td>     
+                    <td><button class="btn btn-dark"> print invoice</button></td>     
                   </tr>
                 </tbody>
               </table>

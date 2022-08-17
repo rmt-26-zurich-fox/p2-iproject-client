@@ -24,7 +24,9 @@ export default {
   align-items: center;
   width: 300px;
   padding: 8px;
-  background-color: azure;
+  border-radius: 20%;
+  outline: auto;
+  background:wheat;
 }
 
 </style>

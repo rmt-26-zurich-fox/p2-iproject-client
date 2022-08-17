@@ -1,6 +1,6 @@
 <script>
 import { useCustomStore } from '../stores/custom';
-import { mapActions } from 'pinia';
+import { mapActions, mapWritableState } from 'pinia';
 
 export default {
     data() {
@@ -14,7 +14,7 @@ export default {
         logoutHandler() {
             localStorage.clear()
         },
-        ...mapActions(useCustomStore, ['fetchDataItemFilter', 'fetchItems']),
+        ...mapActions(useCustomStore, ['fetchDataItemFilter', 'fetchItems', 'fetchTime']),
         onClickSearch(searchQuery) {
             if (searchQuery) {
                 this.$router.push(`/?search=${searchQuery}`)
@@ -27,6 +27,7 @@ export default {
         }
     },
     created() {
+        this.fetchTime()
         const searchQuery = this.$route.query.search
         if(searchQuery) {
             this.searchQuery = searchQuery
@@ -34,6 +35,9 @@ export default {
         else {
             this.searchQuery = ''
         }
+    },
+    computed: {
+        ...mapWritableState(useCustomStore, ['times'])
     }
 }
 
@@ -75,15 +79,18 @@ export default {
         </ul>
         <ul class="navbar-nav d-flex flex-row ms-auto me-3">
             <li class="nav-item">
+            <a v-if="!username" class="nav-link" href="">Hello Anonymous</a>
+            <a v-if="username" class="nav-link" href="">Hello {{username}}</a>
+          </li>
+              <li class="nav-item">
+                <a class="nav-link">{{times.date}}</a>
+              </li>
+          <li class="nav-item">
                 <router-link v-if="token" to="/login" class="nav-link" @click.prevent="logoutHandler">Log Out</router-link>
               </li>
             <li class="nav-item">
                 <router-link v-if="!token" to="/login" class="nav-link">Login</router-link>
               </li>
-          <li class="nav-item">
-            <a v-if="!username" class="nav-link" href="">Hello Anonymous</a>
-            <a v-if="username" class="nav-link" href="">Hello {{username}}</a>
-          </li>
         </ul>
       </div>
     </div>

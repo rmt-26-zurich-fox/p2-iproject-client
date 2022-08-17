@@ -4,20 +4,23 @@ import NewsCard from '../components/NewsCard.vue'
 import { mapActions } from 'pinia'
 import { mapWritableState } from 'pinia'
 import { useCustomStore } from '../stores/custom'
+import TimeCard from '../components/TimeCard.vue'
 
 export default {
     components: {
-        ItemCard,
-        NewsCard
-    },
+    ItemCard,
+    NewsCard,
+    TimeCard
+},
     methods: {
-        ...mapActions(useCustomStore, ['fetchItems' , 'fetchDataItemFilter', 'fetchNews']),
+        ...mapActions(useCustomStore, ['fetchItems' , 'fetchDataItemFilter', 'fetchNews', 'fetchTime']),
     },
     computed: {
-        ...mapWritableState(useCustomStore, ['items' , 'news'])
+        ...mapWritableState(useCustomStore, ['items' , 'news', 'times'])
     },
     created() {
         this.fetchNews()
+        this.fetchTime()
         const searchQuery = this.$route.query.searchQuery
         if (!searchQuery) {
             this.fetchItems()
@@ -31,6 +34,7 @@ export default {
 </script>
 
 <template>
+
 <div
     class="p-5 text-center bg-image"
     style="
@@ -38,6 +42,7 @@ export default {
       height: 400px;
     "
   >
+  
     <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
       <div class="d-flex justify-content-center align-items-center h-100">
         <div class="text-white">
@@ -47,7 +52,7 @@ export default {
       </div>
     </div>
   </div>
-
+    <TimeCard/>
     <div class="news-container">
         <NewsCard v-for="newItem in news" :key="newItem.title" :newItem="newItem" />
     </div>
@@ -69,10 +74,19 @@ body {
     background-color:lightsalmon;
 }
 
+.card{
+    margin-bottom: 15px;
+}
+
 .news-container {
   display: flex;
   justify-content: space-evenly;
-  background-color: lightskyblue;
+  background-color: lightsalmon;
+}
+
+.time-container {
+  display: flex;
+  background-color: lightsalmon;
 }
 
 </style>

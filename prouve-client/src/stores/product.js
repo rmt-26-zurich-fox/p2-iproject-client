@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 export const productStore = defineStore({
   id: "product",
   state: () => ({
-    baseUrl: "http://localhost:3000/",
+    baseUrl: "https://prouvepatisserie.herokuapp.com/",
     counter: 0,
     recipes: [],
     cakes: [],

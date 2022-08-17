@@ -1,11 +1,28 @@
-<script></script>
+<script>
+  import { mapActions, mapState } from "pinia";
+  import { useCounterStore } from "../stores/counter";
+  export default {
+    computed: {
+      ...mapState(useCounterStore, ["isLogin"]),
+    },
+    methods: {
+      ...mapActions(useCounterStore, ["handlesIsLogin", "handleLogout"]),
+      handleLogoutBtn() {
+        this.handleLogout();
+      },
+    },
+    created() {
+      this.handlesIsLogin();
+    },
+  };
+</script>
 
 <template>
   <div id="Navbar">
     <h1>
       <router-link class="logo" to="/">社交</router-link>
     </h1>
-    <div class="searchContainer">
+    <div v-if="isLogin" class="searchContainer">
       <input type="text" name="" id="search" placeholder="Search" />
       <button class="BTNsearch">
         <img
@@ -17,21 +34,25 @@
     </div>
 
     <div>
-      <router-link class="buttonNav" to="/">
+      <router-link v-if="isLogin" class="buttonNav" to="/">
         <img
           class="imageLogout"
           src="https://cdn-icons-png.flaticon.com/512/565/565504.png"
           alt=""
         />
       </router-link>
-      <router-link class="buttonNav" to="/profile">
+      <router-link v-if="isLogin" class="buttonNav" to="/profile">
         <img
           class="imageLogout"
           src="https://cdn-icons-png.flaticon.com/512/64/64572.png"
           alt=""
         />
       </router-link>
-      <router-link @click="handleLogoutBtn" class="buttonNav" to="/login"
+      <router-link
+        v-if="isLogin"
+        @click="handleLogoutBtn"
+        class="buttonNav"
+        to="/login"
         ><img
           class="imageLogout"
           src="https://cdn-icons-png.flaticon.com/512/1828/1828479.png"

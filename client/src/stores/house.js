@@ -115,7 +115,7 @@ export const useHouseStore = defineStore({
           method: "get",
           url: "https://api.happi.dev/v1/qrcode",
           params: {
-            data: `http://localhost:8080/houses/${houseId}`,
+            data: `https://serum-rysaldi.herokuapp.com/houses/${houseId}`,
           },
           headers: {
             "x-happi-key": "ad594cn7OzVy8LBvI22lTeZdTQb0JGnUQRgONkPUmLR5yIzzeX3ZeaaV",

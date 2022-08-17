@@ -12,6 +12,8 @@ export const useCounterStore = defineStore({
     username: "",
     role: "",
     totalPage: "",
+    dataFound: true,
+    isLoading: false,
     categories: [],
     reviews: []
   }),
@@ -65,14 +67,16 @@ export const useCounterStore = defineStore({
     },
     async fetchCategories() {
       try {
-        const { data } = await axios({
+        const {
+          data
+        } = await axios({
           url: this.baseUrl + "/categories",
           method: "get"
         });
         this.categories = data.categories;
-      } catch (error) { 
-         // Error fetch categories
-         Swal.fire({
+      } catch (error) {
+        // Error fetch categories
+        Swal.fire({
           icon: 'error',
           title: 'Oops...',
           text: `${error.code}`,
@@ -81,20 +85,31 @@ export const useCounterStore = defineStore({
     },
     async fetchDataReview(obj) {
       try {
-        const { data } = await axios ({
+        this.isLoading = true;
+        const {
+          data
+        } = await axios({
           url: this.baseUrl + "/posts",
           method: "get",
           params: obj
         });
         this.reviews = data.reviews;
         this.totalPage = data.totalPage;
+        return true;
       } catch (error) {
-        // Error fetch reviews
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: `${error.code}`,
-        });
+        console.log(error);
+        if (error.response.data.statusCode == "404") {
+          return false;
+        } else {
+          // Error fetch reviews
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: `${error.code}`,
+          });
+        }
+      } finally {
+        this.isLoading = false;
       }
     },
     handleRegister(obj) {

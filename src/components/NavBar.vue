@@ -1,7 +1,7 @@
 <script>
 import { RouterLink } from 'vue-router';
 import { useCounterStore } from '../stores/counter';
-import { mapActions, mapState } from 'pinia';
+import { mapActions, mapState, mapWritableState } from 'pinia';
 import { createPopper } from "@popperjs/core";
 import DropdownButton from './DropdownButton.vue';
 
@@ -14,7 +14,7 @@ export default {
         };
     },
     methods: {
-        ...mapActions(useCounterStore, ["handleLogout", "fetchCategories"]),
+        ...mapActions(useCounterStore, ["handleLogout", "fetchCategories", "fetchDataReview"]),
         logout() {
             this.handleLogout();
         },
@@ -39,10 +39,31 @@ export default {
                     placement: "bottom-start"
                 });
             }
+        },
+        async searchReview() {
+            const obj = {
+                search: this.search
+            }
+            const response = await this.fetchDataReview(obj);
+            if (response) {
+                this.$router.push({ path: '/', query: { search: this.search } })
+            } else {
+                this.dataFound = false;
+                this.totalPage = 1;
+                this.search = "";
+                this.$router.push({ path: "/", query: { categoryId: id, totalPage: 1 } });
+            }
+
+        },
+        async toHome() {
+            const response = await this.fetchDataReview();
+            this.dataFound = true;
+            if (response) this.$router.push("/");
         }
     },
     computed: {
-        ...mapState(useCounterStore, ["username", "isLogin", "categories", "role"])
+        ...mapState(useCounterStore, ["username", "isLogin", "categories", "role"]),
+        ...mapWritableState(useCounterStore, ["dataFound", "totalPage"])
     },
     components: {
         DropdownButton
@@ -73,10 +94,11 @@ export default {
                                             stroke-linejoin="round"></path>
                                     </svg>
                                 </span>
-
-                                <input type="text" v-if="$route.fullPath != '/songs'"
-                                    class="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border rounded-md focus:border-blue-400 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300"
-                                    placeholder="Search" v-model="search">
+                                <form @submit.prevent="searchReview">
+                                    <input type="text" v-if="$route.fullPath != '/songs'"
+                                        class="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border rounded-md focus:border-blue-400 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300"
+                                        placeholder="Search" v-model="search">
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -99,13 +121,12 @@ export default {
                 <div class="items-center md:flex">
                     <div class="flex flex-col mt-2 md:flex-row md:mt-0 md:mx-1">
                         <RouterLink to="/"><a v-if="role == 'Admin'"
-                                class="my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform md:mx-4 md:my-0 font-bold"
-                                href="#">Add Review</a></RouterLink>
-                        <RouterLink to="/"><a
-                                class="my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform md:mx-4 md:my-0 font-bold"
-                                href="#">Home</a></RouterLink>
+                                class="my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform md:my-0 font-bold px-4 py-2.5 text-center inline-flex items-center"
+                                href="#">Add Review</a></RouterLink><a
+                            class="my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform md:my-0 font-bold px-4 py-2.5 text-center inline-flex items-center"
+                            href="#" @click.prevent="toHome()">Home</a>
                         <RouterLink to="/songs"> <a
-                                class="my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform md:mx-4 md:my-0 font-bold"
+                                class="my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform md:my-0 font-bold px-4 py-2.5 text-center inline-flex items-center"
                                 href="#">Search Songs!</a></RouterLink>
                     </div>
 
@@ -145,7 +166,7 @@ export default {
                             class="bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
                             style="min-width:12rem" ref="popoverDropdownRefLogout">
                             <button v-on:click="logout()"
-                                class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700  hover:bg-gray-100 font-bold">
+                                class="text-sm py-2 px-4 block w-full whitespace-nowrap bg-transparent text-slate-700  hover:bg-gray-100 font-bold">
                                 Logout
                             </button>
                         </div>
@@ -165,7 +186,7 @@ export default {
 
                             <input type="text" v-if="$route.fullPath != '/songs'"
                                 class="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300"
-                                placeholder="Search" v-model="search">
+                                placeholder="Search"  v-model="search">
                         </div>
                     </div>
                 </div>

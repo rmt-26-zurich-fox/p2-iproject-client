@@ -8,7 +8,7 @@ export default {
     ...mapActions(useCounterStore, ["parseJwt"])
   },
   computed: {
-    ...mapWritableState(useCounterStore, ["isLogin", "username"])
+    ...mapWritableState(useCounterStore, ["isLogin", "username", "role"])
   },
   created() {
     if (localStorage.getItem("access_token")) {

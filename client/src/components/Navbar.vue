@@ -40,7 +40,7 @@ export default{
 
         <div class="flex flex-wrap items-center">
             <div class="flex flex-shrink md:w-1/3 justify-center md:justify-start text-white">
-                <router-link href="#">
+                <router-link to="/">
                     <h1 class="font-logo text-5xl pl-5 underline">Renjana</h1>
                 </router-link>
             </div>
@@ -59,18 +59,18 @@ export default{
             <div class="flex w-full pt-2 content-center justify-between md:w-1/3 md:justify-end">
                 <ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
                     <li class="flex-1 md:flex-none md:mr-3">
-                        <a class="inline-block py-2 px-4 text-gray-400 font-isi text-xl hover:text-white no-underline" href="#">Shopping cart</a>
+                        <router-link to="/Shoppingcart" class="inline-block py-2 px-4 text-gray-400 font-isi text-xl hover:text-white no-underline">Shopping cart</router-link>
                     </li>
                     <li class="flex-1 md:flex-none md:mr-3">
-                        <a class="inline-block py-2 px-4 text-gray-400 font-isi text-xl hover:text-white no-underline" href="#">Check Out!</a>
+                        <router-link to="/payment" class="inline-block py-2 px-4 text-gray-400 font-isi text-xl hover:text-white no-underline">Check Out!</router-link>
                     </li>
                     
                     <li class="flex-1 md:flex-none md:mr-3">
-                        <a class="inline-block  no-underline text-gray-400 font-isi text-xl hover:text-white py-2 px-4" href="#">login</a>
+                        <router-link to="/login" class="inline-block  no-underline text-gray-400 font-isi text-xl hover:text-white py-2 px-4" >login</router-link>
                     </li>
                     <li class="flex-1 md:flex-none md:mr-3">
                         <div class="relative inline-block">
-                        <a class="inline-block text-gray-400 no-underline font-isi text-xl hover:text-white py-2 px-4" href="#">logout</a>
+                        <router-link to="/" class="inline-block text-gray-400 no-underline font-isi text-xl hover:text-white py-2 px-4">logout</router-link>
 
                         </div>
                     </li>

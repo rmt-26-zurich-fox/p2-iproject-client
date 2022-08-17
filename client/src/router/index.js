@@ -24,6 +24,22 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/RegisterView.vue')
+    },
+    {
+      path: '/Shoppingcart',
+      name: 'Shoppingcart',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/ShopCartView.vue')
+    },
+    {
+      path: '/payment',
+      name: 'payment',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/PaymentView.vue')
     }
   ]
 })

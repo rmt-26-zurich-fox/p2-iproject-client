@@ -317,9 +317,35 @@ export const useMain = defineStore({
         this.router.push({
           name: `ThreadDetail`,
           params: {
-            id: oneThread.id,
+            id: id,
           },
         });
+      } catch (error) {
+        console.log(error);
+        Swal.fire({
+          title: "Error!",
+          icon: "error",
+          text: error.response.data.message,
+          timer: 1500,
+        });
+      }
+    },
+
+    async addComment(comment, explicit, id) {
+      try {
+        const response = await ServerAxios.post(
+          `/threads/${id}/comment`,
+          {
+            comment: comment,
+            explicit: true,
+          },
+          {
+            headers: { access_token: localStorage.getItem("access_token") },
+          }
+        );
+        const { data } = response;
+        console.log(data.message);
+        this.fetchOneThread(id);
       } catch (error) {
         Swal.fire({
           title: "Error!",

@@ -1,20 +1,27 @@
 <script>
 import TableRow from "../components/TableRow.vue";
+import ThreadDetailCommentCard from "../components/ThreadDetailCommentCard.vue";
 import { mapState, mapActions } from "pinia";
 import { useMain } from "../stores/main";
 export default {
   components: {
     TableRow,
+    ThreadDetailCommentCard,
   },
   async created() {},
   methods: {
-    ...mapActions(useMain, ["fetchOneTeam", "likeATeam"]),
+    ...mapActions(useMain, ["addComment", "fetchOneTeam", "likeATeam"]),
     goBack() {
       //   this.refreshOneNews();
       this.$router.push({ name: "HomePage" });
     },
     addToFavHandler(id) {
       this.likeATeam(id);
+    },
+    async postCommentHandler() {
+      await this.addComment(this.comment, this.explicit, this.oneThread.id);
+      this.comment = "";
+      this.explicit = false;
     },
   },
   computed: {
@@ -23,6 +30,12 @@ export default {
       let date = new Date(this.oneThread.createdAt);
       return date.toDateString();
     },
+  },
+  data() {
+    return {
+      comment: "",
+      explicit: false,
+    };
   },
 };
 </script>
@@ -61,29 +74,11 @@ export default {
           <div class="separator-thread">
             <h3>Comments</h3>
           </div>
-          <div
-            class="comment-section container-thread-detail px-3 py-3 rounded-3"
-          >
-            <div class="d-flex flex-start align-items-center rounded-3">
-              <div>
-                <h6 class="fw-bold text-primary mb-1">Lily Coleman</h6>
-                <p class="text-muted small mb-0">Shared publicly - Jan 2020</p>
-              </div>
-            </div>
-            <p class="mt-3 mb-2 pb-2">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip consequat.
-            </p>
-
-            <div class="small d-flex justify-content-start mb-3">
-              <a href="#!" class="d-flex align-items-center me-3">
-                <p class="mb-0">Like</p>
-              </a>
-            </div>
-          </div>
-
+          <ThreadDetailCommentCard
+            v-for="el in oneThread.Comments"
+            :key="'comment' + el.id"
+            :oneComment="el"
+          />
           <!-- FORM ADD COMMENT -->
           <div
             class="add-comment-section container-thread-detail px-3 py-3 rounded-3"
@@ -99,11 +94,26 @@ export default {
                   id="textAreaExample"
                   rows="3"
                   style="background: #fff"
+                  v-model="comment"
                 ></textarea>
+                <label class="form-check-label category-options category-list">
+                  <input
+                    type="checkbox"
+                    name="explicit"
+                    class="form-check-input"
+                    value="true"
+                    v-model="explicit"
+                  />
+                  Mark as explicit
+                </label>
               </div>
             </div>
             <div class="pt-2">
-              <button type="button" class="btn btn-primary btn-sm">
+              <button
+                type="button"
+                class="btn btn-primary btn-sm"
+                @click="postCommentHandler"
+              >
                 Post comment
               </button>
             </div>

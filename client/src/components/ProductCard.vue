@@ -4,7 +4,7 @@
 <template>
   <div class="col-12 col-md-3 py-4">
     <div class="card">
-      <img src="product.imgUrl" class="card-img-top" />
+      <img src="https://d1sag4ddilekf6.azureedge.net/compressed_webp/items/6-CZKUTTNENCDKJE-CZKUTTNFCBJERT/detail/menueditor_item_8b40b72d70604f82a5ced870fa1c160f_1632546311834810509.webp" class="card-img-top" />
       <div class="card-body">
         <h5 class="card-title">product.id -product.name </h5>
         <p class="card-text">product.description</p>

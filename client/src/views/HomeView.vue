@@ -114,6 +114,7 @@ export default {
       }
     },
     handleCategory(value){
+      this.data.page = 0
       this.data.category = value
       this.fetchData(this.data)
     }

@@ -183,6 +183,27 @@ export const useCounterStore = defineStore({
           text: error.response.data.message
         })
       }
-    }
+    },
+
+    async handleCredentialResponse(response) {
+      try {
+          const { data } = await axios({
+              method: 'POST',
+              url: this.baseUrl + '/googleg-sign-in',
+              headers: {
+                  token_google: response.credential
+              }
+          })
+          localStorage.setItem('access_token', data.access_token)
+          this.router.push('/')
+          this.fetchData()
+      } catch (error) {
+          Swal.fire({
+              title: "error",
+              text: error.response.data.message,
+              icon: "error"
+          })
+      }
+  },
   }
 })

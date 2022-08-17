@@ -39,7 +39,11 @@ export const useQuoteStore = defineStore({
       password: '',
       phoneNumber: '',
       address: ''
-    }
+    },
+
+    allWord: [],
+
+    defenition: [],
 
   }),
 
@@ -357,25 +361,36 @@ export const useQuoteStore = defineStore({
   },
 
 
-  async getQuiz(){
+  async getWord(word){
 
     try {
 
       const { data } = await axios({
         method: 'get',
-        url: this.baseUrl + '/quotes/quiz',
+        url: this.baseUrl + '/quotes/word?word='+ word,
         headers: {
           access_token: localStorage.access_token
         }
       })
 
-      console.log(data)
-     
+       this.allWord =  data.results[0].lexicalEntries[0].entries
+      //  console.log(data.results[0].lexicalEntries[0].entries)
+
+       
+       this.allWord.forEach(el => this.defenition =  el.senses[0].definitions)
+       
+        // console.log(this.defenition, '<<<<<<')
+        if(this.defenition.length === 0){
+           throw new Error('error')
+        }else{
+
+          swall('Success', this.defenition, 'success')
+        }
       
     } catch (error) {
 
       console.log(error)
-      swall('Error', error, 'error')
+      // swall('Error', error, 'error')
       
     }
   }

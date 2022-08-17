@@ -94,10 +94,10 @@ export default {
       this.$router.push("/chatting");
     },
 
-    toQuiz(){
+    // toQuiz(){
 
-      this.getQuiz()
-    },
+    //   this.getQuiz()
+    // },
 
     pageNumber(quote) {
       let quotes = [];

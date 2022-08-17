@@ -24,6 +24,7 @@
                     </div>
                     <div class="form-group">
                       <select name="CategoryId" v-model="inputCategory">
+                        <option disabled selected>-- select --</option>
                         <option value="1">Motivation</option>
                         <option value="2">Programmer</option>
                         <option value="3">Anime</option>
@@ -31,6 +32,17 @@
                       </select>
                     </div>
                       <button type="submit" @click.prevent="toAdd">Add</button>
+                  </form>
+                  <p v-if="!isStat">may you want to know what is that word meaning
+                    <a @click.prevent="showInput" >Click here</a>
+                  </p>
+                  <!-- <textarea name="" id="" cols="15" rows="3"></textarea> -->
+                  <form action="" @submit.prevent="toSendWord" v-if="isStat">
+                    <label for=""></label>
+                    <input type="text" v-model="inputWord"
+                      placeholder="input word here..."
+                      >
+                    <button type="submit">send</button>
                   </form>
                 </div>
               </div>
@@ -42,26 +54,63 @@
   </div>
 </template>
 <script>
-import { mapActions } from 'pinia';
+import { mapActions, mapState } from 'pinia';
 import { useQuoteStore } from '../stores/qoutes';
 
 export default {
   data() {
     return {
       inputQuote: "",
-      inputCategory: ''
+      inputCategory: '',
+
+      inputWord: '',
+
+      isStat: false
     };
   },
 
   methods: {
 
-    ...mapActions(useQuoteStore, ['addQuote']),
+    ...mapActions(useQuoteStore, ['addQuote', 'getWord']),
     toAdd(){
       this.addQuote({
         desc: this.inputQuote,
         CategoryId: this.inputCategory
       })
     },
+
+    toSendWord(){
+
+      this.getWord(this.inputWord)
+    },  
+
+    showInput(){
+
+      this.isStat = true
+    },
+
   },
+
+  computed: {
+
+    ...mapState(useQuoteStore, ['allWord'])
+  },
+
+  created(){
+
+    this.getWord()
+
+    // if(!this.allWord){
+
+    //   console.log('error')
+    // }else{
+
+    //   for( let i = 0 ; i < this.allWord.length; i++){
+
+    //     console.log(i)
+    //   }
+
+    // }
+  }
 };
 </script>

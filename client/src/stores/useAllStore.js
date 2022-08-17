@@ -61,5 +61,27 @@ export const useAllStore = defineStore({
         this.errorShow(error);
       }
     },
+
+    async loginHandler(email, password) {
+      try {
+        const { data } = await axios({
+          method: "post",
+          url: `${baseUrl}/login`,
+          data: {
+            email: email,
+            password: password,
+          },
+        });
+
+        console.log(data);
+
+        localStorage.setItem("access_token", data.access_token);
+        localStorage.setItem("email", data.emailLoggedIn);
+        localStorage.setItem("id", data.idLoggedIn);
+        this.isLogin = true;
+      } catch (error) {
+        this.errorShow(error);
+      }
+    },
   },
 });

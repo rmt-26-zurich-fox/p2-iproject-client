@@ -1,11 +1,38 @@
-<script></script>
+<script>
+import { mapState, mapActions } from "pinia";
+import { useAllStore } from "../stores/useAllStore";
+
+export default {
+  name: "login",
+  data() {
+    return {
+      email: "",
+      password: "",
+    };
+  },
+
+  methods: {
+    ...mapActions(useAllStore, ["loginHandler", "errorShow"]),
+
+    async localLoginHandler() {
+      try {
+        console.log("tekan login");
+        await this.loginHandler(this.email, this.password);
+        this.$router.push("/");
+      } catch (error) {
+        this.errorShow(error);
+      }
+    },
+  },
+};
+</script>
 
 <template>
   <div>
     <div class="container mt-3" style="height: 100vh">
       <div class="row">
         <div class="col-12 col-md-6 offset-md-3">
-          <form >
+          <form @submit.prevent="localLoginHandler">
             <div class="card o-hidden border-0 shadow-lg my-5">
               <div class="card-body">
                 <h3 class="card-title text-gray-900 mb-4 text-center">
@@ -13,7 +40,7 @@
                 </h3>
                 <div class="mb-3">
                   <input
-          
+                    v-model="email"
                     type="email"
                     class="form-control"
                     placeholder="Enter Email Address..."
@@ -21,7 +48,7 @@
                 </div>
                 <div class="mb-3">
                   <input
-         
+                    v-model="password"
                     type="password"
                     class="form-control"
                     placeholder="Enter Password..."

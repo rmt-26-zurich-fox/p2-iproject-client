@@ -15,21 +15,21 @@ const router = createRouter({
       path: "/login",
       name: "login",
       component: LoginView,
-      // beforeEnter: (to, from) => {
-      //   if(localStorage.getItem("access_token")){
-      //     return {name: 'home'}
-      //   }
-      // }
+      beforeEnter: (to, from) => {
+        if(localStorage.getItem("access_token")){
+          return {name: 'home'}
+        }
+      }
     },
     {
       path: "/register",
       name: "register",
       component: RegisterView,
-      // beforeEnter: (to, from) => {
-      //   if(localStorage.getItem("access_token")){
-      //     return {name: 'home'}
-      //   }
-      // }
+      beforeEnter: (to, from) => {
+        if(localStorage.getItem("access_token")){
+          return {name: 'home'}
+        }
+      }
     },
     {
       path: "/",
@@ -44,11 +44,11 @@ const router = createRouter({
           path: "/cart",
           name: "cart",
           component: CartView,
-          // beforeEnter: (to, from) => {
-          //   if(!localStorage.getItem("access_token")){
-          //     return {name: 'home'}
-          //   }
-          // }
+          beforeEnter: (to, from) => {
+            if(!localStorage.getItem("access_token")){
+              return {name: 'home'}
+            }
+          }
         },
         {
           path: "/transaction",

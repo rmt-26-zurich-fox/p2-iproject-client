@@ -10,6 +10,7 @@ export const useAllStore = defineStore({
     counter: 0,
     isLogin: false,
     products: [],
+    carts: [],
   }),
   getters: {
     doubleCount: (state) => state.counter * 2,
@@ -107,5 +108,52 @@ export const useAllStore = defineStore({
         this.errorShow(error);
       }
     },
+
+    async addProductToCart(ProductId) {
+      try {
+        const { data } = await axios({
+          method: "patch",
+          url: `${baseUrl}/carts/${ProductId}`,
+          headers: { access_token: localStorage.getItem("access_token") },
+        });
+        console.log(data);
+        // this.carts = data.carts
+      } catch (error) {
+        console.log(error);
+        this.errorShow(error);
+      }
+    },
+
+    async fetchCart(){
+      try {
+        const { data } = await axios({
+          method: "get",
+          url: `${baseUrl}/carts/`,
+          headers: { access_token: localStorage.getItem("access_token") },
+        });
+        
+        this.carts = data.carts
+        console.log(this.carts, '=======');
+      } catch (error) {
+        console.log(error);
+        this.errorShow(error);
+      }
+    },
+
+    async deleteCart(id){
+      try {
+        const { data } = await axios({
+          method: "delete",
+          url: `${baseUrl}/carts/${id}`,
+          headers: { access_token: localStorage.getItem("access_token") },
+        });
+        
+        console.log('masuk delete=======');
+        this.fetchCart()
+      } catch (error) {
+        console.log(error);
+        this.errorShow(error);
+      }
+    }
   },
 });

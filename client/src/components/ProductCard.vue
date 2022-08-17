@@ -10,7 +10,11 @@ export default{
     },
 
     methods: {
-        ...mapActions(useAllStore, ['formatRupiah']),
+        ...mapActions(useAllStore, ['formatRupiah', 'addProductToCart']),
+
+        addProductToCartLocal(){
+            this.addProductToCart(this.product.id)
+        }
     }
 }
 
@@ -27,7 +31,7 @@ export default{
         <span>{{ this.formatRupiah(product.price) }}</span>
 
         <div class="d-flex justify-content-between" aria-label="Basic example">
-          <button  class="round-black-btn small-btn">Add to Cart</button>
+          <button @click="addProductToCartLocal" class="round-black-btn small-btn">Add to Cart</button>
         </div>
       </div>
     </div>

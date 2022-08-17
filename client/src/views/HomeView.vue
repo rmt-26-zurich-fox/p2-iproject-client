@@ -10,6 +10,6 @@ export default {
     class="flex"
   >
     <SideBar />
-  </div>
   <RouterView />
+  </div>
 </template>

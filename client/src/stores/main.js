@@ -261,5 +261,30 @@ export const useMain = defineStore({
         });
       }
     },
+
+    async createAThread(newThread) {
+      try {
+        const response = await ServerAxios.post(
+          `/threads/create`,
+          {
+            title: newThread.title,
+            description: newThread.description,
+            explicit: newThread.explicit,
+            CategoryId: newThread.category,
+          },
+          {
+            headers: { access_token: localStorage.getItem("access_token") },
+          }
+        );
+        console.log(response.data);
+      } catch (error) {
+        Swal.fire({
+          title: "Error!",
+          icon: "error",
+          text: error.response.data.message,
+          timer: 1500,
+        });
+      }
+    },
   },
 });

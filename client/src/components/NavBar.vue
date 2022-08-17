@@ -18,7 +18,7 @@ export default {
     ...mapActions(useMain, ["logout"]),
   },
   computed: {
-    ...mapState(useMain, ["isLoggedIn"]),
+    ...mapState(useMain, ["isLoggedIn", "userProfile"]),
   },
 };
 </script>
@@ -26,7 +26,7 @@ export default {
   <nav>
     <div class="logo">
       <div id="logo">
-        <img src="../assets/news.png" id="logoImage" />
+        <h3>NBA for U</h3>
       </div>
     </div>
     <div class="links">
@@ -50,11 +50,19 @@ export default {
           </router-link>
         </li>
         <li v-if="isLoggedIn">
+          <router-link to="/threads/create">
+            <ButtonComponent
+              buttonClass="navbarButton"
+              buttonText="Create a Thread"
+            />
+          </router-link>
+        </li>
+        <li v-if="isLoggedIn">
           <router-link to="/profile">
             <ButtonComponent buttonClass="navbarButton" buttonText="Profile" />
           </router-link>
         </li>
-        <li>
+        <li v-if="!isLoggedIn">
           <router-link to="/login">
             <ButtonComponent buttonClass="navbarButton" buttonText="Login" />
           </router-link>
@@ -65,9 +73,8 @@ export default {
       </ul>
     </div>
     <div class="dashboard">
-      <p>Hello Strangers!</p>
-      <!-- <p v-if="!isLoggedIn">Hello Strangers!</p>
-      <p v-else>Hello {{ user.username }}!</p> -->
+      <p v-if="!isLoggedIn">Hello Strangers!</p>
+      <p v-else>Hello {{ userProfile.firstName }}!</p>
     </div>
   </nav>
 </template>

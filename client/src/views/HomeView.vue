@@ -12,6 +12,7 @@ export default {
 		return {
 			size: 8,
 			query: "",
+			loading: false,
 		};
 	},
 	methods: {

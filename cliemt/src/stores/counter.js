@@ -46,5 +46,28 @@ export const useCounterStore = defineStore({
         this.isLogin = true;
       }
     },
+    async handleRegister(value) {
+      try {
+        console.log("masuk register");
+        const { username, email, password } = value;
+        const { data } = await axios({
+          url: `${baseUrl}/register`,
+          method: "POST",
+          data: {
+            username, email, password
+          }
+        });
+        console.log(data);
+        this.router.push("/login");
+      } catch (error) {
+        console.log(error);
+        const msg = error.response.data.message.join("; ");
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: msg,
+        });
+      }
+    },
   },
 });

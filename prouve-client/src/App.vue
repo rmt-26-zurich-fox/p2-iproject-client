@@ -19,15 +19,6 @@
       </div>
     </main>
     <LoadingComp v-if="isLoading" />
-    <!-- <div
-      class="fb-login-button"
-      data-width=""
-      data-size="medium"
-      data-button-type="continue_with"
-      data-layout="default"
-      data-auto-logout-link="false"
-      data-use-continue-as="false"
-    ></div> -->
   </div>
 </template>
 

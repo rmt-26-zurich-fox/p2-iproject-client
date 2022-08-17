@@ -2,7 +2,7 @@
   <div class="top-0 z-50">
     <nav class="px-2 bg-white border-gray-200 border-gray-700 pb-8">
       <div class="flex justify-center text-6xl pt-8">
-        <img class="w-80" src="../assets/logo moren.png" alt="" />
+        <img class="w-80" src="../assets/logo-moren.png" alt="" />
       </div>
       <div class="flex justify-end mb-10 mr-10">
         <a href="" @click.prevent="logout" v-if="isLogin">

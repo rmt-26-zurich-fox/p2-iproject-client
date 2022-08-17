@@ -4,7 +4,7 @@
       <div class="flex flex-col items-center">
         <img
           class="w-1/4 opacity-90"
-          src="../assets/logo moren.png"
+          src="../assets/logo-moren.png"
           alt=""
           srcset=""
         />

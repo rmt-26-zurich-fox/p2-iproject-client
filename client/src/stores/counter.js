@@ -20,7 +20,21 @@ export const useCounterStore = defineStore({
         })
         this.router.push({ name: 'login' })
       } catch (error) {
-        console.log(error)
+        console.log(error.response.data.message)
+      }
+    },
+    async login(input) {
+      try {
+        const { data } = await axios({
+          method: "POST",
+          url: this.baseUrl + "/login",
+          data: input
+        })
+        localStorage.setItem("access_token", data.access_token)
+        this.isLogin = true
+        this.router.push('/')
+      } catch (error) {
+        console.log(error.response.data.message)
       }
     }
   }

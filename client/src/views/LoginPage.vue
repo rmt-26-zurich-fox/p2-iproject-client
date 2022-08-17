@@ -14,13 +14,13 @@
                             <label for="email-address" class="sr-only">Email address</label>
                             <input id="email-address" name="email" type="email" autocomplete="email"
                                 class="appearance-none rounded-none relative px-24 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm text-center"
-                                placeholder="Email address" v-model="loginCustomer.emailLogin">
+                                placeholder="Email address" v-model="emailLogin">
                         </div>
                         <div>
                             <label for="password" class="sr-only">Password</label>
                             <input id="password" name="password" type="password" autocomplete="current-password"
                                 class="appearance-none rounded-none relative px-24 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm text-center"
-                                placeholder="Password" v-model="loginCustomer.passwordLogin">
+                                placeholder="Password" v-model="passwordLogin">
                         </div>
                     </div>
                     <div class="flex items-center justify-center gap-1 bg-black bg-opacity-0">
@@ -44,8 +44,27 @@
     </section>
 </template>
 <script>
+import { mapActions } from 'pinia';
 import ButtonUsage from '../components/ButtomUsage.vue'
+import { useCounterStore } from '../stores/counter';
 export default {
     components: { ButtonUsage },
+    methods: {
+        ...mapActions(useCounterStore, ['login']),
+        handleLogin() {
+            let obj = {
+                email: this.emailLogin,
+                password: this.passwordLogin
+            }
+            console.log(obj)
+            this.login(obj)
+        }
+    },
+    data() {
+        return {
+            emailLogin: "",
+            passwordLogin: ""
+        }
+    }
 }
 </script>

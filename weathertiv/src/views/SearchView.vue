@@ -3,7 +3,7 @@
         <div class="container">
             <form action="#" class="find-location" @submit.prevent="submitFind">
                 <input type="text" placeholder="Find your location..." v-model="location">
-                <!-- <button type="submit" class="save" v-if="token">Save</button> -->
+                <button type="submit" class="save" v-if="token">Save</button>
                 <button type="submit" class="find">Find</button>
             </form>
         </div>
@@ -89,12 +89,11 @@ export default {
         ...mapState(customStore, ["popular", "searchWeather"])
     },
     methods: {
-        ...mapActions(customStore, ["fetchPopularLocations", "fetchIpLocation", "fetchSearchLocation"]),
+        ...mapActions(customStore, ["fetchPopularLocations", "fetchSearchLocation"]),
 
         //Submit find
         async submitFind() {
             this.fetchSearchLocation(this.location)
-
         }
 
     },

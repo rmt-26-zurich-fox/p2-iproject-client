@@ -3,7 +3,7 @@
     <div class="container">
       <form action="#" class="find-location" @submit.prevent="submitFind">
         <input type="text" placeholder="Find your location..." v-model="location">
-        <!-- <button type="submit" class="save" v-if="token">Save</button> -->
+        <button type="submit" class="save" v-if="token">Save</button>
         <button type="submit" class="find">Find</button>
       </form>
     </div>
@@ -83,19 +83,6 @@ export default {
     return {
       token: localStorage.access_token,
       location: "",
-      weather: {
-        date: "",
-        location: "",
-        temp: "",
-        icon: "",
-        humid: "",
-        wind: "",
-        windir: "",
-        iconnext: "",
-        tempnext: "",
-        icon2next: "",
-        temp2next: "",
-      }
     }
   },
   computed: {

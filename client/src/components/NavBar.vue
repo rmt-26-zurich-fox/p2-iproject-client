@@ -7,7 +7,7 @@
                         class="flex flex-col p-4 mt-4 bg-gray-50 rounded-lg border border-gray-100 md:flex-row md:space-x-9 md:mt-0 md:text-sm md:font-medium md:border-0 bg-black bg-opacity-0">
                         <li class="text-amber-300">
                             <ul class="text-xl justify-">
-                                Welcome {{ username }}
+                                Welcome
                             </ul>
                         </li>
                     </ul>
@@ -76,13 +76,15 @@ export default {
         ...mapWritableState(useCounterStore, ['isLogin'])
     },
     watch: {
-        isLogin(input) {
+        isLogin(value) {
             this.changeName()
             this.changeBookmark()
         }
     },
     created() {
-
+        if (localStorage.getItem("access_token")) {
+            this.isLogin = true
+        }
     }
 }
 </script>

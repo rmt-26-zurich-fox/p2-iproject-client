@@ -50,13 +50,16 @@ import { useCounterStore } from '../stores/counter';
 export default {
     components: { ButtonUsage },
     methods: {
-        ...mapActions(useCounterStore, ['login']),
+        ...mapActions(useCounterStore, ['login', 'googleLog']),
         handleLogin() {
             let obj = {
                 email: this.emailLogin,
                 password: this.passwordLogin
             }
             this.login(obj)
+        },
+        credential(response) {
+            this.googleLog(response)
         }
     },
     data() {
@@ -64,6 +67,19 @@ export default {
             emailLogin: "",
             passwordLogin: ""
         }
+    },
+    mounted() {
+        const callback = this.credential
+
+        google.accounts.id.initialize({
+            client_id: "252191571410-tsigtbp39rp8th3iglp06apjftqmfc4k.apps.googleusercontent.com",
+            callback,
+        });
+        google.accounts.id.renderButton(
+            document.getElementById("buttonGoogle"),
+            { theme: "outline", size: "large" }  // customization attributes
+        );
+
     }
 }
 </script>

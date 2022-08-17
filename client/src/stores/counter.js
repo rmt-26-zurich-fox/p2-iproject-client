@@ -3,14 +3,16 @@ import axios from 'axios'
 export const useCounterStore = defineStore({
   id: 'counter',
   state: () => ({
-    isLogin: false,
     baseUrl: "http://localhost:3000",
+    isLogin: false,
     //fetch state
     liststate: [],
     //detail weather
     detailstate: [],
     //fetch mybookmarks
-    listbookmarks: []
+    listbookmarks: [],
+    //fetch news
+    newslist: []
   }),
   actions: {
     async register(user) {
@@ -57,7 +59,6 @@ export const useCounterStore = defineStore({
           method: "GET",
           url: "http://api.airvisual.com/v2/states?country=indonesia&key=adff6230-bca9-4190-972a-219e13fb5087"
         })
-        // console.log(data.data)
         this.liststate = data.data
       } catch (error) {
         console.log(error.response.data.message)
@@ -70,7 +71,6 @@ export const useCounterStore = defineStore({
           url: "http://api.airvisual.com/v2/city",
           params: input
         })
-        // console.log(data)
         this.detailstate = data.data
         this.router.push('/detail')
       } catch (error) {
@@ -102,7 +102,6 @@ export const useCounterStore = defineStore({
             access_token: localStorage.getItem("access_token")
           },
         })
-        console.log(data)
         this.listbookmarks = data.data
       } catch (error) {
         console.log(error.response.data.message)
@@ -110,7 +109,6 @@ export const useCounterStore = defineStore({
     },
     async deleteBookmark(id) {
       try {
-        console.log(id)
         await axios({
           method: "DELETE",
           url: this.baseUrl + `/bookmarks/${id}`,
@@ -119,6 +117,36 @@ export const useCounterStore = defineStore({
           },
         })
         this.router.push('/bookmark')
+      } catch (error) {
+        console.log(error.response.data.message)
+      }
+    },
+    async fetchnews() {
+      try {
+        const { data } = await axios({
+          method: "GET",
+          url: "https://newsapi.org/v2/top-headlines?country=id&apiKey=4b80c7136d234956a67d77a967037c60",
+        })
+        console.log(data)
+        this.newslist = data.articles
+      } catch (error) {
+        console.log(error.response.data.message)
+      }
+    },
+    async googleLog() {
+      try {
+        let { data } = await axios({
+          method: "POST",
+          url: this.baseUrl + "/google-login",
+          headers: {
+            token_google: response.credential
+          }
+        })
+        localStorage.setItem("access_token", data.access_token);
+        this.isLoggedIn = true
+        await this.fetchState()
+        await this.fetchnews()
+        this.router.push('/')
       } catch (error) {
         console.log(error.response.data.message)
       }

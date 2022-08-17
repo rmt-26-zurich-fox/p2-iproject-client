@@ -6,7 +6,8 @@ export const useSocket = defineStore({
   state: () => ({
     messages: [],
     users: [],
-    socket: io(`http://localhost:3000/socket-chat`),
+    // socket: io(`http://localhost:3000/socket-chat`),
+    socket: io(),
   }),
   actions: {
     readMsg() {

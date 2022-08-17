@@ -32,52 +32,48 @@ export default {
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
           <div class="card-body p-4 p-sm-5 shadow rounded-3 login-card">
             <div class="form-outline mb-4">
-              <h1 class="text-center">Threads</h1>
+              <h1 class="text-center">Register</h1>
             </div>
-            <div class="card">
-              <div class="card-header">Featured</div>
-              <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">
-                  With supporting text below as a natural lead-in to additional
-                  content.
-                </p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+            <form id="loginForm" @submit.prevent="registerHandler">
+              <!-- Email input -->
+              <div class="form-outline mb-4">
+                <label class="form-label" for="loginEmail">Email address</label>
+                <input
+                  v-model="newUser.email"
+                  type="email"
+                  id="loginEmail"
+                  class="form-control form-control-lg"
+                  placeholder="Enter your registered email ..."
+                />
               </div>
-            </div>
-            <div class="card">
-              <div class="card-header">Featured</div>
-              <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">
-                  With supporting text below as a natural lead-in to additional
-                  content.
-                </p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+
+              <!-- Password input -->
+              <div class="form-outline mb-4">
+                <label class="form-label" for="loginPassword">Password</label>
+                <input
+                  v-model="newUser.password"
+                  type="password"
+                  id="loginPassword"
+                  class="form-control form-control-lg"
+                  placeholder="Enter your password ..."
+                />
               </div>
-            </div>
-            <div class="card">
-              <div class="card-header">Featured</div>
-              <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">
-                  With supporting text below as a natural lead-in to additional
-                  content.
+
+              <div class="text-center">
+                <p>
+                  Already have an account? Please login
+                  <router-link to="/login">
+                    <span id="registerButton"> here</span>
+                  </router-link>
                 </p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
               </div>
-            </div>
-            <div class="card">
-              <div class="card-header">Featured</div>
-              <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">
-                  With supporting text below as a natural lead-in to additional
-                  content.
-                </p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
+              <!-- Submit button -->
+              <ButtonComponent
+                buttonType="submit"
+                buttonClass="btn btn-primary btn-lg"
+                buttonText="Sign In"
+              />
+            </form>
           </div>
         </div>
       </div>

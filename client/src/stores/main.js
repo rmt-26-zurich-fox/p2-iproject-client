@@ -51,6 +51,7 @@ export const useMain = defineStore({
     refreshPage() {
       if (localStorage.getItem("access_token")) {
         this.isLoggedIn = true;
+        this.userProfile.firstName = localStorage.getItem("name");
       }
     },
     async register(user) {
@@ -88,6 +89,7 @@ export const useMain = defineStore({
         if (data !== null) {
           this.profileFound = true;
         }
+        localStorage.setItem("name", data.firstName);
         this.userProfile = data;
       } catch (error) {
         Swal.fire({

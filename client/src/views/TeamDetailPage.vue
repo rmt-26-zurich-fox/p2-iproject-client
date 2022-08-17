@@ -52,7 +52,7 @@ export default {
             <div class="col-md-6" id="">
               <div class="content-column-2">
                 <span
-                  class="bg-danger px-2 py-1 shadow-1-strong mb-3 detail-category"
+                  class="abbre px-2 py-1 shadow-1-strong mb-3 detail-category"
                   >{{ oneTeam.abbreviation }}</span
                 >
                 <h4 id="detail-title">

@@ -32,9 +32,14 @@ export default{
         ...mapState(useCustom1Store, ["products", "totalPages"])
     },
     created() {
-        this.fetchProduct(this.page);
+        if(this.page === 0){
+    this.page == 1
+  }
+  this.fetchProduct(this.page)
+  this.clickPrev()
+  this.clickNext()
     },
-    components: { ProductCard }
+    components: { ProductCard },
 }
 </script>
 

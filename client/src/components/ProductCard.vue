@@ -34,8 +34,9 @@ export default{
               
               <div class="flex justify-between items-center">
                   <span class="text-3xl font-bold text-gray-900 ">€ {{product.price}}</span>
+            <h1 class="text-gray-400 my-auto" v-if="product.stock < 1">Don't worry Stock is coming ; )</h1>
 
-                  <a  href="javascript:;"  class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md px-5 py-2.5 text-center  dark:focus:ring-green-800" v-if="this.$route.fullPath !== '/wishlists'">Add to Shopping Cart</a>
+                  <a  href="javascript:;"  class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md px-5 py-2.5 text-center  dark:focus:ring-green-800 " v-if="product.stock > 0">Add to Shopping Cart</a>
               </div>
           </div>
       </div>

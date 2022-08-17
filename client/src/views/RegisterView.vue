@@ -1,6 +1,7 @@
 <script>
 import { mapActions ,mapWritableState} from 'pinia';
-// import {useCustomerStore} from "../stores/customerStore";
+import { useCustom1Store} from '../stores/custom1'
+
 
 export default{
   data(){
@@ -12,23 +13,23 @@ export default{
       address: ''
     }
   },
-  // methods:{
-  //   ...mapActions(useCustomerStore, ['register']),
-  //   registerHandle(){
+  methods:{ 
+     ...mapActions(useCustom1Store, ['register']),
+    registerHandle(){
 
-  //     this.register({
-  //       username: this.username,
-  //       email: this.email,
-  //       password: this.password,
-  //       phoneNumber: this.phoneNumber,
-  //       address: this.address
-  //     })
-  //     this.isLogin = true
-  //   }
-  // },
-  // computed:{
-  //   ...mapWritableState(useCustomerStore, ['isLogin'])
-  // }
+      this.register({
+        username: this.username,
+        email: this.email,
+        password: this.password,
+        phoneNumber: this.phoneNumber,
+        address: this.address
+      })
+      // this.isLogin = true
+    }
+  },
+  computed:{
+    ...mapWritableState(useCustom1Store, ['isLogin'])
+  }
 }
 </script>
 

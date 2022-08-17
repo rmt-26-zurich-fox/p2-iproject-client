@@ -8,7 +8,8 @@ export const useCustom1Store = defineStore({
     products: [],
     totalPages: 0,
     product: {},
-    isLogin: false
+    isLogin: false,
+    user: 0,
   }),
   getters: {
     doubleCount: (state) => state.counter * 2
@@ -52,7 +53,7 @@ export const useCustom1Store = defineStore({
             
             if(data){
                 localStorage.setItem("access_token", data.access_token)
-                this.customer = {
+                this.user = {
                   id: data.id,
                 }
             if(rememberMe){
@@ -91,6 +92,27 @@ export const useCustom1Store = defineStore({
               console.log(err.response)
   
           }
+    },
+
+    async register(userData){
+        try {
+            const {data} = await axios({
+                url: `${this.url}/register`,
+                method: 'POST',
+                data: userData
+            })
+
+            if(data){
+                localStorage.setItem("access_token", data.access_token)
+                this.user = {
+                  id: data.id,
+                }
+            await this.fetchProduct()
+            this.router.push(`/`)
+        }
+        } catch (err) {
+            console.log(err.response.data) 
+        }
     }
   },
 })

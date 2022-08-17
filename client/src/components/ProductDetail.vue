@@ -11,18 +11,19 @@ export default{
     methods:{
         ...mapActions(useCustom1Store,['productDetail']),
     //     ...mapActions(useWishlistStore,['addWishlist']), 
-    //     localAddWishlist(id){
-    //         let from = 'car detail'
-    //         this.addWishlist(id , from)
+       localAddShopCart(id){
+            let from = 'car detail'
+            console.log("masukkkdmsf" ,id)
+            // this.addWishlist(id , from)
 
-    //     }
+        }
     },
     computed:{
         ...mapState(useCustom1Store,['product'])
     },
     created(){
-        console.log()
     this.productDetail(this.id)
+
     // this.thirdPartyAPI(this.id)
     }
 }
@@ -40,7 +41,8 @@ export default{
         <p class="mb-3 text-[2vh] font-no">Material: {{product.material}}</p>
         <div class="flex flex-row mt-5">
             <router-link to='/' class="flex flex-row text-gray-900 bg-[#ACB999] border border-[#ACB999] focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 "><ion-icon name="arrow-undo-outline"></ion-icon> back</router-link>
-            <a href="javascript:;" class="h-[42px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add to Wishlist</a>
+            <a  class="h-[42px] text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " v-if="product.stock > 0" @click="localAddShopCart(product)">Add to shopping Cart</a>
+            <h1 class="text-gray-400 my-auto" v-if="product.stock < 1" >Don't worry Stock is coming ; )</h1>
        </div>
     </div>
 </div>

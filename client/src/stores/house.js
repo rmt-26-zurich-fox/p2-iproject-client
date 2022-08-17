@@ -5,7 +5,9 @@ import housesInstance from "../apis/house";
 
 export const useHouseStore = defineStore({
   id: "house",
-  state: () => ({}),
+  state: () => ({
+    isLoading: false,
+  }),
   actions: {
     errorHandler(error) {
       const response = error.response;
@@ -92,7 +94,7 @@ export const useHouseStore = defineStore({
       return new Promise((resolve, reject) => {
         axios({
           method: "post",
-          url: "http://localhost:3000/houses",
+          url: "https://serum-rysaldi.herokuapp.com/houses",
           headers: {
             access_token: localStorage.getItem("access_token"),
           },
@@ -107,25 +109,46 @@ export const useHouseStore = defineStore({
       });
     },
 
-    generateQr(houseId){
-      return new Promise ((resolve, reject) => {
-       axios({
-        method: 'get',
-        url: "https://api.happi.dev/v1/qrcode",
-        params: {
-          data: `http://localhost:8080/houses/${houseId}`
-        },
-        headers: {
-          "x-happi-key": "ad594cn7OzVy8LBvI22lTeZdTQb0JGnUQRgONkPUmLR5yIzzeX3ZeaaV"
-        }
-       })
-        .then(({data}) => {
-          resolve(data)
+    generateQr(houseId) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: "get",
+          url: "https://api.happi.dev/v1/qrcode",
+          params: {
+            data: `http://localhost:8080/houses/${houseId}`,
+          },
+          headers: {
+            "x-happi-key": "ad594cn7OzVy8LBvI22lTeZdTQb0JGnUQRgONkPUmLR5yIzzeX3ZeaaV",
+          },
         })
-        .catch(err => {
-          reject(err)
-        })
-      })
-    }
+          .then(({ data }) => {
+            resolve(data);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    },
+
+    paymentHandler(amount) {
+      return new Promise((resolve, reject) => {
+        housesInstance
+          .post(
+            "houses/midtrans",
+            { amount },
+            {
+              headers: {
+                access_token: localStorage.getItem("access_token"),
+              },
+            }
+          )
+          .then((response) => {
+            resolve(response);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    },
   },
 });

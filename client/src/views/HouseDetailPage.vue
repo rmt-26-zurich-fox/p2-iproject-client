@@ -1,5 +1,6 @@
 <template>
-  <div v-if="house" class="container mt-3">
+  <LoadingSign v-if="isLoading" />
+  <div v-if="house && !isLoading" class="container mt-3">
     <h3>{{ house.name }}</h3>
     <p class="text-muted">{{ house.location }}</p>
     <hr />
@@ -39,13 +40,13 @@
         <h5>Share this house</h5>
         <img :src="qrcode" alt="qrcode" style="height: 100px; border: 5px solid" class="mb-5" />
       </div>
-      <div class="card ms-5 col" style="max-height: 300px">
+      <div class="card ms-5 col shadow" style="max-height: 300px">
         <div class="card-body">
           <label>Night(s): </label>
           <input v-model="night" type="number" class="form-control" />
           <h5 class="card-title mt-5">Total price:</h5>
           <h5 class="card-title">{{ formatPrice }}</h5>
-          <a href="#" class="btn btn-primary mt-3" :class="{ disabled: night < 1 }">Book now</a>
+          <button @click="paymentGenerator" id="pay-button" class="btn btn-primary mt-3 form-control" :class="{ disabled: night < 1 }">Book now</button>
         </div>
       </div>
     </div>
@@ -53,10 +54,15 @@
 </template>
 
 <script>
-import { mapActions } from "pinia";
+import { mapActions, mapWritableState } from "pinia";
 import { useHouseStore } from "../stores/house";
+import LoadingSign from "../components/LoadingSign.vue";
 
 export default {
+  components: {
+    LoadingSign,
+  },
+
   data() {
     return {
       house: "",
@@ -66,15 +72,28 @@ export default {
   },
 
   methods: {
-    ...mapActions(useHouseStore, ["getDetailHouse", 'generateQr']),
+    ...mapActions(useHouseStore, ["getDetailHouse", "paymentHandler", "errorHandler", "generateQr"]),
 
     async fetchDetailHouse() {
+      this.isLoading = true;
       try {
         const data = await this.getDetailHouse(this.$route.params.houseId);
         this.house = data;
-        this.handleQr(this.house.id)
+        this.handleQr(this.house.id);
       } catch (error) {
-        console.log(error);
+        this.errorHandler(error);
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
+    async paymentGenerator() {
+      try {
+        const response = await this.paymentHandler(this.house.price * this.night);
+
+        window.snap.pay(response.data);
+      } catch (error) {
+        this.errorHandler(error);
       }
     },
 
@@ -84,11 +103,13 @@ export default {
         this.qrcode = data.qrcode;
       } catch (error) {
         console.log(error);
-      } 
+      }
     },
   },
 
   computed: {
+    ...mapWritableState(useHouseStore, ["isLoading"]),
+
     formatPrice() {
       if (this.night < 1) {
         return 0;

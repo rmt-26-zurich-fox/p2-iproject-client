@@ -1,5 +1,6 @@
 <template>
-  <div class="container pt-5">
+  <LoadingSign v-if="isLoading" />
+  <div v-if="!isLoading" class="container pt-5">
     <div class="row justify-content-center">
       <div class="col-md-7 col-lg-5">
         <div class="p-4 p-md-5 border">
@@ -45,13 +46,15 @@
 
 <script>
 import ButtonLayout from "../components/ButtonLayout.vue";
-import { mapActions } from "pinia";
+import { mapActions, mapWritableState } from "pinia";
 import { useLoginStore } from "../stores/user";
 import { useHouseStore } from "../stores/house";
+import LoadingSign from "../components/LoadingSign.vue";
 
 export default {
   components: {
     ButtonLayout,
+    LoadingSign,
   },
 
   data() {
@@ -64,26 +67,36 @@ export default {
   },
 
   methods: {
-    ...mapActions(useLoginStore, ["loginSubmission", 'loginGoogle']),
+    ...mapActions(useLoginStore, ["loginSubmission", "loginGoogle"]),
     ...mapActions(useHouseStore, ["errorHandler"]),
 
     async handleLogin() {
+      this.isLoading = true;
       try {
         await this.loginSubmission(this.login);
         this.$router.push("/");
       } catch (error) {
         this.errorHandler(error);
+      } finally {
+        this.isLoading = false;
       }
     },
 
     async handleCredentialResponse(response) {
+      this.isLoading = true;
       try {
         await this.loginGoogle(response);
         this.$router.push("/");
       } catch (error) {
         this.errorHandler(error);
+      } finally {
+        this.isLoading = false;
       }
     },
+  },
+
+  computed: {
+    ...mapWritableState(useHouseStore, ["isLoading"]),
   },
 
   mounted() {

@@ -32,6 +32,7 @@ export const useCustom1Store = defineStore({
                 method: 'GET'
             })
             this.product = data
+            this.router.push(`/product/${id}`)
         } catch (err) {
             console.log(err)
         }

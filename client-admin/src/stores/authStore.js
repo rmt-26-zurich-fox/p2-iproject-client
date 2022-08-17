@@ -33,6 +33,7 @@ export const useAuthStore = defineStore({
 
                 localStorage.setItem("access_token", data.access_token)
 
+                this.router.push({ name: "brands" })
                 this.alertSuccess(data)
             } catch (error) {
                 console.log(error);

@@ -2,7 +2,8 @@
     <main class="main-content">
         <div class="container">
             <div class="breadcrumb">
-                <h2 style="margin:auto">Saved Location</h2>
+                <h2 style="margin:auto" v-if="saved[0]">Saved Location</h2>
+                <h2 style="margin:auto" v-if="!saved[0]">Your Saved Location is Empty!</h2>
             </div>
         </div>
 
@@ -15,6 +16,17 @@
                 </div>
             </div>
         </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
         <br>
         <br>
         <br>

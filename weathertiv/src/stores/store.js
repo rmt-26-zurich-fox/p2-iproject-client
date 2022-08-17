@@ -257,6 +257,33 @@ export const customStore = defineStore({
       }
     },
 
+    //Delete Saved Location
+    async deleteSavedLocation(savedId) {
+      try {
+        this.isLoading = true
+        let deleteSaved = await axios({
+          method: "delete",
+          url: this.baseUrl + `/saved/${savedId}`,
+          headers: {
+            access_token: localStorage.getItem("access_token")
+          }
+        })
+        Swal.fire({
+          icon: 'success',
+          title: 'Location Removed!',
+        })
+          .then(() => {
+            this.fetchSavedLocation()
+            this.isLoading = false
+          })
+      } catch (err) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: err.response.data.message,
+        })
+      }
+    },
 
   }
 })

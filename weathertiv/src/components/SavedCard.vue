@@ -9,7 +9,7 @@
             </button>
             <br>
             <br>
-            <button class="btn btn-danger btn-lg rounded-pill">
+            <button class="btn btn-danger btn-lg rounded-pill" @click="clickRemove(locationProp.id)">
                 Remove from my saved location
             </button>
         </div>
@@ -23,7 +23,12 @@ import { customStore } from '../stores/store';
 export default {
     props: ['locationProp'],
     methods: {
-        ...mapActions(customStore, ["fetchPopularLocationWeather"]),
+        ...mapActions(customStore, ["deleteSavedLocation"]),
+
+        // Click Remove
+        async clickRemove(savedId) {
+            this.deleteSavedLocation(savedId)
+        }
     },
 }
 </script>

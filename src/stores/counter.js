@@ -12,7 +12,7 @@ export const useCounterStore = defineStore({
     role: ""
   }),
   actions: {
-    parseJwt (token) {
+    parseJwt(token) {
       return JSON.parse(atob(token.split('.')[1]));
     },
     async handleLogin(obj) {
@@ -37,9 +37,9 @@ export const useCounterStore = defineStore({
           showConfirmButton: false,
           timer: 1500
         });
+
         this.router.push("/");
       } catch (error) {
-        console.log(error);
         if (error.response.statusText == "Unauthorized") {
           // Error if email/password null
           Swal.fire({
@@ -56,6 +56,44 @@ export const useCounterStore = defineStore({
           });
         }
       }
+    },
+    handleRegister(obj) {
+      // Handle before register
+      Swal.fire({
+        title: 'Do you want to save the changes?',
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+            const {
+              data
+            } = await axios({
+              url: this.baseUrl + "/users/register",
+              method: "post",
+              data: obj
+            });
+
+            // Success Register
+            await Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Register success!',
+              showConfirmButton: false,
+              timer: 1500
+            });
+
+            this.router.push("/login");
+          } catch (error) {
+            // Error bad request (null field)
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: `${error.response.data.error.message}`,
+            });
+          }
+        }
+      });
     }
   },
 });

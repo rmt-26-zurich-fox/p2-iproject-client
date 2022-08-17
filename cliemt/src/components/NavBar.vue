@@ -82,7 +82,7 @@
     min-height: 15px;
     padding: 5px;
     border-radius: 10px;
-    border: rgb(255, 217, 0) solid;
+    border: rgb(153, 153, 153) solid;
     margin-right: 5px;
   }
   .buttonNav {
@@ -108,7 +108,7 @@
     flex-direction: row;
     justify-content: space-between;
     color: white;
-    background-color: rgb(224, 108, 0);
+    background-color: rgb(200, 0, 0);
     font-family: Arial, Helvetica, sans-serif;
     padding: 18px 24px;
     box-shadow: 0 4px 2px -2px rgb(71, 71, 71);

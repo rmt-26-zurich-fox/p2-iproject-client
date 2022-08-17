@@ -4,6 +4,7 @@ import LoginPage from "../views/LoginPage.vue";
 import RegisterPage from "../views/RegisterPage.vue";
 import ProfilePage from "../views/ProfilePage.vue";
 import ExplorePage from "../views/ExplorePage.vue";
+import PostDetailPage from "../views/PostDetailPage.vue";
 import Swal from "sweetalert2";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,6 +34,11 @@ const router = createRouter({
       name: "explore",
       component: ExplorePage,
     },
+    {
+      path: "/post/:id",
+      name: "post_detail",
+      component: PostDetailPage
+    }
   ],
 });
 router.beforeEach((to, from, next) => {

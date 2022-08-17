@@ -6,6 +6,8 @@ export const useCounterStore = defineStore({
   id: "counter",
   state: () => ({
     isLogin: false,
+    dataUserLogin: {},
+
 
   }),
   getters: {},
@@ -21,12 +23,14 @@ export const useCounterStore = defineStore({
             password
           }
         });
-        const { access_token } = data;
+        const { access_token, id } = data;
         localStorage.setItem("access_token", access_token);
         localStorage.setItem("email", data.email);
+        localStorage.setItem("id", id);
         console.log("berhasil login");
         this.isLogin = true;
         this.router.push("/");
+        this.readProfilData();
       } catch (error) {
         console.log(error);
         const msg = error.response.data.message;
@@ -69,5 +73,22 @@ export const useCounterStore = defineStore({
         });
       }
     },
+    async readProfilData() {
+      try {
+        const id = localStorage.getItem("id");
+        console.log(id);
+        const response = await axios({
+          url: `${baseUrl}/profile/${id}`,
+          method: "GET",
+          headers: {
+            access_token: localStorage.getItem("access_token")
+          }
+        });
+        this.dataUserLogin = response.data;
+        console.log(this.dataUserLogin.user);
+      } catch (error) {
+        console.log(error);
+      }
+    }
   },
 });

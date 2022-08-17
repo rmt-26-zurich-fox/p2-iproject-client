@@ -33,7 +33,7 @@ export default {
             <li class="features-cursor-pointer home">Beranda</li></router-link
           >
 
-          <router-link to="/" v-if="isLogin">
+          <router-link to="/profile" v-if="isLogin">
             <li class="features-cursor-pointer home">Profile</li></router-link
           >
           <router-link to="/login"

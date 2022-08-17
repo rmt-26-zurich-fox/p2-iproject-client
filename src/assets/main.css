@@ -1,8 +1,9 @@
 @import "mdb-ui-kit/css/mdb.min.css";
 
 body {
-	background-color: aqua;
+	/* background-color: black; */
 	padding-bottom: 5vh;
+	/* color: white; */
 }
 
 .button-patchnote-first {
@@ -26,4 +27,8 @@ body {
 
 .padding-table {
 	padding-inline: 10px;
+}
+
+.table-style-mantul {
+	border-radius: 5% !important;
 }

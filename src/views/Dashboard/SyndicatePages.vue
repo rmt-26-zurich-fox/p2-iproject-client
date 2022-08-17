@@ -26,12 +26,12 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td colspan="3" class="text-center fw-bold">Cetus</td>
+				<td colspan="3" class="text-center fw-bold text-capitalize">{{ dataBounty.inCategory }}</td>
 			</tr>
 			<tr style="border: 1px solid black">
 				<td class="text-center">Mission</td>
 				<td class="text-center">Bounty</td>
-				<td class="text-end">Level</td>
+				<td class="text-end pe-3">Level</td>
 			</tr>
 			<SyndicateList
 				style="border: 1px solid black"

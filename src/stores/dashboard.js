@@ -1,10 +1,11 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import { server } from "../assets/serverConfig";
-import { parseISO, intervalToDuration } from "date-fns";
+import { parseISO, intervalToDuration, endOfDay } from "date-fns";
 export const dashboard = defineStore({
 	id: "dashboard",
 	state: () => ({
+		//primary
 		primaryData: {
 			news: null,
 			nightwave: null,
@@ -19,11 +20,17 @@ export const dashboard = defineStore({
 			solaris: null,
 			inCategory: "cetus", //cetus / entrati / olaris / zariman
 		},
+		dataCycles: {},
+		//secondary
 		secondaryData: {},
+		//deals
 		dealsData: {},
-		nowDate: new Date(),
 	}),
-	getters: {},
+	getters: {
+		dailyReset() {
+			return endOfDay(new Date()).toISOString();
+		},
+	},
 	actions: {
 		async fetchNews(platform = "pc") {
 			try {
@@ -128,6 +135,18 @@ export const dashboard = defineStore({
 			}
 		},
 
+		async fetchCycles(platform = "pc") {
+			try {
+				const { data } = await axios({
+					method: "get",
+					url: `${server.url}/events/${platform}/cycles`,
+				});
+				this.dataCycles = { ...data };
+			} catch (error) {
+				console.log(error);
+			}
+		},
+
 		//COMPLEMENT FUNCTION
 		countingDown(startFrom, endTo) {
 			//! INPUT TIME IS ISO TIMESTAMP
@@ -156,17 +175,14 @@ export const dashboard = defineStore({
 		timeSince(date) {
 			let dateTime = new Date(date);
 			let timestamp = dateTime.getTime();
-
 			var seconds = Math.floor((new Date() - timestamp) / 1000);
-
 			var interval = seconds / 31536000;
-
 			if (interval > 1) {
-				return Math.floor(interval) + "y";
+				return Math.floor(interval) + "yr";
 			}
 			interval = seconds / 2592000;
 			if (interval > 1) {
-				return Math.floor(interval) + "m";
+				return Math.floor(interval) + "mo";
 			}
 			interval = seconds / 86400;
 			if (interval > 1) {

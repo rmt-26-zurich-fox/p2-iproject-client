@@ -22,7 +22,7 @@
 <template>
 	<!-- {{ primaryData.news[0] }} -->
 
-	<table>
+	<table class="table-style-mantul">
 		<thead>
 			<th colspan="2" class="text-center">NEWS</th>
 		</thead>

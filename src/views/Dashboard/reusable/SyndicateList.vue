@@ -24,7 +24,7 @@
 </script>
 <template>
 	<tr>
-		<td class="padding-custom">
+		<td class="padding-custom ps-3">
 			<span
 				class="button-custom pe-1 w-100"
 				type="button"
@@ -38,7 +38,7 @@
 			<div class="collapse test" :id="`${this.data.id}`" v-html="reward"></div>
 		</td>
 		<td class="text-center">{{ standing }}</td>
-		<td class="text-end">{{ level }}</td>
+		<td class="text-end pe-3">{{ level }}</td>
 	</tr>
 </template>
 

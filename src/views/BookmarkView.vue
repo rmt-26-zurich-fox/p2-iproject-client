@@ -1,11 +1,17 @@
-<template></template>
+<template>
+  <MovieList :data="unwatched" title="Unwatched" />
+  <MovieList :data="currentlyWatch" title="Currently watch" />
+  <MovieList :data="watched" title="Watched" />
+</template>
 
 <script>
+import MovieList from "../components/MovieList.vue";
 import axios from "axios";
 import { mapState, mapActions } from "pinia";
 import { useGlobalStore } from "../stores/globalStore";
 
 export default {
+  components: { MovieList },
   data() {
     return {
       currentlyWatch: [],

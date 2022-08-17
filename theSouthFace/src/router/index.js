@@ -13,6 +13,12 @@ const router = createRouter({
       name: 'HomePage',
       component: ()=> import ('../views/HomePage.vue')
     },
+    {
+      path: '/simulate',
+      name: 'Simulationpage',
+      component: ()=> import ('../views/SimulationPage.vue')
+    },
+
 
   ]
 })

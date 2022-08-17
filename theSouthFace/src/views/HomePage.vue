@@ -1,5 +1,5 @@
 <template>
-  <div class="containerHome mt-100">
+  <div class="containerHome">
     <div class="row">
       <div
         class="col-md-4 col-sm-6"
@@ -15,7 +15,11 @@
             </div>
           </a>
           <div class="card-body text-center">
-            <h4 class="card-title">{{ element.name }}</h4>
+            <h4 class="card-title" v-if="element.type==='prebuilt'"> Prebuilt: {{ element.name }}</h4>
+            <h4 class="card-title" v-if="element.type==='barebones'"> Barebones: {{ element.name }}</h4>
+            <h4 class="card-title" v-if="element.type==='switch'"> Switch: {{ element.name }}</h4>
+            <h4 class="card-title" v-if="element.type==='addon'"> Add-on: {{ element.name }}</h4>
+            <h4 class="card-title" v-if="element.type==='keycaps'"> Keycaps: {{ element.name }}</h4>
             <p>
               {{
                 element.price.toLocaleString("id-ID", {
@@ -58,7 +62,10 @@ export default {
 
 <style>
 .containerHome {
-  margin-top: 100px;
+  margin-top: 20px;
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
 }
 .card {
   width: 30rem;
@@ -73,9 +80,9 @@ export default {
 .mb-30 {
   margin-bottom: 30px !important;
 }
-.btn{
-    width : 150px;
-    margin-left: 0.5em;
+.btn {
+  width: 150px;
+  margin-left: 0.5em;
 }
 
 .card-img-tiles {
@@ -95,14 +102,13 @@ export default {
   display: table-cell;
   width: auto;
   padding: 15px;
-  vertical-align: middle;
 }
 
 .card-img-tiles .main-img > img:last-child,
 .card-img-tiles .thumblist > img:last-child {
-  height: fit-content;
-  justify-content: baseline;
   margin-bottom: 0;
+  border-radius: 10px;
+  min-height: 300px;
 }
 
 .card-img-tiles .main-img > img,
@@ -110,6 +116,7 @@ export default {
   display: block;
   width: 100%;
   margin-bottom: 6px;
+
 }
 .thumblist {
   width: 35%;

@@ -4,7 +4,6 @@
   <router-view v-if="this.$route.name === 'checkout'" />
 
   <div class="flex">
-    <!-- <SideBar> -->
     <SideBar v-if="this.$route.name === 'shop'" />
     <main class="flex-1" :class="[this.$route.name === 'shop' ? 'ml-40' : '']">
       <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">

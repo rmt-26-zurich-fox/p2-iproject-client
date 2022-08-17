@@ -8,6 +8,7 @@ import ParentView from "../views/ParentView.vue";
 import HomePage from "../views/HomePage.vue";
 import FormComponent from "../components/FormComponent.vue";
 import SearchSongPage from "../views/SearchSongPage.vue";
+import ReviewPage from "../views/ReviewPage.vue";
 import Swal from "sweetalert2";
 
 const router = createRouter({
@@ -64,7 +65,12 @@ const router = createRouter({
             }
           },
           component: SearchSongPage
-        }
+        },
+        {
+          path: "/reviews/:id",
+          name: "Review Page",
+          component: ReviewPage
+        },
       ]
     },
     {

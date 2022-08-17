@@ -16,6 +16,7 @@ export default {
         DataReviews,
         PaginationNum,
         LoadingComponent
+
     },
     async created() {
         let obj;

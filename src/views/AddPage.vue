@@ -72,7 +72,6 @@ export default{
           }
         });
           // customer will be redirected after completing payment pop-up
-        
         }
     },
    

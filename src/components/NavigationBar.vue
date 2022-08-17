@@ -38,6 +38,7 @@
 
 </template>
 <script>
+import Swal from "sweetalert2"
 import { mapWritableState, mapActions } from 'pinia'
 import { useCounterStore } from '../stores/counter'
 export default{
@@ -69,6 +70,11 @@ export default{
             localStorage.clear()
             this.$router.push('/login')
             this.tabs= 'notLogin'
+            Swal.fire({
+                icon: 'success',
+                title: 'Log Out Success',
+                text: 'Enjoy your day'
+            })
         }
     },
      computed: {

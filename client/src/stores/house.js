@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
-import Swal from "sweetalert2"
+import Swal from "sweetalert2";
+import housesInstance from "../apis/house";
 
 export const useHouseStore = defineStore({
   id: "house",
@@ -19,6 +20,23 @@ export const useHouseStore = defineStore({
         icon: "error",
         title: `${response.status}: ${response.statusText}`,
         text: message,
+      });
+    },
+
+    getAllHouses() {
+      return new Promise((resolve, reject) => {
+        housesInstance
+          .get("houses", {
+            headers: {
+              access_token: localStorage.getItem("access_token"),
+            },
+          })
+          .then(({ data }) => {
+            console.log(data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       });
     },
   },

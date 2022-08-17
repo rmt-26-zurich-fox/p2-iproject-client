@@ -96,6 +96,8 @@ export default {
 
     submit() {
       this.createThread(this.title, this.content).then(() => {
+        this.title = "";
+        this.content = "";
         this.show = false;
       });
     },

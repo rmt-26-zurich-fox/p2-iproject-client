@@ -35,8 +35,13 @@
 import { mapActions } from "pinia";
 import { mapState } from "pinia";
 import { productStore } from "../stores/product";
+import { useToast } from "vue-toastification";
 
 export default {
+  setup() {
+    const toast = useToast();
+    return { toast };
+  },
   props: ["cake"],
 
   computed: {
@@ -69,11 +74,11 @@ export default {
       } else {
         this.createCart(this.cake.id)
           .then((response) => {
-            console.log(response.data.message);
+            this.toast.success(response.data.message);
             this.fetchCart();
           })
           .catch((err) => {
-            console.log(err);
+            this.toast.error(err.response.data.message[0]);
           });
       }
     },

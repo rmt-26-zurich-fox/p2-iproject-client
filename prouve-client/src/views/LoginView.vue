@@ -86,8 +86,14 @@
 <script>
 import { mapActions } from "pinia";
 import { productStore } from "../stores/product";
+import { useToast } from "vue-toastification";
 
 export default {
+  setup() {
+    const toast = useToast();
+    return { toast };
+  },
+
   data() {
     return {
       email: "",
@@ -107,7 +113,7 @@ export default {
           this.$router.push({ name: "shop" });
         })
         .catch((err) => {
-          console.log(err.response.data.message[0]);
+          this.toast.error(err.response.data.message[0]);
         });
     },
   },

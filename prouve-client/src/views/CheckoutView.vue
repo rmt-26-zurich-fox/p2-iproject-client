@@ -103,8 +103,13 @@ import CheckoutCard from "../components/CheckoutCard.vue";
 import { mapState } from "pinia";
 import { mapActions } from "pinia";
 import { productStore } from "../stores/product";
+import { useToast } from "vue-toastification";
 
 export default {
+  setup() {
+    const toast = useToast();
+    return { toast };
+  },
   components: { CheckoutCard },
 
   methods: {
@@ -119,6 +124,7 @@ export default {
           onSuccess: () => {
             this.removeCheckout().then(() => {
               this.$router.push({ name: "shop" });
+              this.toast.success("Thank you for your purchase !");
             });
           },
         });

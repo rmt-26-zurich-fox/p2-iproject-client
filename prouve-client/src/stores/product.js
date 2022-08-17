@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export const productStore = defineStore({
   id: "product",
@@ -53,6 +54,32 @@ export const productStore = defineStore({
       });
     },
 
+    errorHandler(error) {
+      if (error.response.data.message[0] === "Invalid token") {
+        Swal.fire({
+          title: "Error!",
+          html: error.response.data.message.join("<br>"),
+          icon: "error",
+          confirmButtonText: "OK",
+        }).then((data) => {
+          if (data.isConfirmed) {
+            localStorage.clear();
+            this.isLoading = false;
+            this.router.push({
+              name: "login",
+            });
+          }
+        });
+      } else {
+        Swal.fire({
+          title: "Error!",
+          html: error.response.data.message.join("<br>"),
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+      }
+    },
+
     async fetchCart() {
       try {
         this.isLoading = true;
@@ -66,7 +93,7 @@ export const productStore = defineStore({
         this.cart = response.data;
         this.isLoading = false;
       } catch (error) {
-        console.log(error.response);
+        this.errorHandler(error);
       }
     },
 
@@ -86,7 +113,7 @@ export const productStore = defineStore({
         this.fetchCart();
         this.isLoading = false;
       } catch (error) {
-        console.log(error.response);
+        this.errorHandler(error);
       }
     },
 
@@ -101,10 +128,9 @@ export const productStore = defineStore({
           },
         });
         this.fetchCart();
-        console.log(response.data);
         this.isLoading = false;
       } catch (error) {
-        console.log(error.response);
+        this.errorHandler(error);
       }
     },
 
@@ -121,7 +147,7 @@ export const productStore = defineStore({
         this.paymentToken = response.data.trans_token;
         this.isLoading = false;
       } catch (error) {
-        console.log(error.response);
+        this.errorHandler(error);
       }
     },
 
@@ -135,10 +161,9 @@ export const productStore = defineStore({
             access_token: localStorage.getItem("access_token"),
           },
         });
-        console.log(response.data);
         this.isLoading = false;
       } catch (error) {
-        console.log(error.response);
+        this.errorHandler(error);
       }
     },
 
@@ -155,7 +180,7 @@ export const productStore = defineStore({
         this.recipes = response.data;
         this.isLoading = false;
       } catch (error) {
-        console.log(error.response);
+        this.errorHandler(error);
       }
     },
 
@@ -175,7 +200,7 @@ export const productStore = defineStore({
         });
         this.isLoading = false;
       } catch (error) {
-        console.log(error.response);
+        this.errorHandler(error);
       }
     },
 
@@ -189,7 +214,7 @@ export const productStore = defineStore({
         this.recipeById = response.data;
         this.isLoading = false;
       } catch (error) {
-        console.log(error.response);
+        this.errorHandler(error);
       }
     },
 
@@ -206,7 +231,7 @@ export const productStore = defineStore({
         this.cakes = response.data;
         this.isLoading = false;
       } catch (error) {
-        console.log(error.response);
+        this.errorHandler(error);
       }
     },
 
@@ -226,7 +251,7 @@ export const productStore = defineStore({
         });
         this.isLoading = false;
       } catch (error) {
-        console.log(error.response);
+        this.errorHandler(error);
       }
     },
 
@@ -240,7 +265,7 @@ export const productStore = defineStore({
         this.threads = response.data;
         this.isLoading = false;
       } catch (error) {
-        console.log(error.response);
+        this.errorHandler(error);
       }
     },
 
@@ -254,7 +279,13 @@ export const productStore = defineStore({
         this.threadById = response.data;
         this.isLoading = false;
       } catch (error) {
-        console.log(error.response);
+        if (error.response.data.message[0] === "Data not found") {
+          this.router.push({
+            name: "shop",
+          });
+        } else {
+          this.errorHandler(error);
+        }
       }
     },
 
@@ -275,7 +306,7 @@ export const productStore = defineStore({
         this.fetchThread();
         this.isLoading = false;
       } catch (error) {
-        console.log(error.response);
+        this.errorHandler(error);
       }
     },
 
@@ -296,7 +327,7 @@ export const productStore = defineStore({
         this.fetchReply(ThreadId);
         this.isLoading = false;
       } catch (error) {
-        console.log(error.response);
+        this.errorHandler(error);
       }
     },
 
@@ -310,7 +341,7 @@ export const productStore = defineStore({
         this.replies = response.data;
         this.isLoading = false;
       } catch (error) {
-        console.log(error.response);
+        this.errorHandler(error);
       }
     },
 
@@ -328,7 +359,7 @@ export const productStore = defineStore({
         await this.fetchCart();
         this.router.push({ name: "shop" });
       } catch (error) {
-        console.log(error);
+        this.errorHandler(error);
       }
     },
   },

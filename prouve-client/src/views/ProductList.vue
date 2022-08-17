@@ -50,15 +50,6 @@ export default {
       };
     },
   },
-
-  beforeUpdate() {
-    console.log("before list");
-  },
-
-  updated() {
-    console.log("update list");
-  },
-
   beforeMount() {
     if (localStorage.access_token) {
       this.isLogin = true;
@@ -68,13 +59,11 @@ export default {
     } else {
       this.fetchProduct(this.$route.query);
     }
-    console.log("beforemount");
 
     this.initialPage = 2;
   },
 
   mounted() {
-    console.log("mounted");
     this.getNextProduct();
   },
 };

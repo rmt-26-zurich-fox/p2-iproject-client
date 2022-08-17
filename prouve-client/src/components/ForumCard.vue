@@ -23,7 +23,6 @@
             <span class="text-base text-gray-800">
               {{ thread.User.userName }}
             </span>
-            <span class="text-base text-gray-800 ml-5"> 5 Replies </span>
             <span class="text-base text-gray-800 float-right">
               {{ dateTime }}
             </span>

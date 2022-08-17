@@ -1,16 +1,22 @@
 <template>
-  <div class="card">
-    <div class="card-header">
-      <h2>ini judul</h2>
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <h4>{{ surah.asma.id.long }}</h4>
+      </div>
+      <div class="card-content">
+        <h5>{{ surah.type.id }}</h5>
+      </div>
+      <div class="card-footer">
+        <h6>Jumlah Ayat : {{ surah.ayahCount }}</h6>
+      </div>
     </div>
-    <div class="card-content">
-      <h3>ini content dikit</h3>
-    </div>
-    <div class="card-footer">
-      <h4>ini footer</h4>
-    </div>    
   </div>
+
 </template>
 
 <script>
+export default {
+  props: ['surah'],
+}
 </script>

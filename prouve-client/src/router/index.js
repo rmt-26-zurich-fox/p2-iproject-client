@@ -7,6 +7,7 @@ import RecipePreview from "../views/RecipePreview.vue";
 import RecipeDetail from "../views/RecipeDetail.vue";
 import ForumView from "../views/ForumView.vue";
 import ThreadDetail from "../views/ThreadDetail.vue";
+import CheckoutView from "../views/CheckoutView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -60,6 +61,11 @@ const router = createRouter({
       path: "/forum/:threadId",
       name: "thread",
       component: ThreadDetail,
+    },
+    {
+      path: "/checkout",
+      name: "checkout",
+      component: CheckoutView,
     },
   ],
 });

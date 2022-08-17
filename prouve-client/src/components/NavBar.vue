@@ -17,7 +17,7 @@
             src="https://img.icons8.com/external-those-icons-fill-those-icons/48/000000/external-User-users-those-icons-fill-those-icons-5.png"
           />
         </a>
-        <a href="">
+        <a href="" @click.prevent="changePage('checkout')">
           <img
             class="w-6 ml-3"
             src="https://img.icons8.com/ios-glyphs/60/000000/shopping-cart--v1.png"
@@ -102,7 +102,15 @@ export default {
     },
 
     changePage(page) {
-      this.$router.push({ name: page });
+      if (page === "checkout") {
+        if (!localStorage.access_token) {
+          this.$router.push({ name: "login" });
+        } else {
+          this.$router.push({ name: page });
+        }
+      } else {
+        this.$router.push({ name: page });
+      }
     },
   },
 };

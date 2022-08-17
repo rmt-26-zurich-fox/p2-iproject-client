@@ -20,13 +20,13 @@
       <div class="flex items-center mt-2.5 mb-5"></div>
       <div class="flex justify-between items-center">
         <span class="text-l font-semibold text-gray-900">{{ priceIDR }}</span>
-        <template>
-          <a
-            href=""
-            class="text-white hover:bg-gray-300 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm text-center"
-            >ICON BUY / WISHLIST</a
-          >
-        </template>
+        <a
+          href=""
+          class="text-white hover:bg-green-100 font-medium rounded-lg text-sm text-center"
+          ><img
+            class="w-6"
+            src="https://img.icons8.com/pastel-glyph/64/000000/shopping-basket-2--v2.png"
+        /></a>
       </div>
     </div>
   </div>

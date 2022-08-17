@@ -20,7 +20,7 @@ export const customStore = defineStore({
       iconnext: "",
       tempnext: "",
       icon2next: "",
-      temp2next: ""
+      temp2next: "",
     },
     popularWeather: {
       date: "",
@@ -33,7 +33,7 @@ export const customStore = defineStore({
       iconnext: "",
       tempnext: "",
       icon2next: "",
-      temp2next: ""
+      temp2next: "",
     },
   }),
   actions: {

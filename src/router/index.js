@@ -39,6 +39,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const access_token = localStorage.access_token;
+  if (to.path == "/") return next("/home");
   if ((to.name == "login" || to.name == "register") && access_token)
     return next("/home");
   if ((to.name !== "login" || to.name == "register") && !access_token)

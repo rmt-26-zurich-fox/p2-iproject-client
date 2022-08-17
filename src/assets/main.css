@@ -223,28 +223,29 @@ main .movie-list .cards .img img:hover {
   margin: 20px auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   width: 90%;
 }
 
-.detail div.content {
+.detail .content {
+  width: 100%;
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 0 15px black;
-}
-
-.detail div:nth-child(1) {
   display: flex;
   flex-direction: row;
 }
 
-.detail div:nth-child(1) div:nth-child(2) {
-  padding: 20px;
+.detail div:nth-child(1) .img {
+  flex: 1;
+  aspect-ratio: 4/6;
 }
 
-.detail div:nth-child(1) .img {
-  width: 600px;
-  aspect-ratio: 4/6;
+.detail div:nth-child(1) div:nth-child(2) {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
 }
 
 .detail div:nth-child(1) .img img {
@@ -253,13 +254,25 @@ main .movie-list .cards .img img:hover {
 
 .detail div:nth-child(1) .genre a {
   font-size: 11px;
+  margin-right: 3px;
   padding: 3px 8px;
   border-radius: 10px;
   background-color: var(--secondary);
 }
 
+.detail div:nth-child(1) div button {
+  background-color: var(--primary);
+  align-self: flex-start;
+  margin-top: auto;
+  color: var(--dark);
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: none;
+}
+
 .trailer {
-  width: 1280px;
+  width: 100%;
+  max-width: 1280px;
   aspect-ratio: 16/9;
 }
 
@@ -295,12 +308,26 @@ footer div:nth-child(3) button {
   main .movie-all {
     width: 80vw;
   }
+  .detail {
+    width: 100%;
+  }
+
+  .detail div:nth-child(1) .img {
+    flex: 1;
+  }
+  .detail div:nth-child(1) div:nth-child(2) {
+    flex: 1;
+  }
+
   .trailer {
     width: 100%;
   }
 }
 
 @media only screen and (max-width: 767px) {
+  header{
+    padding: 10px 5px;
+  }
   main .search {
     max-width: none;
   }
@@ -309,5 +336,9 @@ footer div:nth-child(3) button {
   }
   main .movie-all {
     width: 100%;
+  }
+  .detail .content {
+    display: flex;
+    flex-direction: column;
   }
 }

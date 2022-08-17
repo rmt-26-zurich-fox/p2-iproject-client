@@ -7,7 +7,9 @@
       type="text"
     />
     <button @click="$emit('search', keyword)" class="rounded">Search</button>
-    <button @click="$emit('clear')" class="rounded">Clear</button>
+    <button @click="$emit('clear'), (keyword = '')" class="rounded">
+      Clear
+    </button>
   </div>
 </template>
 

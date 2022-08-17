@@ -15,7 +15,10 @@
         <div class="genre">
           <a v-for="el in detail.genres" :key="el.id">{{ el.name }}</a>
         </div>
-        <a target="_blank" :href="detail.homepage">Visit official website </a>
+        <a v-if="detail.homepage" target="_blank" :href="detail.homepage"
+          >Visit official website
+        </a>
+        <button @click="$router.go(-1)">Back</button>
       </div>
     </div>
     <!-- <div class="content">3</div> -->

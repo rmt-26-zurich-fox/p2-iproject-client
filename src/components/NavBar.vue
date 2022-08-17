@@ -3,21 +3,50 @@ import { RouterLink } from 'vue-router';
 import { useCounterStore } from '../stores/counter';
 import { mapActions, mapState } from 'pinia';
 import { createPopper } from "@popperjs/core";
+import DropdownButton from './DropdownButton.vue';
 
 export default {
     data() {
         return {
-            dropdownPopoverShow: false
-        }
+            dropdownPopoverShow: false,
+            dropdownPopoverShowLogout: false,
+            search: ""
+        };
     },
     methods: {
-        ...mapActions(useCounterStore, ["handleLogout"]),
+        ...mapActions(useCounterStore, ["handleLogout", "fetchCategories"]),
         logout() {
             this.handleLogout();
+        },
+        toggleDropdown: function () {
+            if (this.dropdownPopoverShow) {
+                this.dropdownPopoverShow = false;
+            } else {
+                this.dropdownPopoverShow = true;
+                createPopper(this.$refs.btnDropdownRef, this.$refs.popoverDropdownRef, {
+                    placement: "bottom-start"
+                });
+            }
+        },
+        toggleDropdownLogout: function () {
+            if (this.dropdownPopoverShowLogout) {
+                this.dropdownPopoverShowLogout = false;
+            } else {
+                this.dropdownPopoverShowLogout = true;
+                createPopper(this.$refs.btnDropdownRefLogout, this.$refs.popoverDropdownRefLogout, {
+                    placement: "bottom-start"
+                });
+            }
         }
     },
     computed: {
-        ...mapState(useCounterStore, ["username", "isLogin"])
+        ...mapState(useCounterStore, ["username", "isLogin", "categories"])
+    },
+    components: {
+        DropdownButton
+    },
+    async created() {
+        await this.fetchCategories();
     }
 }
 </script>
@@ -43,9 +72,9 @@ export default {
                                     </svg>
                                 </span>
 
-                                <input type="text"
+                                <input type="text" v-if="$route.fullPath != '/songs'"
                                     class="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border rounded-md focus:border-blue-400 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300"
-                                    placeholder="Search">
+                                    placeholder="Search" v-model="search">
                             </div>
                         </div>
                     </div>
@@ -73,17 +102,45 @@ export default {
                             href="#">Search Songs!</a>
                     </div>
 
+                    <!-- Dropdown Button -->
+                    <button
+                        class="my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform md:mx-4 md:my-0 font-bold  rounded-lg  px-4 py-2.5 text-center inline-flex items-center"
+                        type="button" v-on:click="toggleDropdown()" ref="btnDropdownRef"> Review <svg class="h-4"
+                            aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
+                    </button>
+                    <div v-bind:class="{ 'hidden': !dropdownPopoverShow, 'block': dropdownPopoverShow }"
+                        class="bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
+                        style="min-width:12rem" ref="popoverDropdownRef">
+                        <DropdownButton v-for="category in categories" :key="category.id" :category="category" />
+                    </div>
+
                     <!-- Login/Logout/Username -->
                     <div class="flex flex-col mt-2 md:flex-row md:mt-0 md:mx-1">
                         <RouterLink to="/login"><a v-if="!isLogin"
-                                class="my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform md:mx-4 md:my-0 font-bold"
+                                class="my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform md:my-0 font-bold px-4 py-2.5 text-center inline-flex items-center"
                                 href="#">Login</a></RouterLink>
-                        <a v-if="isLogin"
-                            class="my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform md:mx-4 md:my-0 font-bold"
-                            href="#" @click.prevent="logout">Logout</a>
-                        <P v-if="isLogin"
-                            class="block w-1/2 px-3 py-2 mx-1 text-sm font-medium leading-5 text-center text-gray-700 transition-colors duration-200 transform bg-gray-300 rounded-md md:mx-0 md:w-auto">
-                            Hello, {{ username }}</p>
+                        <button v-if="isLogin"
+                            class="my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform md:my-0 font-bold px-4 py-2.5 text-center inline-flex items-center bg-gray-300 rounded-md md:mx-0 md:w-auto"
+                            type="button" v-on:click="toggleDropdownLogout()" ref="btnDropdownRefLogout"> Hello, {{
+                                    username
+                            }} <svg class="h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7">
+                                </path>
+                            </svg>
+                        </button>
+                        <div v-bind:class="{ 'hidden': !dropdownPopoverShowLogout, 'block': dropdownPopoverShowLogout }"
+                            class="bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
+                            style="min-width:12rem" ref="popoverDropdownRefLogout">
+                            <a v-if="isLogin"
+                                class="my-1 text-sm leading-5 text-gray-700 transition-colors duration-200 transform md:mx-4 md:my-0 font-bold"
+                                href="#" @click.prevent="logout">Logout</a>
+                        </div>
                     </div>
 
                     <!-- Search input on mobile screen -->
@@ -98,9 +155,9 @@ export default {
                                 </svg>
                             </span>
 
-                            <input type="text"
+                            <input type="text" v-if="$route.fullPath != '/songs'"
                                 class="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300"
-                                placeholder="Search">
+                                placeholder="Search" v-model="search">
                         </div>
                     </div>
                 </div>

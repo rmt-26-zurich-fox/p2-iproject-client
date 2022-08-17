@@ -10,6 +10,7 @@ export const useCounterStore = defineStore({
     baseUrl: "http://localhost:3000",
     isLogin: false,
     username: "",
+    categories: []
   }),
   actions: {
     parseJwt(token) {
@@ -56,6 +57,17 @@ export const useCounterStore = defineStore({
             text: `${error.response.data.error.message}`,
           });
         }
+      }
+    },
+    async fetchCategories() {
+      try {
+        const { data } = await axios({
+          url: this.baseUrl + "/categories",
+          method: "get"
+        });
+        this.categories = data.categories;
+      } catch (error) { 
+        console.log(error);
       }
     },
     handleRegister(obj) {

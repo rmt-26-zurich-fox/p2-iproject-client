@@ -6,7 +6,7 @@ import housesInstance from "../apis/house";
 export const useHouseStore = defineStore({
   id: "house",
   state: () => ({
-    isLoading: false
+    isLoading: false,
   }),
   actions: {
     errorHandler(error) {
@@ -102,6 +102,27 @@ export const useHouseStore = defineStore({
         })
           .then(() => {
             resolve();
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    },
+
+    paymentHandler(amount) {
+      return new Promise((resolve, reject) => {
+        housesInstance
+          .post(
+            "houses/midtrans",
+            { amount },
+            {
+              headers: {
+                access_token: localStorage.getItem("access_token"),
+              },
+            }
+          )
+          .then((response) => {
+            resolve(response);
           })
           .catch((err) => {
             reject(err);

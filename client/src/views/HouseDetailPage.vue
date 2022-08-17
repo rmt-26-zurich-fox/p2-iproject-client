@@ -43,7 +43,7 @@
           <input v-model="night" type="number" class="form-control" />
           <h5 class="card-title mt-5">Total price:</h5>
           <h5 class="card-title">{{ formatPrice }}</h5>
-          <a href="#" class="btn btn-primary mt-3" :class="{ disabled: night < 1 }">Book now</a>
+          <button @click="paymentGenerator" id="pay-button" class="btn btn-primary mt-3" :class="{ disabled: night < 1 }">Book now</button>
         </div>
       </div>
     </div>
@@ -68,7 +68,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(useHouseStore, ["getDetailHouse", "errorHandler"]),
+    ...mapActions(useHouseStore, ["getDetailHouse", 'paymentHandler', "errorHandler"]),
 
     async fetchDetailHouse() {
       this.isLoading = true;
@@ -79,6 +79,16 @@ export default {
         this.errorHandler(error);
       } finally {
         this.isLoading = false;
+      }
+    },
+
+    async paymentGenerator() {
+      try {
+        const response = await this.paymentHandler(this.house.price * this.night)
+
+        window.snap.pay(response.data);
+      } catch (error) {
+        this.errorHandler(error)
       }
     },
   },

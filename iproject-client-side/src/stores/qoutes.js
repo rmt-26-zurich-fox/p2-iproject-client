@@ -31,7 +31,15 @@ export const useQuoteStore = defineStore({
 
     entity: false,
 
-    totalPages: 0
+    totalPages: 0,
+    
+    allUser: {
+      username: '',
+      email: '',
+      password: '',
+      phoneNumber: '',
+      address: ''
+    }
 
   }),
 
@@ -87,7 +95,34 @@ export const useQuoteStore = defineStore({
 
     },
 
-    async handleRegister(){},
+    async handleRegister(value){
+
+      this.allUser = value
+
+      try {
+
+        const { data } = await axios({
+          method: 'post',
+          url: this.baseUrl + '/users/register',
+          data: {
+            username: this.allUser.username,
+            email: this.allUser.email,
+            password: this.allUser.password,
+            phoneNumber: this.allUser.phoneNumber,
+            address: this.allUser.address
+          }
+        })
+
+        this.router.push('/login')
+        swall('Success', 'Success', 'success')
+        
+      } catch (error) {
+
+        console.log(error)
+        // swall('Error', error, 'error')
+        
+      }
+    },
 
     async fetchQuotes(page = 0){
 

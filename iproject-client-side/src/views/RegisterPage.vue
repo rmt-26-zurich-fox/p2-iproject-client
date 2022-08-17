@@ -85,6 +85,8 @@
   </div>
 </template>
 <script>
+import { mapActions } from 'pinia';
+import { useQuoteStore } from '../stores/qoutes';
 
 export default {
   data() {
@@ -96,22 +98,22 @@ export default {
       registerAddress: "",
     };
   },
-//   methods: {
-//     ...mapActions(useStore, ["registerHandler"]),
-//     onRegisterHandler() {
-//       this.registerHandler({
-//         username: this.registerUsername,
-//         email: this.registerEmail,
-//         password: this.registerPassword,
-//         phoneNumber: this.registerPhonenumber,
-//         address: this.registerAddress,
-//       });
-//     },
-//   },
-  // mounted(){
-  //     if(localStorage.getItem('access_token')){
-  //             this.$router.push('/login')
-  //         }
-  // }
+  methods: {
+    ...mapActions(useQuoteStore, ['handleRegister']),
+    onRegisterHandler() {
+      this.handleRegister({
+        username: this.registerUsername,
+        email: this.registerEmail,
+        password: this.registerPassword,
+        phoneNumber: this.registerPhonenumber,
+        address: this.registerAddress,
+      });
+    },
+  },
+  mounted(){
+      if(localStorage.getItem('access_token')){
+              this.$router.push('/login')
+          }
+  }
 };
 </script>

@@ -46,6 +46,28 @@ export const useUserStore = defineStore({
             } catch (error) {
                 this.alertError(error)
             }
-        }
+        },
+        async addUser(obj) {
+            try {
+                const { data } = await axiosInstance({
+                    method: "POST",
+                    url: "/users",
+                    headers: {
+                        access_token: localStorage.access_token,
+                    },
+                    data: {
+                        username: obj.username,
+                        email: obj.email,
+                        password: obj.password,
+                        role: obj.role
+                    }
+                })
+
+                this.router.push({ name: "users" })
+                this.alertSuccess(data)
+            } catch (error) {
+                this.alertError(error)
+            }
+        },
     }
 })

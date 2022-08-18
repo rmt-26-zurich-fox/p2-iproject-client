@@ -8,6 +8,7 @@ import ProductList from '@/views/product/ProductList.vue'
 import ProductForm from '@/views/product/ProductForm.vue'
 import ProductDetail from '@/views/product/ProductDetail.vue'
 import ListUser from '@/views/user/ListUser.vue'
+import UserForm from '@/views/user/UserForm.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -65,6 +66,11 @@ const router = createRouter({
           path: 'users',
           name: "users",
           component: ListUser
+        },
+        {
+          path: 'users/create',
+          name: "createUser",
+          component: UserForm
         },
       ]
     }

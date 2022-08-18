@@ -59,6 +59,9 @@ export default {
                     <li>
                         <RouterLink to="/users">User List</RouterLink>
                     </li>
+                    <li>
+                        <RouterLink to="/users/create">Add User</RouterLink>
+                    </li>
                 </ul>
             </li>
         </ul>

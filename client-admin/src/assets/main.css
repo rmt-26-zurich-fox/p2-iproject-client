@@ -1,0 +1,147 @@
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
+/* style body */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #fafafa;
+}
+
+/* style ancor */
+a,
+a:hover,
+a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+    border-radius: 10px;
+}
+
+/* style navbar button */
+.navbar-btn {
+    box-shadow: none;
+    outline: none !important;
+    border: none;
+}
+
+/* style app */
+.app {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+    height: 100vh;
+}
+
+/* style main */
+#main {
+    width: 100%;
+}
+
+/* style sidebar */
+#sidebar {
+    min-width: 300px;
+    max-width: 300px;
+    background-color: white;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+#sidebar.active {
+    margin-left: -300px;
+}
+
+#sidebar .sidebar-header {
+    background: #EA9FA3;
+    height: 69px;
+}
+
+#sidebar ul.components {
+    padding: 20px 10px;
+    /* border-bottom: 1px solid #47748b; */
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    margin: 10px;
+    padding: 15px 20px;
+    font-size: 1.1em;
+    display: block;
+    background-color: #fff2f3;
+    color: #ff9fa9
+}
+
+#sidebar ul li i {
+    margin: 10px;
+}
+
+#sidebar ul li a:hover {
+    color: white;
+    background: #EA9FA3;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#sidebar ul li.active>a,
+a[aria-expanded="true"] {
+    color: black;
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: #EA9FA3;
+    font-size: medium;
+}
+
+#sidebarCollapse {
+    border-style: solid;
+    border-color: #EA9FA3;
+    color: #EA9FA3
+}
+
+#sidebarCollapse:hover {
+    background-color: #EA9FA3;
+    color: #fff
+}
+
+.button-pink-outline {
+    border-style: solid;
+    border-color: #EA9FA3;
+    color: #EA9FA3
+}
+
+.button-pink-outline:hover {
+    background-color: #EA9FA3;
+    color: #fff
+}
+
+.button-pink {
+    background-color: #EA9FA3;
+    color: #fff
+}
+
+#content {
+    background-color: #fff2f3;
+    padding: 50px;
+    height: 680px;
+}
+
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -300px;
+    }
+
+    #sidebar.active {
+        margin-left: 0;
+    }
+
+    #sidebarCollapse span {
+        display: none;
+    }
+}

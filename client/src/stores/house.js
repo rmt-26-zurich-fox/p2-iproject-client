@@ -132,16 +132,16 @@ export const useHouseStore = defineStore({
 
     paymentHandler(amount) {
       return new Promise((resolve, reject) => {
-        housesInstance
-          .post(
-            "houses/midtrans",
-            { amount },
-            {
-              headers: {
-                access_token: localStorage.getItem("access_token"),
-              },
-            }
-          )
+          housesInstance
+            .post(
+              "houses/midtrans",
+              { amount },
+              {
+                headers: {
+                  access_token: localStorage.getItem("access_token"),
+                },
+              }
+            )
           .then((response) => {
             resolve(response);
           })

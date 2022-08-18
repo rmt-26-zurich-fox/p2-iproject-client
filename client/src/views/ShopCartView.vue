@@ -82,7 +82,7 @@ export default{
         </tfoot>
     </table>
     <div class="w-full flex">
-        <router-link to="/payment" class="bg-[#ACB999] rounded-lg p-4 mt-5 mx-auto">Check Out</router-link>
+        <router-link to="/courier" class="bg-[#ACB999] rounded-lg p-4 mt-5 mx-auto">Check Out</router-link>
 
     </div>
 </div>

@@ -76,6 +76,7 @@ export const useCustom2Store = defineStore({
 
             this.shoppingCarts = data
             Swal.close()
+
         } catch (err) {
             this.errAlert(err)
         }
@@ -91,7 +92,6 @@ export const useCustom2Store = defineStore({
                 confirmButtonText: 'Yes, delete it!'
               }).then((result) => {
                 if (result.isConfirmed) {
-                    this.loading()
                     const {data} =  axios({
                         url:`${this.url}/shoppingcarts/${id}`,
                         method:"Delete",
@@ -103,7 +103,9 @@ export const useCustom2Store = defineStore({
                     'Your file has been deleted.',
                     'success'
                   )
+                  this.fetchCart()
                   this.router.push('/shoppingcart')
+                  
                 }
               })
         } catch (err) {

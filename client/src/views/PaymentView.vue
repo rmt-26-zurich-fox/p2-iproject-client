@@ -3,7 +3,7 @@
 <div class="min-w-screen min-h-screen flex items-center justify-center px-5 pb-10 pt-16">
     <div class="w-full mx-auto rounded-lg bg-white shadow-lg p-5 text-gray-700" style="max-width: 600px">
         <div class="w-full pt-1 pb-5">
-            <div class="bg-white text-[#464E2E]c overflow-hidden rounded-full w-20 h-20 -mt-16 mx-auto shadow-lg flex justify-center items-center text-5xl">
+            <div class="bg-white text-[#464E2E] overflow-hidden rounded-full w-20 h-20 -mt-16 mx-auto shadow-lg flex justify-center items-center text-5xl">
                 <ion-icon name="wallet-outline"></ion-icon>
             </div>
         </div>

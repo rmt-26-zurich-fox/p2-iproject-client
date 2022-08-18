@@ -26,7 +26,7 @@ const router = createRouter({
       component: () => import('../views/RegisterView.vue')
     },
     {
-      path: '/Shoppingcart',
+      path: '/shoppingcart',
       name: 'Shoppingcart',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route

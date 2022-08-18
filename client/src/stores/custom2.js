@@ -80,6 +80,37 @@ export const useCustom2Store = defineStore({
             this.errAlert(err)
         }
     },
+    async deleteCart(id){
+        try {
+            Swal.fire({
+                title: 'Are you sure?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#5BB318',
+                confirmButtonText: 'Yes, delete it!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    this.loading()
+                    const {data} =  axios({
+                        url:`${this.url}/shoppingcarts/${id}`,
+                        method:"Delete",
+                        headers:{access_token: localStorage.access_token}
+                    })
+                    
+                   Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                  )
+                  this.router.push('/shoppingcart')
+                }
+              })
+        } catch (err) {
+            console.log(err)
+            // this.errAlert(err) 
+        }
+    },
     errAlert(err){
         console.log(err.response)
         Swal.fire({

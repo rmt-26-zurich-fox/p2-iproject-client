@@ -1,10 +1,18 @@
 <script>
+import { mapActions, mapState } from 'pinia';
+import { useCustom2Store} from '../stores/custom2'
 export default{
     props:['cart'],
     methods:{
+        ...mapActions(useCustom2Store,['deleteCart']),
+
+        localDeleteCart(id){
+            this.deleteCart(id)
+        }
         
     },
     computed:{
+        
         totalPrice(){
             return this.cart.quantity * this.cart.Product.price
         }
@@ -27,7 +35,7 @@ export default{
             <img :src="cart.Product.imgUrl" alt="" class="w-20">
         </td>
         <td lass="py-4 px-5 ">
-            <button class="text-xl" >
+            <button class="text-xl" @click="localDeleteCart(cart.id)" >
                 <ion-icon name="trash-outline"></ion-icon>
             </button>
         </td>

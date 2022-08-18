@@ -63,10 +63,10 @@ export default{
             <div class="flex w-full pt-2 content-center justify-between md:w-1/3 md:justify-end">
                 <ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
                     <li class="flex-1 md:flex-none md:mr-3">
-                        <router-link to="/Shoppingcart" class="inline-block py-2 px-4 text-gray-400 font-isi text-xl hover:text-white no-underline">Shopping cart</router-link>
+                        <router-link to="/shoppingcart" class="inline-block py-2 px-4 text-gray-400 font-isi text-xl hover:text-white no-underline">Shopping cart</router-link>
                     </li>
                     <li class="flex-1 md:flex-none md:mr-3">
-                        <router-link to="/payment" class="inline-block py-2 px-4 text-gray-400 font-isi text-xl hover:text-white no-underline" v-if="islogin || payments.length !== 0">Check Out!</router-link>
+                        <router-link to="/payment" class="inline-block py-2 px-4 text-gray-400 font-isi text-xl hover:text-white no-underline" v-if="isLogin && payments.length !== 0">Check Out!</router-link>
                     </li>
                     
                     <li class="flex-1 md:flex-none md:mr-3">

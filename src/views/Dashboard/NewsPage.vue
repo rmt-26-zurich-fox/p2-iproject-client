@@ -21,7 +21,7 @@
 </script>
 <template>
 	<!-- {{ primaryData.news[0] }} -->
-	<table class="">
+	<table>
 		<thead>
 			<tr>
 				<th colspan="2" class="text-center">NEWS</th>

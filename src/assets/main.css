@@ -1,9 +1,18 @@
 @import "mdb-ui-kit/css/mdb.min.css";
 
 body {
-	/* background-color: black; */
+	background-color: black;
 	padding-bottom: 5vh;
-	/* color: white; */
+	color: black;
+	background-image: url("https://w.wallhaven.cc/full/47/wallhaven-471vl9.jpg");
+	height: auto;
+	background-position: center;
+	background-repeat: repeat-y;
+}
+
+a:hover {
+	color: green;
+	font-weight: bold;
 }
 
 .button-patchnote-first {
@@ -37,9 +46,16 @@ body {
 	height: auto;
 }
 
+.filter-icon {
+	fill: white;
+}
+
 .icon-relic {
 	width: 25px;
 	height: auto;
+}
+.background-white {
+	background-color: white;
 }
 
 /* TABLE */
@@ -51,6 +67,7 @@ table tr th,
 table tr td {
 	border-right: 1px solid #dee2e6 !important;
 	border-bottom: 1px solid #dee2e6 !important;
+	background-color: rgba(253, 253, 253, 0.7);
 }
 table tr th:first-child,
 table tr td:first-child {

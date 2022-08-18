@@ -58,6 +58,32 @@
 					return "";
 				}
 			},
+			attackerIcon() {
+				let { attackingFaction } = this.invasion;
+				if (attackingFaction === "Infested")
+					return "https://raw.githubusercontent.com/WFCD/genesis-assets/1131d527894088ea8141a5a859cd85e569ea8b40/svg/factions/infested.svg";
+				if (attackingFaction === "Corpus")
+					return "https://raw.githubusercontent.com/WFCD/genesis-assets/1131d527894088ea8141a5a859cd85e569ea8b40/svg/factions/corpus.svg";
+				if (attackingFaction === "Grineer")
+					return "https://raw.githubusercontent.com/WFCD/genesis-assets/1131d527894088ea8141a5a859cd85e569ea8b40/svg/factions/grineer.svg";
+				if (attackingFaction === "Corrupted")
+					return "https://raw.githubusercontent.com/WFCD/genesis-assets/1131d527894088ea8141a5a859cd85e569ea8b40/svg/factions/corrupted.svg";
+				if (attackingFaction === "Sentient")
+					return "https://raw.githubusercontent.com/WFCD/genesis-assets/1131d527894088ea8141a5a859cd85e569ea8b40/svg/factions/sentient.svg";
+			},
+			defenderIcon() {
+				let { defendingFaction } = this.invasion;
+				if (defendingFaction === "Infested")
+					return "https://raw.githubusercontent.com/WFCD/genesis-assets/1131d527894088ea8141a5a859cd85e569ea8b40/svg/factions/infested.svg";
+				if (defendingFaction === "Corpus")
+					return "https://raw.githubusercontent.com/WFCD/genesis-assets/1131d527894088ea8141a5a859cd85e569ea8b40/svg/factions/corpus.svg";
+				if (defendingFaction === "Grineer")
+					return "https://raw.githubusercontent.com/WFCD/genesis-assets/1131d527894088ea8141a5a859cd85e569ea8b40/svg/factions/grineer.svg";
+				if (defendingFaction === "Corrupted")
+					return "https://raw.githubusercontent.com/WFCD/genesis-assets/1131d527894088ea8141a5a859cd85e569ea8b40/svg/factions/corrupted.svg";
+				if (defendingFaction === "Sentient")
+					return "https://raw.githubusercontent.com/WFCD/genesis-assets/1131d527894088ea8141a5a859cd85e569ea8b40/svg/factions/sentient.svg";
+			},
 		},
 		created() {
 			setInterval(() => {
@@ -104,7 +130,9 @@
 			<div class="position-relative">
 				<div>
 					<p class="position-absolute top-50 start-50 translate-middle text-light">
-						{{ invasion.attackingFaction }}&nbsp;|&nbsp;{{ completion }}&nbsp;|&nbsp;{{ invasion.defendingFaction }}
+						<img :src="attackerIcon" class="icon-relic filter-icon" />&nbsp;&nbsp;{{ invasion.attackingFaction }}&nbsp;|&nbsp;{{
+							completion
+						}}&nbsp;|&nbsp;{{ invasion.defendingFaction }}&nbsp;&nbsp;<img :src="defenderIcon" class="icon-relic filter-icon" />
 					</p>
 					<div class="progress" :style="this.progressDefender">
 						<div role="progressbar" :style="this.progressAttacker">

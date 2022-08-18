@@ -16,8 +16,8 @@
 </script>
 <template>
 	<tr>
-		<td style="padding-inline: 10px">{{ timeSince(news.date) }}</td>
-		<td style="padding-inline: 10px">
+		<td class="padding-table">{{ timeSince(news.date) }}</td>
+		<td class="padding-table">
 			<a :href="news.link" target="_blank">{{ news.message }}</a>
 		</td>
 	</tr>

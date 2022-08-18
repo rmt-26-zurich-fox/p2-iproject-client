@@ -34,11 +34,7 @@
 </script>
 <template>
 	{{ typeCheck }}
-	<!-- expiry, isDay {{ dataCycles.cetusCycle }} -->
-	<!-- expiry, isWarm -->
-	<!-- expiry, active -->
-	<!-- expiry, isCorpus -->
-	<div class="col-2 border border-dark">
+	<div class="col-2">
 		<div class="row">
 			<div class="col text-capitalize">{{ this.isWhat.name }}</div>
 		</div>

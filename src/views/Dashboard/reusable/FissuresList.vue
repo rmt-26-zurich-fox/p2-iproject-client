@@ -39,7 +39,7 @@
 	<tr style="border: 1px solid black">
 		<td>{{ data.node }}</td>
 		<td class="text-center padding-table">{{ data.missionKey }}</td>
-		<td class="text-center padding-table">{{ data.tier }}&nbsp;<img :src="relicIcon" class="icon-relic" /></td>
-		<td class="fw-bold">{{ countdown }}</td>
+		<td class="text-center padding-table"><img :src="relicIcon" class="icon-relic float-start" />&nbsp;{{ data.tier }}</td>
+		<td class="fw-bold padding-table text-end">{{ countdown }}</td>
 	</tr>
 </template>

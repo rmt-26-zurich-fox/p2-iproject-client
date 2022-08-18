@@ -51,7 +51,7 @@
 			<tr>
 				<td colspan="4" style="border: 1px solid black">
 					<div class="d-flex justify-content-center align-items-center">
-						<button class="btn btn-dark" @click.prevent="toggleButton">BUTTON PAGINATION</button>
+						<button class="button-custom" @click.prevent="toggleButton">NORMAL / STORM</button>
 					</div>
 				</td>
 			</tr>

@@ -1,7 +1,2 @@
-<script>
-export default {
-  name: "HomeView",
-};
-</script>
-
-<template></template>
+<script></script>
+<template>ABCD</template>

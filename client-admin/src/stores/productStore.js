@@ -8,7 +8,8 @@ export const useProductStore = defineStore({
         products: [],
         theadProduct: ["Name Product", "Image  Product"],
         actionProduct: ["show", "edit", "delete"],
-        productById: {}
+        productById: {},
+        isLoadingProduct: false
     }),
     getters: {
 
@@ -34,6 +35,7 @@ export const useProductStore = defineStore({
         },
         async readAllProduct() {
             try {
+                this.isLoadingProduct = true
                 const { data } = await axiosInstance({
                     method: "GET",
                     url: "/products",
@@ -45,6 +47,8 @@ export const useProductStore = defineStore({
                 this.products = data
             } catch (error) {
                 this.alertError(error)
+            } finally {
+                this.isLoadingProduct = false
             }
         },
         async addProduct(obj) {

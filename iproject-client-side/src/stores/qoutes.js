@@ -384,7 +384,14 @@ export const useQuoteStore = defineStore({
            throw new Error('error')
         }else{
 
-          swall('Success', this.defenition, 'success')
+          // var testVar = "TestVariable";
+
+          swal({
+            title: "Definition:",
+            text: "-> " + this.defenition,
+            type: "error",
+            confirmButtonText: "Cool" 
+          });
         }
       
     } catch (error) {

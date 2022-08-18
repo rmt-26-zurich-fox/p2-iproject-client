@@ -215,10 +215,12 @@ main .movie-list .cards .movie-card {
   border-radius: 10px;
 }
 
+main .movie-all .cards .movie-card .img,
 main .movie-list .cards .movie-card .img {
   position: relative;
 }
 
+main .movie-all .cards .movie-card .img:hover > div h6,
 main .movie-list .cards .movie-card .img:hover > div h6 {
   display: block;
   transition: 0.2s;
@@ -248,9 +250,11 @@ main .movie-list .cards .movie-card div:nth-child(2) button {
   padding: 5px 10px;
 }
 
+main .movie-all .cards .movie-card > .img > div > h6,
 main .movie-list .cards .movie-card > .img > div > h6 {
+  padding: 8px;
   display: none;
-  bottom: 8px;
+  bottom: 0;
   position: absolute;
 }
 

@@ -38,6 +38,21 @@ export const useAuthStore = defineStore({
             } catch (error) {
                 console.log(error);
             }
+        },
+        logout() {
+             Swal.fire({
+                title: 'Logout?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    localStorage.clear()
+                    this.router.push({ name: "login" })
+                }
+            })
         }
     }
 })

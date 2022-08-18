@@ -52,15 +52,6 @@ export default {
                                             <button type="submit" class="btn btn-block mt-3 mb-3"
                                                 style="background-color:#EA9FA3; color: white;">Login</button>
                                         </div>
-
-                                        <div class="d-flex align-items-center justify-content-center pb-4">
-                                            <p class="mb-0 me-2">Don't have an account?
-                                                <a href="" class="text-decoration-none">Register</a>
-                                            </p>
-                                        </div>
-
-                                        <p class="text-center">Sign In with :</p>
-                                        <div class="d-flex justify-content-center" id="buttonDiv"></div>
                                     </form>
                                 </div>
                             </div>

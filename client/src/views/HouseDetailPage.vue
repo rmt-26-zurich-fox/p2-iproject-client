@@ -89,12 +89,15 @@ export default {
     },
 
     async paymentGenerator() {
+      this.isLoading = true;
       try {
         const response = await this.paymentHandler(this.house.price * this.night);
 
         window.snap.pay(response.data);
       } catch (error) {
         this.errorHandler(error);
+      } finally {
+        this.isLoading = false;
       }
     },
 
@@ -124,7 +127,7 @@ export default {
 
   created() {
     this.fetchDetailHouse();
-    this.handleQr()
+    this.handleQr();
   },
 };
 </script>

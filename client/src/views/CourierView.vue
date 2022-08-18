@@ -17,7 +17,7 @@ methods: {
         try {
             this.delivPrice = ''
             const {data} = await axios({
-                url: "http://localhost:3000/couriers",
+                url: "https://renjana-accesories.herokuapp.com/couriers",
                 method: "POST",
                 headers: {access_token: localStorage.access_token},
                 data:{ destination: this.citySelected , courier: this.courier}
@@ -40,7 +40,7 @@ methods: {
 mounted(){
 
         let{ data }= axios({
-            url:'http://localhost:3000/city',
+            url:'https://renjana-accesories.herokuapp.com/city',
             method: "GET",
             headers: {access_token: localStorage.access_token}
         }).then(res=>{

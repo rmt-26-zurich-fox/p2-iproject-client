@@ -5,7 +5,7 @@ import Swal from 'sweetalert2'
 export const useCustom1Store = defineStore({
   id: 'custom',
   state: () => ({
-    url: 'http://localhost:3000',
+    url: 'https://renjana-accesories.herokuapp.com',
     products: [],
     totalPages: 0,
     product: {},

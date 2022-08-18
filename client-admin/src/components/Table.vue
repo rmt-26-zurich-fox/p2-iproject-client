@@ -2,6 +2,7 @@
 import Thead from '@/components/Thead.vue'
 import Trow from '@/components/Trow.vue'
 import { useBrandStore } from '@/stores/brandStore'
+import { useProductStore } from '../stores/productStore'
 import { mapActions, mapState } from 'pinia'
 
 export default {
@@ -11,33 +12,43 @@ export default {
     },
     computed: {
         ...mapState(useBrandStore, ["brands", "theadBrand", "actionBrand"]),
+        ...mapState(useProductStore, ["products", "theadProduct", "actionProduct"]),
         throwData() {
             const { fullPath } = this.$route
             if (fullPath === "/brands") {
                 return this.brands
+            } else if (fullPath === "/products") {
+                return this.products
             }
         },
         theadData() {
             const { fullPath } = this.$route
             if (fullPath === "/brands") {
                 return this.theadBrand
+            } else if (fullPath === "/products") {
+                return this.theadProduct
             }
         },
         actionData() {
             const { fullPath } = this.$route
             if (fullPath === "/brands") {
                 return this.actionBrand.length
+            } else if (fullPath === "/products") {
+                return this.actionProduct
             }
         }
     },
     methods: {
-        ...mapActions(useBrandStore, ["readAllBrand"])
+        ...mapActions(useBrandStore, ["readAllBrand"]),
+        ...mapActions(useProductStore, ["readAllProduct"])
     },
     created() {
         const { fullPath } = this.$route
 
         if (fullPath === "/brands") {
             this.readAllBrand()
+        } else if (fullPath === "/products") {
+            this.readAllProduct()
         }
     }
 }

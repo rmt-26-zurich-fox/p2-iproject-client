@@ -1,32 +1,41 @@
 <script>
 import { mapState, mapActions } from 'pinia'
 import { useBrandStore } from '../stores/brandStore'
+import { useProductStore } from '../stores/productStore'
 import { RouterLink } from 'vue-router'
 
 export default {
     props: ["trow"],
     computed: {
         ...mapState(useBrandStore, ["actionBrand"]),
+        ...mapState(useProductStore, ["actionProduct"]),
         columnNames() {
             const { fullPath } = this.$route
             if (fullPath === '/brands') {
                 return ["nameBrand", "logoBrand"]
+            } else if (fullPath === '/products') {
+                return ["nameProduct", "imageProduct"]
             }
         },
         actionData() {
             const { fullPath } = this.$route
             if (fullPath === "/brands") {
                 return this.actionBrand
+            } else if (fullPath === "/products") {
+                return this.actionProduct
             }
         }
     },
     methods: {
         ...mapActions(useBrandStore, ["editBrand", "deleteBrand", "showBrand"]),
+        ...mapActions(useProductStore, ["editProduct", "deleteProduct", "showProduct"]),
         handleEdit() {
             const { fullPath } = this.$route
 
             if (fullPath === "/brands") {
                 this.editBrand(this.trow.id)
+            } else if (fullPath === "/products") {
+                this.editProduct(this.trow.id)
             }
         },
         handleDelete() {
@@ -34,6 +43,8 @@ export default {
 
             if (fullPath === "/brands") {
                 this.deleteBrand(this.trow.id)
+            } else if (fullPath === "/products") {
+                this.deleteProduct(this.trow.id)
             }
         },
         handleShow() {
@@ -41,6 +52,8 @@ export default {
 
             if (fullPath === "/brands") {
                 this.showBrand(this.trow.id)
+            } else if (fullPath === "/products") {
+                this.showProduct(this.trow.id)
             }
         }
     }
@@ -52,6 +65,9 @@ export default {
         <td v-for="(td, idx) in columnNames" :key="idx">
             <p v-if="'logoBrand' === td">
                 <img :src="trow.logoBrand" :alt="trow.nameBrand" style="width: 150px">
+            </p>
+            <p v-else-if="'imageProduct' === td">
+                <img :src="trow.imageProduct" :alt="trow.nameProduct" style="width: 150px">
             </p>
             <p v-else>
                 {{ trow[td] }}

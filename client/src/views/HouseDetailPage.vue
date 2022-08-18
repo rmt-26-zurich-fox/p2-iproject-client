@@ -1,5 +1,5 @@
 <template>
-  <LoadingSign v-if="isLoading && !qrcode && !house" />
+  <LoadingSign v-if="isLoading" />
   <div v-if="house && qrcode && !isLoading" class="container mt-3">
     <h3>{{ house.name }}</h3>
     <p class="text-muted">{{ house.location }}</p>
@@ -46,7 +46,7 @@
           <input v-model="night" type="number" class="form-control" />
           <h5 class="card-title mt-5">Total price:</h5>
           <h5 class="card-title">{{ formatPrice }}</h5>
-          <button @click="paymentGenerator" id="pay-button" class="btn btn-primary mt-3 form-control" :class="{ disabled: night < 1, disabled: !access_token }">Book now</button>
+          <button @click.prevent="paymentGenerator" id="pay-button" class="btn btn-primary mt-3 form-control" :class="{ disabled: night < 1, disabled: !access_token }">Book now</button>
           <span v-if="!access_token"><p style="color: red">*Please login first</p></span>
         </div>
       </div>

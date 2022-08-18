@@ -13,7 +13,7 @@
       </div>
       <div class="mb-3">
         <label for="price" class="form-label">Price</label>
-        <input v-model="newHouse.price" type="number" class="form-control" id="price" placeholder="house price" />
+        <input v-model="newHouse.price" min="100000" type="number" class="form-control" id="price" placeholder="Minimum Rp.100.000" />
       </div>
       <div class="mb-3">
         <label for="image" class="form-label">Photos</label>
@@ -27,7 +27,7 @@
         </select>
       </div>
       <div class="mb-3">
-        <label for="Facility" class="form-label">Facilities</label>
+        <label for="Facility" class="form-label">Facilities :</label>
         <div v-for="facility in facilities" :key="facility.id">
           <input type="checkbox" :value="facility.id" v-model="newHouse.FacilityId" />
           <label class="form-label ms-2">{{ facility.name }}</label>

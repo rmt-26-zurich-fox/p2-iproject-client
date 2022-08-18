@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginPage from '@/views/LoginPage.vue'
 import HomePage from '@/views/HomePage.vue'
+import DashboardPage from '@/views/DashboardPage.vue'
 import BrandList from '@/views/brand/BrandList.vue'
 import BrandForm from '@/views/brand/BrandForm.vue'
 import BrandDetail from '@/views/brand/BrandDetail.vue'
@@ -23,6 +24,11 @@ const router = createRouter({
       path: '/',
       component: HomePage,
       children: [
+        {
+          path: '',
+          name: "dashboard",
+          component: DashboardPage
+        },
         {
           path: 'brands',
           name: "brands",
@@ -90,8 +96,8 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const access_token = localStorage.access_token
-  if (to.name === 'brands' && !access_token) next({ name: 'login' })
-  else if (to.name === 'login' && access_token) next({ name: 'brands' })
+  if (to.name === 'dashboard' && !access_token) next({ name: 'login' })
+  else if (to.name === 'login' && access_token) next({ name: 'dashboard' })
   else next()
 })
 

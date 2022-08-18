@@ -55,8 +55,8 @@ export default {
     <div id="content" class="overflow-auto">
         <div class="card shadow-sm" style="border-radius: 10px; background-color: white;">
             <div class="card-body p-5">
-                <h3 class="mb-4">Create Brand</h3>
-                <p>Create Brand</p>
+                <h3 class="mb-4">Form Brand</h3>
+                <p>Form Brand</p>
                 <form @submit.prevent="postBrand" autocomplete="off" class="mt-4" enctype="multipart/form-data">
                     <div class="form-group mb-3">
                         <label for="nameBrand">Name Brand</label>
@@ -72,8 +72,8 @@ export default {
                     </div>
 
                     <div class="form-group mt-4">
-                        <RouterLink to="/brands" class="btn btn-outline-primary float-start">Cancel</RouterLink>
-                        <button type="submit" class="btn btn-primary float-end">Add Brand</button>
+                        <RouterLink to="/brands" class="btn button-pink-outline float-start">Cancel</RouterLink>
+                        <button type="submit" class="btn button-pink float-end">Submit Brand</button>
                     </div>
                 </form>
             </div>

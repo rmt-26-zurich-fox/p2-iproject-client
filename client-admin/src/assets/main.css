@@ -110,6 +110,22 @@ ul ul a {
     color: #fff
 }
 
+.button-pink-outline {
+    border-style: solid;
+    border-color: #EA9FA3;
+    color: #EA9FA3
+}
+
+.button-pink-outline:hover {
+    background-color: #EA9FA3;
+    color: #fff
+}
+
+.button-pink {
+    background-color: #EA9FA3;
+    color: #fff
+}
+
 #content {
     background-color: #fff2f3;
     padding: 50px;

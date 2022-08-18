@@ -132,16 +132,16 @@ export const useHouseStore = defineStore({
 
     paymentHandler(amount) {
       return new Promise((resolve, reject) => {
-        axios({
-          method: "post",
-          url: "https://serum-rysaldi.herokuapp.com/houses/midtrans",
-          data: {
-            amount,
-          },
-          headers: {
-            access_token: localStorage.getItem("access_token"),
-          },
-        })
+        housesInstance
+          .post(
+            "houses/midtrans",
+            { amount },
+            {
+              headers: {
+                access_token: localStorage.getItem("access_token"),
+              },
+            }
+          )
           .then((response) => {
             resolve(response);
           })

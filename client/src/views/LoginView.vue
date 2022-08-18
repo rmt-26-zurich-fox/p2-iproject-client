@@ -12,7 +12,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(useAllStore, ["loginHandler", "errorShow"]),
+    ...mapActions(useAllStore, ["loginHandler", "errorShow", "loginGoogle"]),
 
     async localLoginHandler() {
       try {
@@ -26,6 +26,7 @@ export default {
 
     handleCredentialResponse(response) {
       this.loginGoogle(response);
+      this.$router.push("/");
     },
   },
 

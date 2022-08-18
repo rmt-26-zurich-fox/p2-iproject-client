@@ -3,7 +3,7 @@ import axios from "axios";
 import router from "../router";
 import swal from "sweetalert";
 
-const baseUrl = "https://hacktiv-cofeeshop.herokuapp.com";
+const baseUrl = "http://localhost:3000";
 export const useAllStore = defineStore({
   id: "useAllStore",
   state: () => ({
@@ -85,6 +85,24 @@ export const useAllStore = defineStore({
         localStorage.setItem("id", data.idLoggedIn);
         this.isLogin = true;
       } catch (error) {
+        this.errorShow(error);
+      }
+    },
+
+    loginGoogle: async function (response) {
+      try {
+        const { data } = await axios({
+          method: "post",
+          url: `${baseUrl}/google-sign-in`,
+          headers: { token_google: response.credential },
+        });
+        localStorage.setItem("access_token", data.access_token);
+        localStorage.setItem("email", data.email);
+        localStorage.setItem("id", data.id);
+        // router.push({ name: "home" });
+        this.isLogin = true;
+      } catch (error) {
+        console.log(error);
         this.errorShow(error);
       }
     },

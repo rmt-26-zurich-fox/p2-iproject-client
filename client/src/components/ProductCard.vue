@@ -22,7 +22,7 @@ export default{
 </script>
 
 <template>
-  <div class="col-12 col-md-3 py-4">
+  <div class="col-12 col-md-2 py-4">
     <div class="card">
       <img :src="product.imageUrl" class="card-img-top" />
       <div class="card-body">

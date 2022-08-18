@@ -1,12 +1,31 @@
 <script>
 import { mapActions, mapState } from "pinia";
 import { useAllStore } from "../stores/useAllStore";
+// import { defineComponent } from "vue";
+import { GoogleMap, Marker } from "vue3-google-map";
 
 import ProductCard from "../components/ProductCard.vue";
 
 export default {
   components: {
     ProductCard,
+    GoogleMap,
+    Marker,
+  },
+
+
+  data() {
+    return {
+      center: {lat: 5.548290, lng: 95.323753},
+      markers: [
+        {
+          position: {
+            lat: 5.548290, lng: 95.323753
+          },
+        }
+        , // Along list of clusters
+      ]
+    }
   },
 
   computed: {
@@ -19,10 +38,17 @@ export default {
     async getAllProducts() {
       await this.fetchAllProducts();
     },
+
+    // setup() {
+    //   const center = { lat: 40.689247, lng: -74.044502 };
+
+    //   return { center };
+    // },
   },
   created() {
     this.getAllProducts();
-    console.log(this.fetchAllProducts);
+    // console.log(this.fetchAllProducts);
+    // this.setup();
   },
 };
 </script>
@@ -49,6 +75,34 @@ export default {
       </div>
 
       <!-- <div id="map"></div> -->
+      <!-- <GoogleMap
+        api-key="AIzaSyCC8DuJiwmnfvfXzx4H9f_Rqt9WxP7s3iE"
+        style="width: 100%; height: 500px"
+        :center="center"
+        :zoom="15"
+      > -->
+      <!-- <Marker :options="{ position: center }" /> -->
+      <!-- </GoogleMap> -->
+
+      Visit Us
+
+      <GMapMap
+        :center="center"
+        :zoom="7"
+        map-type-id="terrain"
+        style="width: 500px; height: 300px"
+      >
+        <GMapCluster>
+          <GMapMarker
+            :key="index"
+            v-for="(m, index) in markers"
+            :position="m.position"
+            :clickable="true"
+            :draggable="true"
+            @click="center = m.position"
+          />
+        </GMapCluster>
+      </GMapMap>
     </div>
   </div>
 </template>

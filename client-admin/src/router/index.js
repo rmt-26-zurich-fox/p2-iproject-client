@@ -49,6 +49,11 @@ const router = createRouter({
           name: "createProduct",
           component: ProductForm
         },
+        {
+          path: 'products/:productId',
+          name: "editProduct",
+          component: ProductForm
+        },
       ]
     }
   ]

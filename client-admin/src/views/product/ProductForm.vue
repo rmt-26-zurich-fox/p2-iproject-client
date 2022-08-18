@@ -25,18 +25,33 @@ export default {
         ...mapState(useBrandStore, ["brands"])
     },
     methods: {
-        ...mapActions(useProductStore, ["addProduct"]),
+        ...mapActions(useProductStore, ["addProduct", "updateProduct"]),
         ...mapActions(useBrandStore, ["readAllBrand"]),
         upload(event) {
             this.dataProduct.imageProduct = event.target.files[0]
             this.previewImage = URL.createObjectURL(event.target.files[0])
         },
         postProduct() {
-            this.addProduct(this.dataProduct)
+            if (this.productById.nameProduct) {
+                this.updateProduct(this.productById.id, this.dataProduct)
+            } else {
+                this.addProduct(this.dataProduct)
+            }
         }
     },
     created() {
         this.readAllBrand()
+        if (this.productById.nameProduct) {
+            this.dataProduct.nameProduct = this.productById.nameProduct
+            this.dataProduct.imageProduct = this.productById.imageProduct
+            this.dataProduct.price = this.productById.price
+            this.dataProduct.weight = this.productById.weight
+            this.dataProduct.skinCategory = this.productById.skinCategory
+            this.dataProduct.productCategory = this.productById.productCategory
+            this.dataProduct.BrandId = this.productById.BrandId
+            this.dataProduct.description = this.productById.description
+            this.previewImage = this.productById.imageProduct
+        }
     }
 }
 </script>

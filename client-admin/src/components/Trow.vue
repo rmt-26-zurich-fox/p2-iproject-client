@@ -28,11 +28,14 @@ export default {
     },
     methods: {
         ...mapActions(useBrandStore, ["editBrand", "deleteBrand", "showBrand"]),
+        ...mapActions(useProductStore, ["editProduct"]),
         handleEdit() {
             const { fullPath } = this.$route
 
             if (fullPath === "/brands") {
                 this.editBrand(this.trow.id)
+            } else if (fullPath === "/products") {
+                this.editProduct(this.trow.id)
             }
         },
         handleDelete() {

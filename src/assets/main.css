@@ -1,3 +1,116 @@
+@import url("https://fonts.googleapis.com/css2?family=DynaPuff&family=Roboto&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  background-color: #1b2538;
+}
+
+.primary-red {
+  background-color: rgba(255, 83, 83, 1);
+}
+.primary-blue {
+  background-color: rgba(94, 153, 255, 1);
+}
+.login-container {
+  @apply flex flex-col items-center justify-center h-screen;
+}
+
+.login-box {
+  @apply flex flex-col items-center justify-center bg-white rounded-lg shadow-lg p-8 h-72 w-[22rem] border-8 border-white relative;
+  box-shadow: 0px 20px 19px -15px rgba(0, 0, 0, 0.3);
+  /* background: linear-gradient(0deg, rgba(255,83,83,1) 48%, rgba(255,255,255,1) 48%, rgba(255,255,255,1) 52%, rgba(94,153,255,1) 52%); */
+}
+
+.font-title {
+  font-family: "DynaPuff", cursive;
+  font-size: 24pt;
+}
+
+.would-card {
+  top: -40px;
+  left: -15px;
+  background-color: rgba(255, 83, 83, 1);
+  padding: 10px 20px;
+  color: white;
+  position: absolute;
+  transform: rotate(-12deg);
+  border-radius: 10px;
+  box-shadow: 0px 20px 19px -15px rgba(0, 0, 0, 0.3);
+}
+
+.rather-card {
+  top: -40px;
+  right: -15px;
+  background-color: rgba(94, 153, 255, 1);
+  padding: 10px 20px;
+  color: white;
+  position: absolute;
+  transform: rotate(9deg);
+  border-radius: 10px;
+  box-shadow: 0px 20px 19px -15px rgba(0, 0, 0, 0.3);
+}
+
+.you-card {
+  z-index: 2;
+  padding: 10px;
+  border-radius: 50%;
+  background-color: #1e2a3f;
+  top: -40px;
+  color: white;
+  position: absolute;
+  box-shadow: 0px 20px 19px -15px rgba(0, 0, 0, 0.3);
+}
+.social-btn {
+  cursor: pointer;
+  min-width: 200px;
+  border-radius: 10px;
+  padding: 5px;
+  margin-bottom: 10px;
+  background-color: #1e2a3f;
+  @apply flex flex-col justify-center rounded-md shadow-lg;
+}
+.social-btn:hover {
+  background-color: #1e2a3f;
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.login-action-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.social-logo {
+  display: flex;
+  border-radius: 20px;
+}
+.social-logo p {
+  margin: 0;
+  padding: 0;
+  margin-left: 5px;
+  font-size: 12pt;
+}
+.or {
+  font-weight: bold;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.input-lobby {
+  border-radius: 7px;
+  padding: 5px;
+  margin-top: 10px;
+  text-align: center;
+}
+.input-lobby::placeholder {
+  text-align: center;
+}

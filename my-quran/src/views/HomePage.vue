@@ -21,9 +21,7 @@ export default {
     SurahCard
   },
   created(){
-    console.log('ini di component')
     this.fetchQuran()
-    console.log(this.surahs, '<<<< di component')
   }
 }
 </script>

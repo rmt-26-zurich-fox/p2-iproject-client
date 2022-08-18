@@ -52,6 +52,7 @@ export default {
             this.imageUrl = "";
             this.article = "";
             this.status = "";
+            this.category = "";
         }
 
         if (this.$route.params.id) {
@@ -66,14 +67,7 @@ export default {
                 this.imageUrl = this.reviews[0].imageUrl;
                 this.article = this.reviews[0].article;
                 this.status = this.reviews[0].status;
-
-                const obj = {
-                    id: this.reviews[0].CategoryId
-                }
-                const category = await this.fetchCategories(obj);
-                if (category) { 
-                    this.category = this.categoriesId.name;
-                }
+                this.category = this.reviews[0].CategoryId;
             } else {
                 this.$router.push("/404");
             }
@@ -124,7 +118,7 @@ export default {
                     <select name="category"
                         class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 text-center"
                         v-model="category">
-                        <option v-if="this.$route.params.id" :value="category" disbaled hidden selected>{{ category }}
+                        <option v-if="this.$route.params.id" :value="category" disabled hidden selected>{{ category }}
                         </option>
                         <option v-else value="-- select value --" disbaled hidden selected>-- select category --
                         </option>

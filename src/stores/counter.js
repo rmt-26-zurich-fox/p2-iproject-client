@@ -296,7 +296,6 @@ export const useCounterStore = defineStore({
 
             this.router.push("/");
           } catch (error) {
-            console.log(error);
             // Error bad request (null field)
             Swal.fire({
               icon: 'error',

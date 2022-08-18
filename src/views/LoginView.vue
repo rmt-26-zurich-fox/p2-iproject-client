@@ -14,9 +14,12 @@
         <button>Login</button>
       </form>
       <div class="social">
+        <div @click="googleLogin"><img src="../assets/google-logo.svg" /></div>
+        <div @click="githubLogin"><img src="../assets/github-logo.svg" /></div>
+        <div @click="twitterLogin">
+          <img src="../assets/twitter-logo.svg" />
+        </div>
       </div>
-      <!-- <div id="firebaseui-auth-container"></div>
-      <div id="loader">Loading...</div> -->
     </div>
   </section>
 </template>
@@ -26,6 +29,19 @@ import axios from "axios";
 
 import { mapState, mapActions } from "pinia";
 import { useGlobalStore } from "../stores/globalStore";
+
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  GithubAuthProvider,
+  TwitterAuthProvider,
+} from "firebase/auth";
+
+const auth = getAuth();
+const googleProvider = new GoogleAuthProvider();
+const githubProvider = new GithubAuthProvider();
+const twitterProvider = new TwitterAuthProvider();
 
 export default {
   data() {
@@ -53,22 +69,43 @@ export default {
         this.errorHandler(error);
       }
     },
-  },
-  mounted() {
-    // this.socialMediaLogin(async (authResult) => {
-    //   try {
-    //     const { displayName, email } = authResult.user.multiFactor.user;
-    //     const { data } = await axios.post(this.baseUrl + "/social-login", {
-    //       username: displayName,
-    //       email,
-    //     });
-    //     this.successHandler(data.message);
-    //     localStorage.setItem("access_token", data.access_token);
-    //     this.$router.push("/home");
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // });
+    async googleLogin() {
+      try {
+        const result = await signInWithPopup(auth, googleProvider);
+
+        const user = result.user;
+        const { displayName, email } = user;
+        const { data } = await axios.post(this.baseUrl + "/social-login", {
+          username: displayName,
+          email,
+        });
+        localStorage.setItem("access_token", data.access_token);
+        this.successHandler(data.message);
+        this.$router.push("/home");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async githubLogin() {
+      try {
+        const result = await signInWithPopup(auth, githubProvider);
+
+        const user = result.user;
+        console.log(user);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async twitterLogin() {
+      try {
+        const result = await signInWithPopup(auth, twitterProvider);
+
+        const user = result.user;
+        console.log(user);
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 };
 </script>

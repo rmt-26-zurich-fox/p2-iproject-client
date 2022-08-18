@@ -12,7 +12,6 @@
     "bootstrap": "^5.2.0",
     "bootstrap-vue": "^2.22.0",
     "firebase": "^9.9.2",
-    "firebaseui": "^6.0.1",
     "pinia": "^2.0.17",
     "sweetalert2": "^11.4.26",
     "vue": "^3.2.37",

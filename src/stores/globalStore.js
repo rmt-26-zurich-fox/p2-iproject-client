@@ -1,11 +1,11 @@
 import { defineStore } from "pinia";
 import Swal from "sweetalert2";
 
-import firebaseConfig from "../firebaseConfig";
+import { getAuth, signOut } from "firebase/auth";
 import firebase from "firebase/compat/app";
+import firebaseConfig from "../firebaseConfig";
 firebase.initializeApp(firebaseConfig);
-import * as firebaseui from "firebaseui";
-import "firebaseui/dist/firebaseui.css";
+const auth = getAuth();
 
 const Toast = Swal.mixin({
   toast: true,
@@ -23,6 +23,7 @@ const Toast = Swal.mixin({
 export const useGlobalStore = defineStore({
   id: "globalStore",
   state: () => ({
+    // baseUrl: "https://movie-ku.herokuapp.com",
     baseUrl: "http://localhost:3000",
   }),
   actions: {
@@ -41,29 +42,15 @@ export const useGlobalStore = defineStore({
         title: message,
       });
     },
-    socialMediaLogin(cb) {
-      const ui = new firebaseui.auth.AuthUI(firebase.auth());
-
-      const uiConfig = {
-        signInFlow: "popup",
-        signInOptions: [
-          firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-          firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-          firebase.auth.GithubAuthProvider.PROVIDER_ID,
-        ],
-        callbacks: {
-          signInSuccessWithAuthResult: function (authResult) {
-            cb(authResult);
-            ui.delete()
-            return false;
-          },
-          uiShown: function () {
-            document.getElementById("loader").style.display = "none";
-          },
-        },
-      };
-
-      ui.start("#firebaseui-auth-container", uiConfig);
+    async logout() {
+      try {
+        await signOut(auth);
+        localStorage.clear();
+        this.router.push("/login");
+        this.successHandler("Logout successfully");
+      } catch (error) {
+        this.errorHandler(error);
+      }
     },
   },
 });

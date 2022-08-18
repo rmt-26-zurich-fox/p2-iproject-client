@@ -57,12 +57,19 @@ button:hover {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  margin-top: 10px;
 }
 
 .social div {
-  padding: 15px 20px;
+  background-color: var(--light);
+  padding: 15px;
+  aspect-ratio: 1/1;
   border: 1px solid silver;
   border-radius: 10px;
+}
+
+.social div img {
+  width: 30px;
 }
 
 form * {

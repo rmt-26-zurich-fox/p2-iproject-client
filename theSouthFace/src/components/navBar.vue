@@ -18,7 +18,7 @@
           <RouterLink class="nav-link" to="/">Home</RouterLink>
         </li>
         <li class="nav-item">
-        <RouterLink class="nav-link" to="/cart">Cart</RouterLink>
+        <RouterLink class="nav-link" to="/cart" v-if="access_token">Cart</RouterLink>
         </li>
         <li class="nav-item">
           <RouterLink class="nav-link" to="/simulate" v-if="access_token"

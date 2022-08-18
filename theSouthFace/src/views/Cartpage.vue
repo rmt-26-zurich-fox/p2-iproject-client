@@ -4,7 +4,7 @@
       <div
         class="col-md-4 col-sm-6"
         v-for="element in cart"
-        v-bind:key="element.Product.id"
+        v-bind:key="element.id"
       >
         <div class="card mb-30">
           <a class="card-img-tiles" href="#" data-abc="true">
@@ -31,11 +31,11 @@
               Keycaps: {{ element.Product.name }}
             </h4>
 
-            <RouterLink
-              to="/detail/{{element.id}}"
+            <a
               class="btn btn-outline-light btn-md"
+              href=""
               @click.prevent="submitRemoveFromCart(element.id)"
-              >Remove</RouterLink
+              >Remove</a
             >
           </div>
         </div>
@@ -54,10 +54,11 @@ export default {
     ...mapWritableState(theSouthFace, ["access_token"]),
   },
   methods: {
-    ...mapActions(theSouthFace, ["fetchAllCarts", 'removeFromCart']),
-    submitRemoveFromCart(cartId){
-        this.removeFromCart(cartId)
-    }
+    ...mapActions(theSouthFace, ["fetchAllCarts", "removeFromCart"]),
+    submitRemoveFromCart(cartId) {
+      this.removeFromCart(cartId);
+      this.fetchAllCarts();
+    },
   },
   created() {
     this.fetchAllCarts();

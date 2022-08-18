@@ -140,7 +140,7 @@ export const theSouthFace = defineStore({
       async removeFromCart(cartId) {
         try {
           const deleteFromCart = await axios.delete(
-            `${baseUrl}/cart/${cartId}/delete`,
+            `${baseUrl}/cart/${cartId}`,
             {
               headers: {
                 access_token: localStorage.getItem("access_token"),

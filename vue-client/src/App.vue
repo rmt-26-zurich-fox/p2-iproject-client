@@ -12,7 +12,13 @@ export default {
     ...mapState(useAllStateStore, []),
   },
   methods: {
-    ...mapActions(useAllStateStore, ["loginCheck"]),
+    ...mapActions(useAllStateStore, [
+      "loginCheck",
+      "logoutHandler"
+    ]),
+    logout(){
+      this.logoutHandler();
+    }
   },
   created() {
     this.loginCheck();
@@ -22,9 +28,11 @@ export default {
 
 <template>
   <header>
-    <nav>
       <RouterLink to="/">Home</RouterLink>
-    </nav>
+      <RouterLink to="/login">login</RouterLink>
+      <RouterLink to="/register">signup</RouterLink>
+      <RouterLink to="/credit">credit</RouterLink>
+      <a href="" @click.prevent="logout">logout</a>
   </header>
 
   <RouterView />

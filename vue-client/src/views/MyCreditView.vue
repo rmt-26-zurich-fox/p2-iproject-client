@@ -78,6 +78,16 @@ export default {
     },
   },
   methods: {
+    ...mapActions(useAllStateStore, [
+      "createMyCredit"
+    ]),
+    createCredit(){
+      this.createMyCredit({
+        creditNumber: this.cardNumber,
+        expiryDate: `01-${this.cardMonth}-${this.cardYear}`,
+        cvv: this.cardCvv
+      });
+    },
     save(date) {
       this.$refs.menu.save(date);
     },
@@ -106,6 +116,7 @@ export default {
     },
   },
 };
+
 </script>
 
 <!-- <template>
@@ -307,7 +318,7 @@ export default {
                 </div>
               </div>
 
-              <button class="card-form__button">Submit</button>
+              <button @click.prevent="createCredit" class="card-form__button">Submit</button>
             </div>
           </div>
         </div>

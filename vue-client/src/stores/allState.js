@@ -115,6 +115,30 @@ export const useAllStateStore = defineStore({
 
       }
     },
+    async createMyCredit(cvvForm) {
+      try {
+        console.log(cvvForm);
+        const response = await axios({
+          method: "POST",
+          url: `${baseUrl}/registerCredit`,
+          headers: {
+            access_token: localStorage.getItem("access_token"),
+          },
+          data: {
+            creditNumber: cvvForm.creditNumber,
+            expiryDate: cvvForm.expiryDate,
+            cvv: cvvForm.cvv,
+          },
+      });
+
+      console.log(response);
+
+      } catch (err) {
+        console.log(err);
+        this.sweetAlert("error", "error");
+
+      }
+    },
     sweetAlert(message, icon = "success", position = "top-end") {
       const Toast = Swal.mixin({
         toast: true,

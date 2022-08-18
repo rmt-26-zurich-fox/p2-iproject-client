@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue';
 import LoginView from '../views/LoginView.vue';
 import RegisterView from '../views/RegisterView.vue';
-import MyProfileView from '../views/MyProfileView.vue';
+import MyCreditView from '../views/MyCreditView.vue';
 import LeaderboardsView from '../views/LeaderboardsView.vue';
 import QuizView from '../views/QuizView.vue';
 
@@ -25,9 +25,9 @@ const router = createRouter({
       component: RegisterView
     },
     {
-      path: '/profile',
-      name: 'profile',
-      component: MyProfileView
+      path: '/credit',
+      name: 'credit',
+      component: MyCreditView
     },
     {
       path: '/leaderboards',
@@ -42,16 +42,20 @@ const router = createRouter({
   ]
 });
 
-// router.beforeEach((to, from, next) => {
-//   const access_token = localStorage.getItem("access_token");
+router.beforeEach((to, from, next) => {
+  const access_token = localStorage.getItem("access_token");
 
-//   if(to.name === "login" && access_token){
-//     next("/");
-//   } else if((to.name !== "login" || to.name !== "register") && !access_token){
-//     next("/login")
-//   } else {
-//     next();
-//   }
-// })
+  if((to.name === "login" || to.name === "register") && access_token){
+    next("/");
+  } else if((to.name === "home" || 
+             to.name === "credit" || 
+             to.name === "leaderboards" || 
+             to.name === "quiz"
+             ) && !access_token){
+    next("/login")
+  } else {
+    next();
+  }
+})
 
 export default router;

@@ -46,7 +46,7 @@ export default {
           <label>Password</label>
         </div>
         <a @click.prevent="login" href="#">
-          Submit
+          Sign In
         </a>
       </form>
     </div>
@@ -62,7 +62,6 @@ export default {
 
 .v-main {
   background: linear-gradient(#141e30, #243b55) !important;
-
 }
 
 .login-box {

@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&family=Ubuntu:wght@300;400;500;700&display=swap');
+
+*{
+  font-family: poppins;
+  padding: 0;
+  margin: 0;
+  /* background: #54b2a9  ; */
+}
+
+.nav-bar {
+  background-color: #009688;
+  padding: 15px;
+}
+
+.nav-bar h3 {
+  background-color: #009688;
+  cursor: pointer;
+}
+
+.card {
+  padding: 5px;
+  background-color: #fff;
+  margin-bottom: 10px;
+  width: 200px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.homepage {
+  margin: 12px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+}
+
+.homepage .surah-box {
+  width: 90vw;
+  background-color: #fff;
+  height: 86vh;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.homepage .surah-box .card-container {
+  margin: 12px;
+  display: flex;
+  flex-direction: row;
+  width: 100;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.surah-detail {
+  margin: 10px 20px;
+}
+
+.surah-detail .detail {
+  margin-top: 10px;
+}
+
+.surah-detail .detail h4 {
+  margin-bottom: 5px;
+}
+
+.surah-detail .detail p {
+  margin-bottom: 10px;
+}
+
+.surah-detail .recitation{
+  width: 90vw;
+  background-color: #fff;
+  height: 86vh;
+  overflow: hidden;
+  overflow-y: scroll;
+
+}
+
+.opening {
+  padding: 5px;
+  background-color: #fff;
+  margin-bottom: 10px;
+  width: 100%;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.opening h2 {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ayah-card {
+  padding: 5px;
+  background-color: #fff;
+  margin-bottom: 10px;
+  width: 100%;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.ayah-card .ayah-arabic {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: flex-end;
+}

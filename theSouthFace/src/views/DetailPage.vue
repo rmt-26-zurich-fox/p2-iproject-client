@@ -47,13 +47,15 @@
   </div>
 </template>
 <script>
-import { mapActions, mapState } from "pinia";
+import { mapActions, mapState, mapWritableState } from "pinia";
+import { i } from "../../dist/assets/index.a435b136";
 import { theSouthFace } from "../stores/theSouthFace";
 
 export default {
   name: "DetailPage",
   computed: {
     ...mapState(theSouthFace, ["oneProduct"]),
+    ...mapWritableState(theSouthFace, ["access_token"])
   },
   methods: {
     ...mapActions(theSouthFace, ["fetchOneProduct", "addToCart"]),
@@ -68,6 +70,9 @@ export default {
     },
   },
   created() {
+    if(localStorage.access_token){
+      this.access_token=localStorage.access_token
+    }
     this.fetchOneProduct(this.$route.params.productId);
   },
 };

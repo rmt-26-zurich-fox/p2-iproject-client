@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-const baseUrl = "https://the-south-face.herokuapp.com";
+const baseUrl = "http://localhost:3000";
 export const theSouthFace = defineStore({
   id: "theSouthFace",
   state: () => ({
@@ -72,22 +72,6 @@ export const theSouthFace = defineStore({
           Swal.fire("ERROR", error.response.data.message, "error");
         }
       },
-    
-    //   async discordLogin(){
-    //     try {
-    //         const discordLogin = await axios.get(`${baseUrl}/api/auth/discord/`)
-    //         // if(discordLogin){
-    //         //     try {
-    //         //         const getAccess = await axios.get(`${baseUrl}/api/auth/discord/redirect`)
-    //         //         console.log(getAccess);
-    //         //     } catch (error) {
-    //         //         console.log(error);
-    //         //     }
-    //         // }
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    //   }
 
     async googleLogin(response) {
         try {
@@ -113,7 +97,9 @@ export const theSouthFace = defineStore({
               method:"POST",
               url:`${baseUrl}/cart/${productId}`,
               headers:{
-                  access_token:localStorage.getItem("access_token")
+                  access_token:localStorage.getItem("access_token"),
+                  email : localStorage.getItem("userEmail"),
+                  token_source : localStorage.getItem("tokenSource")
               }
           })
   
@@ -121,18 +107,25 @@ export const theSouthFace = defineStore({
             Swal.fire("SUCCESS", added.data.message, "success")
           }
         } catch (error) {
+          console.log(error);
           Swal.fire("ERROR", error.response.data.message, "error");
         }
       },
+
+
       async fetchAllCarts() {
         try {
           const userCart = await axios.get(`${baseUrl}/cart`, {
             headers: {
-              access_token: localStorage.getItem("access_token"),
+              access_token:localStorage.getItem("access_token"),
+              email : localStorage.getItem("userEmail"),
+              token_source : localStorage.getItem("tokenSource")
             },
           });
           this.cart = userCart.data;
+          console.log(this.cart);
         } catch (error) {
+          console.log(error);
           Swal.fire("ERROR", error.response.data.message, "error");
         }
       },
@@ -143,10 +136,21 @@ export const theSouthFace = defineStore({
             `${baseUrl}/cart/${cartId}`,
             {
               headers: {
-                access_token: localStorage.getItem("access_token"),
+                access_token:localStorage.getItem("access_token"),
+                email : localStorage.getItem("userEmail"),
+                token_source : localStorage.getItem("tokenSource")
               },
             }
           );
+        } catch (error) {
+          Swal.fire("ERROR", error.response.data.message, "error");
+        }
+      },
+
+      async getEmailFromDiscord(access_token) {
+        try {
+          const discordEmail = await axios.get(`${baseUrl}/discordNyusahin?token=${access_token}`)
+          localStorage.setItem("userEmail", discordEmail.data.email)
         } catch (error) {
           Swal.fire("ERROR", error.response.data.message, "error");
         }

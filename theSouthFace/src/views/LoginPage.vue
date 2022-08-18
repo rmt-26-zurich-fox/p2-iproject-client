@@ -29,6 +29,9 @@
           <button id="buttonDiv" @click.prevent="handleCredentialResponse"></button>
         </div>
 
+          <button @click.prevent="submitDiscordLogin"> discordLogin</button>
+          <a class="btn btn-outline-light btn-md" href="http://localhost:3000/api/auth/discord">discord login 2</a>
+
         <div class="toRegister">
           New user? register
           <router-link to="/register">here</router-link>
@@ -56,9 +59,9 @@ export default {
     submitLogin() {
       this.loginUser(this.login.email, this.login.password);
     },
-    // submitDiscordLogin(){
-    //   this.discordLogin()
-    // },
+    submitDiscordLogin(){
+      console.log(this.$route.query.token)
+    },
     handleCredentialResponse(response) {
       this.googleLogin(response);
       this.$router.push({path:'/'})

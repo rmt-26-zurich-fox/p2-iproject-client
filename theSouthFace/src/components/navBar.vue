@@ -18,7 +18,7 @@
           <RouterLink class="nav-link" to="/">Home</RouterLink>
         </li>
         <li class="nav-item">
-        <RouterLink class="nav-link" to="/cart" v-if="access_token">Cart</RouterLink>
+        <RouterLink class="nav-link" to="/cartPage" v-if="access_token">Cart</RouterLink>
         </li>
         <li class="nav-item">
           <RouterLink class="nav-link" to="/simulate" v-if="access_token"
@@ -32,7 +32,7 @@
         </li>
         <li class="nav-item">
           <RouterLink class="nav-link" to="/register" v-if="!access_token"
-            >Register</RouterLink
+            >Register</RouterLink>
           >
         </li>
         <li class="nav-item">
@@ -75,6 +75,10 @@ export default {
       this.notLoggedIn = true;
       this.$router.push("/");
     },
+
+    tocart(){
+      this.$router.push('/cart')
+    }
   },
 };
 </script>

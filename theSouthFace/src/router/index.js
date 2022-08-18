@@ -34,7 +34,7 @@ const router = createRouter({
       component : () => import ('../views/DetailPage.vue')
     },
     {
-      path: '/cart',
+      path: '/cartPage',
       name: "CartPage",
       component : () => import ('../views/CartPage.vue')
     }
@@ -42,8 +42,9 @@ const router = createRouter({
 })
 router.beforeEach((to, from, next) => {
   const access_token = localStorage.getItem("access_token");
+  const userEmail = localStorage.getItem("userEmail")
 
-  if (to.path == "/cart" && !access_token) next("/login");
+  if (to.path == "/cart" && (!access_token || userEmail)) next("/login");
   else if (to.path == "/login" && access_token) next("/");
   else if (to.path == "/register" && access_token) next("/");
   else next();

@@ -62,17 +62,26 @@ export default {
     ...mapWritableState(theSouthFace, ["access_token"]),
   },
   methods: {
-    ...mapActions(theSouthFace, ["getProducts",'addToCart']),
+    ...mapActions(theSouthFace, ["getProducts", "addToCart", 'getEmailFromDiscord', 'fetchAllCarts']),
     productDetail(productId) {
       this.$router.push({ name: "DetailPage", params: { productId } });
     },
-    submitAddToCart(productId){
-      this.addToCart(productId)
-    }
-    
+    submitAddToCart(productId) {
+      this.addToCart(productId);
+    },
+
   },
   created() {
+    if (this.$route.query.token) {
+      if (this.$route.query.source === "discord") {
+        // console.log(this.$route.query.token);
+        localStorage.setItem("tokenSource", this.$route.query.source )
+        localStorage.setItem("access_token", this.$route.query.token);
+        this.getEmailFromDiscord(localStorage.access_token)
+      }
+    }
     this.getProducts();
+    // this.fetchAllCarts()
     if (localStorage.getItem("access_token")) {
       this.access_token = localStorage.access_token;
     }

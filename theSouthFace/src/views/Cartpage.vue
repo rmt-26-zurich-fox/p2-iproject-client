@@ -48,7 +48,7 @@
 import { mapActions, mapState, mapWritableState } from "pinia";
 import { theSouthFace } from "../stores/theSouthFace";
 export default {
-  name: "HomePage",
+  name: "CartPage",
   computed: {
     ...mapState(theSouthFace, ["cart"]),
     ...mapWritableState(theSouthFace, ["access_token"]),

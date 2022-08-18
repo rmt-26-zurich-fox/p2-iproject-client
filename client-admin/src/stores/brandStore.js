@@ -8,7 +8,8 @@ export const useBrandStore = defineStore({
         brands: [],
         theadBrand: ["Name Brand", "Logo  Brand"],
         actionBrand: ["show", "edit", "delete"],
-        brandById: {}
+        brandById: {},
+        isLoadingBrand: false
     }),
     getters: {
 
@@ -34,6 +35,7 @@ export const useBrandStore = defineStore({
         },
         async readAllBrand() {
             try {
+                this.isLoadingBrand = true
                 const { data } = await axiosInstance({
                     method: "GET",
                     url: "/brands",
@@ -45,6 +47,8 @@ export const useBrandStore = defineStore({
                 this.brands = data
             } catch (error) {
                 this.alertError(error)
+            } finally {
+                this.isLoadingBrand = false
             }
         },
         async addBrand(obj) {

@@ -18,9 +18,13 @@ export default {
         ...mapState(useUserStore, ["userById"])
     },
     methods: {
-        ...mapActions(useUserStore, ["addUser"]),
+        ...mapActions(useUserStore, ["addUser", "updateUser"]),
         postUser() {
-            this.addUser(this.dataUser)
+            if (this.userById.username) {
+                this.updateUser(this.userById.id, this.dataUser)
+            } else {
+                this.addUser(this.dataUser)
+            }
         }
     },
     created() {
@@ -51,6 +55,8 @@ export default {
                     <div class="form-group mb-3">
                         <label for="password">Password</label>
                         <input type="text" id="password" v-model="dataUser.password" class="form-control mt-2">
+                        <small v-if="userById.username">leave it blank if you don't want to change the
+                            password</small>
                     </div>
                     <div class="form-group mb-3">
                         <label for="role">Role</label>

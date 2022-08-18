@@ -69,5 +69,44 @@ export const useUserStore = defineStore({
                 this.alertError(error)
             }
         },
+        async editUser(id) {
+            try {
+                const { data } = await axiosInstance({
+                    method: "GET",
+                    url: "/users/" + id,
+                    headers: {
+                        access_token: localStorage.access_token
+                    }
+                })
+
+                this.userById = data.data
+
+                this.router.push({ name: "editUser", params: { userId: id}})
+            } catch (error) {
+                this.alertError(error)
+            }
+        },
+        async updateUser(id, obj) {
+            try {
+                const { data } = await axiosInstance({
+                    method: "PUT",
+                    url: "/users/" + id,
+                    headers: {
+                        access_token: localStorage.access_token
+                    },
+                    data: {
+                        username: obj.username,
+                        email: obj.email,
+                        password: obj.password,
+                        role: obj.role
+                    }
+                })
+
+                this.router.push({ name: "users" })
+                this.alertSuccess(data)        
+            } catch (error) {
+                this.alertError(error)
+            }
+        },
     }
 })

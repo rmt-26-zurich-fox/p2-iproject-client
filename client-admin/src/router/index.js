@@ -72,6 +72,11 @@ const router = createRouter({
           name: "createUser",
           component: UserForm
         },
+        {
+          path: 'users/:userId',
+          name: "editUser",
+          component: UserForm
+        }
       ]
     }
   ]

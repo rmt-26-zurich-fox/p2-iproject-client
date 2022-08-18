@@ -40,13 +40,14 @@
         <h5>Share this house</h5>
         <img :src="qrcode" alt="qrcode" style="height: 100px; border: 5px solid" class="mb-5" />
       </div>
-      <div class="card ms-5 col shadow" style="max-height: 300px">
+      <div class="card ms-5 col shadow bg-light" style="max-height: 300px">
         <div class="card-body">
           <label>Night(s): </label>
           <input v-model="night" type="number" class="form-control" />
           <h5 class="card-title mt-5">Total price:</h5>
           <h5 class="card-title">{{ formatPrice }}</h5>
-          <button @click="paymentGenerator" id="pay-button" class="btn btn-primary mt-3 form-control" :class="{ disabled: night < 1 }">Book now</button>
+          <button @click="paymentGenerator" id="pay-button" class="btn btn-primary mt-3 form-control" :class="{ disabled: night < 1, disabled: !access_token }">Book now</button>
+          <span v-if="!access_token"><p>*Please login first</p></span>
         </div>
       </div>
     </div>
@@ -54,9 +55,10 @@
 </template>
 
 <script>
-import { mapActions, mapWritableState } from "pinia";
+import { mapActions, mapState, mapWritableState } from "pinia";
 import { useHouseStore } from "../stores/house";
 import LoadingSign from "../components/LoadingSign.vue";
+import { useLoginStore } from "../stores/user";
 
 export default {
   components: {
@@ -78,8 +80,8 @@ export default {
       this.isLoading = true;
       try {
         const data = await this.getDetailHouse(this.$route.params.houseId);
+        await this.handleQr(data.id);
         this.house = data;
-        this.handleQr(this.house.id);
       } catch (error) {
         this.errorHandler(error);
       } finally {
@@ -109,6 +111,7 @@ export default {
 
   computed: {
     ...mapWritableState(useHouseStore, ["isLoading"]),
+    ...mapState(useLoginStore, ['access_token']),
 
     formatPrice() {
       if (this.night < 1) {

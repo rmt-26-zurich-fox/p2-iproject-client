@@ -165,7 +165,7 @@ export default {
                         <div v-bind:class="{ 'hidden': !dropdownPopoverShowLogout, 'block': dropdownPopoverShowLogout }"
                             class="bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
                             style="min-width:12rem" ref="popoverDropdownRefLogout">
-                            <RouterLink to="/register/admin"><button v-on:click="addAdmin()"
+                            <RouterLink to="/register/admin"><button v-if="role == 'Admin'" v-on:click="addAdmin()"
                                     class="text-sm py-2 px-4 block w-full whitespace-nowrap bg-transparent text-slate-700  hover:bg-gray-200 font-bold">
                                     Add Admin
                                 </button></RouterLink>

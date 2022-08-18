@@ -38,7 +38,7 @@ export default {
         }
     },
     computed: {
-        ...mapState(useCounterStore, ["categories", "reviews", "isLoading", "categoriesId"]),
+        ...mapState(useCounterStore, ["categories", "reviews", "isLoading", "categoriesId", "isLoading"]),
     },
     components: {
         OptionComponent,
@@ -62,7 +62,7 @@ export default {
             if (response == true) {
                 const imgUrl = this.reviews[0].imageUrl.slice(7);
                 this.name = this.reviews[0].name;
-                this.previewImg = "http://localhost:3000/images/" + imgUrl;
+                this.previewImg = "https://audio-id.herokuapp.com/images/" + imgUrl;
                 this.imageUrl = this.reviews[0].imageUrl;
                 this.article = this.reviews[0].article;
                 this.status = this.reviews[0].status;
@@ -114,7 +114,7 @@ export default {
                         <label for="password" class="block text-sm text-gray-800">Article</label>
                     </div>
                     <textarea name="article"
-                        class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                        class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 whitespace-pre-line ..."
                         required oninvalid="this.setCustomValidity('Please insert the article first.')"
                         oninput="this.setCustomValidity('')" v-model="article"></textarea>
                 </div>

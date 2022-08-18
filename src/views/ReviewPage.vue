@@ -24,7 +24,7 @@ export default {
         ...mapActions(useCounterStore, ["fetchDataReview"]),
         images(reviews) {
             const imgUrl = reviews[0].imageUrl.slice(7);
-            return `http://localhost:3000/images/${imgUrl}`;
+            return `https://audio-id.herokuapp.com/images/${imgUrl}`;
         }
     },
     computed: {
@@ -62,7 +62,7 @@ export default {
             <h1 class="text-gray-800 text-2xl sm:text-3xl font-bold text-center mb-4 md:mb-6"> {{ reviews[0].name }}
             </h1>
 
-            <p class="text-gray-500 sm:text-lg mb-6 md:mb-8 antialiased">
+            <p class="text-gray-500 sm:text-lg mb-6 md:mb-8 antialiased whitespace-pre-line ...">
                 {{ reviews[0].article }}
             </p>
 

@@ -6,7 +6,6 @@ export default {
     methods: {
         ...mapActions(useCounterStore, ["fetchDataReview"]),
         async filterCategories(id) {
-            console.log(id)
             const obj = {
                 categoryId: id
             }

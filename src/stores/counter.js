@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 export const useCounterStore = defineStore({
   id: "counter",
   state: () => ({
-    baseUrl: "http://localhost:3000",
+    baseUrl: "https://audio-id.herokuapp.com",
     isLogin: false,
     username: "",
     role: "",
@@ -142,7 +142,12 @@ export const useCounterStore = defineStore({
           }
         });
       } catch (error) {
-        console.log(error);
+        // Error fetch reviews
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: `${error}`,
+        });
       } finally {
         this.isLoading = false;
       }
@@ -172,11 +177,11 @@ export const useCounterStore = defineStore({
           showConfirmButton: false,
           timer: 1500
         });
-        
+
         this.router.push("/");
       } catch (error) {
         const errorMessage = error.response.data.error.message;
-        Swal.fire({ 
+        Swal.fire({
           icon: 'error',
           title: 'Oops...',
           text: `${errorMessage}`,
@@ -332,7 +337,6 @@ export const useCounterStore = defineStore({
 
             this.router.push("/");
           } catch (error) {
-            console.log(error);
             // Error bad request (null field)
             Swal.fire({
               icon: 'error',

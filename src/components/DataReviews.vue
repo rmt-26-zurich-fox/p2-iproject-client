@@ -9,7 +9,7 @@ export default {
             const imgUrl = review.imageUrl.slice(7);
             return {
                 // any other styles you might need to add on as an example
-                'background-image': `url(http://localhost:3000/images/${imgUrl})`,
+                'background-image': `url(https://audio-id.herokuapp.com/images/${imgUrl})`,
             }
         },
         toEditPage(input) {

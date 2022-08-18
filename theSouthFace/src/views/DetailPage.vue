@@ -34,6 +34,9 @@
           @click.prevent="submitAddToCart(oneProduct.id)"
           >Add to Cart</a
         >
+        <a class="btn btn-outline-light btn-md" v-bind:href="oneProduct.videolink" v-if="oneProduct.videolink!==' '"  target="_blank" data-abc="true"
+          >Review Video</a
+        >
       </div>
       <img
         v-bind:src="oneProduct.imageUrl2"

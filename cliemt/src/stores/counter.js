@@ -18,6 +18,26 @@ export const useCounterStore = defineStore({
 
   },
   actions: {
+    async unlikePost(id) {
+      try {
+        console.log(id);
+        const { data } = await axios({
+          url: `${baseUrl}/like/${id}`,
+          method: "DELETE",
+          headers: {
+            access_token: localStorage.getItem("access_token")
+          },
+        });
+        Swal.fire({
+          icon: "success",
+          title: data.message,
+          showConfirmButton: false,
+          timer: 800,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async createNewPost(value) {
       try {
         console.log(value);
@@ -115,7 +135,6 @@ export const useCounterStore = defineStore({
             access_token: localStorage.getItem("access_token")
           }
         });
-        console.log(response.data);
         this.dataPostById = response.data;
       } catch (error) {
         console.log(error);

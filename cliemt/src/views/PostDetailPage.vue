@@ -7,6 +7,7 @@
     data() {
       return {
         comment: "",
+        userId: localStorage.getItem("id"),
       };
     },
     components: {
@@ -17,6 +18,7 @@
         "readDataPostById",
         "addCommentToPost",
         "likePost",
+        "unlikePost",
       ]),
       addComment() {
         this.addCommentToPost(this.$route.params.id, this.comment);
@@ -24,11 +26,18 @@
       likeThisPost() {
         this.likePost(this.$route.params.id);
       },
+      unlikeThisPost() {
+        console.log("masuk unlike");
+        this.unlikePost(this.$route.params.id);
+      },
+      deleteThisPost() {
+        console.log("masuk delete");
+      },
     },
     created() {
       this.readDataPostById(this.$route.params.id);
-      console.log(this.$route.params.id);
       this.comment = "";
+      console.log(this.userId);
     },
     computed: {
       ...mapState(useCounterStore, ["dataPostById"]),
@@ -43,6 +52,13 @@
     </div>
     <div class="detailPost">
       <div class="BTNLIKE">
+        <button
+          @click="deleteThisPost"
+          v-if="dataPostById.post.UserId == this.userId"
+        >
+          Delete
+        </button>
+        <button @click="unlikeThisPost">Unlike</button>
         <button @click="likeThisPost">Like</button>
       </div>
       <div class="postedBy">
@@ -114,6 +130,8 @@
     padding: 5px;
   }
   .BTNLIKE {
+    display: flex;
+    flex-direction: row;
     margin-top: 20px;
     margin-bottom: 40px;
   }

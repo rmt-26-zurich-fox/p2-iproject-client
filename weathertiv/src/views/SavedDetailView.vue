@@ -14,7 +14,7 @@
                         <div class="date">{{ savedWeather.date }}</div>
                     </div> <!-- .forecast-header -->
                     <div class="forecast-content">
-                        <div class="location">{{ savedWeather.location }}</div>
+                        <div class="location" style="font-size: 20px"><b>{{ savedWeather.location }}</b></div>
                         <div class="degree">
                             <div class="num">{{ savedWeather.temp }}<sup>o</sup>C</div>
                             <div class="forecast-icon">

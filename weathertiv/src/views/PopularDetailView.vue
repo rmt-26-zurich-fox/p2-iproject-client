@@ -14,7 +14,7 @@
                         <div class="date">{{ popularWeather.date }}</div>
                     </div> <!-- .forecast-header -->
                     <div class="forecast-content">
-                        <div class="location">{{ popularWeather.location }}</div>
+                        <div class="location" style="font-size: 20px"><b>{{ popularWeather.location }}</b></div>
                         <div class="degree">
                             <div class="num">{{ popularWeather.temp }}<sup>o</sup>C</div>
                             <div class="forecast-icon">

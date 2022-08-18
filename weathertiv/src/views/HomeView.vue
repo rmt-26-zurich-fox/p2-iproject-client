@@ -19,7 +19,9 @@
             <div class="date">{{ ipWeather.date }}</div>
           </div> <!-- .forecast-header -->
           <div class="forecast-content">
-            <div class="location">{{ ipWeather.location }}</div>
+            <div class="location" style="font-size: 20px">
+              <b>{{ ipWeather.location }}</b>
+            </div>
             <div class="degree">
               <div class="num">{{ ipWeather.temp }}<sup>o</sup>C</div>
               <div class="forecast-icon">

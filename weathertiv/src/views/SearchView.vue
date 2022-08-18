@@ -19,7 +19,7 @@
                         <div class="date">{{ searchWeather.date }}</div>
                     </div> <!-- .forecast-header -->
                     <div class="forecast-content">
-                        <div class="location">{{ searchWeather.location }}</div>
+                        <div class="location" style="font-size: 20px"><b>{{ searchWeather.location }}</b></div>
                         <div class="degree">
                             <div class="num">{{ searchWeather.temp }}<sup>o</sup>C</div>
                             <div class="forecast-icon">

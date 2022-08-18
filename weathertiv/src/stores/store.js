@@ -6,7 +6,7 @@ import router from '../router'
 export const customStore = defineStore({
   id: 'custom',
   state: () => ({
-    baseUrl: "http://localhost:3000",
+    baseUrl: "https://weathertive.herokuapp.com",
     isLoading: false,
     popular: [],
     saved: [],

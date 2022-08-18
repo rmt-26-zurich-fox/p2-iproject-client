@@ -1,9 +1,12 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
+import Swal from 'sweetalert2'
+
 export const useCounterStore = defineStore({
   id: 'counter',
   state: () => ({
     baseUrl: "http://localhost:3000",
+    // baseUrl: "https://weather-tiv.herokuapp.com",
     isLogin: false,
     //fetch state
     liststate: [],
@@ -28,7 +31,12 @@ export const useCounterStore = defineStore({
         })
         this.router.push({ name: 'login' })
       } catch (error) {
-        console.log(error.response.data.message)
+        // console.log(error.response.data.message)
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message,
+        })
       }
     },
     async login(input) {
@@ -42,7 +50,12 @@ export const useCounterStore = defineStore({
         this.isLogin = true
         this.router.push('/')
       } catch (error) {
-        console.log(error.response.data.message)
+        // console.log(error.response.data.message)
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message,
+        })
       }
     },
     linklogout() {
@@ -61,7 +74,20 @@ export const useCounterStore = defineStore({
         })
         this.liststate = data.data
       } catch (error) {
-        console.log(error.response.data.message)
+        // console.log(error.response.data.message)
+        if (error.name == 429) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Please refresh again 1 min',
+            text: error.data.message,
+          })
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.response.data.message,
+          })
+        }
       }
     },
     async fetchWeather(input) {
@@ -74,7 +100,20 @@ export const useCounterStore = defineStore({
         this.detailstate = data.data
         this.router.push('/detail')
       } catch (error) {
-        console.log(error.response.data.message)
+        // console.log(error.response.data.message)
+        if (error.name == 429) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Please refresh again 1 min',
+            text: error.data.message,
+          })
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.response.data.message,
+          })
+        }
       }
     },
     async saveBookmark(input) {
@@ -90,7 +129,20 @@ export const useCounterStore = defineStore({
         this.fetchMybookmark
         this.router.push('/bookmark')
       } catch (error) {
-        console.log(error.response.data.message)
+        // console.log(error.response.data.message)
+        if (error.name == 429) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Please refresh again 1 min',
+            text: error.data.message,
+          })
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.response.data.message,
+          })
+        }
       }
     },
     async fetchMybookmark() {
@@ -104,7 +156,20 @@ export const useCounterStore = defineStore({
         })
         this.listbookmarks = data.data
       } catch (error) {
-        console.log(error.response.data.message)
+        // console.log(error.response.data.message)
+        if (error.name == 429) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Please refresh again 1 min',
+            text: error.data.message,
+          })
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.response.data.message,
+          })
+        }
       }
     },
     async deleteBookmark(id) {
@@ -118,7 +183,12 @@ export const useCounterStore = defineStore({
         })
         this.router.push('/bookmark')
       } catch (error) {
-        console.log(error.response.data.message)
+        // console.log(error.response.data.message)
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message,
+        })
       }
     },
     async fetchnews() {
@@ -130,7 +200,20 @@ export const useCounterStore = defineStore({
         console.log(data)
         this.newslist = data.articles
       } catch (error) {
-        console.log(error.response.data.message)
+        // console.log(error.response.data.message)
+        if (error.name == 429) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Please refresh again 1 min',
+            text: error.data.message,
+          })
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.response.data.message,
+          })
+        }
       }
     },
     async googleLog() {
@@ -148,7 +231,12 @@ export const useCounterStore = defineStore({
         await this.fetchnews()
         this.router.push('/')
       } catch (error) {
-        console.log(error.response.data.message)
+        // console.log(error.response.data.message)
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message,
+        })
       }
     }
   }

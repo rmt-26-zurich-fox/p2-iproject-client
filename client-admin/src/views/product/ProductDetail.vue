@@ -31,6 +31,10 @@ export default {
                             <p>{{ productById.nameProduct }}</p>
                         </div>
                         <div>
+                            <h6><b>Brand Product</b></h6>
+                            <p>{{ productById.Brand.nameBrand }}</p>
+                        </div>
+                        <div>
                             <h6><b>Public ID Image Product</b></h6>
                             <p v-if="productById.publicIdImage">{{ productById.publicIdImage }}</p>
                             <p v-else>Not available</p>
@@ -38,6 +42,26 @@ export default {
                         <div>
                             <h6><b>URL Image Product</b></h6>
                             <a :href="productById.imageProduct" target="_blank">{{ productById.imageProduct }}</a>
+                        </div>
+                        <div>
+                            <h6><b>Price</b></h6>
+                            <p>{{ productById.price }}</p>
+                        </div>
+                        <div>
+                            <h6><b>Weight</b></h6>
+                            <p>{{ productById.weight }} gr</p>
+                        </div>
+                        <div>
+                            <h6><b>Skin Category</b></h6>
+                            <p>{{ productById.skinCategory }}</p>
+                        </div>
+                        <div>
+                            <h6><b>Product Category</b></h6>
+                            <p>{{ productById.productCategory }}</p>
+                        </div>
+                        <div>
+                            <h6><b>Description</b></h6>
+                            <p>{{ productById.description }}</p>
                         </div>
                     </div>
                 </div>

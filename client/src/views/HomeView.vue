@@ -47,6 +47,8 @@ export default {
           :product="product"
         />
       </div>
+
+      <!-- <div id="map"></div> -->
     </div>
   </div>
 </template>

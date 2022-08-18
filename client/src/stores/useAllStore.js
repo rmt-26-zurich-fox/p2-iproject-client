@@ -11,6 +11,7 @@ export const useAllStore = defineStore({
     isLogin: false,
     products: [],
     carts: [],
+    totalAmount:0
   }),
   getters: {
     doubleCount: (state) => state.counter * 2,
@@ -38,10 +39,10 @@ export const useAllStore = defineStore({
       }
     },
 
-    successShow(success) {
+    successShow(message) {
       swal({
-        title: success.response.status + " " + success.response.statusText,
-        text: success.response.data.message,
+        
+        text: message,
         icon: "success",
       });
     },
@@ -124,36 +125,88 @@ export const useAllStore = defineStore({
       }
     },
 
-    async fetchCart(){
+    async fetchCart() {
       try {
         const { data } = await axios({
           method: "get",
           url: `${baseUrl}/carts/`,
           headers: { access_token: localStorage.getItem("access_token") },
         });
-        
-        this.carts = data.carts
-        console.log(this.carts, '=======');
+
+        this.carts = data.carts;
+        console.log(this.carts, "=======");
       } catch (error) {
         console.log(error);
         this.errorShow(error);
       }
     },
 
-    async deleteCart(id){
+    async deleteCart(id) {
       try {
         const { data } = await axios({
           method: "delete",
           url: `${baseUrl}/carts/${id}`,
           headers: { access_token: localStorage.getItem("access_token") },
         });
-        
-        console.log('masuk delete=======');
-        this.fetchCart()
+
+        console.log("masuk delete=======");
+        this.fetchCart();
+      } catch (error) {
+        console.log(error);
+        this.errorShow(error);
+      }
+    },
+
+    async checkOut() {
+      try {
+        const { data } = await axios({
+          method: "patch",
+          url: `${baseUrl}/transactions/checkout`,
+          headers: { access_token: localStorage.getItem("access_token") },
+        });
+        console.log(data);
+        // this.carts = data.carts
+      } catch (error) {
+        console.log(error);
+        this.errorShow(error);
+      }
+    },
+
+    async fetchTransaction() {
+      try {
+        const { data } = await axios({
+          method: "get",
+          url: `${baseUrl}/transactions`,
+          headers: { access_token: localStorage.getItem("access_token") },
+        });
+
+       
+        console.log(data, '+++++');
+        this.totalAmount = Number(data.totalAmount[0].totalPriceAll)
+        console.log(this.totalAmount, "=======");
+      } catch (error) {
+        console.log(error);
+        this.errorShow(error);
+      }
+    },
+
+    async payment(){
+      try {
+        const { data } = await axios({
+          method: "patch",
+          url: `${baseUrl}/transactions`,
+          headers: { access_token: localStorage.getItem("access_token") },
+        });
+
+        console.log(data);
+        this.successShow(data.message)
+        this.totalAmount = 0
       } catch (error) {
         console.log(error);
         this.errorShow(error);
       }
     }
+
+
   },
 });

@@ -35,6 +35,11 @@ nav {
   /* background-color: red; */
 }
 
+nav img {
+  width: 200px;
+  height: 60px;
+}
+
 ul {
   display: flex;
 }
@@ -212,7 +217,7 @@ button {
 
 .card-specialization {
   margin: auto;
-  width: 75%;
+  width: 95%;
   height: 100%;
   /* background-color: red; */
 }
@@ -225,7 +230,8 @@ button {
 
 .card-specialization-item span {
   /* border: 1px solid #26abeb; */
-  margin-top: 5px;
+  width: 80px;
+  margin-top: 3px;
   background-color: #e9f6fc;
   color: #656565;
   padding: 5px 50px;
@@ -373,13 +379,17 @@ footer p {
   width: 40vw;
   height: 100%;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+
+  /* background-color: blue; */
+}
+
+.form-register {
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* background-color: blue; */
 }
-
 .register-form-action-form input {
   border-radius: 5px;
   width: 35%;
@@ -399,4 +409,125 @@ footer p {
 .register-form-action-form h1,
 p {
   margin-bottom: 0;
+}
+
+.overflow-y {
+  height: 120px;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.container-profile {
+  height: 95vh;
+  width: 95vw;
+  margin: 5vh auto 0 auto;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.profile {
+  margin-top: 50px;
+  width: 95vw;
+  height: 100%;
+}
+.profile form {
+  width: 88%;
+  margin: auto;
+  height: 100%;
+  /* background-color: blue; */
+}
+
+.profile-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-data input {
+  border-radius: 5px;
+  width: 10%;
+  height: 7%;
+  padding: 20px 35px;
+  border: none;
+  background-color: #26abeb;
+  margin-top: 30px;
+  color: #ffffff;
+}
+
+.button-style-doctors {
+  border: 2px solid #26abeb;
+  background-color: #26abeb;
+  color: #ffffff;
+  padding: 12px 15px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.card-chat {
+  margin-left: 120px;
+  margin-top: 50px;
+  width: 95vw;
+  height: 100%;
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+
+.card-chat-doctor {
+  width: 50%;
+  height: 45%;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
+  border-radius: 25px;
+}
+
+.container-chat {
+  height: 95vh;
+  width: 95vw;
+  margin: 5vh auto 0 auto;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-side {
+  /* background-color: #26abeb; */
+  height: 94vh;
+  width: 85vw;
+  margin: auto;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.history-chat {
+  /* background-color: red; */
+  width: 85vw;
+  height: 90%;
+  display: flex;
+  flex-direction: row;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.left-chat {
+  width: 42.5vw;
+  height: 90%;
+  /* background-color: green; */
+}
+
+.right-chat {
+  width: 42.5vw;
+  height: 90%;
+  /* background-color: yellow; */
+}
+.chat-bar {
+  width: 85vw;
+  height: 10%;
+  /* background-color: yellow; */
 }

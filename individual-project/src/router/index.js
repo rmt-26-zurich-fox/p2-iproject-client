@@ -2,9 +2,11 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import RegisterView from "../views/RegisterView.vue";
 import LoginView from "../views/LoginView.vue";
-import TanyaDokter from "../views/TanyaDokter.vue";
+import ChatView from "../views/ChatView.vue";
+
 import RegisterAsDoctor from "../views/RegisterAsDoctor.vue";
 import ProfileView from "../views/ProfileView.vue";
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -24,10 +26,11 @@ const router = createRouter({
       component: LoginView,
     },
     {
-      path: "/tanyaDokter",
-      name: "tanyaDokter",
-      component: TanyaDokter,
+      path: "/chatView",
+      name: "ChatView",
+      component: ChatView,
     },
+
     {
       path: "/registerAsDoctor",
       name: "registerAsDoctor",
@@ -38,12 +41,13 @@ const router = createRouter({
       name: "profile",
       component: ProfileView,
     },
+    { path: "/chat", name: "chat", component: ChatView },
   ],
 });
 
 router.beforeEach((to, from, next) => {
   const isAuthenticated = localStorage.access_token;
-  if ((to.name === "tanyaDokter" || to.name === "profile") && !isAuthenticated)
+  if ((to.name === "ChatView" || to.name === "profile") && !isAuthenticated)
     next({ name: "login" });
   else if (
     (to.name === "login" ||

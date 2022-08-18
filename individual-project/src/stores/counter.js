@@ -10,6 +10,9 @@ export const useCounterStore = defineStore({
     symptom: [],
     disease: [],
     profile: {},
+    midtransToken: "",
+    doctors: [],
+    celcius: "",
   }),
 
   actions: {
@@ -20,6 +23,12 @@ export const useCounterStore = defineStore({
             "/users/userRegister",
             dataForm
           );
+          Swal.fire({
+            icon: "success",
+            title: `Success Register`,
+            showConfirmButton: false,
+            timer: 1000,
+          });
           this.router.push("/login");
         } else {
           const dataDoctor = await axiosInstance.post(
@@ -47,14 +56,45 @@ export const useCounterStore = defineStore({
       try {
         const data = await axiosInstance.post("/users/userLogin", dataForm);
         localStorage.setItem("access_token", data.data.access_token);
+        localStorage.setItem("role", data.data.role);
         this.isLogin = true;
+        if (data.data.role === "Doctor") {
+          const data = await axiosInstance.patch(
+            "/doctors",
+            { status: "Online" },
+            {
+              headers: { access_token: localStorage.access_token },
+            }
+          );
+        }
+        Swal.fire({
+          icon: "success",
+          title: `Success Login`,
+          showConfirmButton: false,
+          timer: 1000,
+        });
         this.router.push("/");
       } catch (error) {}
     },
     async handleLogout() {
       try {
+        if (localStorage.role === "Doctor") {
+          const data = await axiosInstance.patch(
+            "/doctors",
+            { status: "Offline" },
+            {
+              headers: { access_token: localStorage.access_token },
+            }
+          );
+        }
         this.isLogin = false;
         localStorage.clear();
+        Swal.fire({
+          icon: "success",
+          title: `Success Logout`,
+          showConfirmButton: false,
+          timer: 1000,
+        });
         this.router.push("/login");
       } catch (error) {}
     },
@@ -93,6 +133,7 @@ export const useCounterStore = defineStore({
         });
 
         this.profile = data.data.getProfile;
+        this.celcius = data.data.getTemperature;
       } catch (error) {
         console.log(error);
       }
@@ -111,11 +152,107 @@ export const useCounterStore = defineStore({
               gender: this.profile.gender,
               height: this.profile.height,
               imageUrl: this.profile.imageUrl,
-              userId: this.profile.userId,
+              phoneNumber: this.profile.phoneNumber,
+              location: this.profile.location,
             },
           },
           {
             headers: { access_token: localStorage.access_token },
+          }
+        );
+        Swal.fire({
+          icon: "success",
+          title: `Success Update Profile`,
+          showConfirmButton: false,
+          timer: 1000,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async getTokenMidtrans() {
+      try {
+        const { data } = await axiosInstance.get("/midtrans/payment", {
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        // console.log(data);
+        this.midtransToken = data.transactionToken;
+        console.log(this.midtransToken);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async fetchDoctor() {
+      try {
+        const data = await axiosInstance.get("/doctors");
+        this.doctors = data.data.getDoctor;
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async payButton(midtransToken, phoneNumber) {
+      try {
+        window.snap.pay(`${midtransToken}`, {
+          onSuccess: function (result) {
+            /* You may add your own implementation here */
+            //   alert("payment success!");
+            Swal.fire({
+              icon: "success",
+              title: `Payment Success!`,
+              showConfirmButton: false,
+              timer: 1000,
+            });
+            window.location.href = `https://wa.me/${phoneNumber}`;
+            console.log(result);
+          },
+          onPending: function (result) {
+            /* You may add your own implementation here */
+            //   alert("wating your payment!");
+            Swal.fire({
+              icon: "success",
+              title: `Wating Your Payment!`,
+              showConfirmButton: false,
+              timer: 1000,
+            });
+            console.log(result);
+          },
+          onError: function (result) {
+            /* You may add your own implementation here */
+            //   alert("payment failed!");
+            Swal.fire({
+              icon: "success",
+              title: `Payment failed!`,
+              showConfirmButton: false,
+              timer: 1000,
+            });
+            console.log(result);
+          },
+          onClose: function () {
+            /* You may add your own implementation here */
+            //   alert("you closed the popup without finishing the payment");
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async addFavourite(doctorId) {
+      console.log(doctorId);
+      try {
+        const data = await axiosInstance.patch(
+          `/doctors/favouriteDoctors/${doctorId}`,
+          {},
+          {
+            headers: {
+              access_token: localStorage.access_token,
+            },
           }
         );
       } catch (error) {

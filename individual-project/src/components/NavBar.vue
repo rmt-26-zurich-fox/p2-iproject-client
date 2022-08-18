@@ -33,9 +33,16 @@ export default {
             <li class="features-cursor-pointer home">Beranda</li></router-link
           >
 
+          <router-link to="/chatView" v-if="isLogin">
+            <li class="features-cursor-pointer home">
+              Tanya Dokter
+            </li></router-link
+          >
+
           <router-link to="/profile" v-if="isLogin">
             <li class="features-cursor-pointer home">Profile</li></router-link
           >
+
           <router-link to="/login"
             ><li class="features-cursor-pointer signIn" v-if="!isLogin">
               Masuk

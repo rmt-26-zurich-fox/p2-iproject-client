@@ -3,7 +3,9 @@ import NavBar from "../components/NavBar.vue";
 import FooterBar from "../components/FooterBar.vue";
 import TopDoctorCard from "../components/TopDoctorCard.vue";
 import FilterBar from "../components/FilterFeatures.vue";
-
+import { mapActions, mapState } from "pinia";
+import { useCounterStore } from "../stores/counter";
+import WeatherVue from "../components/WeatherVue.vue";
 export default {
   name: "LoginView",
   components: {
@@ -11,6 +13,16 @@ export default {
     FooterBar,
     TopDoctorCard,
     FilterBar,
+    WeatherVue,
+  },
+  computed: {
+    ...mapState(useCounterStore, ["celcius"]),
+  },
+  methods: {
+    ...mapActions(useCounterStore, ["fetchProfile"]),
+  },
+  created() {
+    this.fetchProfile();
   },
 };
 </script>
@@ -32,7 +44,6 @@ export default {
             Tubuh yang kuat dan sehat jasmani merupakan fondasi utama kita untuk
             mencapai tujuan dalam kehidupan sehari hari.
           </p>
-          <button class="button-style">Cari Gejala <span>›</span></button>
         </div>
         <div class="banner-image">
           <img src="../assets/banner.png" alt="banner-image" />
@@ -50,7 +61,10 @@ export default {
       <div class="features-filter">
         <FilterBar />
       </div>
+
+      <WeatherVue />
     </main>
+
     <!--Footer-->
     <FooterBar />
   </div>

@@ -54,6 +54,16 @@ export default {
           placeholder="Image Url..."
           v-model="profile.imageUrl"
         />
+        <input
+          type="text"
+          placeholder="Phone Number..."
+          v-model="profile.phoneNumber"
+        />
+        <input
+          type="text"
+          placeholder="Location..."
+          v-model="profile.location"
+        />
         <button class="button-style">Daftar</button>
       </div>
     </form>

@@ -50,7 +50,7 @@ export default {
             if (fullPath === "/brands") {
                 return this.isLoadingBrand
             } else if (fullPath === "/products") {
-                return this.isLoadingBrand
+                return this.isLoadingProduct
             }
         }
     },

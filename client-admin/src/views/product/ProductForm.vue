@@ -20,6 +20,24 @@ export default {
             previewImage: ''
         }
     },
+    watch: {
+        "$route.fullPath"(value) {
+            if (value === "/products/create") {
+                this.dataProduct = {
+                    nameProduct: '',
+                    imageProduct: '',
+                    price: '',
+                    weight: '',
+                    skinCategory: '0',
+                    productCategory: '0',
+                    BrandId: '0',
+                    description: ''
+                }
+
+                this.previewImage = ''
+            }
+        }
+    },
     computed: {
         ...mapState(useProductStore, ["productById"]),
         ...mapState(useBrandStore, ["brands"])

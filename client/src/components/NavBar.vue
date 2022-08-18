@@ -47,7 +47,7 @@ export default {
               aria-current="page"
               href="#"
               @click="Strategies"
-              >Strategies</a
+              >Maps</a
             >
           </li>
         </ul>

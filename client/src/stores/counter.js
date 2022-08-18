@@ -6,6 +6,7 @@ export const useCounterStore = defineStore({
   state: () => ({
     map: "",
     type: "",
+    site: "",
     strategy: [],
     agents: [],
     agent: {},
@@ -24,11 +25,11 @@ export const useCounterStore = defineStore({
     },
     getMap(map) {
       this.map = map;
+      localStorage.setItem("map", map);
       router.push("/type");
     },
     getType(type) {
       this.type = type;
-      router.push("/site");
     },
     getSite(site) {
       this.getStrategies(this.map, this.type, site);

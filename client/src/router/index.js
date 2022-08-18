@@ -44,6 +44,11 @@ const router = createRouter({
       name: "detail",
       component: AgentDetail,
     },
+    {
+      path: "/login",
+      name: "login",
+      component: AgentDetail,
+    },
   ],
 });
 

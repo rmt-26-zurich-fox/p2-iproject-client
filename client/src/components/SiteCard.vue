@@ -11,6 +11,13 @@ export default {
 };
 </script>
 <template>
-  <button @click.prevent="gettingSite('A')">A</button>
-  <button @click.prevent="gettingSite('B')">B</button>
+  <div class="strategy">
+    <h1 class="text-white">Site</h1>
+    <button class="str-btn bg-danger" @click.prevent="gettingSite('A')">
+      A
+    </button>
+    <button class="str-btn bg-primary" @click.prevent="gettingSite('B')">
+      B
+    </button>
+  </div>
 </template>

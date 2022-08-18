@@ -1,5 +1,5 @@
 <script>
-import { mapActions } from "pinia";
+import { mapActions, mapWritableState } from "pinia";
 import { useCounterStore } from "../stores/counter";
 export default {
   methods: {
@@ -7,6 +7,16 @@ export default {
     gettingMap(map) {
       this.getMap(map);
     },
+  },
+  computed: {
+    ...mapWritableState(useCounterStore, ["map"]),
+    ...mapWritableState(useCounterStore, ["type"]),
+    ...mapWritableState(useCounterStore, ["site"]),
+  },
+  created() {
+    this.map = "";
+    this.type = "";
+    this.site = "";
   },
 };
 </script>

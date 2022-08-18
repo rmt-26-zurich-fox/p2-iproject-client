@@ -22,20 +22,43 @@ export default {
 };
 </script>
 <template>
-  <img :src="strategyValues[idx].imageUrl" alt="" />
-  <nav aria-label="Page navigation example">
-    <ul class="pagination">
-      <li class="page-item" v-for="(st, idx) in strategy" :key="st.id">
-        <a class="page-link" href="#" @click.prevent="changeIdx(idx)">{{
-          idx + 1
-        }}</a>
-      </li>
-    </ul>
-  </nav>
+  <div class="text-center" style="padding-top: 100px">
+    <h1 class="text-white">Strategy</h1>
+    <img class="img-str" :src="strategyValues[idx].imageUrl" alt="" />
+    <div class="pagination">
+      <a
+        class="pagi-btn"
+        href="#"
+        v-for="(st, idx) in strategy"
+        :key="st.id"
+        @click.prevent="changeIdx(idx)"
+        ><h5>{{ idx + 1 }}</h5></a
+      >
+    </div>
+  </div>
 </template>
 
 <style>
-img {
-  height: 450px;
+.img-str {
+  height: 500px;
+}
+.pagination {
+  margin: auto;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.pagi-btn {
+  padding: 10px;
+  margin: 5px;
+  color: black;
+  background-color: white;
+  text-decoration: none;
+  width: 50px;
+  height: 50px;
+}
+.pagi-btn:hover {
+  background-color: red;
+  color: white;
 }
 </style>

@@ -14,6 +14,18 @@ export default {
             }
         }
     },
+    watch: {
+        "$route.fullPath"(value) {
+            if (value === "/users/create") {
+                this.dataUser = {
+                    username: '',
+                    email: '',
+                    password: '',
+                    role: '0'
+                }
+            }
+        }
+    },
     computed: {
         ...mapState(useUserStore, ["userById"])
     },
@@ -41,8 +53,8 @@ export default {
     <div id="content" class="overflow-auto">
         <div class="card shadow-sm" style="border-radius: 10px; background-color: white;">
             <div class="card-body p-5">
-                <h3 class="mb-4">Create User</h3>
-                <p>Create User</p>
+                <h3 class="mb-4">Form User</h3>
+                <p>Form User</p>
                 <form @submit.prevent="postUser" autocomplete="off" class="mt-4">
                     <div class="form-group mb-3">
                         <label for="username">Username</label>
@@ -69,7 +81,7 @@ export default {
 
                     <div class="form-group mt-4">
                         <RouterLink to="/users" class="btn btn-outline-primary float-start">Cancel</RouterLink>
-                        <button type="submit" class="btn btn-primary float-end">Add User</button>
+                        <button type="submit" class="btn btn-primary float-end">Submit User</button>
                     </div>
                 </form>
             </div>

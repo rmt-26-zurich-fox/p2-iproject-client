@@ -43,7 +43,7 @@
       <div class="card ms-5 col shadow bg-light" style="max-height: 300px">
         <div class="card-body">
           <label>Night(s): </label>
-          <input v-model="night" type="number" class="form-control" />
+          <input v-model="night" min="1" max="30" type="number" class="form-control" />
           <h5 class="card-title mt-5">Total price:</h5>
           <h5 class="card-title">{{ formatPrice }}</h5>
           <button @click.prevent="paymentGenerator" id="pay-button" class="btn btn-primary mt-3 form-control" :class="{ disabled: night < 1, disabled: !access_token }">Book now</button>

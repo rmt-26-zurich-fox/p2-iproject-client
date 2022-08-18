@@ -119,9 +119,14 @@ const router = createRouter({
     },
     {
       path: "/404",
-      name: "Review Not Found",
+      name: "Not Found",
       component: NotFound
     },
+    {
+      path: "/:pageName",
+      name: "Page Not Found",
+      component: NotFound
+    }
   ],
 });
 

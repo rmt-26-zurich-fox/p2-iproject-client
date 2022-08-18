@@ -16,7 +16,8 @@ export const useCounterStore = defineStore({
     dataFound: true,
     isLoading: false,
     categories: [],
-    reviews: []
+    reviews: [],
+    categoriesId: []
   }),
   actions: {
     parseJwt(token) {
@@ -75,7 +76,11 @@ export const useCounterStore = defineStore({
           method: "get",
           params: value
         });
-        this.categories = data.categories;
+        if(value) {
+          this.categoriesId = data.categories;
+        } else {
+          this.categories = data.categories;
+        }
         return true;
       } catch (error) {
         // Error fetch categories

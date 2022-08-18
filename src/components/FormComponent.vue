@@ -29,7 +29,7 @@ export default {
             bodyFormData.append('article', this.article);
             bodyFormData.append('category', this.category);
 
-            if (!this.$route.params) {
+            if (this.$route.fullPath == "/posts") {
                 this.handleAddPost(bodyFormData);
             } else {
                 const id = this.$route.params.id;
@@ -38,39 +38,53 @@ export default {
         }
     },
     computed: {
-        ...mapState(useCounterStore, ["categories", "reviews", "isLoading"]),
+        ...mapState(useCounterStore, ["categories", "reviews", "isLoading", "categoriesId"]),
     },
     components: {
         OptionComponent,
         LoadingComponent
     },
     async created() {
+        await this.fetchCategories();
+        if (this.$route.fullPath == "/posts") {
+            this.name = "";
+            this.previewImg = "";
+            this.imageUrl = "";
+            this.article = "";
+            this.status = "";
+        }
+
         if (this.$route.params.id) {
-            const id = this.$route.params.id;
-            const response = await this.fetchDataReview(id);
-            if (response) {
+            const obj = {
+                id: this.$route.params.id
+            }
+            const response = await this.fetchDataReview(obj);
+            if (response == true) {
                 const imgUrl = this.reviews[0].imageUrl.slice(7);
                 this.name = this.reviews[0].name;
                 this.previewImg = "http://localhost:3000/images/" + imgUrl;
                 this.imageUrl = this.reviews[0].imageUrl;
                 this.article = this.reviews[0].article;
                 this.status = this.reviews[0].status;
-                const category = await this.fetchCategories(this.reviews[0].CategoryId);
-                if (category) {
-                    this.category = this.categories[0].name;
+
+                const obj = {
+                    id: this.reviews[0].CategoryId
+                }
+                const category = await this.fetchCategories(obj);
+                if (category) { 
+                    this.category = this.categoriesId.name;
                 }
             } else {
-                await this.fetchCategories();
+                this.$router.push("/404");
             }
         }
-
     }
 }
 </script>
 
 <template>
 
-    <LoadingComponent v-if="isLoading"/> 
+    <LoadingComponent v-if="isLoading" />
 
     <div v-else class="flex h-screen -mt-20">
         <div class="w-full max-w-sm p-6 m-auto bg-gray-100 rounded-md shadow-md">

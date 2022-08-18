@@ -19,15 +19,7 @@ export default {
 
     },
     async created() {
-        let obj;
-        if (this.$route.params) {
-            obj = {
-                page: this.$route.query.page,
-                search: this.$route.query.search,
-                categoryId: this.$route.query.categoryId
-            }
-        }
-        await this.fetchDataReview(obj)
+        await this.fetchDataReview();
     }
 }
 

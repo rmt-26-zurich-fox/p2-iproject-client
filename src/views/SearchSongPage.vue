@@ -2,7 +2,7 @@
 import SongsList from "../components/SongsList.vue";
 import LoadingComponent from "../components/LoadingComponent.vue";
 import { useCounterStore } from "../stores/counter";
-import { mapActions, mapState } from "pinia";
+import { mapActions, mapState, mapWritableState } from "pinia";
 
 export default {
     data() {
@@ -21,11 +21,14 @@ export default {
         }
     },
     computed: {
-        ...mapState(useCounterStore, ["isLoading", "songList"])
+        ...mapState(useCounterStore, ["isLoading", "songList"]),
+        ...mapWritableState(useCounterStore, ["songList"])
     },
     created() {
         if (this.$route.query.search) {
             this.handleSearchArtist(this.$route.query.search);
+        } else {
+            this.songList = [];
         }
     }
 }

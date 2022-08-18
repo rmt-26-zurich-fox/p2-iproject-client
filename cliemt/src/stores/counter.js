@@ -18,6 +18,31 @@ export const useCounterStore = defineStore({
 
   },
   actions: {
+    async googleLogin(gooleToken) {
+      try {
+        const { data } = await axios({
+          url: `${baseUrl}/google-sign-in`,
+          method: "post",
+          headers: {
+            token_google: gooleToken,
+          },
+        });
+        const { access_token, email, id } = data;
+        localStorage.setItem("access_token", access_token);
+        localStorage.setItem("user_email", email);
+        localStorage.setItem("id", id);
+        this.isLogin = true;
+        this.router.push("/");
+      } catch (error) {
+        console.log(error);
+        const msg = error.response.data.message;
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: msg,
+        });
+      }
+    },
     async deleteComment(id, commentId) {
       try {
         const { data } = await axios({
@@ -137,7 +162,6 @@ export const useCounterStore = defineStore({
           },
         });
         this.likedPostByUser = data;
-        console.log(data);
       } catch (error) {
         console.log(error);
       }
@@ -267,7 +291,6 @@ export const useCounterStore = defineStore({
     async readProfilData() {
       try {
         const id = localStorage.getItem("id");
-        console.log(id);
         const response = await axios({
           url: `${baseUrl}/profile/${id}`,
           method: "GET",
@@ -275,9 +298,9 @@ export const useCounterStore = defineStore({
             access_token: localStorage.getItem("access_token")
           }
         });
-        console.log(response.data);
+
         this.dataUserLogin = response.data;
-        // console.log(this.dataUserLogin.user);
+
       } catch (error) {
         console.log(error);
       }

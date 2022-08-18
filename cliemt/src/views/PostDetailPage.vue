@@ -39,7 +39,6 @@
     created() {
       this.readDataPostById(this.$route.params.id);
       this.comment = "";
-      console.log(this.userId);
     },
     computed: {
       ...mapState(useCounterStore, ["dataPostById"]),

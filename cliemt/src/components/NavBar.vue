@@ -22,7 +22,7 @@
     <h1>
       <router-link class="logo" to="/">社交</router-link>
     </h1>
-    <div v-if="isLogin" class="searchContainer">
+    <!-- <div v-if="isLogin" class="searchContainer">
       <input type="text" name="" id="search" placeholder="Search" />
       <button class="BTNsearch">
         <img
@@ -31,7 +31,7 @@
           alt=""
         />
       </button>
-    </div>
+    </div> -->
 
     <div>
       <router-link v-if="isLogin" class="buttonNav" to="/">

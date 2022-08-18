@@ -47,7 +47,7 @@ export default {
         ...mapState(useCounterStore, ['liststate'])
     },
     methods: {
-        ...mapActions(useCounterStore, ['fetchState', 'fetchWeather']),
+        ...mapActions(useCounterStore, ['fetchWeather']),
         handleSearch() {
             let obj = {
                 city: this.city,
@@ -57,9 +57,6 @@ export default {
             }
             this.fetchWeather(obj)
         }
-    },
-    async created() {
-        await this.fetchState()
     },
     data() {
         return {

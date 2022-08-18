@@ -5,8 +5,8 @@ import Swal from 'sweetalert2'
 export const useCounterStore = defineStore({
   id: 'counter',
   state: () => ({
-    baseUrl: "http://localhost:3000",
-    // baseUrl: "https://weather-tiv.herokuapp.com",
+    // baseUrl: "http://localhost:3000",
+    baseUrl: "https://weather-tiv.herokuapp.com",
     isLogin: false,
     //fetch state
     liststate: [],
@@ -126,7 +126,6 @@ export const useCounterStore = defineStore({
           },
           data: input
         })
-        this.fetchMybookmark
         this.router.push('/bookmark')
       } catch (error) {
         // console.log(error.response.data.message)
@@ -197,7 +196,6 @@ export const useCounterStore = defineStore({
           method: "GET",
           url: "https://newsapi.org/v2/top-headlines?country=id&apiKey=4b80c7136d234956a67d77a967037c60",
         })
-        console.log(data)
         this.newslist = data.articles
       } catch (error) {
         // console.log(error.response.data.message)
@@ -216,7 +214,7 @@ export const useCounterStore = defineStore({
         }
       }
     },
-    async googleLog() {
+    async googleLog(response) {
       try {
         let { data } = await axios({
           method: "POST",

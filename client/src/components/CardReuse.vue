@@ -127,7 +127,7 @@ export default {
         },
     },
     methods: {
-        ...mapActions(useCounterStore, ['deleteBookmark', 'fetchWeather', 'fetchMybookmark']),
+        ...mapActions(useCounterStore, ['deleteBookmark', 'fetchWeather']),
         handleDetail() {
             let obj = {
                 city: this.bookmark.city,
@@ -141,8 +141,5 @@ export default {
             this.deleteBookmark(id)
         }
     },
-    async created() {
-        await this.fetchMybookmark()
-    }
 }
 </script>

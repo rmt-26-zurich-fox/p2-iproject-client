@@ -5,7 +5,7 @@ import Swal from 'sweetalert2'
 export const useCounterStore = defineStore({
   id: 'counter',
   state: () => ({
-    baseUrl : "http://localhost:3000",
+    baseUrl : "https://court-application.herokuapp.com",
     tabs: '',
     name: "",
     report: [],

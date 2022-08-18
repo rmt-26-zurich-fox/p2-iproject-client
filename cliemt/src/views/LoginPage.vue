@@ -9,13 +9,32 @@
       };
     },
     methods: {
-      ...mapActions(useCounterStore, ["handleLogin"]),
+      ...mapActions(useCounterStore, ["handleLogin", "googleLogin"]),
       login() {
         this.handleLogin({
           email: this.email,
           password: this.password,
         });
       },
+      handleCredentialResponse: async function (response) {
+        this.googleLogin(response.credential);
+      },
+    },
+    mounted() {
+      const cb = this.handleCredentialResponse;
+
+      google.accounts.id.initialize({
+        client_id:
+          "719490215032-lp986efj1jtbg8lt97rkg9poj45e3821.apps.googleusercontent.com",
+        callback: cb,
+      });
+      google.accounts.id.renderButton(
+        document.getElementById("google-button-login"),
+        {
+          theme: "outline",
+          size: "large",
+        }
+      );
     },
   };
 </script>
@@ -24,6 +43,7 @@
   <div class="container">
     <div></div>
     <div>
+      <div id="google-button-login"></div>
       <div>
         <input type="text" class="email" placeholder="Email" v-model="email" />
       </div>

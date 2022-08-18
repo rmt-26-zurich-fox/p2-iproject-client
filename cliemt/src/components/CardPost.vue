@@ -50,6 +50,7 @@
   <div v-if="post" class="instagram-card">
     <div class="instagram-card-header">
       <p class="profilName">{{ post.User.username }}</p>
+
       <div class="instagram-card-time">
         {{ this.timeSince(new Date(post.createdAt)) }} ago
       </div>

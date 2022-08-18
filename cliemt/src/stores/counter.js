@@ -18,6 +18,31 @@ export const useCounterStore = defineStore({
 
   },
   actions: {
+    async googleLogin(gooleToken) {
+      try {
+        const { data } = await axios({
+          url: `${baseUrl}/google-sign-in`,
+          method: "post",
+          headers: {
+            token_google: gooleToken,
+          },
+        });
+        const { access_token, email, id } = data;
+        localStorage.setItem("access_token", access_token);
+        localStorage.setItem("user_email", email);
+        localStorage.setItem("id", id);
+        this.isLogin = true;
+        this.router.push("/");
+      } catch (error) {
+        console.log(error);
+        const msg = error.response.data.message;
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: msg,
+        });
+      }
+    },
     async deleteComment(id, commentId) {
       try {
         const { data } = await axios({

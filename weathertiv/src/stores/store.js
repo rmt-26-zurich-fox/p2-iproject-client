@@ -143,44 +143,64 @@ export const customStore = defineStore({
 
     //Read Popular Location
     async fetchPopularLocations() {
-      try {
-        this.isLoading = true
-        let { data } = await axios.get(this.baseUrl + '/popular')
-        this.popular = data.locations
-        this.isLoading = false
-      } catch (err) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error!',
-          text: err.response.data.message,
-        })
-      }
+      this.isLoading = true
+      Swal.fire({
+        title: 'Loading',
+        text: 'Please wait patiently.',
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: () => {
+          Swal.showLoading()
+        }
+      }).then(async () => {
+        try {
+          let { data } = await axios.get(this.baseUrl + '/popular')
+          this.popular = data.locations
+          this.isLoading = false
+        } catch (err) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: err.response.data.message,
+          })
+        }
+      })
     },
 
     //Read Popular location weather
     async fetchPopularLocationWeather(popularId) {
-      try {
-        this.isLoading = true
-        let { data } = await axios.get(this.baseUrl + `/popular/${popularId}`)
-        this.popularWeather.date = data.forecast.forecastday[0].date
-        this.popularWeather.location = data.location.name
-        this.popularWeather.temp = data.current.temp_c
-        this.popularWeather.icon = data.current.condition.icon
-        this.popularWeather.humid = data.current.humidity
-        this.popularWeather.wind = data.current.wind_kph
-        this.popularWeather.windir = data.current.wind_dir
-        this.popularWeather.iconnext = data.forecast.forecastday[1].day.condition.icon
-        this.popularWeather.tempnext = data.forecast.forecastday[1].day.avgtemp_c
-        this.popularWeather.icon2next = data.forecast.forecastday[2].day.condition.icon
-        this.popularWeather.temp2next = data.forecast.forecastday[2].day.avgtemp_c
-        this.isLoading = false
-      } catch (err) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error!',
-          text: err.response.data.message,
-        })
-      }
+      this.isLoading = true
+      Swal.fire({
+        title: 'Loading',
+        text: 'Please wait patiently.',
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: () => {
+          Swal.showLoading()
+        }
+      }).then(async () => {
+        try {
+          let { data } = await axios.get(this.baseUrl + `/popular/${popularId}`)
+          this.popularWeather.date = data.forecast.forecastday[0].date
+          this.popularWeather.location = data.location.name
+          this.popularWeather.temp = data.current.temp_c
+          this.popularWeather.icon = data.current.condition.icon
+          this.popularWeather.humid = data.current.humidity
+          this.popularWeather.wind = data.current.wind_kph
+          this.popularWeather.windir = data.current.wind_dir
+          this.popularWeather.iconnext = data.forecast.forecastday[1].day.condition.icon
+          this.popularWeather.tempnext = data.forecast.forecastday[1].day.avgtemp_c
+          this.popularWeather.icon2next = data.forecast.forecastday[2].day.condition.icon
+          this.popularWeather.temp2next = data.forecast.forecastday[2].day.avgtemp_c
+          this.isLoading = false
+        } catch (err) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: err.response.data.message,
+          })
+        }
+      })
     },
 
     //Read IPLocation
@@ -251,53 +271,73 @@ export const customStore = defineStore({
 
     ///Read Saved Location
     async fetchSavedLocation() {
-      try {
-        this.isLoading = true
-        let { data } = await axios.get(this.baseUrl + '/saved',
-          {
-            headers: {
-              access_token: localStorage.getItem("access_token")
-            }
+      this.isLoading = true
+      Swal.fire({
+        title: 'Loading',
+        text: 'Please wait patiently.',
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: () => {
+          Swal.showLoading()
+        }
+      }).then(async () => {
+        try {
+          let { data } = await axios.get(this.baseUrl + '/saved',
+            {
+              headers: {
+                access_token: localStorage.getItem("access_token")
+              }
+            })
+          this.saved = data.saved
+          this.isLoading = false
+        } catch (err) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: err.response.data.message,
           })
-        this.saved = data.saved
-        this.isLoading = false
-      } catch (err) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error!',
-          text: err.response.data.message,
-        })
-      }
+        }
+      })
     },
 
     //Read Saved location weather
     async fetchSavedLocationWeather(savedId) {
-      try {
-        this.isLoading = true
-        let { data } = await axios.get(this.baseUrl + `/saved/${savedId}`,
-          {
-            headers: {
-              access_token: localStorage.getItem("access_token")
-            }
+      this.isLoading = true
+      Swal.fire({
+        title: 'Loading',
+        text: 'Please wait patiently.',
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: () => {
+          Swal.showLoading()
+        }
+      }).then(async () => {
+        try {
+          let { data } = await axios.get(this.baseUrl + `/saved/${savedId}`,
+            {
+              headers: {
+                access_token: localStorage.getItem("access_token")
+              }
+            })
+          this.savedWeather.date = data.forecast.forecastday[0].date
+          this.savedWeather.location = data.location.name
+          this.savedWeather.temp = data.current.temp_c
+          this.savedWeather.icon = data.current.condition.icon
+          this.savedWeather.humid = data.current.humidity
+          this.savedWeather.wind = data.current.wind_kph
+          this.savedWeather.windir = data.current.wind_dir
+          this.savedWeather.iconnext = data.forecast.forecastday[1].day.condition.icon
+          this.savedWeather.tempnext = data.forecast.forecastday[1].day.avgtemp_c
+          this.savedWeather.icon2next = data.forecast.forecastday[2].day.condition.icon
+          this.savedWeather.temp2next = data.forecast.forecastday[2].day.avgtemp_c
+          this.isLoading = false
+        } catch (err) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error!',
           })
-        this.savedWeather.date = data.forecast.forecastday[0].date
-        this.savedWeather.location = data.location.name
-        this.savedWeather.temp = data.current.temp_c
-        this.savedWeather.icon = data.current.condition.icon
-        this.savedWeather.humid = data.current.humidity
-        this.savedWeather.wind = data.current.wind_kph
-        this.savedWeather.windir = data.current.wind_dir
-        this.savedWeather.iconnext = data.forecast.forecastday[1].day.condition.icon
-        this.savedWeather.tempnext = data.forecast.forecastday[1].day.avgtemp_c
-        this.savedWeather.icon2next = data.forecast.forecastday[2].day.condition.icon
-        this.savedWeather.temp2next = data.forecast.forecastday[2].day.avgtemp_c
-        this.isLoading = false
-      } catch (err) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error!',
-        })
-      }
+        }
+      })
     },
 
     //Create Saved locations

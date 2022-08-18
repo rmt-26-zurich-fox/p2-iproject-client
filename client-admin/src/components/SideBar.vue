@@ -17,7 +17,7 @@ export default {
 
         <ul class="list-unstyled components pt-3">
             <li>
-                <a href=""><i class="fa-solid fa-xl fa-table-columns"></i> Dashboard</a>
+                <RouterLink to="/"><i class="fa-solid fa-xl fa-table-columns"></i> Dashboard</RouterLink>
             </li>
             <li>
                 <a data-bs-toggle="collapse" href="#homeSubmenu" role="button" aria-expanded="false"

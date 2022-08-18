@@ -13,6 +13,18 @@ export default {
             previewImage: ''
         }
     },
+    watch: {
+        "$route.fullPath"(value) {
+            if (value === "/brands/create") {
+                this.dataBrand = {
+                    nameBrand: '',
+                    logoBrand: ''
+                }
+
+                this.previewImage = ''
+            }
+        }
+    },
     computed: {
         ...mapState(useBrandStore, ["brandById", "isPage"])
     },

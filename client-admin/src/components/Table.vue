@@ -12,7 +12,7 @@ export default {
         Trow
     },
     computed: {
-        ...mapState(useBrandStore, ["brands", "theadBrand", "actionBrand"]),
+        ...mapState(useBrandStore, ["brands", "theadBrand", "actionBrand", "isLoadingBrand"]),
         ...mapState(useProductStore, ["products", "theadProduct", "actionProduct"]),
         ...mapState(useUserStore, ["users", "theadUser", "actionUser"]),
         throwData() {
@@ -44,6 +44,12 @@ export default {
             } else if (fullPath === "/users") {
                 return this.actionUser.length
             }
+        },
+        loading() {
+            const { fullPath } = this.$route
+            if (fullPath === "/brands") {
+                return this.isLoadingBrand
+            }
         }
     },
     methods: {
@@ -65,7 +71,14 @@ export default {
 }
 </script>
 <template>
-    <div class="table-responsive mt-4">
+    <div v-if="loading">
+        <div class="d-flex justify-content-center mt-5">
+            <div class="spinner-border" style="width: 3rem; height: 3rem; color: ;" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+    <div v-else class="table-responsive mt-4">
         <table class="table table-hover">
             <thead>
                 <th>No</th>

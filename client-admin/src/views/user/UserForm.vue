@@ -80,8 +80,8 @@ export default {
                     </div>
 
                     <div class="form-group mt-4">
-                        <RouterLink to="/users" class="btn btn-outline-primary float-start">Cancel</RouterLink>
-                        <button type="submit" class="btn btn-primary float-end">Submit User</button>
+                        <RouterLink to="/users" class="btn button-pink-outline float-start">Cancel</RouterLink>
+                        <button type="submit" class="btn button-pink float-end">Submit User</button>
                     </div>
                 </form>
             </div>

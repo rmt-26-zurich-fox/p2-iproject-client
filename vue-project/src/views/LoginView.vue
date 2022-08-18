@@ -47,9 +47,9 @@
             </div>
 
             <br />
-            <span @click="test">TEST</span>
+            <!-- <span @click="test">TEST</span> -->
             <!-- <span @click="logout">logout</span> -->
-            <span @click="cek">cek</span>
+            <!-- <span @click="cek">cek</span> -->
             <span></span>
             <span id="buttonDiv"></span>
           </form>

@@ -55,12 +55,15 @@ export const useCounterStore = defineStore({
     },
     async handleCredentialResponse(response) {
       try {
-        let data = await axios(`http://localhost:3000/user/google-sign-in`, {
-          method: "POST",
-          headers: {
-            token_google: response.credential,
-          },
-        });
+        let data = await axios(
+          `https://iproject-londreeh.herokuapp.com/user/google-sign-in`,
+          {
+            method: "POST",
+            headers: {
+              token_google: response.credential,
+            },
+          }
+        );
         localStorage.setItem("access_token", data.data.access_token);
         localStorage.setItem("email", data.data.email);
         localStorage.setItem("role", data.data.role);
@@ -124,7 +127,7 @@ export const useCounterStore = defineStore({
       try {
         let change = data;
         let updated = await axios({
-          url: `http://localhost:3000/cloth/${data.id}`,
+          url: `https://iproject-londreeh.herokuapp.com/cloth/${data.id}`,
           method: "PATCH",
           data: change,
           headers: { access_token: localStorage.access_token },

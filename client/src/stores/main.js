@@ -34,7 +34,8 @@ export const useMain = defineStore({
           timer: 1500,
         });
         this.isLoggedIn = true;
-        this.router.push({ name: "HomePage" });
+        this.findProfile();
+        // this.router.push({ name: "HomePage" });
       } catch (error) {
         Swal.fire({
           title: "Error!",
@@ -66,7 +67,6 @@ export const useMain = defineStore({
           timer: 1500,
         });
         this.findProfile();
-        this.router.push({ name: "HomePage" });
       } catch (error) {
         console.error("error", "Oops Login with Google failed...", error);
       }
@@ -116,9 +116,17 @@ export const useMain = defineStore({
         const { data } = response;
         if (data !== null) {
           this.profileFound = true;
+          localStorage.setItem("name", data.firstName);
+          this.userProfile = data;
+          this.router.push({ name: "HomePage" });
+        } else {
+          await Swal.fire({
+            title: "Warning!",
+            icon: "warning",
+            text: "Profile not found! Please head to Profile section to create profile.",
+          });
+          this.router.push({ name: "ProfilePage" });
         }
-        localStorage.setItem("name", data.firstName);
-        this.userProfile = data;
       } catch (error) {
         Swal.fire({
           title: "Error!",
@@ -148,7 +156,7 @@ export const useMain = defineStore({
           }
         );
         this.findProfile();
-        this.router.push("/");
+        // this.router.push("/");
       } catch (error) {
         Swal.fire({
           title: "Error!",
@@ -309,6 +317,10 @@ export const useMain = defineStore({
             headers: { access_token: localStorage.getItem("access_token") },
           }
         );
+        this.getAllThreads();
+        this.router.push({
+          name: "ThreadList",
+        });
       } catch (error) {
         Swal.fire({
           title: "Error!",

@@ -13,6 +13,7 @@ import FavoritePage from "../views/FavoritePage.vue";
 import CreateThread from "../views/CreateThread.vue";
 import ThreadList from "../views/ThreadList.vue";
 import ThreadDetail from "../views/ThreadDetail.vue";
+import NotFoundPage from "../views/NotFoundPage.vue";
 import Swal from "sweetalert2";
 
 const pinia = createPinia();
@@ -307,6 +308,11 @@ const router = createRouter({
           },
         },
       ],
+    },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "NotFound",
+      component: NotFoundPage,
     },
     // {
     //   path: "/about",

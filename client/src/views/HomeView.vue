@@ -56,7 +56,6 @@ export default {
       let self = this;
       this.socket.on("update-users", function (usersFix) {
         self.users = usersFix;
-        console.log(this.users, "UPDATE USERs");
       });
     },
     sendMessage: function (message) {
@@ -83,7 +82,8 @@ export default {
     return {
       messages: [],
       users: [],
-      socket: io(`http://localhost:3000`),
+      // socket: io(`http://localhost:3000`),
+      socket: io(`https://nba-for-u.herokuapp.com`),
       userName: "",
       isLogged: false,
     };

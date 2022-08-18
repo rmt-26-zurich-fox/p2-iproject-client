@@ -71,7 +71,7 @@ export default {
               <ButtonComponent
                 buttonType="submit"
                 buttonClass="btn btn-primary btn-lg"
-                buttonText="Sign In"
+                buttonText="Sign Up"
               />
             </form>
           </div>

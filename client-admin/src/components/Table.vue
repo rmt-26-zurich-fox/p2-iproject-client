@@ -2,7 +2,8 @@
 import Thead from '@/components/Thead.vue'
 import Trow from '@/components/Trow.vue'
 import { useBrandStore } from '@/stores/brandStore'
-import { useProductStore } from '../stores/productStore'
+import { useProductStore } from '@/stores/productStore'
+import { useUserStore } from '@/stores/userStore'
 import { mapActions, mapState } from 'pinia'
 
 export default {
@@ -13,12 +14,15 @@ export default {
     computed: {
         ...mapState(useBrandStore, ["brands", "theadBrand", "actionBrand"]),
         ...mapState(useProductStore, ["products", "theadProduct", "actionProduct"]),
+        ...mapState(useUserStore, ["users", "theadUser", "actionUser"]),
         throwData() {
             const { fullPath } = this.$route
             if (fullPath === "/brands") {
                 return this.brands
             } else if (fullPath === "/products") {
                 return this.products
+            } else if (fullPath === "/users") {
+                return this.users
             }
         },
         theadData() {
@@ -27,6 +31,8 @@ export default {
                 return this.theadBrand
             } else if (fullPath === "/products") {
                 return this.theadProduct
+            } else if (fullPath === "/users") {
+                return this.theadUser
             }
         },
         actionData() {
@@ -34,13 +40,16 @@ export default {
             if (fullPath === "/brands") {
                 return this.actionBrand.length
             } else if (fullPath === "/products") {
-                return this.actionProduct
+                return this.actionProduct.length
+            } else if (fullPath === "/users") {
+                return this.actionUser.length
             }
         }
     },
     methods: {
         ...mapActions(useBrandStore, ["readAllBrand"]),
-        ...mapActions(useProductStore, ["readAllProduct"])
+        ...mapActions(useProductStore, ["readAllProduct"]),
+        ...mapActions(useUserStore, ["readAllUser"])
     },
     created() {
         const { fullPath } = this.$route
@@ -49,6 +58,8 @@ export default {
             this.readAllBrand()
         } else if (fullPath === "/products") {
             this.readAllProduct()
+        } else if (fullPath === "/users") {
+            this.readAllUser()
         }
     }
 }

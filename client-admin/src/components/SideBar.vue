@@ -49,6 +49,18 @@ export default {
                     </li>
                 </ul>
             </li>
+            <li>
+                <a data-bs-toggle="collapse" href="#userSubmenu" role="button" aria-expanded="false"
+                    aria-controls="userSubmenu">
+                    <i class="fa-solid fa-xl fa-users"></i> Users <i class="fa-solid fa-chevron-down"
+                        style="margin-left: 80px;"></i>
+                </a>
+                <ul class="collapse list-unstyled" id="userSubmenu" style="background-color: white; padding: 10px;">
+                    <li>
+                        <RouterLink to="/users">User List</RouterLink>
+                    </li>
+                </ul>
+            </li>
         </ul>
     </nav>
 </template>

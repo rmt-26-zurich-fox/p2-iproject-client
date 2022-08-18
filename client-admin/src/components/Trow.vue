@@ -1,7 +1,8 @@
 <script>
 import { mapState, mapActions } from 'pinia'
-import { useBrandStore } from '../stores/brandStore'
-import { useProductStore } from '../stores/productStore'
+import { useBrandStore } from '@/stores/brandStore'
+import { useProductStore } from '@/stores/productStore'
+import { useUserStore } from '@/stores/userStore'
 import { RouterLink } from 'vue-router'
 
 export default {
@@ -9,12 +10,16 @@ export default {
     computed: {
         ...mapState(useBrandStore, ["actionBrand"]),
         ...mapState(useProductStore, ["actionProduct"]),
+        ...mapState(useUserStore, ["actionUser"]),
+
         columnNames() {
             const { fullPath } = this.$route
             if (fullPath === '/brands') {
                 return ["nameBrand", "logoBrand"]
             } else if (fullPath === '/products') {
                 return ["nameProduct", "imageProduct"]
+            } else if (fullPath === '/users') {
+                return ["username", "email", "role"]
             }
         },
         actionData() {
@@ -23,6 +28,8 @@ export default {
                 return this.actionBrand
             } else if (fullPath === "/products") {
                 return this.actionProduct
+            } else if (fullPath === "/users") {
+                return this.actionUser
             }
         }
     },
@@ -68,6 +75,10 @@ export default {
             </p>
             <p v-else-if="'imageProduct' === td">
                 <img :src="trow.imageProduct" :alt="trow.nameProduct" style="width: 150px">
+            </p>
+            <p v-else-if="'role' === td">
+                <span v-if="trow.role === 'Admin'" class="badge rounded-pill bg-primary">Admin</span>
+                <span v-else class="badge rounded-pill bg-warning text-dark">Customer</span>
             </p>
             <p v-else>
                 {{ trow[td] }}

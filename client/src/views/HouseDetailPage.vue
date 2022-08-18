@@ -78,8 +78,8 @@ export default {
       this.isLoading = true;
       try {
         const data = await this.getDetailHouse(this.$route.params.houseId);
-        await this.handleQr(this.house.id);
         this.house = data;
+        this.handleQr(this.house.id);
       } catch (error) {
         this.errorHandler(error);
       } finally {
@@ -102,7 +102,7 @@ export default {
         const data = await this.generateQr(houseId);
         this.qrcode = data.qrcode;
       } catch (error) {
-        console.log(error);
+        this.errorHandler(error);
       }
     },
   },

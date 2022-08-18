@@ -157,7 +157,7 @@ export const useCounterStore = defineStore({
       try {
         const { data } = await axios({
           method: 'get',
-          url: `https://api.happi.dev/v1/qrcode?data=https://chalange-w3.web.app/detail/${id}&width=&dots=000000&bg=FFFFFF&apikey=08ba957f5KkkuBtdtjTyVGWws94roIUjagxN9KqReoTe5EAvt73LiBeo`
+          url: `https://api.happi.dev/v1/qrcode?data=https://project-akhir-phase-2.web.app/detail/${id}&width=&dots=000000&bg=FFFFFF&apikey=08ba957f5KkkuBtdtjTyVGWws94roIUjagxN9KqReoTe5EAvt73LiBeo`
         })
         this.qrcode = data.qrcode
       } catch (error) {

@@ -10,6 +10,10 @@ body {
 	background-repeat: repeat-y;
 }
 
+a {
+	color: white;
+}
+
 a:hover {
 	color: green;
 	font-weight: bold;
@@ -56,6 +60,10 @@ a:hover {
 }
 .background-white {
 	background-color: white;
+}
+
+.accordion-button {
+	background-color: rgba(101, 101, 101, 0.7) !important;
 }
 
 /* TABLE */

@@ -1,7 +1,7 @@
 <script></script>
 <template>
 	<div>
-		<span class="container-fluid fw-bold float-start fs-2" style="background-color: rgba(0, 0, 0, 0.6)"
+		<span class="container-fluid fw-bold float-start fs-2" style="background-color: rgba(0, 0, 0, 0.6); color: white"
 			>Fajar Inproj
 			<div class="float-end">
 				<router-link to="/" class="text-decoration-none">Dashboard</router-link> |

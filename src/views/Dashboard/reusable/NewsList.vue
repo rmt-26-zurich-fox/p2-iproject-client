@@ -18,7 +18,7 @@
 	<tr>
 		<td class="padding-table">{{ timeSince(news.date) }}</td>
 		<td class="padding-table">
-			<a :href="news.link" target="_blank">{{ news.message }}</a>
+			<a :href="news.link" target="_blank" style="color: blue">{{ news.message }}</a>
 		</td>
 	</tr>
 </template>

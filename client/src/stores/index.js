@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
-
+// https://project-akhir-phase2.herokuapp.com/
 export const useCounterStore = defineStore({
   id: 'counter',
   state: () => ({

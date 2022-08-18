@@ -8,14 +8,15 @@
         <div class="col-4">
             <h1 class="fw-bold text-blue">{{ objDataById.nama }}</h1>
             <hr>
-            <ul>
-                <li> Kategory : <span class="fw-semibold">{{ objDataById.kategori }}</span></li>
-                <li> Deskripsi : <span class="fw-semibold">{{ objDataById.deskripsi }}</span></li>
-                <li> Deskripsi : <span class="fw-semibold">{{ objDataById.photo_by }}</span></li>
-            </ul>
+                <p> Kategory : <span class="fw-semibold">{{ objDataById.kategori }}</span></p>
+                <p> Deskripsi : <span class="fw-semibold">{{ objDataById.deskripsi }}</span></p>
+                <p> Photo By : <span class="fw-semibold">{{ objDataById.photo_by }}</span></p>
             <div>
                 <img :src="qrcode" alt="" style="width:200px">
+                 <p class="mt-2">Latitude: {{objDataById.latitude}}</p>
+                 <p style="line-height:0%;">Longitude: {{objDataById.longitude}}</p>
             </div>
+            <hr>
         </div>
     </div>
 </template>

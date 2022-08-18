@@ -45,7 +45,7 @@ router.beforeEach((to, from, next) => {
   const isLogin = localStorage.access_token;
   if ((to.name === "login" || to.name === "register") && isLogin) {
     next({ name: "home" });
-  } else if ((to.name === "home" || to.name === "profile") && !isLogin) {
+  } else if ((to.name === "home" || to.name === "profile" || to.name === "new-post" || to.name === "post_detail") && !isLogin) {
     Swal.fire({
       icon: "error",
       title: "Oops...",

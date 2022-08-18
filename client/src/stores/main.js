@@ -309,7 +309,6 @@ export const useMain = defineStore({
             headers: { access_token: localStorage.getItem("access_token") },
           }
         );
-        console.log(response.data);
       } catch (error) {
         Swal.fire({
           title: "Error!",
@@ -327,7 +326,6 @@ export const useMain = defineStore({
         });
         const { data } = response;
         this.threads = data;
-        console.log(this.threads);
       } catch (error) {
         Swal.fire({
           title: "Error!",
@@ -352,7 +350,6 @@ export const useMain = defineStore({
           },
         });
       } catch (error) {
-        console.log(error);
         Swal.fire({
           title: "Error!",
           icon: "error",

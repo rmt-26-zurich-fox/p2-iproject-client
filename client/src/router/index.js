@@ -96,13 +96,12 @@ const router = createRouter({
           });
           next();
         } else {
-          console.log("masuk bawah");
-          await Swal.fire({
-            title: "Error!",
-            icon: "error",
-            text: "Please log in to access app features!",
-            timer: 1500,
-          });
+          // await Swal.fire({
+          //   title: "Error!",
+          //   icon: "error",
+          //   text: "Please log in to access app features!",
+          //   timer: 1500,
+          // });
           next({ name: "LoginPage" });
         }
       },

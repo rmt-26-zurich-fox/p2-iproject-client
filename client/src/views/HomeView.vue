@@ -49,9 +49,7 @@ export default {
     initChat() {
       let self = this;
       this.socket.on("init-chat", function (messagesFix) {
-        console.log(messagesFix);
         self.messages = messagesFix;
-        console.log(this.messages, "init chat");
       });
     },
     updateUser() {
@@ -63,7 +61,6 @@ export default {
     },
     sendMessage: function (message) {
       if (message) {
-        console.log("INI MASUK SEND MESSAGE");
         this.socket.emit("send-msg", { message: message, user: this.userName });
       }
     },

@@ -36,7 +36,7 @@ export default {
     methods: {
         ...mapActions(useBrandStore, ["editBrand", "deleteBrand", "showBrand"]),
         ...mapActions(useProductStore, ["editProduct", "deleteProduct", "showProduct"]),
-        ...mapActions(useUserStore, ["editUser"]),
+        ...mapActions(useUserStore, ["editUser", "deleteUser"]),
 
         handleEdit() {
             const { fullPath } = this.$route
@@ -56,6 +56,8 @@ export default {
                 this.deleteBrand(this.trow.id)
             } else if (fullPath === "/products") {
                 this.deleteProduct(this.trow.id)
+            } else if (fullPath === "/users") {
+                this.deleteUser(this.trow.id)
             }
         },
         handleShow() {

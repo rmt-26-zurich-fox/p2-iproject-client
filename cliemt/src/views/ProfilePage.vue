@@ -52,6 +52,11 @@
         <button @click="pagePost" class="POSTBTN">Your Post</button>
         <button @click="pageLike" class="LIKEDPOSTBTN">Your Like</button>
       </div>
+      <div>
+        <router-link class="BTNcreateNewPost" to="/new-post"
+          >Create new post</router-link
+        >
+      </div>
     </div>
 
     <div v-show="this.page === 'post'">
@@ -68,8 +73,13 @@
 </template>
 
 <style scoped>
+  .BTNcreateNewPost {
+    text-decoration: none;
+    color: black;
+  }
   .buttonPage {
     margin-top: 100px;
+    margin-bottom: 30px;
   }
   .POSTBTN {
     margin-right: 5px;

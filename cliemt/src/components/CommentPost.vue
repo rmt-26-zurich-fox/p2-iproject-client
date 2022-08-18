@@ -1,7 +1,21 @@
 <script>
+  import { mapActions, mapState } from "pinia";
+  import { useCounterStore } from "../stores/counter";
   export default {
+    data() {
+      return {
+        id: localStorage.getItem("id"),
+      };
+    },
     props: {
       comment: Object,
+    },
+    methods: {
+      ...mapActions(useCounterStore, ["deleteComment"]),
+      deleteThisComment() {
+        console.log(this.comment.PostId, this.comment.id);
+        this.deleteComment(this.comment.PostId, this.comment.id);
+      },
     },
   };
 </script>
@@ -21,9 +35,22 @@
       {{ comment.comment }}
     </div>
   </div>
+  <div
+    v-if="this.id == comment.UserId"
+    @click="deleteThisComment"
+    class="deleteBTN"
+  >
+    delete
+  </div>
 </template>
 
 <style scoped>
+  .deleteBTN {
+    margin-left: 10px;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: pointer;
+  }
   img {
     margin-top: 3px;
   }

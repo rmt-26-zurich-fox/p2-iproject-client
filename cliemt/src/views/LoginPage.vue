@@ -21,7 +21,6 @@
 </script>
 
 <template>
-  <h1>ini Login Page</h1>
   <div>
     <div></div>
     <div>

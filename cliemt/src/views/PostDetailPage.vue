@@ -19,6 +19,7 @@
         "addCommentToPost",
         "likePost",
         "unlikePost",
+        "deletePost",
       ]),
       addComment() {
         this.addCommentToPost(this.$route.params.id, this.comment);
@@ -32,6 +33,7 @@
       },
       deleteThisPost() {
         console.log("masuk delete");
+        this.deletePost(this.$route.params.id);
       },
     },
     created() {

@@ -3,7 +3,6 @@ import HomePage from "../views/HomePage.vue";
 import LoginPage from "../views/LoginPage.vue";
 import RegisterPage from "../views/RegisterPage.vue";
 import ProfilePage from "../views/ProfilePage.vue";
-import ExplorePage from "../views/ExplorePage.vue";
 import PostDetailPage from "../views/PostDetailPage.vue";
 import CreatePost from "../views/CreatePost.vue";
 import Swal from "sweetalert2";
@@ -29,11 +28,6 @@ const router = createRouter({
       path: "/profile",
       name: "profile",
       component: ProfilePage,
-    },
-    {
-      path: "/explore",
-      name: "explore",
-      component: ExplorePage,
     },
     {
       path: "/post/:id",

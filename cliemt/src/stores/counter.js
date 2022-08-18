@@ -18,6 +18,60 @@ export const useCounterStore = defineStore({
 
   },
   actions: {
+    async deleteComment(id, commentId) {
+      try {
+        const { data } = await axios({
+          url: `${baseUrl}/comment/${id}/${commentId}`,
+          method: "delete",
+          headers: {
+            access_token: localStorage.getItem("access_token")
+          },
+        });
+        console.log(data);
+        Swal.fire({
+          icon: "success",
+          title: data.message,
+          showConfirmButton: false,
+          timer: 800,
+        });
+        this.readDataPostById(id);
+        this.router.push(`/post/${id}`);
+      } catch (error) {
+        console.log(error);
+        const msg = error.response.data.message;
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: msg,
+        });
+      }
+    },
+    async deletePost(id) {
+      try {
+        const { data } = await axios({
+          url: `${baseUrl}/post/${id}`,
+          method: "delete",
+          headers: {
+            access_token: localStorage.getItem("access_token")
+          },
+        });
+        Swal.fire({
+          icon: "success",
+          title: data.message,
+          showConfirmButton: false,
+          timer: 800,
+        });
+        this.router.push("/");
+      } catch (error) {
+        console.log(error);
+        const msg = error.response.data.message;
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: msg,
+        });
+      }
+    },
     async unlikePost(id) {
       try {
         console.log(id);
@@ -36,6 +90,12 @@ export const useCounterStore = defineStore({
         });
       } catch (error) {
         console.log(error);
+        const msg = error.response.data.message;
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: msg,
+        });
       }
     },
     async createNewPost(value) {

@@ -10,6 +10,5 @@ export default {
   <header>
     <NavBar />
   </header>
-
   <RouterView />
 </template>

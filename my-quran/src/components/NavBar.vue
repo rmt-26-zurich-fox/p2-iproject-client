@@ -1,6 +1,6 @@
 <template>
 <section class="nav-bar">
-    <h3 onclick="changePage">My Qur'an</h3>
+    <h3 @click="changePage">My Qur'an</h3>
   </section>
 </template>
 

@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
-import router from '../router'
 
 export const quranStore = defineStore({
   id: 'ikan-terbang',
@@ -25,22 +24,22 @@ export const quranStore = defineStore({
         console.log('ini tangkepan tdi ')
       }
     },
-    async fetchSurah(){
+    async fetchSurah(surahId){
       try {
-        console.log(this.surahId)
+        // console.log(this.surahId)
         const fetchedSurah = await axios({
           method: 'GET',
-          url: this.baseUrl + `quran/${this.surahId}`
+          url: this.baseUrl + `quran/${surahId}`
         })
         
         this.surah = fetchedSurah.data.data
-        console.log(this.surah.asma.id)
+        this.router.push(`/detail/${surahId}`)
       } catch (error) {
         console.log(error)
       }
     },
     navBarNavigation(){
-      console.log('ini di store quran bang')
+      this.router.push('/')
     },
 
     handleDetail(){

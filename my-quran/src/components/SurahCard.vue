@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="card-container">
     <div class="card" @click="SurahDetail">
       <div class="card-header">
         <h4>{{ surah.asma.id.long }}</h4>
@@ -18,16 +18,15 @@
 <script>
 import { mapActions, mapWritableState } from 'pinia';
 import { quranStore } from '../stores/quranStore';
-import router from '../router';
-
-
+// import router from '../router';
+// console.log(quranStore)
 export default {
   props: ['surah'],
   methods: {
     ...mapActions(quranStore, ['fetchSurah']),
-    SurahDetail(){
-      router.push(`detail/${this.surah.number}`)
-      this.surahId = this.surah.number
+    SurahDetail() {
+      console.log(this.surah.number)
+      this.fetchSurah(this.surah.number)
     }
   },
   computed: {

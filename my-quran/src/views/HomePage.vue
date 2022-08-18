@@ -1,14 +1,16 @@
 <template>
   <section class="homepage">
     <h1>List of Surahs</h1>
-    <SurahCard v-for="surah in surahs" :key="surah.number" :surah="surah"/>
+    <div class="surah-box">
+      <SurahCard v-for="surah in surahs" :key="surah.number" :surah="surah" />
+    </div>
   </section>
 </template>
 
 <script>
 import SurahCard from '../components/SurahCard.vue'
 import { mapActions, mapState } from 'pinia';
-import {quranStore} from '../stores/quranStore'
+import { quranStore } from '../stores/quranStore'
 
 export default {
   methods: {
@@ -20,7 +22,7 @@ export default {
   components: {
     SurahCard
   },
-  created(){
+  created() {
     this.fetchQuran()
   }
 }

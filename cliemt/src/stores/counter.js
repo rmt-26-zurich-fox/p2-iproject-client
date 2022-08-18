@@ -137,7 +137,6 @@ export const useCounterStore = defineStore({
           },
         });
         this.likedPostByUser = data;
-        console.log(data);
       } catch (error) {
         console.log(error);
       }
@@ -267,7 +266,6 @@ export const useCounterStore = defineStore({
     async readProfilData() {
       try {
         const id = localStorage.getItem("id");
-        console.log(id);
         const response = await axios({
           url: `${baseUrl}/profile/${id}`,
           method: "GET",
@@ -275,9 +273,9 @@ export const useCounterStore = defineStore({
             access_token: localStorage.getItem("access_token")
           }
         });
-        console.log(response.data);
+
         this.dataUserLogin = response.data;
-        // console.log(this.dataUserLogin.user);
+
       } catch (error) {
         console.log(error);
       }

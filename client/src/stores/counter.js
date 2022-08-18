@@ -15,7 +15,7 @@ export const useCounterStore = defineStore({
     async getStrategies(map, type, site) {
       try {
         const { data } = await axios.get(
-          `http://localhost:3000/${map}/${type}/${site}`
+          `https://iproject-ahmad-01.herokuapp.com/${map}/${type}/${site}`
         );
         this.strategy = data;
         router.push("/strategy");
@@ -36,7 +36,9 @@ export const useCounterStore = defineStore({
     },
     async getAgents() {
       try {
-        const { data } = await axios.get("http://localhost:3000/agents");
+        const { data } = await axios.get(
+          "https://iproject-ahmad-01.herokuapp.com/agents"
+        );
         this.agents = data;
       } catch (error) {
         console.log(error);

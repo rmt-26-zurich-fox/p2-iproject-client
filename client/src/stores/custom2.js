@@ -107,8 +107,7 @@ export const useCustom2Store = defineStore({
                 }
               })
         } catch (err) {
-            console.log(err)
-            // this.errAlert(err) 
+            this.errAlert(err) 
         }
     },
     errAlert(err){

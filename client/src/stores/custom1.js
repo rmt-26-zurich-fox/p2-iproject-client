@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 
 import axios from 'axios'
+import Swal from 'sweetalert2'
 export const useCustom1Store = defineStore({
   id: 'custom',
   state: () => ({
@@ -16,6 +17,7 @@ export const useCustom1Store = defineStore({
   },
   actions: {
     async fetchProduct(page,  search){
+        this.loading()
         try {
             let { data } = await axios({
                 url: `${this.url}/products`,
@@ -24,6 +26,7 @@ export const useCustom1Store = defineStore({
             })
             this.products = data.products.rows
             this.totalPages = data.totalPages
+            Swal.close()
         } catch (err) {
             console.log(err)
         }
@@ -42,6 +45,7 @@ export const useCustom1Store = defineStore({
     },
     async loginHandler(username,password, rememberMe){
         try {
+            this.loading()
             const { data } = await axios({
                 url: `${this.url}/login`,
                 method: "Post",
@@ -68,7 +72,7 @@ export const useCustom1Store = defineStore({
             this.router.push(`/`)
         }
         } catch (err) {
-            console.log(err.response)
+            this.errAlert(err)
         }
     },
     async handleCredential(response){
@@ -89,13 +93,13 @@ export const useCustom1Store = defineStore({
               this.router.push(`/`)
                   }
           }catch(err){
-              console.log(err.response)
-  
+            this.errAlert(err)
           }
     },
 
     async register(userData){
         try {
+            this.loading()
             const {data} = await axios({
                 url: `${this.url}/register`,
                 method: 'POST',
@@ -111,8 +115,26 @@ export const useCustom1Store = defineStore({
             this.router.push(`/`)
         }
         } catch (err) {
-            console.log(err.response.data) 
+            this.errAlert(err)
         }
+    },
+      errAlert(err){
+        console.log(err.response)
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.response.data,
+          })
+      },
+      loading(){
+        Swal.fire({
+            position: 'center',
+            title: 'Loading',
+            showConfirmButton: false,
+            didOpen: () => {
+                Swal.showLoading()
+            }
+      })
     }
   },
 })

@@ -47,7 +47,7 @@
           <h5 class="card-title mt-5">Total price:</h5>
           <h5 class="card-title">{{ formatPrice }}</h5>
           <button @click="paymentGenerator" id="pay-button" class="btn btn-primary mt-3 form-control" :class="{ disabled: night < 1, disabled: !access_token }">Book now</button>
-          <span v-if="!access_token"><p>*Please login first</p></span>
+          <span v-if="!access_token"><p style="color: red">*Please login first</p></span>
         </div>
       </div>
     </div>
@@ -80,7 +80,6 @@ export default {
       this.isLoading = true;
       try {
         const data = await this.getDetailHouse(this.$route.params.houseId);
-        await this.handleQr(data.id);
         this.house = data;
       } catch (error) {
         this.errorHandler(error);
@@ -99,8 +98,9 @@ export default {
       }
     },
 
-    async handleQr(houseId) {
+    async handleQr() {
       try {
+        const { houseId } = this.$route.params;
         const data = await this.generateQr(houseId);
         this.qrcode = data.qrcode;
       } catch (error) {
@@ -111,7 +111,7 @@ export default {
 
   computed: {
     ...mapWritableState(useHouseStore, ["isLoading"]),
-    ...mapState(useLoginStore, ['access_token']),
+    ...mapState(useLoginStore, ["access_token"]),
 
     formatPrice() {
       if (this.night < 1) {
@@ -124,6 +124,7 @@ export default {
 
   created() {
     this.fetchDetailHouse();
+    this.handleQr()
   },
 };
 </script>

@@ -3,7 +3,7 @@ import SocialLoginButton from "../components/SocialLoginButton.vue";
 import LobbySelector from "../components/LobbySelector.vue";
 
 export default {
-  name: "HomeView",
+  name: "LobbyView",
   components: { SocialLoginButton, LobbySelector },
 };
 </script>
@@ -21,7 +21,7 @@ export default {
         <p class="font-title">RATHER</p>
       </div>
       <div class="login-action-container">
-        <LobbySelector />
+        <GameCard />
       </div>
     </div>
   </div>

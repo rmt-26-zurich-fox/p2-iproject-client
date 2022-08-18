@@ -1,6 +1,5 @@
 <script>
 import SocialLoginButton from "../components/SocialLoginButton.vue";
-
 export default {
   name: "LoginView",
   components: { SocialLoginButton },

@@ -11,7 +11,6 @@ export const useWyrStore = defineStore({
   }),
   actions: {
     async socialLoginHandler(socialType) {
-      console.log(socialType);
       const { user, session, error } = await supabase.auth.signIn(
         {
           provider: socialType,

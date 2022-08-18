@@ -14,7 +14,7 @@ export default {
     computed: {
         ...mapState(useBrandStore, ["brands", "theadBrand", "actionBrand", "isLoadingBrand"]),
         ...mapState(useProductStore, ["products", "theadProduct", "actionProduct", "isLoadingProduct"]),
-        ...mapState(useUserStore, ["users", "theadUser", "actionUser"]),
+        ...mapState(useUserStore, ["users", "theadUser", "actionUser", "isLoadingUser"]),
         throwData() {
             const { fullPath } = this.$route
             if (fullPath === "/brands") {
@@ -51,6 +51,8 @@ export default {
                 return this.isLoadingBrand
             } else if (fullPath === "/products") {
                 return this.isLoadingProduct
+            } else if (fullPath === "/users") {
+                return this.isLoadingUser
             }
         }
     },

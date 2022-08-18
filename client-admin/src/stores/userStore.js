@@ -8,7 +8,8 @@ export const useUserStore = defineStore({
         users: [],
         theadUser: ["Username", "E-mail Address", "Role"],
         actionUser: ["show", "edit", "delete"],
-        userById: {}
+        userById: {},
+        isLoadingUser : false
     }),
     getters: {
 
@@ -34,6 +35,7 @@ export const useUserStore = defineStore({
         },
         async readAllUser() {
             try {
+                this.isLoadingUser = true
                 const { data } = await axiosInstance({
                     method: "GET",
                     url: "/users",
@@ -45,6 +47,8 @@ export const useUserStore = defineStore({
                 this.users = data
             } catch (error) {
                 this.alertError(error)
+            } finally {
+                this.isLoadingUser = false
             }
         },
         async addUser(obj) {

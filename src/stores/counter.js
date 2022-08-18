@@ -25,6 +25,7 @@ export const useCounterStore = defineStore({
     },
     async handleLogin(obj) {
       try {
+        this.isLoading = true;
         const {
           data
         } = await axios({
@@ -65,6 +66,8 @@ export const useCounterStore = defineStore({
             text: `${error.response.data.error.message}`,
           });
         }
+      } finally {
+        this.isLoading = false;
       }
     },
     async fetchCategories(value) {

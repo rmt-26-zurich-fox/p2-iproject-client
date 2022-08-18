@@ -1,7 +1,8 @@
 <script>
 import { RouterLink } from 'vue-router';
 import { useCounterStore } from '../stores/counter';
-import { mapActions } from 'pinia';
+import { mapActions, mapState } from 'pinia';
+import LoadingComponent from "../components/LoadingComponent.vue";
 
 export default {
     data() {
@@ -33,12 +34,21 @@ export default {
             document.getElementById("google-button-login"),
             { theme: "outline", size: "large" }
           );
+    },
+    computed: {
+        ...mapState(useCounterStore, ["isLoading"])
+    },
+    components: {
+        LoadingComponent
     }
 }
 </script>
 
 <template>
-    <div class="flex h-screen">
+
+    <LoadingComponent v-if="isLoading"/>
+
+    <div v-else class="flex h-screen">
         <div class="w-full max-w-sm p-6 m-auto bg-gray-100 rounded-md shadow-md">
             <h1 class="text-3xl font-semibold text-center text-gray-700">Login</h1>
 

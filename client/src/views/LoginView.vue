@@ -23,6 +23,28 @@ export default {
         this.errorShow(error);
       }
     },
+
+    handleCredentialResponse(response) {
+      this.loginGoogle(response);
+    },
+  },
+
+  mounted() {
+    const cb = this.handleCredentialResponse;
+
+    google.accounts.id.initialize({
+      client_id:
+        "474149543961-u5195ojkj9raorksl4ugnvpegvsd50jt.apps.googleusercontent.com",
+      callback: cb,
+    });
+    google.accounts.id.renderButton(
+      document.getElementById("buttonDiv"),
+      {
+        theme: "outline",
+        size: "large",
+      } // customization attributes
+    );
+    //google.accounts.id.prompt(); // also display the One Tap dialog
   },
 };
 </script>

@@ -3,7 +3,7 @@ import axios from "axios";
 import router from "../router";
 import swal from "sweetalert";
 
-const baseUrl = "http://localhost:3000";
+const baseUrl = "https://hacktiv-cofeeshop.herokuapp.com";
 export const useAllStore = defineStore({
   id: "useAllStore",
   state: () => ({

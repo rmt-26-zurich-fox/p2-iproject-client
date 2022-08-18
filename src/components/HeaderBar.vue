@@ -7,6 +7,25 @@
       <router-link :to="'/home'">Movie</router-link>
       <router-link :to="'/bookmark'">Bookmark</router-link>
     </div>
-    <div><h4 @click="$router.push({ name: 'login' })">Login</h4></div>
+    <div>
+      <h4 v-if="!isLogin" @click="$router.push({ name: 'login' })">Login</h4>
+      <h4 v-if="isLogin" @click="logout">Logout</h4>
+    </div>
   </header>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      isLogin: localStorage.access_token || false,
+    };
+  },
+  methods: {
+    logout() {
+      localStorage.clear();
+      this.$router.push("/login");
+    },
+  },
+};
+</script>

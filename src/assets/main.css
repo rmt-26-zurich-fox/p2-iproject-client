@@ -146,8 +146,15 @@ main .search > * {
   margin: 0 5px;
 }
 
-main .search > button {
+main .search > button:nth-child(2) {
   background-color: var(--primary);
+  padding: 0 10px;
+  border: none;
+}
+
+main .search > button:nth-child(3) {
+  color: var(--light);
+  background-color: maroon;
   padding: 0 10px;
   border: none;
 }

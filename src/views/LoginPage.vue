@@ -11,14 +11,28 @@ export default {
         }
     },
     methods: {
-        ...mapActions(useCounterStore, ["handleLogin"]),
+        ...mapActions(useCounterStore, ["handleLogin", "handleLoginGoogle"]),
         async login() {
             const obj = {
                 email: this.email,
                 password: this.password
             }
             await this.handleLogin(obj);
+        },
+        async handleCredentialResponse(response) {
+            const hasil = await this.handleLoginGoogle(response);
         }
+    },
+    mounted() {
+        const cb = this.handleCredentialResponse
+        google.accounts.id.initialize({
+            client_id: "786477668215-ucu41hd1086jp2o1nc58lfktvcjdvbdp.apps.googleusercontent.com",
+            callback: cb
+        });
+          google.accounts.id.renderButton(
+            document.getElementById("google-button-login"),
+            { theme: "outline", size: "large" }
+          );
     }
 }
 </script>
@@ -65,25 +79,18 @@ export default {
                 <span class="w-1/5 border-b dark:border-gray-400 lg:w-1/5"></span>
             </div>
 
-            <div class="flex items-center mt-6 -mx-2">
-                <button type="button"
-                    class="flex items-center justify-center w-full px-6 py-2 mx-2 text-sm font-medium text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:bg-blue-400 focus:outline-none">
-                    <svg class="w-4 h-4 mx-2 fill-current" viewBox="0 0 24 24">
-                        <path
-                            d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z">
-                        </path>
-                    </svg>
-
-                    <span class="hidden mx-2 sm:inline">Sign in with Facebook</span>
+            <div class="flex items-center mt-4 -mx-2">
+                <button type="button" id="google-button-login"
+                    class="flex items-center justify-center w-full px-6 py-2 mx-2 text-sm font-medium text-white transition-colors duration-200 transform hover:bg-gray-300 rounded-lg focus:outline-none">
                 </button>
             </div>
 
-            <p class="mt-8 text-xs font-light text-center text-gray-600"> Don't have an account? <RouterLink
+            <p class="mt-4 text-xs font-light text-center text-gray-600"> Don't have an account? <RouterLink
                     to="/register"><a href="#" class="font-medium text-gray-700 hover:underline">Create One</a>
                 </RouterLink>
             </p>
-            <p class="mt-2 text-xs font-light text-center text-gray-600"> Don't want to login? <RouterLink
-                    to="/"><a href="#" class="font-medium text-gray-700 hover:underline">Back to Home</a>
+            <p class="mt-2 text-xs font-light text-center text-gray-600"> Don't want to login? <RouterLink to="/"><a
+                        href="#" class="font-medium text-gray-700 hover:underline">Back to Home</a>
                 </RouterLink>
             </p>
         </div>

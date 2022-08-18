@@ -54,6 +54,11 @@ const router = createRouter({
           path: "/transaction",
           name: "transaction",
           component: TransactionView,
+          beforeEnter: (to, from) => {
+            if(!localStorage.getItem("access_token")){
+              return {name: 'home'}
+            }
+          }
         },
       ],
     },

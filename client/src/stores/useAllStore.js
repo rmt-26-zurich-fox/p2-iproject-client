@@ -7,20 +7,15 @@ const baseUrl = "http://localhost:3000";
 export const useAllStore = defineStore({
   id: "useAllStore",
   state: () => ({
+    isLogin: false,
     counter: 0,
     isLogin: false,
     products: [],
     carts: [],
-    totalAmount:0
+    totalAmount: 0,
   }),
-  getters: {
-    doubleCount: (state) => state.counter * 2,
-  },
-  actions: {
-    increment() {
-      this.counter++;
-    },
 
+  actions: {
     errorShow(err) {
       if (Array.isArray(err.response.data)) {
         console.log("masuk pertama");
@@ -41,7 +36,6 @@ export const useAllStore = defineStore({
 
     successShow(message) {
       swal({
-        
         text: message,
         icon: "success",
       });
@@ -180,9 +174,8 @@ export const useAllStore = defineStore({
           headers: { access_token: localStorage.getItem("access_token") },
         });
 
-       
-        console.log(data, '+++++');
-        this.totalAmount = Number(data.totalAmount[0].totalPriceAll)
+        console.log(data, "+++++");
+        this.totalAmount = Number(data.totalAmount[0].totalPriceAll);
         console.log(this.totalAmount, "=======");
       } catch (error) {
         console.log(error);
@@ -190,7 +183,7 @@ export const useAllStore = defineStore({
       }
     },
 
-    async payment(){
+    async payment() {
       try {
         const { data } = await axios({
           method: "patch",
@@ -199,14 +192,12 @@ export const useAllStore = defineStore({
         });
 
         console.log(data);
-        this.successShow(data.message)
-        this.totalAmount = 0
+        this.successShow(data.message);
+        this.totalAmount = 0;
       } catch (error) {
         console.log(error);
         this.errorShow(error);
       }
-    }
-
-
+    },
   },
 });

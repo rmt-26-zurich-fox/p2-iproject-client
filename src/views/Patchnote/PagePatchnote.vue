@@ -14,20 +14,12 @@
 		},
 		methods: {
 			...mapActions(patchnote, ["fetchPatchnote"]),
-			checkFirstOrLast(dataPatchnote) {
-				if (this.dataFetch.patchnote.length) {
-					if (dataPatchnote.id === this.dataFetch.patchnote[0].id) {
-						this.isFirstOrLast = "first";
-						return this.isFirstOrLast;
-					} else if (dataPatchnote.id === this.dataFetch.patchnote[this.dataFetch.patchnote.length - 1].id) {
-						this.isFirstOrLast = "last";
-						return this.isFirstOrLast;
-					}
-				}
-			},
 		},
-		async created() {
-			await this.fetchPatchnote();
+		created() {
+			console.log("test masuk page");
+			this.fetchPatchnote();
+			console.log(this.dataFetch, "ini dataFetch @PagePatchNote");
+			console.log(this.isFirstOrLast, "ini isFirstOrLast @PagePatchNote");
 		},
 	};
 </script>
@@ -35,14 +27,16 @@
 	<div class="container"><p class="text-center h4 display-5 mb-4">Patchnote List</p></div>
 	<div class="container">
 		<div class="mb-5">
-			<div class="accordion accordion-flush" id="accordionExample">
+			<div v-if="dataFetch.patchnote" class="accordion accordion-flush" id="accordionExample">
 				<accordion-list
-					v-for="patchnote of this.dataFetch.patchnote"
+					v-for="(patchnote, index) of dataFetch.patchnote"
 					:key="patchnote.id"
 					:patchnote="patchnote"
-					:isFirstOrLast="checkFirstOrLast(patchnote)"
+					:isFirstOrLast="[index, dataFetch.patchnote.length - 1]"
 				/>
 			</div>
 		</div>
 	</div>
 </template>
+
+<!-- :isFirstOrLast="checkFirstOrLast(patchnote)" -->

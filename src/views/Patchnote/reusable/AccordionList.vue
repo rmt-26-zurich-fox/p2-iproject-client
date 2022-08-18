@@ -6,7 +6,20 @@
 				firstOrLast: { div: {}, button: {} },
 			};
 		},
-		methods: {},
+		methods: {
+			style() {
+				if (this.isFirstOrLast[0] == 0) {
+					this.firstOrLast.button = { "button-patchnote-first": true, "accordion-button": true };
+					this.firstOrLast.div = { "button-patchnote-first": true, "accordion-item": true };
+				} else if (this.isFirstOrLast[0] == this.isFirstOrLast[1]) {
+					this.firstOrLast.button = { "button-patchnote-last": true, "accordion-button": true };
+					this.firstOrLast.div = { "button-patchnote-last": true, "accordion-item": true };
+				} else {
+					this.firstOrLast.button = { "accordion-button": true };
+					this.firstOrLast.div = { "accordion-item": true };
+				}
+			},
+		},
 		computed: {
 			fixes() {
 				let result = this.patchnote.fixes
@@ -39,26 +52,15 @@
 					return this.patchnote.type;
 				}
 			},
-			style() {
-				if (this.isFirstOrLast === "first") {
-					this.firstOrLast.button = { "button-patchnote-first": true, "accordion-button": true };
-					this.firstOrLast.div = { "button-patchnote-first": true, "accordion-item": true };
-				} else if (this.isFirstOrLast === "last") {
-					this.firstOrLast.button = { "button-patchnote-last": true, "accordion-button": true };
-					this.firstOrLast.div = { "button-patchnote-last": true, "accordion-item": true };
-				} else {
-					this.firstOrLast.button = { "accordion-button": true };
-					this.firstOrLast.div = { "accordion-item": true };
-				}
-			},
 		},
 		created() {
-			this.style;
+			this.style();
 		},
 	};
 </script>
 
 <template>
+	<!-- {{ patchnote }} -->
 	<div :class="firstOrLast.div">
 		<h2 class="accordion-header w-100" id="headingOne">
 			<button

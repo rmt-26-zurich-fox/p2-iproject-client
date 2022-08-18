@@ -2,7 +2,9 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import RegisterView from "../views/RegisterView.vue";
 import LoginView from "../views/LoginView.vue";
-import ServiceProviderList from "../components/ServiceProviderList.vue";
+import ProviderCard from "../components/ProviderCard.vue";
+import ServiceCard from "../components/ServiceCard.vue";
+import OrderList from "../components/OrderList.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,10 +27,18 @@ const router = createRouter({
         {
           path: "",
           name: "providerList",
-          component: ServiceProviderList,
+          component: ProviderCard,
         },
-        // { path: "", name: "", component: "" },
-        // { path: "", name: "", component: "" },
+        {
+          path: "provider/:id",
+          name: "provider",
+          component: ServiceCard,
+        },
+        {
+          path: "orderlist",
+          name: "orderList",
+          component: OrderList,
+        },
         // { path: "", name: "", component: "" },
       ],
     },

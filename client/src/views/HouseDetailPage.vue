@@ -1,6 +1,6 @@
 <template>
-  <LoadingSign v-if="isLoading" />
-  <div v-if="house && !isLoading" class="container mt-3">
+  <LoadingSign v-if="isLoading && !qrcode && !house" />
+  <div v-if="house && qrcode && !isLoading" class="container mt-3">
     <h3>{{ house.name }}</h3>
     <p class="text-muted">{{ house.location }}</p>
     <hr />

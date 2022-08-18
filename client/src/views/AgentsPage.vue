@@ -17,7 +17,7 @@ export default {
 </script>
 <template>
   <div class="container" style="margin-top: 100px">
-    <div class="row">
+    <div class="row" v-if="agents">
       <div class="col-3" v-for="agent in agents" :key="agent.id">
         <AgentCard :agent="agent" />
       </div>

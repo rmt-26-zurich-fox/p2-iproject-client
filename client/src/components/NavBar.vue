@@ -18,7 +18,7 @@ export default {
 <template>
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-transparent">
     <div class="container">
-      <a class="navbar-brand" href="#" @click="Home"
+      <a class="navbar-brand" href="#" @click.prevent="Home"
         ><h1 class="text-white">GegeGaming</h1></a
       >
       <div class="collapse navbar-collapse" id="navbarNav">
@@ -28,7 +28,7 @@ export default {
               class="nav-link active"
               aria-current="page"
               href="#"
-              @click="Home"
+              @click.prevent="Home"
               >Home</a
             >
           </li>
@@ -37,7 +37,7 @@ export default {
               class="nav-link active"
               aria-current="page"
               href="#"
-              @click="Agents"
+              @click.prevent="Agents"
               >Agents</a
             >
           </li>
@@ -46,7 +46,7 @@ export default {
               class="nav-link active"
               aria-current="page"
               href="#"
-              @click="Strategies"
+              @click.prevent="Strategies"
               >Maps</a
             >
           </li>

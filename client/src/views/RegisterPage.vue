@@ -1,5 +1,31 @@
 <script>
-export default {};
+import { mapActions, mapState } from "pinia";
+import { main } from "../stores/counter";
+
+export default {
+  name: `RegisterPage`,
+  data() {
+    return {
+      dataRegister: {
+        username: "",
+        email: "",
+        password: "",
+        fullName: "",
+        location: "",
+      },
+    };
+  },
+  methods: {
+    ...mapActions(main, ["register"]),
+    registerCustomer() {
+      this.register(this.dataRegister);
+      this.$router.push({ name: "login" });
+    },
+  },
+  computed: {
+    ...mapState(main, ["isLoggedIn"]),
+  },
+};
 </script>
 
 <template>
@@ -18,7 +44,11 @@ export default {};
             class="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none"
           >
             <h3 class="pt-4 text-2xl text-center">Create an Account!</h3>
-            <form class="px-8 pt-6 pb-8 mb-4 bg-white rounded">
+            <form
+              action="submit"
+              v-on:submit.prevent="registerCustomer"
+              class="px-8 pt-6 pb-8 mb-4 bg-white rounded"
+            >
               <div class="mb-4 md:flex md:justify-between">
                 <div class="mb-4 md:mr-2 md:mb-0">
                   <label
@@ -28,6 +58,7 @@ export default {};
                     Username
                   </label>
                   <input
+                    v-model="dataRegister.username"
                     class="rounded px-4 w-full py-1 bg-gray-200 border border-gray-400 mb-6 text-gray-700 placeholder-gray-700 focus:bg-white focus:outline-none"
                     id="firstName"
                     type="text"
@@ -42,6 +73,7 @@ export default {};
                     Full Name
                   </label>
                   <input
+                    v-model="dataRegister.fullName"
                     class="rounded px-4 w-full py-1 bg-gray-200 border border-gray-400 mb-6 text-gray-700 placeholder-gray-700 focus:bg-white focus:outline-none"
                     id="lastName"
                     type="text"
@@ -57,6 +89,7 @@ export default {};
                   Email
                 </label>
                 <input
+                  v-model="dataRegister.email"
                   class="rounded px-4 w-full py-1 bg-gray-200 border border-gray-400 mb-6 text-gray-700 placeholder-gray-700 focus:bg-white focus:outline-none"
                   id="email"
                   type="email"
@@ -71,6 +104,7 @@ export default {};
                   Location
                 </label>
                 <input
+                  v-model="dataRegister.location"
                   class="rounded px-4 w-full py-1 bg-gray-200 border border-gray-400 mb-6 text-gray-700 placeholder-gray-700 focus:bg-white focus:outline-none"
                   id="location"
                   type="location"
@@ -86,6 +120,7 @@ export default {};
                     Password
                   </label>
                   <input
+                    v-model="dataRegister.password"
                     class="rounded px-4 w-full py-1 bg-gray-200 border border-gray-400 mb-6 text-gray-700 placeholder-gray-700 focus:bg-white focus:outline-none"
                     id="password"
                     type="password"
@@ -96,7 +131,7 @@ export default {};
               <div class="mb-6 text-center">
                 <button
                   class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
-                  type="button"
+                  type="submit"
                 >
                   Register Account
                 </button>

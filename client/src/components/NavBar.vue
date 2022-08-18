@@ -1,8 +1,22 @@
 <script>
+import { mapActions } from "pinia";
+import Swal from "sweetalert2";
 import { RouterLink } from "vue-router";
+import { main } from "../stores/counter";
 export default {
   name: `NavBar`,
   components: { RouterLink },
+  methods: {
+    ...mapActions(main, ["logout"]),
+    handleLogout() {
+      this.logout();
+      Swal.fire({
+        title: `Logged Out`,
+        text: `You are not logged in anymore`,
+        icon: `info`,
+      });
+    },
+  },
 };
 </script>
 
@@ -13,7 +27,7 @@ export default {
     <div class="mb-2 sm:mb-0">
       <RouterLink
         class="font-bold text-xl no-underline text-grey-darkest hover:text-blue-dark ml-2"
-        to="/home"
+        to="/"
         >Home</RouterLink
       >
       <a
@@ -26,15 +40,16 @@ export default {
         class="text-lg no-underline text-grey-darkest hover:text-blue-dark ml-4"
         >Shopping Cart</a
       >
-      <a
-        href="/three"
-        class="text-lg no-underline text-grey-darkest hover:text-blue-dark ml-2"
-        >Add Course</a
-      >
       <RouterLink
         class="text-lg no-underline text-grey-darkest hover:text-blue-dark ml-2"
         to="/login"
         >Login</RouterLink
+      >
+      <a
+        v-if="isLoggedIn"
+        v-on:click="logout"
+        class="text-lg no-underline text-red-darkest hover:text-blue-dark ml-4"
+        >Logout</a
       >
     </div>
     <div>
@@ -44,7 +59,7 @@ export default {
           class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
           >Search</label
         >
-        <div class="relative">
+        <div v-if="isLoggedIn" class="relative">
           <div
             class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none"
           >

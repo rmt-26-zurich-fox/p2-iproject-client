@@ -133,6 +133,23 @@ export const useProductStore = defineStore({
             } catch (error) {
                 this.alertError(error)
             }
+        },
+        async showProduct(id) {
+            try {
+                const { data } = await axiosInstance({
+                    method: "GET",
+                    url: "/products/" + id,
+                    headers: {
+                        access_token: localStorage.access_token
+                    }
+                })
+
+                this.productById = data
+
+                this.router.push({ name: "showProduct", params: { productId: id } })
+            } catch (error) {
+                this.alertError(error)
+            }
         }
     }
 })

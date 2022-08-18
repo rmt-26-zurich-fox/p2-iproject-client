@@ -15,6 +15,12 @@
 </template>
 
 <script>
+import { getAuth, signOut } from "firebase/auth";
+import { mapActions } from "pinia";
+import { useGlobalStore } from "../stores/globalStore";
+
+const auth = getAuth();
+
 export default {
   data() {
     return {
@@ -22,9 +28,16 @@ export default {
     };
   },
   methods: {
-    logout() {
-      localStorage.clear();
-      this.$router.push("/login");
+    ...mapActions(useGlobalStore, ["successHandler"]),
+    async logout() {
+      try {
+        await signOut(auth)
+        localStorage.clear();
+        this.$router.push("/login");
+        this.successHandler("Logout successfully")
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };

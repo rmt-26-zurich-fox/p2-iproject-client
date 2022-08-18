@@ -18,9 +18,6 @@
         <button>Register</button>
       </form>
       <div class="social">
-        <div>G</div>
-        <div>F</div>
-        <div>H</div>
       </div>
     </div>
   </section>

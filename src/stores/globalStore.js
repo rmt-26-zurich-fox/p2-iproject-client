@@ -1,6 +1,12 @@
 import { defineStore } from "pinia";
 import Swal from "sweetalert2";
 
+import firebaseConfig from "../firebaseConfig";
+import firebase from "firebase/compat/app";
+firebase.initializeApp(firebaseConfig);
+import * as firebaseui from "firebaseui";
+import "firebaseui/dist/firebaseui.css";
+
 const Toast = Swal.mixin({
   toast: true,
   position: "top-end",
@@ -29,11 +35,35 @@ export const useGlobalStore = defineStore({
     errorHandler(err) {
       let message;
       if (err.response) message = err.response.data.message;
-      else message = err
+      else message = err;
       Toast.fire({
         icon: "error",
         title: message,
       });
+    },
+    socialMediaLogin(cb) {
+      const ui = new firebaseui.auth.AuthUI(firebase.auth());
+
+      const uiConfig = {
+        signInFlow: "popup",
+        signInOptions: [
+          firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+          firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+          firebase.auth.GithubAuthProvider.PROVIDER_ID,
+        ],
+        callbacks: {
+          signInSuccessWithAuthResult: function (authResult) {
+            cb(authResult);
+            ui.delete()
+            return false;
+          },
+          uiShown: function () {
+            document.getElementById("loader").style.display = "none";
+          },
+        },
+      };
+
+      ui.start("#firebaseui-auth-container", uiConfig);
     },
   },
 });

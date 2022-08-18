@@ -3,7 +3,7 @@
     <div>
       <img src="../assets/tmdb-logo.svg" />
     </div>
-    <div>B</div>
+    <div></div>
     <div><button>Donate</button></div>
   </footer>
 </template>

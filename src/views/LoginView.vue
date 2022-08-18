@@ -14,16 +14,16 @@
         <button>Login</button>
       </form>
       <div class="social">
-        <div>G</div>
-        <div>F</div>
-        <div>H</div>
       </div>
+      <!-- <div id="firebaseui-auth-container"></div>
+      <div id="loader">Loading...</div> -->
     </div>
   </section>
 </template>
 
 <script>
 import axios from "axios";
+
 import { mapState, mapActions } from "pinia";
 import { useGlobalStore } from "../stores/globalStore";
 
@@ -38,7 +38,11 @@ export default {
     ...mapState(useGlobalStore, ["baseUrl"]),
   },
   methods: {
-    ...mapActions(useGlobalStore, ["errorHandler", "successHandler"]),
+    ...mapActions(useGlobalStore, [
+      "errorHandler",
+      "successHandler",
+      "socialMediaLogin",
+    ]),
     async login(body) {
       try {
         const { data } = await axios.post(this.baseUrl + "/login", body);
@@ -49,6 +53,22 @@ export default {
         this.errorHandler(error);
       }
     },
+  },
+  mounted() {
+    // this.socialMediaLogin(async (authResult) => {
+    //   try {
+    //     const { displayName, email } = authResult.user.multiFactor.user;
+    //     const { data } = await axios.post(this.baseUrl + "/social-login", {
+    //       username: displayName,
+    //       email,
+    //     });
+    //     this.successHandler(data.message);
+    //     localStorage.setItem("access_token", data.access_token);
+    //     this.$router.push("/home");
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // });
   },
 };
 </script>

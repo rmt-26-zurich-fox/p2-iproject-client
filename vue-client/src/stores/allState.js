@@ -2,7 +2,8 @@ import { defineStore } from "pinia";
 import Swal from "sweetalert2";
 import axios from "axios";
 
-const baseUrl = "http://localhost:3000";
+// const baseUrl = "http://localhost:3000";
+const baseUrl = "https://iproject-1998.herokuapp.com"
 
 export const useAllStateStore = defineStore({
   id: "allState",

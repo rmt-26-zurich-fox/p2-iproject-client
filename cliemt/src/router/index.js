@@ -41,7 +41,7 @@ const router = createRouter({
       component: PostDetailPage
     },
     {
-      path: "/new-post/",
+      path: "/new-post",
       name: "newPost",
       component: CreatePost
     },

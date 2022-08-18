@@ -18,6 +18,35 @@ export const useCounterStore = defineStore({
 
   },
   actions: {
+    async createNewPost(value) {
+      try {
+        console.log(value);
+        const data = new FormData();
+        data.append("caption", value.caption);
+        data.append("content", value.content);
+        data.append("imgUrl", value.imgUrl);
+        const response = await axios({
+          url: `${baseUrl}/post`,
+          method: "post",
+          headers: {
+            access_token: localStorage.getItem("access_token")
+          },
+          data: data
+        });
+        this.readProfilData();
+        this.router.push("/");
+      } catch (error) {
+        console.log(error);
+        const msg = error.response.data.message;
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: msg,
+        });
+      }
+    },
+
+
     async readLikedPostByUser(id) {
       try {
         const { data } = await axios({

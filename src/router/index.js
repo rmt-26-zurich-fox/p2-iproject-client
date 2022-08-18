@@ -1,28 +1,19 @@
 import { createRouter, createWebHistory } from "vue-router";
 import supabase from "../helpers/supabase";
-import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
-import LobbyView from "../views/LobbyView.vue";
+import GameView from "../views/GameView.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    {
-      path: "/",
-      name: "home",
-      component: HomeView,
-      meta: {
-        requireAuth: true,
-      },
-    },
     {
       path: "/login",
       name: "login",
       component: LoginView,
     },
     {
-      path: "/lobby",
-      name: "lobby",
-      component: LobbyView,
+      path: "/",
+      name: "game",
+      component: GameView,
       meta: {
         requireAuth: true,
       },

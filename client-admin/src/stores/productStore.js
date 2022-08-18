@@ -117,5 +117,22 @@ export const useProductStore = defineStore({
                 this.alertError(error)
             }
         },
+        async deleteProduct(id) {
+            try {
+                const { data } = await axiosInstance({
+                    method: "DELETE",
+                    url: "/products/" + id,
+                    headers: {
+                        access_token: localStorage.access_token
+                    }
+                })
+
+                this.router.push({ name: "products" })
+                this.readAllProduct()
+                this.alertSuccess(data)
+            } catch (error) {
+                this.alertError(error)
+            }
+        }
     }
 })

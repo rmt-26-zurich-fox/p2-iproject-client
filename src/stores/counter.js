@@ -76,7 +76,7 @@ export const useCounterStore = defineStore({
           method: "get",
           params: value
         });
-        if(value) {
+        if (value) {
           this.categoriesId = data.categories;
         } else {
           this.categories = data.categories;
@@ -122,7 +122,9 @@ export const useCounterStore = defineStore({
     async handleSearchArtist(query) {
       try {
         this.isLoading = true;
-        const { data } = await axios({
+        const {
+          data
+        } = await axios({
           url: this.baseUrl + "/api?search=" + query,
           method: "get",
           headers: {
@@ -130,9 +132,52 @@ export const useCounterStore = defineStore({
           }
         });
         this.songList = data;
-        this.router.push({path: "/songs", query: {search: query}});
+        this.router.push({
+          path: "/songs",
+          query: {
+            search: query
+          }
+        });
       } catch (error) {
         console.log(error);
+      } finally {
+        this.isLoading = false;
+      }
+    },
+    async handleLoginGoogle(response) {
+      try {
+        this.isLoading = true;
+        const data = await axios({
+          method: "post",
+          url: `${this.baseUrl}/users/login-google`,
+          headers: {
+            google_token: response.credential
+          }
+        });
+        const payload = this.parseJwt(data.data.access_token);
+        localStorage.setItem("access_token", data.data.access_token);
+        localStorage.setItem("role", payload.role);
+        this.role = payload.role;
+        this.username = payload.username;
+        this.isLogin = true;
+
+        // Success Login
+        Swal.fire({
+          position: 'top',
+          icon: 'success',
+          title: 'Login Success',
+          showConfirmButton: false,
+          timer: 1500
+        });
+        
+        this.router.push("/");
+      } catch (error) {
+        const errorMessage = error.response.data.error.message;
+        Swal.fire({ 
+          icon: 'error',
+          title: 'Oops...',
+          text: `${errorMessage}`,
+        });
       } finally {
         this.isLoading = false;
       }

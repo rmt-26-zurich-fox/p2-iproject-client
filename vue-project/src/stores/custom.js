@@ -5,8 +5,8 @@ import Swal from "sweetalert2";
 export const useCustomStore = defineStore({
     id: "custom",
     state: () => ({
-        baseURL: "http://localhost:3000",
-        // baseURL: "https://baking-fortress-server.herokuapp.com",
+        // baseURL: "http://localhost:3000",
+        baseURL: "https://baking-fortress-server.herokuapp.com",
 
         // Vue State Storage
         email: "",

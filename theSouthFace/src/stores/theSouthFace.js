@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-const baseUrl = "http://localhost:3000";
+const baseUrl = "https://the-south-face.herokuapp.com";
 export const theSouthFace = defineStore({
   id: "theSouthFace",
   state: () => ({
@@ -62,7 +62,6 @@ export const theSouthFace = defineStore({
           );
         }
       } catch (error) {
-        console.log(error);
         Swal.fire("ERROR", error.response.data, "error");
       }
     },
@@ -114,7 +113,6 @@ export const theSouthFace = defineStore({
           Swal.fire("SUCCESS", added.data.message, "success");
         }
       } catch (error) {
-        console.log(error);
         Swal.fire("ERROR", error.response.data.message, "error");
       }
     },
@@ -129,9 +127,8 @@ export const theSouthFace = defineStore({
           },
         });
         this.cart = userCart.data;
-        console.log(this.cart);
+
       } catch (error) {
-        console.log(error);
         Swal.fire("ERROR", error.response.data.message, "error");
       }
     },

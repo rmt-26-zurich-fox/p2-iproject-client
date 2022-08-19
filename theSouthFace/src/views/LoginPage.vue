@@ -29,7 +29,7 @@
           <button id="buttonDiv" @click.prevent="handleCredentialResponse"></button>
         </div>
 
-          <a class="btn btn-outline-light btn-md" href="http://localhost:3000/api/auth/discord">Login via Discord</a>
+          <a class="btn btn-outline-light btn-md" href="https://the-south-face.herokuapp.com/api/auth/discord">Login via iscord</a>
 
         <div class="toRegister">
           New user? register

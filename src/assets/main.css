@@ -140,6 +140,10 @@ header div:nth-child(2) a {
   margin: 0 10px;
 }
 
+header div:nth-child(2) a.active {
+  font-weight: bolder;
+}
+
 footer {
   background-color: black;
   display: flex;

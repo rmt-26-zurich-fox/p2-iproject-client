@@ -82,7 +82,7 @@ export default {
                   <button type="submit">Login</button>
                 </div>
 
-                <div id="buttonDiv"></div>
+                <div class="d-grid gap-2 col-6 mx-auto" id="buttonDiv"></div>
                 <p class="text-center" color="black">
                   don't have an account?<br />
                   <router-link class="nav-link" to="/register">

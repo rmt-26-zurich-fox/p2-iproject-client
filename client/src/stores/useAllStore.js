@@ -3,7 +3,7 @@ import axios from "axios";
 import router from "../router";
 import swal from "sweetalert";
 
-const baseUrl = "http://localhost:3000";
+const baseUrl = "https://hacktiv-cofeeshop.herokuapp.com";
 export const useAllStore = defineStore({
   id: "useAllStore",
   state: () => ({
@@ -13,6 +13,7 @@ export const useAllStore = defineStore({
     products: [],
     carts: [],
     totalAmount: 0,
+    transactionToken: ''
   }),
 
   actions: {
@@ -58,6 +59,10 @@ export const useAllStore = defineStore({
             email: email,
             password: password,
           },
+        });
+        swal({
+          text: message,
+          icon: "register success, please log in first",
         });
 
         router.push({ name: "login" });
@@ -176,11 +181,11 @@ export const useAllStore = defineStore({
           url: `${baseUrl}/transactions/checkout`,
           headers: { access_token: localStorage.getItem("access_token") },
         });
-        console.log(data);
+        console.log(data, 'berhasil check out dulu');
         // this.carts = data.carts
       } catch (error) {
         console.log(error);
-        this.errorShow(error);
+        // this.errorShow(error);
       }
     },
 
@@ -197,24 +202,28 @@ export const useAllStore = defineStore({
         console.log(this.totalAmount, "=======");
       } catch (error) {
         console.log(error);
-        this.errorShow(error);
+        // this.errorShow(error);
       }
     },
 
-    async payment() {
+    async paymentHandler() {
       try {
         const { data } = await axios({
-          method: "patch",
-          url: `${baseUrl}/transactions`,
+          method: "post",
+          url: `${baseUrl}/transactions/payment`,
           headers: { access_token: localStorage.getItem("access_token") },
+          data : {totalAmount: +this.totalAmount}
         });
+        console.log(this.totalAmount, 'ini total amount');
 
-        console.log(data);
-        this.successShow(data.message);
-        this.totalAmount = 0;
+        console.log(data, 'masuk payment')
+        // this.successShow(data.message);
+        this.transactionToken = data.transactionToken.token
+        console.log(this.transactionToken, 'ini tokeeennn');
+        // this.totalAmount = 0;
       } catch (error) {
         console.log(error);
-        this.errorShow(error);
+        // this.errorShow(error);
       }
     },
   },

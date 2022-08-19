@@ -5,8 +5,8 @@ import Swal from "sweetalert2";
 export const useCustomStore = defineStore({
     id: "custom",
     state: () => ({
-        // baseURL: "http://localhost:3000",
-        baseURL: "https://baking-fortress-server.herokuapp.com",
+        baseURL: "http://localhost:3000",
+        // baseURL: "https://baking-fortress-server.herokuapp.com",
 
         // Vue State Storage
         email: "",
@@ -295,14 +295,7 @@ export const useCustomStore = defineStore({
                     }
                 });
 
-                this.fetchProductCart();
-
-                let allProductCost = 0;
-                for (let x = 0; x < this.carts.length; x++) {
-                    allProductCost += this.carts[x].totalCost;
-                }
-
-                this.fetchTokenPaymentMidtrans(allProductCost);
+                this.router.push("/cart");
             } catch (error) {
                 console.log(error);
             }
@@ -372,10 +365,38 @@ export const useCustomStore = defineStore({
                 });
 
                 this.midtransToken = data.transaction.token;
-                this.router.push("/cart");
+                return this.midtransToken;
             } catch (error) {
                 console.log(error);
             }
+        },
+
+        async payButtonMidtrans(token) {
+            const callback = this.changeCartToPayed;
+
+            window.snap.pay(`${token}`, {
+                onSuccess: function (result) {
+                    /* You may add your own implementation here */
+                    Swal.fire("Success", "payment success!", "success");
+                    callback();
+                },
+                onPending: function (result) {
+                    /* You may add your own implementation here */
+                    Swal.fire("Waiting", "wating your payment!", "info");
+                },
+                onError: function (result) {
+                    /* You may add your own implementation here */
+                    Swal.fire("Failed", "payment failed!", "error");
+                },
+                onClose: function () {
+                    /* You may add your own implementation here */
+                    Swal.fire(
+                        "Failed",
+                        "you closed the popup without finishing the payment",
+                        "warning"
+                    );
+                },
+            })
         },
 
         async changeCartToPayed() {

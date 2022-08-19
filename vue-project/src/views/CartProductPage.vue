@@ -1,5 +1,5 @@
 <script>
-import { mapState, mapActions } from "pinia";
+import { mapActions } from "pinia";
 import { useCustomStore } from "../stores/custom";
 import NavBarComp from "../components/NavBarComp.vue";
 import CartProductTable from "../components/CartProductTable.vue";
@@ -11,9 +11,6 @@ export default {
   },
   methods: {
     ...mapActions(useCustomStore, ["fetchProductCart"]),
-  },
-  computed: {
-    ...mapState(useCustomStore, ["carts"]),
   },
   created() {
     this.fetchProductCart();
@@ -28,7 +25,7 @@ export default {
     <div class="card-body text-center">
       <h1>List Product</h1>
       <!-- Table here -->
-      <CartProductTable :carts="carts" />
+      <CartProductTable />
     </div>
   </div>
 </template>

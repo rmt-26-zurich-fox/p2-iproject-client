@@ -1,17 +1,20 @@
 <template>
   <MovieList
+    v-if="unwatched"
     :data="unwatched"
     title="Unwatched"
     btnText="Update"
     @updateBookmark="toCurrent"
   />
   <MovieList
+    v-if="currentlyWatch"
     :data="currentlyWatch"
     title="Currently watch"
     btnText="Update"
     @updateBookmark="toWatched"
   />
   <MovieList
+    v-if="watched"
     :data="watched"
     title="Watched"
     class="watched"

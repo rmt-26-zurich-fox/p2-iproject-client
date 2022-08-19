@@ -1,16 +1,31 @@
 <script>
 import router from "../router";
-
+import { mapWritableState } from "pinia";
+import { useCounterStore } from "../stores/counter";
 export default {
+  computed: {
+    ...mapWritableState(useCounterStore, ["isLogin"]),
+  },
   methods: {
     Home() {
-      router.push("/");
+      router.push({
+        name: "home",
+      });
     },
     Agents() {
-      router.push("/agents");
+      router.push({
+        name: "agents",
+      });
     },
     Strategies() {
-      router.push("/strategies");
+      router.push({
+        name: "maps",
+      });
+    },
+    logout() {
+      localStorage.clear();
+      this.isLogin = false;
+      router.push("/login");
     },
   },
 };
@@ -48,6 +63,15 @@ export default {
               href="#"
               @click.prevent="Strategies"
               >Maps</a
+            >
+          </li>
+          <li class="nav-item" v-if="isLogin">
+            <a
+              class="nav-link active"
+              aria-current="page"
+              href="#"
+              @click.prevent="logout"
+              >Logout</a
             >
           </li>
         </ul>

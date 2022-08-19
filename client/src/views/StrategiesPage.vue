@@ -1,7 +1,8 @@
 <script>
-import { mapActions, mapWritableState } from "pinia";
+import { mapActions, mapWritableState, mapState } from "pinia";
 import { useCounterStore } from "../stores/counter";
 export default {
+  props: ["mapName"],
   methods: {
     ...mapActions(useCounterStore, ["getMap"]),
     gettingMap(map) {
@@ -21,98 +22,60 @@ export default {
 };
 </script>
 <template>
-  <div class="container" style="margin-top: 100px">
-    <div class="row">
-      <div class="col-12">
-        <a href="" @click.prevent="gettingMap('Ascent')">
-          <div class="bg-danger text-white position-relative m-3 rounded">
-            <div class="overlays"></div>
-            <img class="maps" src="../assets/Ascent.jpg" alt="" />
-            <div class="card-img-overlay">
-              <h1 class="title position-absolute bottom-0 start-0 m-3">
-                Ascent
-              </h1>
-            </div>
-          </div>
-        </a>
+  <div class="col-12">
+    <a href="" @click.prevent="gettingMap(mapName)">
+      <div class="bg-danger text-white position-relative m-3 rounded">
+        <div class="overlays"></div>
+        <img
+          class="maps"
+          src="../assets/Ascent.jpg"
+          alt=""
+          v-if="mapName === 'Ascent'"
+        />
+        <img
+          class="maps"
+          src="../assets/Bind.jpg"
+          alt=""
+          v-if="mapName === 'Bind'"
+        />
+        <img
+          class="maps"
+          src="../assets/Breeze.jpg"
+          alt=""
+          v-if="mapName === 'Breeze'"
+        />
+        <img
+          class="maps"
+          src="../assets/Fracture.jpeg"
+          alt=""
+          v-if="mapName === 'Fracture'"
+        />
+        <img
+          class="maps"
+          src="../assets/Haven.jpg"
+          alt=""
+          v-if="mapName === 'Haven'"
+        />
+        <img
+          class="maps"
+          src="../assets/Icebox.jpg"
+          alt=""
+          v-if="mapName === 'Icebox'"
+        />
+        <img
+          class="maps"
+          src="../assets/Pearl.jpg"
+          alt=""
+          v-if="mapName === 'Pearl'"
+        />
+
+        <div class="card-img-overlay">
+          <h1 class="title position-absolute bottom-0 start-0 m-3">
+            {{ mapName }}
+          </h1>
+        </div>
       </div>
-      <div class="col-12">
-        <a href="" @click.prevent="gettingMap('Bind')">
-          <div class="bg-danger text-white position-relative m-3 rounded">
-            <div class="overlays"></div>
-            <img class="maps" src="../assets/Bind.jpg" alt="" />
-            <div class="card-img-overlay">
-              <h1 class="title position-absolute bottom-0 start-0 m-3">Bind</h1>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div class="col-12">
-        <a href="" @click.prevent="gettingMap('Breeze')">
-          <div class="bg-danger text-white position-relative m-3 rounded">
-            <div class="overlays"></div>
-            <img class="maps" src="../assets/breeze.jpg" alt="" />
-            <div class="card-img-overlay">
-              <h1 class="title position-absolute bottom-0 start-0 m-3">
-                Breeze
-              </h1>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div class="col-12">
-        <a href="" @click.prevent="gettingMap('Fracture')">
-          <div class="bg-danger text-white position-relative m-3 rounded">
-            <div class="overlays"></div>
-            <img class="maps" src="../assets/Fracture.jpeg" alt="" />
-            <div class="card-img-overlay">
-              <h1 class="title position-absolute bottom-0 start-0 m-3">
-                Fracture
-              </h1>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div class="col-12">
-        <a href="" @click.prevent="gettingMap('Haven')">
-          <div class="bg-danger text-white position-relative m-3 rounded">
-            <div class="overlays"></div>
-            <img class="maps" src="../assets/haven.jpg" alt="" />
-            <div class="card-img-overlay">
-              <h1 class="title position-absolute bottom-0 start-0 m-3">
-                Haven
-              </h1>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div class="col-12">
-        <a href="" @click.prevent="gettingMap('Icebox')">
-          <div class="bg-danger text-white position-relative m-3 rounded">
-            <div class="overlays"></div>
-            <img class="maps" src="../assets/icebox.jpg" alt="" />
-            <div class="card-img-overlay">
-              <h1 class="title position-absolute bottom-0 start-0 m-3">
-                IceBox
-              </h1>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div class="col-12">
-        <a href="" @click.prevent="gettingMap('Pearl')">
-          <div class="bg-danger text-white position-relative m-3 rounded">
-            <div class="overlays"></div>
-            <img class="maps" src="../assets/pearl.jpg" alt="" />
-            <div class="card-img-overlay">
-              <h1 class="title position-absolute bottom-0 start-0 m-3">
-                Pearl
-              </h1>
-            </div>
-          </div>
-        </a>
-      </div>
-    </div>
+    </a>
   </div>
 </template>
 

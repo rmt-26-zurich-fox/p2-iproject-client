@@ -1,6 +1,6 @@
 <script>
 import { mapActions, mapWritableState } from "pinia";
-import Swal from "sweetalert2";
+
 import { RouterLink } from "vue-router";
 import { main } from "../stores/counter";
 export default {

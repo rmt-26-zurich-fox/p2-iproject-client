@@ -12,6 +12,7 @@ export default {
         password: "",
         fullName: "",
         location: "",
+        role: "",
       },
     };
   },
@@ -125,6 +126,23 @@ export default {
                     id="password"
                     type="password"
                     placeholder="******************"
+                  />
+                </div>
+              </div>
+              <div class="mb-4 md:flex md:justify-between">
+                <div class="mb-4 md:mr-2 md:mb-0">
+                  <label
+                    class="block mb-2 text-sm font-bold text-gray-700"
+                    for="role"
+                  >
+                    Role
+                  </label>
+                  <input
+                    v-model="dataRegister.role"
+                    class="rounded px-4 w-full py-1 bg-gray-200 border border-gray-400 mb-6 text-gray-700 placeholder-gray-700 focus:bg-white focus:outline-none"
+                    id="role"
+                    type="role"
+                    placeholder="Teacher/Student"
                   />
                 </div>
               </div>

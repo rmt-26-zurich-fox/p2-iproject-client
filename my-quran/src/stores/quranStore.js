@@ -4,7 +4,7 @@ import axios from 'axios'
 export const quranStore = defineStore({
   id: 'ikan-terbang',
   state: () => ({
-    baseUrl: 'http://localhost:3000/',
+    baseUrl: 'https://iproject-p2-ikhraaazh.herokuapp.com/',
     surahs: [],
     surah: {},
     surahId: ''

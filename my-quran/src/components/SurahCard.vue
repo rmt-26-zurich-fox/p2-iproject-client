@@ -1,5 +1,4 @@
 <template>
-  <div class="card-container">
     <div class="card" @click="SurahDetail">
       <div class="card-header">
         <h4>{{ surah.asma.id.long }}</h4>
@@ -11,8 +10,6 @@
         <h6>Jumlah Ayat : {{ surah.ayahCount }}</h6>
       </div>
     </div>
-  </div>
-
 </template>
 
 <script>

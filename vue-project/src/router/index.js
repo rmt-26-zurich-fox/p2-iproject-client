@@ -68,8 +68,11 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const access_token = localStorage.access_token;
   const role = localStorage.role;
+  const edit_status = localStorage.edit_status;
 
-  if ((to.path === "/login" || to.path === "/register") && access_token) {
+  if ((from.path === "/login" && to.path === "/") && edit_status === "No") {
+    next("/profile");
+  } else if ((to.path === "/login" || to.path === "/register") && access_token) {
     next("/");
   } else if ((to.path === "/cart" || to.path === "/order-list" || to.path === "/profile") && role === "Guest") {
     next("/");

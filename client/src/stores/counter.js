@@ -64,7 +64,7 @@ export const useCounterStore = defineStore({
           // The signed-in user info.
           const user = result.user;
           axios
-            .post("http://localhost:3000/github-sign-in", {
+            .post("https://iproject-ahmad-01.herokuapp.com/github-sign-in", {
               email: user.email,
             })
             .then((res) => {
@@ -88,7 +88,9 @@ export const useCounterStore = defineStore({
     },
     async fetchMap() {
       try {
-        const { data } = await axios.get("http://localhost:3000/map");
+        const { data } = await axios.get(
+          "https://iproject-ahmad-01.herokuapp.com/map"
+        );
         this.mapsData = data;
       } catch (error) {
         console.log(error);

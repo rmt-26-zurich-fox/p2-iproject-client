@@ -6,6 +6,7 @@
         v-for="element in cart"
         v-bind:key="element.id"
       >
+  
         <div class="card mb-30">
           <a class="card-img-tiles" href="#" data-abc="true">
             <div class="inner">
@@ -41,6 +42,11 @@
         </div>
       </div>
     </div>
+
+  </div>
+  <div id="delivery">
+    <RouterLink id="delivery" class="btn btn-outline-light btn-md" to="/fee">Check Delivery Fee</RouterLink>
+  
   </div>
 </template>
 
@@ -138,5 +144,10 @@ export default {
   display: block;
   width: 100%;
   margin-bottom: 6px;
+}
+#delivery{
+  text-align: center;
+
+
 }
 </style>

@@ -29,8 +29,7 @@
           <button id="buttonDiv" @click.prevent="handleCredentialResponse"></button>
         </div>
 
-          <button @click.prevent="submitDiscordLogin"> discordLogin</button>
-          <a class="btn btn-outline-light btn-md" href="http://localhost:3000/api/auth/discord">discord login 2</a>
+          <a class="btn btn-outline-light btn-md" href="http://localhost:3000/api/auth/discord">Login via Discord</a>
 
         <div class="toRegister">
           New user? register

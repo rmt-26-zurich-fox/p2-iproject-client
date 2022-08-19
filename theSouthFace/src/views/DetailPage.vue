@@ -48,7 +48,6 @@
 </template>
 <script>
 import { mapActions, mapState, mapWritableState } from "pinia";
-import { i } from "../../dist/assets/index.a435b136";
 import { theSouthFace } from "../stores/theSouthFace";
 
 export default {

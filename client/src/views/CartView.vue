@@ -16,27 +16,49 @@ export default {
     ...mapActions(useAllStore, ["fetchCart", "checkOut", "fetchTransaction"]),
 
     async fetchCartLocal() {
-      await this.fetchCart();
+      try {
+        await this.fetchCart();
+      } catch (error) {
+        console.log(error);
+      }
     },
 
     async fetchTransactionLocal() {
-      await this.fetchTransaction();
+      try {
+        await this.fetchTransaction();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async checkOutLocal() {
+      try {
+        await this.checkOut();
+        this.$router.push('/transaction')
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 
   created() {
     this.fetchCartLocal();
-    this.fetchCart();
+    // this.fetchCart();
   },
 };
 </script>
 
 <template>
   <div>
-    <div class="px-4 px-lg-0">
+    <div
+      class="row py-5 p-4 bg-white rounded shadow-sm d-flex justify-content-center"
+    >
       <!-- For demo purpose -->
-      <div class="container py-5 text-center">
-        <h1 class="display-4">shopping cart</h1>
+
+      <div
+        class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold"
+      >
+        Carts
       </div>
       <!-- End -->
 
@@ -74,17 +96,14 @@ export default {
               </div>
               <!-- End -->
 
-              <router-link to="/transaction"
-                href="#"
-                @click.prevent="checkOut"
+              <button
+                @click.prevent="checkOutLocal"
                 class="btn btn-dark rounded-pill py-2 btn-block"
               >
-                Procceed to checkout</router-link
+                Procceed to checkout</button
               >
             </div>
           </div>
-
-
         </div>
       </div>
     </div>

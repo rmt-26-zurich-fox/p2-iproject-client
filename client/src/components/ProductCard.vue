@@ -22,16 +22,16 @@ export default{
 </script>
 
 <template>
-  <div class="col-12 col-md-3 py-4">
+  <div class="col-12 col-md-2 py-4">
     <div class="card">
       <img :src="product.imageUrl" class="card-img-top" />
       <div class="card-body">
-        <h5 class="card-title">{{ product.id }}-{{ product.name }}</h5>
+        <h5 class="card-title">{{ product.name }}</h5>
         <p class="card-text">{{ product.description }}</p>
         <span>{{ this.formatRupiah(product.price) }}</span>
 
-        <div class="d-flex justify-content-between" aria-label="Basic example">
-          <button @click="addProductToCartLocal" class="round-black-btn small-btn">Add to Cart</button>
+        <div class="d-flex center" aria-label="Basic example">
+          <button @click="addProductToCartLocal" class="round-black-btn small-btn center">Add to Cart</button>
         </div>
       </div>
     </div>
@@ -49,6 +49,7 @@ export default{
   transition: all 0.5s ease-in-out 0s;
   cursor: pointer;
   font-size: 14px;
+  margin: auto;
 }
 .round-black-btn:hover,
 .round-black-btn:focus {

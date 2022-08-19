@@ -52,6 +52,9 @@ export default {
                 <div class="d-grid gap-2 col-6 mx-auto">
                   <button type="submit">Register</button>
                 </div>
+                <router-link class="nav-link" to="/login">
+                    Back to login</router-link
+                  >
               </div>
             </div>
           </form>

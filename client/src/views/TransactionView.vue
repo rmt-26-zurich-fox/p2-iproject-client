@@ -6,31 +6,50 @@ export default {
   components: {},
 
   computed: {
-    ...mapState(useAllStore, ["transactions", "totalAmount"]),
+    ...mapState(useAllStore, [
+      "transactions",
+      "totalAmount",
+      "transactionToken",
+    ]),
   },
 
   methods: {
-    ...mapActions(useAllStore, ["fetchTransaction", "formatRupiah", "payment"]),
+    ...mapActions(useAllStore, [
+      "fetchTransaction",
+      "formatRupiah",
+      "paymentHandler",
+    ]),
 
     async fetchTransactionLocal() {
-      await this.fetchTransaction();
+      try {
+        await this.fetchTransaction();
+      } catch (error) {
+        console.log(error);
+      }
     },
 
-    handlePaymentLocal() {
-      this.payment();
+    async paymentHandlerLocal() {
+      try {
+        await this.paymentHandler(this.totalAmount);
+
+        window.snap.pay(this.transactionToken);
+        this.totalAmount = 0;
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 
   created() {
     this.fetchTransactionLocal();
-    this.fetchTransaction();
   },
 };
 </script>
 
 <template>
-  <div class="row py-5 p-4 bg-white rounded shadow-sm">
-    <div class="col-lg-6"></div>
+  <div
+    class="row py-5 p-4 bg-white rounded shadow-sm d-flex justify-content-center"
+  >
     <div class="col-lg-6">
       <div
         class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold"
@@ -46,12 +65,14 @@ export default {
             </h5>
           </li>
         </ul>
-        <a
-          @click.prevent="handlePaymentLocal"
-          href="#"
+
+        <button
+          @click.prevent="paymentHandlerLocal"
+          id="pay-button"
           class="btn btn-dark rounded-pill py-2 btn-block"
-          >Proceed to payment</a
         >
+          Pay!
+        </button>
       </div>
     </div>
   </div>

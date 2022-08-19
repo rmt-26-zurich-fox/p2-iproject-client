@@ -2,8 +2,8 @@ import { defineStore } from "pinia";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-let baseUrl = "http://localhost:3000";
-// let baseUrl = "https://individual-project-phase2.herokuapp.com/";
+// let baseUrl = "http://localhost:3000";
+let baseUrl = "https://phase2projectakhir.herokuapp.com";
 export const main = defineStore({
   id: "counter",
   state: () => ({

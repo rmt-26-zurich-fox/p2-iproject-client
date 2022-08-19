@@ -5,8 +5,8 @@ import Swal from "sweetalert2";
 export const useCustomStore = defineStore({
     id: "custom",
     state: () => ({
-        // baseURL: "http://localhost:3000",
-        baseURL: "https://baking-fortress-server.herokuapp.com",
+        baseURL: "http://localhost:3000",
+        // baseURL: "https://baking-fortress-server.herokuapp.com",
 
         // Vue State Storage
         email: "",
@@ -15,6 +15,7 @@ export const useCustomStore = defineStore({
         user_id: "",
         profile_id: "",
         profile_first_name: "",
+        edit_status: "",
 
         // Profile Detail Space
         profile: {},
@@ -94,13 +95,18 @@ export const useCustomStore = defineStore({
                 localStorage.setItem("user_id", data.user_id);
                 localStorage.setItem("profile_id", data.profile_id);
                 localStorage.setItem("profile_first_name", data.profile_first_name);
+                localStorage.setItem("edit_status", data.edit_status);
                 this.access_token = data.access_token;
                 this.email = data.email;
                 this.role = data.role;
                 this.user_id = data.user_id;
                 this.profile_id = data.profile_id;
                 this.profile_first_name = data.profile_first_name;
+                this.edit_status = data.edit_status;
                 this.router.push("/");
+                if (this.edit_status === "No") {
+                    Swal.fire("Welcome", "Please insert your profile", "info");
+                }
             } catch (error) {
                 // console.log(error);
                 Swal.fire(
@@ -130,12 +136,14 @@ export const useCustomStore = defineStore({
                 localStorage.setItem("user_id", data.user_id);
                 localStorage.setItem("profile_id", data.profile_id);
                 localStorage.setItem("profile_first_name", data.profile_first_name);
+                localStorage.setItem("edit_status", data.edit_status);
                 this.access_token = data.access_token;
                 this.email = data.email;
                 this.role = data.role;
                 this.user_id = data.user_id;
                 this.profile_id = data.profile_id;
                 this.profile_first_name = data.profile_first_name;
+                this.edit_status = data.edit_status;
                 this.router.push("/");
             } catch (error) {
                 // console.log(error);
@@ -166,13 +174,18 @@ export const useCustomStore = defineStore({
                 localStorage.setItem("user_id", data.user_id);
                 localStorage.setItem("profile_id", data.profile_id);
                 localStorage.setItem("profile_first_name", data.profile_first_name);
+                localStorage.setItem("edit_status", data.edit_status);
                 this.access_token = data.access_token;
                 this.email = data.email;
                 this.role = data.role;
                 this.user_id = data.user_id;
                 this.profile_id = data.profile_id;
                 this.profile_first_name = data.profile_first_name;
+                this.edit_status = data.edit_status;
                 this.router.push("/");
+                if (this.edit_status === "No") {
+                    Swal.fire("Welcome", "Please insert your profile", "info");
+                }
             } catch (error) {
                 // console.log(error);
                 swal(error.response.data.message, error.response.data.error, "error");

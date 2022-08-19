@@ -55,8 +55,12 @@ export default {
         );
 
         window.snap.pay(data.transactionToken, {
-          onSuccess(result) {
-            console.log(result);
+          onSuccess() {
+            Swal.fire({
+              icon: "success",
+              title: "Success!!",
+              text: "Thanks for your donation",
+            });
           },
           onClose() {
             errorHandler("You closed the popup without finishing the payment");

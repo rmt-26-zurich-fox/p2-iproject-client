@@ -1,5 +1,5 @@
 <script>
-import { mapActions } from "pinia";
+import { mapActions, mapWritableState } from "pinia";
 import Swal from "sweetalert2";
 import { RouterLink } from "vue-router";
 import { main } from "../stores/counter";
@@ -10,13 +10,9 @@ export default {
     ...mapActions(main, ["logout"]),
     handleLogout() {
       this.logout();
-      Swal.fire({
-        title: `Logged Out`,
-        text: `You are not logged in anymore`,
-        icon: `info`,
-      });
     },
   },
+  computed: { ...mapWritableState(main, ["isLoggedIn", "isHome"]) },
 };
 </script>
 
@@ -41,6 +37,7 @@ export default {
         >Shopping Cart</a
       >
       <RouterLink
+        v-if="!isLoggedIn"
         class="text-lg no-underline text-grey-darkest hover:text-blue-dark ml-2"
         to="/login"
         >Login</RouterLink
@@ -59,7 +56,7 @@ export default {
           class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
           >Search</label
         >
-        <div v-if="isLoggedIn" class="relative">
+        <div v-if="isHome" class="relative">
           <div
             class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none"
           >

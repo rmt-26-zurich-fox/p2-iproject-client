@@ -37,7 +37,7 @@ export default {
 <template>
   <body>
     <div class="grid-cols-3 grid float-left p-4">
-      <CourseCard v-for="el in dataCourse" :key="el.id" />
+      <CourseCard v-for="el in dataCourse.news" :key="el.id" :course="el" />
     </div>
     <div class="flex absolute lg:bottom-[-8vh] xl:bottom-[-6vh] w-[100%]">
       <div class="mx-auto flex flex-col items-center">
@@ -47,11 +47,11 @@ export default {
         >
         <div class="inline-flex mt-2 xs:mt-0">
           <button
-            class="bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            class="bg-black hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
             Prev</button
           ><button
-            class="bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            class="bg-black hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
             Next
           </button>

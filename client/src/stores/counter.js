@@ -3,10 +3,12 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 let baseUrl = "http://localhost:3000";
+// let baseUrl = "https://individual-project-phase2.herokuapp.com/";
 export const main = defineStore({
   id: "counter",
   state: () => ({
     isLoggedIn: false,
+    isHome: false,
     dataCourse: "",
     dataShoppingCart: [],
   }),
@@ -37,7 +39,7 @@ export const main = defineStore({
           password: dataLogin.password,
         });
         const { access_token } = response.data;
-
+        this.isLoggedIn = true;
         localStorage.setItem("access_token", access_token);
         localStorage.setItem("id", response.data.user.id);
         this.router.push({ name: "home" });
@@ -52,6 +54,11 @@ export const main = defineStore({
     logout() {
       this.isLoggedIn = false;
       localStorage.clear();
+      Swal.fire({
+        title: "Logged Out!",
+        icon: "info",
+        text: `You are logged out`,
+      });
       this.router.push({ name: "home" });
     },
 
@@ -60,7 +67,9 @@ export const main = defineStore({
         const response = await axios.get(
           `${baseUrl}/courses?page=${page}&search=${search}`
         );
-        this.dataCourse = response.data.response.news;
+        console.log(response.data.response);
+        this.dataCourse = response.data.response;
+        console.log(this.dataCourse);
       } catch (error) {
         Swal.fire({
           title: "Error!",
@@ -72,9 +81,12 @@ export const main = defineStore({
 
     async fetchShoppingcart() {
       try {
-        let response = await axios.get(`${baseUrl}/students//shopping-cart`);
-        console.log(response);
-        this.dataShoppingCart = response;
+        let response = await axios.get(`${baseUrl}/students/shopping-cart`, {
+          headers: { access_token: localStorage.access_token },
+        });
+        console.log(response.data.Course);
+        this.dataShoppingCart = response.data;
+        console.log(this.dataShoppingCart);
       } catch (error) {
         Swal.fire({
           title: "Error!",
@@ -84,9 +96,99 @@ export const main = defineStore({
       }
     },
 
-    async xenditPay(amount) {
+    async addToShoppingCart(courseId) {
       try {
-        await axios.post(`${baseUrl}/api/invoice`, { amount });
+        await axios.post(
+          `${baseUrl}/students/shopping-cart/${courseId}`,
+          {},
+          {
+            headers: { access_token: localStorage.getItem("access_token") },
+          }
+        );
+        Swal.fire({
+          title: "success!",
+          icon: "success",
+          text: "Item added to cart",
+        });
+      } catch (error) {
+        Swal.fire({
+          title: "Error!",
+          icon: "error",
+          text: error.response.data.message,
+        });
+      }
+    },
+
+    async deleteShoppingCart() {
+      try {
+        await axios.delete(`${baseUrl}/students/shopping-cart/delete`, {
+          headers: { access_token: localStorage.access_token },
+        });
+      } catch (error) {
+        Swal.fire({
+          title: "Error!",
+          icon: "error",
+          text: error.response.data.message,
+        });
+      }
+    },
+
+    async midtransPay() {
+      try {
+        const response = await axios.get(`${baseUrl}/students/checkout`, {
+          headers: { access_token: localStorage.access_token },
+        });
+        console.log(response.data.transaction_token);
+        window.snap.pay(response.data.transaction_token, {
+          onSuccess: function (result) {
+            Swal.fire({
+              title: "Payment success!",
+              icon: "succes",
+              text: result.status_message,
+            });
+          },
+          onPending: function (result) {
+            Swal.fire({
+              title: "Payment pending!",
+              icon: "info",
+              text: result.status_message,
+            });
+          },
+        });
+      } catch (error) {
+        Swal.fire({
+          title: "Error!",
+          icon: "error",
+          text: error.response.data.message,
+        });
+      }
+    },
+
+    async addCourseList(courseId) {
+      try {
+        await axios.post(
+          `${baseUrl}/students/courselist/${courseId}/add`,
+          {},
+          { headers: { access_token: localStorage.access_token } }
+        );
+      } catch (error) {
+        Swal.fire({
+          title: "Error!",
+          icon: "error",
+          text: error.response.data.message,
+        });
+      }
+    },
+
+    async fetchCourseList() {
+      try {
+        let response = await axios.get(
+          `${baseUrl}/students/courselist`,
+
+          { headers: { access_token: localStorage.access_token } }
+        );
+        console.log(response.data.Course);
+        this.dataCourse = response.data;
       } catch (error) {
         Swal.fire({
           title: "Error!",

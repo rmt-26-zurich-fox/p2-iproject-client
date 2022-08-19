@@ -30,10 +30,8 @@ export default {
 
     async paymentHandlerLocal() {
       try {
-        const response = await this.paymentHandler(this.totalAmount);
+        await this.paymentHandler(this.totalAmount);
 
-        console.log(response, "=====ini responsee");
-        console.log(this.transactionToken, "=====ini responsee");
         window.snap.pay(this.transactionToken);
         this.totalAmount = 0;
       } catch (error) {

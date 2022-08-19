@@ -96,12 +96,11 @@ export default {
               </div>
               <!-- End -->
 
-              <a
-                href="#"
+              <button
                 @click.prevent="checkOutLocal"
                 class="btn btn-dark rounded-pill py-2 btn-block"
               >
-                Procceed to checkout</a
+                Procceed to checkout</button
               >
             </div>
           </div>

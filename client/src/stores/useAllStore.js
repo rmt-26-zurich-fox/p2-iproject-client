@@ -214,12 +214,12 @@ export const useAllStore = defineStore({
           headers: { access_token: localStorage.getItem("access_token") },
           data : {totalAmount: +this.totalAmount}
         });
-        console.log(this.totalAmount, 'ini total amount');
+        // console.log(this.totalAmount, 'ini total amount');
 
-        console.log(data, 'masuk payment')
+        // console.log(data, 'masuk payment')
         // this.successShow(data.message);
         this.transactionToken = data.transactionToken.token
-        console.log(this.transactionToken, 'ini tokeeennn');
+        // console.log(this.transactionToken, 'ini tokeeennn');
         // this.totalAmount = 0;
       } catch (error) {
         console.log(error);

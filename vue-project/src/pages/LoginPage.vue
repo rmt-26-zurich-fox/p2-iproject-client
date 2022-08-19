@@ -1,6 +1,6 @@
 <template>
         <section class="mt-10 mx-28 flex flex-col justify-center items-center block p-6 rounded-lg shadow-lg bg-white border-2">
-            <h1 class="text-6xl mb-10">Login form</h1>
+            <h1 class="text-6xl mb-10 text-black">Login form</h1>
             <form @submit.prevent="submitLogin">
               <div class="form-group mb-6">
                 <input type="email" class="form-control block

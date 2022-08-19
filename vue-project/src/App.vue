@@ -54,7 +54,7 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div class="w-full">
     <NavBar />
     <RouterView />
   </div>

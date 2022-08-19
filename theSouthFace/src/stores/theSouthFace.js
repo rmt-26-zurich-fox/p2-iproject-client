@@ -23,7 +23,7 @@ export const theSouthFace = defineStore({
           this.products = allProducts.data;
         }
       } catch (error) {
-        console.log(error);
+        Swal.fire("ERROR", error.response.data.message, "error")
       }
     },
 
@@ -189,7 +189,7 @@ export const theSouthFace = defineStore({
 
     async getFee(destination) {
       try {
-        const cost = await axios({
+        const getcost = await axios({
           method: "post",
           url: `${baseUrl}/rajaongkir/cost`,
           data: {
@@ -199,7 +199,12 @@ export const theSouthFace = defineStore({
             courier:'jne',
           },
         });
-        console.log(cost);
+        // console.log(getcost.data[0].costs[0].cost[0].value);
+        Swal.fire(
+          "Your delivery fee is:",
+          `${(getcost.data[0].costs[0].cost[0].value)}`,
+          "success"
+        );
       } catch (error) {
         console.log(error);
       }

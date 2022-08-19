@@ -6,7 +6,7 @@ You only have to pay 2kg of shipping fee, the rest is on us.</h2>
 <label class="input"> SELECT CITY</label>
 <select class="form-select" aria-label="Default select example" v-model="inputCity">
   <option selected disabled>Select City</option>
-  <option v-for="(element,index) in city" v-bind:key="element.city_id">{{element.city_id}}</option>
+  <option v-for="(element,index) in city" v-bind:key="element.city_id" v-bind:value="element.city_id">{{element.city_name}}</option>
 </select>
 <br>
 <button type="submit"> Calculate Delivery Fee</button>
@@ -31,7 +31,7 @@ export default{
     methods:{
         ...mapActions(theSouthFace, ['getProvince','getCity','getFee']),
         submitFee(destination){
-            this.getFee(destination)
+            this.getFee(+destination)
         }
     },
     created(){

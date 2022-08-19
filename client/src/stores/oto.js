@@ -2,8 +2,8 @@ import { defineStore } from "pinia";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-// const baseUrl = "https://sheltered-lake-18100.herokuapp.com";
-const baseUrl = "http://localhost:3000";
+const baseUrl = "https://sheltered-lake-18100.herokuapp.com";
+// const baseUrl = "http://localhost:3000";
 
 export const useOtoStore = defineStore({
   id: "oto",
@@ -146,18 +146,18 @@ export const useOtoStore = defineStore({
     },
     async cancelProduct(id) {
       try {
-        let access_token = localStorage.getItem("access_token");
-        const product = await axios.delete(`${baseUrl}/request/product/${id}`, {
-          headers: { access_token },
-        });
-        this.router.push("/orderlist");
+        // let access_token = localStorage.getItem("access_token");
+        // const product = await axios.delete(`${baseUrl}/request/product/${id}`, {
+        //   headers: { access_token },
+        // });
+        // this.router.push("/orderlist");
       } catch (error) {
         Swal.fire(error);
       }
     },
     async cancelService(id) {
       try {
-        console.log(id);
+        // console.log(id);
         // let access_token = localStorage.getItem("access_token");
         // const product = await axios.delete(`${baseUrl}/request/service/${id}`, {
         //   headers: { access_token },

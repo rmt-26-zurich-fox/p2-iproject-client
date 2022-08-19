@@ -26,7 +26,12 @@ export default {
     <div class="max-w-full mx-auto">
       <div class="main flex flex-col m-5">
         <div class="header">
-          <div class="text-3xl font-bold text-gray-600 mb-4">Service Order</div>
+          <div 
+          v-if="!serviceRequested.length && !productRequested.length"
+          class="text-3xl font-bold text-gray-600 mb-4">Your Cart is Empty</div>
+          <div 
+          v-if="serviceRequested.length !== 0"
+          class="text-3xl font-bold text-gray-600 mb-4">Service Order</div>
         </div>
 
         <div
@@ -57,7 +62,12 @@ export default {
           </div>
         </div>
         <div class="header">
-          <div class="text-3xl font-bold text-gray-600 mb-4">Servise Order</div>
+          <div
+            v-if="productRequested.length !== 0"
+            class="text-3xl font-bold text-gray-600 mb-4"
+          >
+            Product Order
+          </div>
         </div>
 
         <div
@@ -92,7 +102,10 @@ export default {
         </div>
         <div class="right m-auto mr-0">
           <button
-            class="hover:shadow-lg select-none p-3 rounded-md border-gray-300 border mb-3 hover:border-gray-500 cursor-pointer"
+            v-if="
+              serviceRequested.length !== 0 || productRequested.length !== 0
+            "
+            class="hover:shadow-lg select-none p-3 rounded-md bg-gray-800 mt-6 text-white font-medium border-gray-500 border mb-3 hover:border-gray-500 cursor-pointer"
             @click="requestPayment()"
           >
             Pay now

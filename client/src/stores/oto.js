@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import axios from "axios";
 import Swal from "sweetalert2";
 
+// const baseUrl = "https://sheltered-lake-18100.herokuapp.com";
 const baseUrl = "http://localhost:3000";
 
 export const useOtoStore = defineStore({
@@ -172,7 +173,36 @@ export const useOtoStore = defineStore({
         const payment = await axios.get(`${baseUrl}/request/payment`, {
           headers: { access_token: localStorage.getItem("access_token") },
         });
-        window.snap.pay(payment.data.token);
+        window.snap.pay(payment.data.token, {
+          onSuccess: async function (result) {
+            /* You may add your own implementation here */
+            axios.post(
+              `${baseUrl}/request/payment/status`,
+              result,
+              {
+                headers: { access_token: localStorage.getItem("access_token") },
+              }
+            ).then((result)=>{
+              this.router.push("/");
+            })
+          },
+          onPending: function (result) {
+            /* You may add your own implementation here */
+            Swal.fire({ text: "wating your payment!", timerProgressBar: true });
+            console.log(result);
+          },
+          onError: function (result) {
+            /* You may add your own implementation here */
+            Swal.fire({ text: "payment failed!", icon: "error" });
+          },
+          onClose: function () {
+            /* You may add your own implementation here */
+            Swal.fire({
+              text: "you closed the popup without finishing the payment",
+              icon: "info",
+            });
+          },
+        });
       } catch (error) {
         Swal.fire(error.response.message);
       }

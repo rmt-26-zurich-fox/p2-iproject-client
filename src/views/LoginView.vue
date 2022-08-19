@@ -11,7 +11,15 @@
         <label for="">Password</label>
         <input v-model="password" class="form-control" type="password" />
         <router-link :to="{ name: 'register' }">Register</router-link>
-        <button>Login</button>
+        <button>
+          <div v-if="isLoading" class="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          Login
+        </button>
       </form>
       <div class="social">
         <div @click="googleLogin"><img src="../assets/google-logo.svg" /></div>
@@ -27,7 +35,7 @@
 <script>
 import axios from "axios";
 
-import { mapState, mapActions } from "pinia";
+import { mapState, mapActions, mapWritableState } from "pinia";
 import { useGlobalStore } from "../stores/globalStore";
 
 import {
@@ -52,6 +60,7 @@ export default {
   },
   computed: {
     ...mapState(useGlobalStore, ["baseUrl"]),
+    ...mapWritableState(useGlobalStore, ["isLoading"]),
   },
   methods: {
     ...mapActions(useGlobalStore, [
@@ -61,16 +70,20 @@ export default {
     ]),
     async login(body) {
       try {
+        this.isLoading = true;
         const { data } = await axios.post(this.baseUrl + "/login", body);
         this.successHandler(data.message);
         localStorage.setItem("access_token", data.access_token);
         this.$router.push("/home");
+        this.isLoading = false;
       } catch (error) {
+        this.isLoading = false;
         this.errorHandler(error);
       }
     },
     async googleLogin() {
       try {
+        this.isLoading = true;
         const result = await signInWithPopup(auth, googleProvider);
 
         const user = result.user;
@@ -82,12 +95,15 @@ export default {
         localStorage.setItem("access_token", data.access_token);
         this.successHandler(data.message);
         this.$router.push("/home");
+        this.isLoading = false;
       } catch (error) {
-        console.log(error);
+        this.isLoading = false;
+        this.errorHandler(error.message);
       }
     },
     async githubLogin() {
       try {
+        return this.errorHandler("This feature is not yet available");;
         const result = await signInWithPopup(auth, githubProvider);
 
         const user = result.user;
@@ -98,6 +114,7 @@ export default {
     },
     async twitterLogin() {
       try {
+        return this.errorHandler("This feature is not yet available");;
         const result = await signInWithPopup(auth, twitterProvider);
 
         const user = result.user;

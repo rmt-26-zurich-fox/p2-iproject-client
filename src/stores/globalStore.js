@@ -25,6 +25,7 @@ export const useGlobalStore = defineStore({
   state: () => ({
     // baseUrl: "https://movie-ku.herokuapp.com",
     baseUrl: "http://localhost:3000",
+    isLoading: false,
   }),
   actions: {
     successHandler(message) {

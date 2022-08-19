@@ -6,7 +6,7 @@
 
 <script>
 import axios from "axios";
-import { mapState, mapActions } from "pinia";
+import { mapState, mapActions, mapWritableState } from "pinia";
 import { useGlobalStore } from "../stores/globalStore";
 import MovieAll from "../components/MovieAll.vue";
 import MovieList from "../components/MovieList.vue";
@@ -21,6 +21,7 @@ export default {
   },
   computed: {
     ...mapState(useGlobalStore, ["baseUrl"]),
+    ...mapWritableState(useGlobalStore, ["isLoading"]),
   },
   methods: {
     ...mapActions(useGlobalStore, ["errorHandler"]),
@@ -41,9 +42,11 @@ export default {
       }
     },
   },
-  created() {
-    this.movieTrending();
-    this.movieTopVote();
+  async created() {
+    this.isLoading = true;
+    await this.movieTrending();
+    await this.movieTopVote();
+    this.isLoading = false;
   },
 };
 </script>

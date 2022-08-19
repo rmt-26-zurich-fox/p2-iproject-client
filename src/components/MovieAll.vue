@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "pinia";
+import { mapActions, mapState, mapWritableState } from "pinia";
 import { useGlobalStore } from "../stores/globalStore";
 import MovieSearch from "./MovieSearch.vue";
 import MovieCard from "./MovieCard.vue";
@@ -26,6 +26,7 @@ export default {
   },
   computed: {
     ...mapState(useGlobalStore, ["baseUrl"]),
+    ...mapWritableState(useGlobalStore, ["isLoading"]),
   },
   methods: {
     ...mapActions(useGlobalStore, ["errorHandler"]),
@@ -33,6 +34,7 @@ export default {
       try {
         if (!keyword) return this.errorHandler("Fill input search first");
         this.$router.push({ query: { search: keyword } });
+        this.isLoading = true;
         const { data } = await axios.get(this.baseUrl + "/movies", {
           params: { keyword },
         });
@@ -41,7 +43,9 @@ export default {
         this.results = results;
         this.totalPage = totalPage;
         this.totalResults = totalResults;
+        this.isLoading = false;
       } catch (error) {
+        this.isLoading = false;
         this.errorHandler(error);
       }
     },
@@ -50,7 +54,7 @@ export default {
       this.results = [];
       this.totalPage = "";
       this.totalResults = "";
-      this.$router.push("/home")
+      this.$router.push("/home");
     },
   },
   created() {

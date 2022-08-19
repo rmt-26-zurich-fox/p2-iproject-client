@@ -15,17 +15,24 @@
         <label for="">Retype</label>
         <input v-model="retype" class="form-control" type="password" />
         <router-link :to="{ name: 'login' }">Login</router-link>
-        <button>Register</button>
+        <button>
+          <div v-if="isLoading" class="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          Register
+        </button>
       </form>
-      <div class="social">
-      </div>
+      <div class="social"></div>
     </div>
   </section>
 </template>
 
 <script>
 import axios from "axios";
-import { mapActions, mapState } from "pinia";
+import { mapActions, mapState, mapWritableState } from "pinia";
 import { useGlobalStore } from "../stores/globalStore";
 
 export default {
@@ -39,16 +46,20 @@ export default {
   },
   computed: {
     ...mapState(useGlobalStore, ["baseUrl"]),
+    ...mapWritableState(useGlobalStore, ["isLoading"]),
   },
   methods: {
     ...mapActions(useGlobalStore, ["errorHandler", "successHandler"]),
     async register(body) {
       try {
+        this.isLoading = true;
         const { data } = await axios.post(this.baseUrl + "/register", body);
-        this.successHandler(data.message)
+        this.successHandler(data.message);
         this.$router.push("/login");
+        this.isLoading = false;
       } catch (error) {
-        this.errorHandler(error)
+        this.isLoading = false;
+        this.errorHandler(error);
       }
     },
   },

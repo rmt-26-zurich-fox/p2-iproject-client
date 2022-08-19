@@ -23,7 +23,7 @@
 <script>
 import MovieList from "../components/MovieList.vue";
 import axios from "axios";
-import { mapState, mapActions } from "pinia";
+import { mapState, mapActions, mapWritableState } from "pinia";
 import { useGlobalStore } from "../stores/globalStore";
 
 export default {
@@ -37,6 +37,7 @@ export default {
   },
   computed: {
     ...mapState(useGlobalStore, ["baseUrl"]),
+    ...mapWritableState(useGlobalStore, ["isLoading"]),
   },
   methods: {
     ...mapActions(useGlobalStore, ["errorHandler", "successHandler"]),
@@ -69,7 +70,7 @@ export default {
           }
         );
         this.successHandler(data.message);
-        this.getBookmark()
+        this.getBookmark();
       } catch (error) {
         this.errorHandler(error);
       }
@@ -87,7 +88,7 @@ export default {
           }
         );
         this.successHandler(data.message);
-        this.getBookmark()
+        this.getBookmark();
       } catch (error) {
         this.errorHandler(error);
       }
@@ -99,14 +100,16 @@ export default {
           headers: { access_token },
         });
         this.successHandler(data.message);
-        this.getBookmark()
+        this.getBookmark();
       } catch (error) {
         this.errorHandler(error);
       }
     },
   },
-  created() {
-    this.getBookmark();
+  async created() {
+    this.isLoading = true;
+    await this.getBookmark();
+    this.isLoading = false;
   },
 };
 </script>

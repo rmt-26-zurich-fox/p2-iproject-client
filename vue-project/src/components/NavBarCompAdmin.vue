@@ -9,7 +9,6 @@ export default {
   },
   methods: {
     logoutClearStorage() {
-      google.accounts.id.disableAutoSelect();
       localStorage.clear();
     },
   },
@@ -21,39 +20,21 @@ export default {
   <nav class="navbar sticky-top bg-light">
     <div class="container-fluid" style="justify-content: center; gap: 10px">
       <div class="mx-auto" style="padding-left: 11rem">
-        <router-link class="navbar-link" to="/">Home </router-link>
-        <router-link
-          class="navbar-link"
-          to="/cart"
-          v-if="access_token && email !== 'guest@guest.com'"
-        >
-          Cart
+        <router-link class="navbar-link" to="/admin">Home</router-link> |
+        <router-link class="navbar-link" to="/add-item">Add Item </router-link>
+        |
+        <router-link class="navbar-link" to="/order-list-customer">
+          Order List Customer
         </router-link>
-        <router-link
-          class="navbar-link"
-          to="/order-list"
-          v-if="access_token && email !== 'guest@guest.com'"
-        >
-          Order
-        </router-link>
-        <router-link
-          class="navbar-link"
-          to="/profile"
-          v-if="access_token && email !== 'guest@guest.com'"
-        >
-          Profile
-        </router-link>
-        <router-link class="navbar-link" to="/login" v-if="!access_token">
-          Login
-        </router-link>
+        |
+        <router-link class="navbar-link" to="/profile"> Profile</router-link> |
         <router-link
           class="navbar-link"
           to="/login"
           @click="logoutClearStorage"
-          v-else
         >
-          Logout</router-link
-        >
+          Logout
+        </router-link>
       </div>
       <div class="ml-auto my-auto">
         <p class="navbar" v-if="profile_first_name === 'Input First Name'">

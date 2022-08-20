@@ -438,5 +438,25 @@ export const useCustomStore = defineStore({
                 console.log(error);
             }
         },
+
+        // Admin Change Product Status
+        async onChangeProductStatus(status, id) {
+            try {
+                await axios({
+                    method: "PATCH",
+                    url: this.baseURL + `/admins/products/status/${id}`,
+                    headers: {
+                        access_token: localStorage.access_token
+                    },
+                    data: {
+                        productStatus: status
+                    }
+                });
+
+                Swal.fire("Success", `Success Edit Product Status to ${status}`, "success");
+            } catch (error) {
+                console.log(error);
+            }
+        },
     },
 });

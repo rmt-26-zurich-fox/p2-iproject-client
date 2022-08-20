@@ -1,4 +1,7 @@
 <script>
+import { mapActions } from "pinia";
+import { useCustomStore } from "../stores/custom";
+
 export default {
   props: ["product", "index"],
   computed: {
@@ -67,28 +70,43 @@ export default {
       } ${d.getFullYear()}`;
     },
   },
+  methods: {
+    ...mapActions(useCustomStore, ["onChangeProductStatus"]),
+    onChangeProductStatusHandler(event, productId) {
+      this.onChangeProductStatus(event.target.value, productId);
+    },
+  },
 };
 </script>
 
 <template>
   <tr>
-    <th>{{ index + 1 }}</th>
-    <th>{{ product.name }}</th>
-    <th>{{ getPriceFormatted }}</th>
-    <th>{{ product.weight }}</th>
-    <th>
+    <td>{{ index + 1 }}</td>
+    <td>{{ product.name }}</td>
+    <td>{{ getPriceFormatted }}</td>
+    <td>{{ product.weight }} gram</td>
+    <td>
       <img :src="product.imageUrl" style="width: 80px; height: 100px" />
-    </th>
-    <th>{{ getCreatedDateFormatted }}</th>
-    <th>{{ getLastUpdateDateFormatted }}</th>
-    <th>
-      <select v-model="product.productStatus">
+    </td>
+    <td>{{ getCreatedDateFormatted }}</td>
+    <td>{{ getLastUpdateDateFormatted }}</td>
+    <td>
+      <select
+        v-model="product.productStatus"
+        @change="onChangeProductStatusHandler($event, +product.id)"
+      >
         <option value="Active">Active</option>
         <option value="Inactive">Inactive</option>
       </select>
-    </th>
-    <th>
+    </td>
+    <td>
       <button class="btn btn-warning">Dummy Edit</button>
-    </th>
+    </td>
   </tr>
 </template>
+
+<style scoped>
+td {
+  font-family: Arial, Helvetica, sans-serif;
+}
+</style>

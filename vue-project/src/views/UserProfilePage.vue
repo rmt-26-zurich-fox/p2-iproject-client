@@ -2,6 +2,7 @@
 import { mapActions } from "pinia";
 import { useCustomStore } from "../stores/custom";
 import NavBarComp from "../components/NavBarComp.vue";
+import NavBarCompAdmin from "../components/NavBarCompAdmin.vue";
 
 export default {
   data() {
@@ -11,10 +12,13 @@ export default {
       lastName: "",
       address: "",
       phoneNumber: "",
+
+      role: localStorage.role,
     };
   },
   components: {
     NavBarComp,
+    NavBarCompAdmin,
   },
   methods: {
     ...mapActions(useCustomStore, ["fetchProfileDetail", "editProfileDetail"]),
@@ -40,7 +44,8 @@ export default {
 </script>
 
 <template>
-  <NavBarComp />
+  <NavBarCompAdmin v-if="role === 'Admin'" />
+  <NavBarComp v-else />
   <div class="card">
     <div class="card-header text-center title">Profile Page</div>
     <div class="card-body text-center">

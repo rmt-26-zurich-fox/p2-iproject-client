@@ -5,8 +5,8 @@ import Swal from "sweetalert2";
 export const useCustomStore = defineStore({
     id: "custom",
     state: () => ({
-        // baseURL: "http://localhost:3000",
-        baseURL: "https://baking-fortress-server.herokuapp.com",
+        baseURL: "http://localhost:3000",
+        // baseURL: "https://baking-fortress-server.herokuapp.com",
 
         // Vue State Storage
         email: "",
@@ -49,6 +49,9 @@ export const useCustomStore = defineStore({
 
         // Midtrans Token
         midtransToken: "",
+
+        // Admin Home Product Space
+        adminProducts: [],
     }),
 
     actions: {
@@ -103,7 +106,11 @@ export const useCustomStore = defineStore({
                 this.profile_id = data.profile_id;
                 this.profile_first_name = data.profile_first_name;
                 this.edit_status = data.edit_status;
-                this.router.push("/");
+                if (localStorage.role === "Customer") {
+                    this.router.push("/");
+                } else {
+                    this.router.push("/admin");
+                }
                 if (this.edit_status === "No") {
                     Swal.fire("Welcome", "Please insert your profile", "info");
                 }
@@ -413,6 +420,23 @@ export const useCustomStore = defineStore({
             } catch (error) {
                 console.log(error);
             }
-        }
+        },
+
+        // Admin Side
+        async fetchAdminProductHome() {
+            try {
+                const { data } = await axios({
+                    method: "GET",
+                    url: this.baseURL + "/admins/products/list",
+                    headers: {
+                        access_token: localStorage.access_token
+                    }
+                });
+
+                this.adminProducts = data.data;
+            } catch (error) {
+                console.log(error);
+            }
+        },
     },
 });

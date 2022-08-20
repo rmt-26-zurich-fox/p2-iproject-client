@@ -14,9 +14,15 @@
 			},
 		},
 		computed: {
-			...mapWritableState(dashboard, ["dataFissures"]),
+			...mapWritableState(dashboard, ["dataFissures", "isDataExpired"]),
 		},
 		async created() {
+			//clear dataFissures
+			let { fissures } = this.isDataExpired;
+			if (fissures) {
+				this.dataFissures = { normal: [], storm: [], isDefaultState: true };
+				fissures = !fissures;
+			}
 			await this.fetchFissures();
 		},
 		components: { FissuresList },

@@ -16,10 +16,7 @@
 			...mapActions(patchnote, ["fetchPatchnote"]),
 		},
 		created() {
-			console.log("test masuk page");
 			this.fetchPatchnote();
-			console.log(this.dataFetch, "ini dataFetch @PagePatchNote");
-			console.log(this.isFirstOrLast, "ini isFirstOrLast @PagePatchNote");
 		},
 	};
 </script>

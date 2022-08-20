@@ -7,8 +7,13 @@
 	import FissuresPage from "./FissuresPage.vue";
 	import SyndicatePages from "./SyndicatePages.vue";
 	import CyclePage from "./CyclePage.vue";
+	import { mapState } from "pinia";
+	import { dashboard } from "../../stores/dashboard";
 	export default {
 		components: { NewsPage, NightwavePage, SortiePage, InvasionsPage, EventsPage, FissuresPage, SyndicatePages, CyclePage },
+		computed: {
+			...mapState(dashboard, ["isDataExpired"]),
+		},
 	};
 </script>
 
@@ -26,10 +31,10 @@
 				<div class="col">
 					<NewsPage class="col-12" />
 					<br />
-					<FissuresPage class="col-12" />
+					<FissuresPage :key="isDataExpired.fissures" class="col-12" />
 				</div>
 				<div class="col">
-					<NightwavePage class="col-12" />
+					<NightwavePage :key="isDataExpired.nightwave" class="col-12" />
 					<br />
 					<SyndicatePages />
 				</div>

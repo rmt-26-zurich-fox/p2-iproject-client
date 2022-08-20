@@ -30,7 +30,7 @@
 		created() {
 			setInterval(() => {
 				const date = new Date().toISOString();
-				this.countdown = this.countingDown(date, this.data.expiry);
+				this.countdown = this.countingDown(date, this.data.expiry, "fissures");
 			}, 1000);
 		},
 	};

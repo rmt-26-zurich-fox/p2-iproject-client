@@ -25,6 +25,17 @@ export const dashboard = defineStore({
 		secondaryData: {},
 		//deals
 		dealsData: {},
+
+		//
+		isDataExpired: {
+			news: false,
+			nightwave: false,
+			sortie: false,
+			invasions: false,
+			fissures: false,
+			bounty: false,
+			cycles: false,
+		},
 	}),
 	getters: {
 		dailyReset() {
@@ -35,7 +46,6 @@ export const dashboard = defineStore({
 		async fetchNews(platform = "pc") {
 			try {
 				const { data } = await axios(`${server.url}/events/${platform}/news`);
-
 				this.primaryData.news = data.response;
 			} catch ({ response }) {
 				console.log(response.data.message);
@@ -97,11 +107,13 @@ export const dashboard = defineStore({
 				});
 
 				data.response.forEach(data => {
-					const { isStorm } = data;
-					if (isStorm) {
-						this.dataFissures.storm.push(data);
-					} else {
-						this.dataFissures.normal.push(data);
+					const { isStorm, active } = data;
+					if (active) {
+						if (isStorm) {
+							this.dataFissures.storm.push(data);
+						} else {
+							this.dataFissures.normal.push(data);
+						}
 					}
 				});
 			} catch ({ response }) {
@@ -148,20 +160,26 @@ export const dashboard = defineStore({
 		},
 
 		//COMPLEMENT FUNCTION
-		countingDown(startFrom, endTo) {
+		countingDown(date1, date2, dataExpiredType) {
 			//! INPUT TIME IS ISO TIMESTAMP
 			//! make sure the input is not converted to ISOString
 			let startDate, endDate;
-			if (startFrom > endTo) {
-				startDate = endTo;
-				endDate = startFrom;
+			if (date1 > date2) {
+				startDate = date2;
+				endDate = date1;
 			} else {
-				startDate = startFrom;
-				endDate = endTo;
+				startDate = date1;
+				endDate = date2;
 			}
 
 			let interval = intervalToDuration({ start: parseISO(startDate), end: parseISO(endDate) });
 			let { years, months, days, hours, minutes, seconds } = interval;
+			//? TESTING FIELD
+			//when dd:hh:mm:ss are up. run callback
+			if (!days && !hours && !minutes && !seconds) {
+				if (!this.isDataExpired[dataExpiredType]) this.isDataExpired[dataExpiredType] = true;
+				console.log("masuk", this.isDataExpired.fissures);
+			}
 			if (years > 0) days += 365 * years;
 			if (months > 0) days += 31 * months;
 			if (!days) {

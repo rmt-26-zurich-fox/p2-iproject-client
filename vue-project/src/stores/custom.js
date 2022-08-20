@@ -5,8 +5,8 @@ import Swal from "sweetalert2";
 export const useCustomStore = defineStore({
     id: "custom",
     state: () => ({
-        // baseURL: "http://localhost:3000",
-        baseURL: "https://baking-fortress-server.herokuapp.com",
+        baseURL: "http://localhost:3000",
+        // baseURL: "https://baking-fortress-server.herokuapp.com",
 
         // Vue State Storage
         email: "",
@@ -49,6 +49,15 @@ export const useCustomStore = defineStore({
 
         // Midtrans Token
         midtransToken: "",
+
+        // Admin Home Product Space
+        adminProducts: [],
+
+        // Admin Order List Customer Space
+        adminOrderListCustomer: [],
+
+        // Admin Product Detail Space
+        adminProductDetail: {},
     }),
 
     actions: {
@@ -103,7 +112,11 @@ export const useCustomStore = defineStore({
                 this.profile_id = data.profile_id;
                 this.profile_first_name = data.profile_first_name;
                 this.edit_status = data.edit_status;
-                this.router.push("/");
+                if (localStorage.role === "Customer") {
+                    this.router.push("/");
+                } else {
+                    this.router.push("/admin");
+                }
                 if (this.edit_status === "No") {
                     Swal.fire("Welcome", "Please insert your profile", "info");
                 }
@@ -413,6 +426,166 @@ export const useCustomStore = defineStore({
             } catch (error) {
                 console.log(error);
             }
-        }
+        },
+
+        // Admin Side Fetch Product
+        async fetchAdminProductHome() {
+            try {
+                const { data } = await axios({
+                    method: "GET",
+                    url: this.baseURL + "/admins/products/list",
+                    headers: {
+                        access_token: localStorage.access_token
+                    }
+                });
+
+                this.adminProducts = data.data;
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        // Admin Change Product Status
+        async onChangeProductStatus(status, id) {
+            try {
+                await axios({
+                    method: "PATCH",
+                    url: this.baseURL + `/admins/products/status/${id}`,
+                    headers: {
+                        access_token: localStorage.access_token
+                    },
+                    data: {
+                        productStatus: status
+                    }
+                });
+
+                Swal.fire("Success", `Success Edit Product Status to ${status}`, "success");
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        // Fetch Order List Customer
+        async fetchAdminOrderListCustomer() {
+            try {
+                const { data } = await axios({
+                    method: "GET",
+                    url: this.baseURL + "/admins/orders/list",
+                    headers: {
+                        access_token: localStorage.access_token
+                    }
+                });
+
+                this.adminOrderListCustomer = data.data;
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        // Admin Change Order Status
+        async onChangeOrderStatus(status, id) {
+            try {
+                await axios({
+                    method: "PATCH",
+                    url: this.baseURL + `/admins/orders/status/${id}`,
+                    headers: {
+                        access_token: localStorage.access_token
+                    },
+                    data: {
+                        orderStatus: status
+                    }
+                });
+
+                Swal.fire("Success", `Success Edit Order Status to ${status}`, "success");
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        // Admin Add New Product
+        async adminAddNewProduct(name, price, stock, weight, imageUrl) {
+            try {
+                await axios({
+                    method: "POST",
+                    url: this.baseURL + "/admins/products/add",
+                    headers: {
+                        access_token: localStorage.access_token
+                    },
+                    data: {
+                        name,
+                        price,
+                        stock,
+                        weight,
+                        imageUrl
+                    }
+                });
+
+                Swal.fire("Success", "Success Add New Product", "success");
+                this.router.push("/admin");
+            } catch (error) {
+                // console.log(error);
+                Swal.fire(
+                    error.response.data.message,
+                    error.response.data.error.join(", "),
+                    "error"
+                );
+            }
+        },
+
+        // Admin Fetch Detail Product for populate edit form
+        async fetchAdminProductDetail(id) {
+            try {
+                const { data } = await axios({
+                    method: "GET",
+                    url: this.baseURL + `/admins/products/detail/${id}`,
+                    headers: {
+                        access_token: localStorage.access_token
+                    }
+                });
+
+                this.adminProductDetail = data.data;
+                return this.adminProductDetail
+            } catch (error) {
+                // console.log(error);
+                if (error.response.data.message === "Data not found") {
+                    this.router.push("/admin");
+                    Swal.fire(
+                        error.response.data.message,
+                        error.response.data.error,
+                        "error"
+                    );
+                }
+            }
+        },
+
+        // Edit Product
+        async adminEditProduct(id, name, price, stock, weight, imageUrl) {
+            try {
+                await axios({
+                    method: "PUT",
+                    url: this.baseURL + `/admins/products/edit/${id}`,
+                    headers: {
+                        access_token: localStorage.access_token
+                    },
+                    data: {
+                        name,
+                        price,
+                        stock,
+                        weight,
+                        imageUrl
+                    }
+                });
+
+                Swal.fire("Success", `Success Edit Product with id ${id}`, "success");
+                this.router.push("/admin");
+            } catch (error) {
+                // console.log(error);
+                Swal.fire(
+                    error.response.data.message,
+                    error.response.data.error.join(", "),
+                    "error"
+                );
+            }
+        },
     },
 });

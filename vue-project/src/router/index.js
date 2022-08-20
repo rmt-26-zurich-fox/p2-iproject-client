@@ -12,6 +12,7 @@ import PageNotFound404 from "../views/PageNotFound404.vue";
 import HomePageAdmin from "../views/HomePageAdmin.vue";
 import AdminOrderListPage from "../views/AdminOrderListPage.vue";
 import AdminAddItemPage from "../views/AdminAddItemPage.vue";
+import AdminEditItemPage from "../views/AdminEditItemPage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -73,6 +74,11 @@ const router = createRouter({
       name: "adminAddItem",
       component: AdminAddItemPage,
     },
+    {
+      path: "/edit-item/:id",
+      name: "adminEditItem",
+      component: AdminEditItemPage,
+    },
   ],
 });
 
@@ -93,9 +99,9 @@ router.beforeEach((to, from, next) => {
     next("/login");
   } else if ((to.path === "/" || to.name === "product-detail" || to.path === "/cart" || to.path === "/order-list") && access_token && role === "Admin") {
     next("/admin");
-  } else if ((to.path === "/admin" || to.path === "/order-list-customer" || to.path === "/add-item") && !access_token) {
+  } else if ((to.path === "/admin" || to.path === "/order-list-customer" || to.path === "/add-item" || to.name === "adminEditItem") && !access_token) {
     next("/login");
-  } else if ((to.path === "/admin" || to.path === "/order-list-customer" || to.path === "/add-item") && access_token && role === "Customer" && role === "Guest") {
+  } else if ((to.path === "/admin" || to.path === "/order-list-customer" || to.path === "/add-item" || to.name === "adminEditItem") && access_token && role === "Customer" && role === "Guest") {
     next("/");
   } else {
     next();

@@ -55,6 +55,9 @@ export const useCustomStore = defineStore({
 
         // Admin Order List Customer Space
         adminOrderListCustomer: [],
+
+        // Admin Product Detail Space
+        adminProductDetail: {},
     }),
 
     actions: {
@@ -526,6 +529,30 @@ export const useCustomStore = defineStore({
                     error.response.data.error.join(", "),
                     "error"
                 );
+            }
+        },
+
+        async fetchAdminProductDetail(id) {
+            try {
+                const { data } = await axios({
+                    method: "GET",
+                    url: this.baseURL + `/admins/products/detail/${id}`,
+                    headers: {
+                        access_token: localStorage.access_token
+                    }
+                });
+
+                this.adminProductDetail = data.data;
+            } catch (error) {
+                // console.log(error);
+                if (error.response.data.message === "Data not found") {
+                    this.router.push("/admin");
+                    Swal.fire(
+                        error.response.data.message,
+                        error.response.data.error,
+                        "error"
+                    );
+                }
             }
         },
     },

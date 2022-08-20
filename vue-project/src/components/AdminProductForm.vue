@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import { mapActions } from "pinia";
+import { mapState, mapActions } from "pinia";
 import { useCustomStore } from "../stores/custom";
 
 export default {
@@ -91,7 +91,7 @@ export default {
       imageUrl: "",
     };
   },
-  props: ["isState", "populateProductForm"],
+  props: ["isState"],
   methods: {
     ...mapActions(useCustomStore, ["adminAddNewProduct"]),
 
@@ -116,14 +116,17 @@ export default {
       //   );
     },
   },
+  computed: {
+    ...mapState(useCustomStore, ["adminProductDetail"]),
+  },
   created() {
     if (this.isState === "Edit") {
-      //   this.editId = this.populateProductForm.id;
-      //   this.name = this.populateProductForm.name;
-      //   this.price = this.populateProductForm.price;
-      //   this.stock = this.populateProductForm.stock;
-      //   this.weight = this.populateProductForm.weight;
-      //   this.imageUrl = this.populateProductForm.imageUrl;
+      this.editId = this.adminProductDetail.id;
+      this.name = this.adminProductDetail.name;
+      this.price = this.adminProductDetail.price;
+      this.stock = this.adminProductDetail.stock;
+      this.weight = this.adminProductDetail.weight;
+      this.imageUrl = this.adminProductDetail.imageUrl;
     }
   },
 };

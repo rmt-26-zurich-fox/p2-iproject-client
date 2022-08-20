@@ -75,6 +75,9 @@ export default {
     onChangeProductStatusHandler(event, productId) {
       this.onChangeProductStatus(event.target.value, productId);
     },
+    onClickButtonEditHandler(productId) {
+      this.$router.push(`/edit-item/${productId}`);
+    },
   },
 };
 </script>
@@ -102,7 +105,12 @@ export default {
       </select>
     </td>
     <td>
-      <button class="btn btn-warning">Dummy Edit</button>
+      <button
+        class="btn btn-warning"
+        @click="onClickButtonEditHandler(product.id)"
+      >
+        Edit
+      </button>
     </td>
   </tr>
 </template>

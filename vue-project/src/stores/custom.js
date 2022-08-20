@@ -52,6 +52,9 @@ export const useCustomStore = defineStore({
 
         // Admin Home Product Space
         adminProducts: [],
+
+        // Admin Order List Customer Space
+        adminOrderListCustomer: [],
     }),
 
     actions: {
@@ -422,7 +425,7 @@ export const useCustomStore = defineStore({
             }
         },
 
-        // Admin Side
+        // Admin Side Fetch Product
         async fetchAdminProductHome() {
             try {
                 const { data } = await axios({
@@ -454,6 +457,43 @@ export const useCustomStore = defineStore({
                 });
 
                 Swal.fire("Success", `Success Edit Product Status to ${status}`, "success");
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        // Fetch Order List Customer
+        async fetchAdminOrderListCustomer() {
+            try {
+                const { data } = await axios({
+                    method: "GET",
+                    url: this.baseURL + "/admins/orders/list",
+                    headers: {
+                        access_token: localStorage.access_token
+                    }
+                });
+
+                this.adminOrderListCustomer = data.data;
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        // Admin Change Order Status
+        async onChangeOrderStatus(status, id) {
+            try {
+                await axios({
+                    method: "PATCH",
+                    url: this.baseURL + `/admins/orders/status/${id}`,
+                    headers: {
+                        access_token: localStorage.access_token
+                    },
+                    data: {
+                        orderStatus: status
+                    }
+                });
+
+                Swal.fire("Success", `Success Edit Order Status to ${status}`, "success");
             } catch (error) {
                 console.log(error);
             }

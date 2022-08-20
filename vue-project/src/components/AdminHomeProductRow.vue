@@ -94,6 +94,7 @@ export default {
       <select
         v-model="product.productStatus"
         @change="onChangeProductStatusHandler($event, +product.id)"
+        class="form-control"
       >
         <option value="Active">Active</option>
         <option value="Inactive">Inactive</option>

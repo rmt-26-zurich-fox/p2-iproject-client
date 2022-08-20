@@ -26,6 +26,7 @@ export default {
         <th>No</th>
         <th>Product Name</th>
         <th>Price</th>
+        <th>Stock</th>
         <th>Weight</th>
         <th>Image</th>
         <th>Created Date</th>
@@ -36,7 +37,7 @@ export default {
     </thead>
     <tbody>
       <tr v-if="adminProducts.length === 0">
-        <td colspan="9">There is no items</td>
+        <td colspan="10">There is no items</td>
       </tr>
       <!-- Comp Row Here -->
       <AdminHomeProductRow

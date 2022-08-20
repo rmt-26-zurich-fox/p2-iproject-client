@@ -57,7 +57,7 @@ export default {
       <select
         v-model="order.orderStatus"
         @change="onChangeOrderStatusHandler($event, +order.id)"
-        class="form-control"
+        class="form-control text-center"
       >
         <option value="Payed">Payed</option>
         <option value="Done">Done</option>

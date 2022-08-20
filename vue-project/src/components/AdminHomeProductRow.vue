@@ -84,6 +84,7 @@ export default {
     <td>{{ index + 1 }}</td>
     <td>{{ product.name }}</td>
     <td>{{ getPriceFormatted }}</td>
+    <td>{{ product.stock }}</td>
     <td>{{ product.weight }} gram</td>
     <td>
       <img :src="product.imageUrl" style="width: 80px; height: 100px" />
@@ -94,7 +95,7 @@ export default {
       <select
         v-model="product.productStatus"
         @change="onChangeProductStatusHandler($event, +product.id)"
-        class="form-control"
+        class="form-control text-center"
       >
         <option value="Active">Active</option>
         <option value="Inactive">Inactive</option>

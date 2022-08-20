@@ -498,5 +498,35 @@ export const useCustomStore = defineStore({
                 console.log(error);
             }
         },
+
+        // Admin Add New Product
+        async adminAddNewProduct(name, price, stock, weight, imageUrl) {
+            try {
+                await axios({
+                    method: "POST",
+                    url: this.baseURL + "/admins/products/add",
+                    headers: {
+                        access_token: localStorage.access_token
+                    },
+                    data: {
+                        name,
+                        price,
+                        stock,
+                        weight,
+                        imageUrl
+                    }
+                });
+
+                Swal.fire("Success", "Success Add New Product", "success");
+                this.router.push("/admin");
+            } catch (error) {
+                // console.log(error);
+                Swal.fire(
+                    error.response.data.message,
+                    error.response.data.error.join(", "),
+                    "error"
+                );
+            }
+        },
     },
 });

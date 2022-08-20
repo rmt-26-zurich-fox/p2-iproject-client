@@ -532,6 +532,7 @@ export const useCustomStore = defineStore({
             }
         },
 
+        // Admin Fetch Detail Product for populate edit form
         async fetchAdminProductDetail(id) {
             try {
                 const { data } = await axios({
@@ -543,6 +544,7 @@ export const useCustomStore = defineStore({
                 });
 
                 this.adminProductDetail = data.data;
+                return this.adminProductDetail
             } catch (error) {
                 // console.log(error);
                 if (error.response.data.message === "Data not found") {
@@ -553,6 +555,36 @@ export const useCustomStore = defineStore({
                         "error"
                     );
                 }
+            }
+        },
+
+        // Edit Product
+        async adminEditProduct(id, name, price, stock, weight, imageUrl) {
+            try {
+                await axios({
+                    method: "PUT",
+                    url: this.baseURL + `/admins/products/edit/${id}`,
+                    headers: {
+                        access_token: localStorage.access_token
+                    },
+                    data: {
+                        name,
+                        price,
+                        stock,
+                        weight,
+                        imageUrl
+                    }
+                });
+
+                Swal.fire("Success", `Success Edit Product with id ${id}`, "success");
+                this.router.push("/admin");
+            } catch (error) {
+                // console.log(error);
+                Swal.fire(
+                    error.response.data.message,
+                    error.response.data.error.join(", "),
+                    "error"
+                );
             }
         },
     },

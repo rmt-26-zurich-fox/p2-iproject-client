@@ -12,9 +12,6 @@ export default {
   methods: {
     ...mapActions(useCustomStore, ["fetchAdminProductDetail"]),
   },
-  created() {
-    this.fetchAdminProductDetail(+this.$route.params.id);
-  },
 };
 </script>
 

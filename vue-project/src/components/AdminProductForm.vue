@@ -1,3 +1,64 @@
+<script>
+import { mapState, mapActions } from "pinia";
+import { useCustomStore } from "../stores/custom";
+
+export default {
+  data() {
+    return {
+      editId: 0,
+      name: "",
+      price: "",
+      stock: "",
+      weight: "",
+      imageUrl: "",
+    };
+  },
+  props: ["isState"],
+  methods: {
+    ...mapActions(useCustomStore, [
+      "fetchAdminProductDetail",
+      "adminAddNewProduct",
+      "adminEditProduct",
+    ]),
+
+    submitAddProductForm() {
+      this.adminAddNewProduct(
+        this.name,
+        this.price,
+        this.stock,
+        this.weight,
+        this.imageUrl
+      );
+    },
+
+    submitEditProductForm() {
+      this.adminEditProduct(
+        this.editId,
+        this.name,
+        this.price,
+        this.stock,
+        this.weight,
+        this.imageUrl
+      );
+    },
+  },
+  computed: {
+    ...mapState(useCustomStore, ["adminProductDetail"]),
+  },
+  async created() {
+    if (this.isState === "Edit") {
+      await this.fetchAdminProductDetail(+this.$route.params.id);
+      this.editId = this.adminProductDetail.id;
+      this.name = this.adminProductDetail.name;
+      this.price = this.adminProductDetail.price;
+      this.stock = this.adminProductDetail.stock;
+      this.weight = this.adminProductDetail.weight;
+      this.imageUrl = this.adminProductDetail.imageUrl;
+    }
+  },
+};
+</script>
+
 <template>
   <form>
     <div class="form-group row text-center mx-auto" style="width: 60%">
@@ -76,58 +137,11 @@
   </form>
 </template>
 
-<script>
-import { mapState, mapActions } from "pinia";
-import { useCustomStore } from "../stores/custom";
-
-export default {
-  data() {
-    return {
-      editId: 0,
-      name: "",
-      price: "",
-      stock: "",
-      weight: "",
-      imageUrl: "",
-    };
-  },
-  props: ["isState"],
-  methods: {
-    ...mapActions(useCustomStore, ["adminAddNewProduct"]),
-
-    submitAddProductForm() {
-      this.adminAddNewProduct(
-        this.name,
-        this.price,
-        this.stock,
-        this.weight,
-        this.imageUrl
-      );
-    },
-
-    submitEditProductForm() {
-      //   this.adminEditProduct(
-      //     this.editId,
-      //     this.name,
-      //     this.price,
-      //     this.stock,
-      //     this.weight,
-      //     this.imageUrl
-      //   );
-    },
-  },
-  computed: {
-    ...mapState(useCustomStore, ["adminProductDetail"]),
-  },
-  created() {
-    if (this.isState === "Edit") {
-      this.editId = this.adminProductDetail.id;
-      this.name = this.adminProductDetail.name;
-      this.price = this.adminProductDetail.price;
-      this.stock = this.adminProductDetail.stock;
-      this.weight = this.adminProductDetail.weight;
-      this.imageUrl = this.adminProductDetail.imageUrl;
-    }
-  },
-};
-</script>
+<style scoped>
+label {
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+button {
+  font-family: monospace;
+}
+</style>

@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-const baseUrl = "https://the-south-face.herokuapp.com";
+const baseUrl = "https://thesouthface.netlify.app";
 export const theSouthFace = defineStore({
   id: "theSouthFace",
   state: () => ({
